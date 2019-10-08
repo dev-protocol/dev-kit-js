@@ -5,7 +5,7 @@
     "node": true,
     "jest": true
   },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended", "xo", "xo-typescript"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
