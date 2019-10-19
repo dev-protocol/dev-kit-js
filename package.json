@@ -61,7 +61,11 @@
 		},
 		"moduleFileExtensions": [
 			"js",
-			"ts"
+			"ts",
+			"json"
+		],
+		"transformIgnorePatterns": [
+			"<rootDir>/node_modules/"
 		]
 	},
 	"dependencies": {
