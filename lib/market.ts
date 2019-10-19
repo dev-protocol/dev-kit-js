@@ -1,11 +1,11 @@
-import { devClient, CustomOptions } from './client'
+import { devKitClient, CustomOptions } from './client'
 import { marketAbi } from './market-abi'
 
 const marketContract = (host: string, timeout?: number) => (
 	address?: string,
 	options?: CustomOptions
 ) =>
-	new (devClient(host, timeout)).eth.Contract(marketAbi, address, {
+	new (devKitClient(host, timeout)).eth.Contract(marketAbi, address, {
 		...options
 	})
 
