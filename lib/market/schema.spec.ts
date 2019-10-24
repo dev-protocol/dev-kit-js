@@ -1,10 +1,10 @@
 import Web3 from 'web3'
 import { marketAbi } from './abi'
-import { createBaseSchemaCaller } from './schema'
+import { createSchemaCaller } from './schema'
 import { CustomOptions } from '../option'
 
 describe('schema.ts', () => {
-	describe('createBaseSchemaCaller', () => {
+	describe('createSchemaCaller', () => {
 		it('check return value', () => {
 			const host = 'localhost'
 			const client = new Web3()
@@ -18,9 +18,13 @@ describe('schema.ts', () => {
 				...options
 			})
 
-			const expected: Promise<string[]> = marketContract.methods.schema().call()
+			const expected: () => Promise<string[]> = async () =>
+				marketContract.methods
+					.schema()
+					.call()
+					.then(result => JSON.parse(result) as string[])
 
-			const result = createBaseSchemaCaller(marketContract)
+			const result = createSchemaCaller(marketContract)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
