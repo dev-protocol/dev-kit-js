@@ -1,18 +1,21 @@
-import { devKitClient, CustomOptions } from './client'
+import Web3 from 'web3'
+import Contract from 'web3/eth/contract'
 import { marketAbi } from './market-abi'
+import { CustomOptions } from './option'
 
-const marketContract = (host: string, timeout?: number) => (
+export const createMarketContract = (client: Web3) => (
 	address?: string,
 	options?: CustomOptions
-) =>
-	new (devKitClient(host, timeout)).eth.Contract(marketAbi, address, {
+) => {
+	const contractClient: Contract = new client.eth.Contract(marketAbi, address, {
 		...options
 	})
 
-export const schema = (host: string, timeout?: number) => (
-	address?: string,
-	options?: CustomOptions
-) => async (): Promise<{ 0: string }> =>
-	marketContract(host, timeout)(address, options)
-		.methods.schema()
-		.call()
+	return {
+		schema: async () =>
+			contractClient.methods
+				.schema()
+				.call()
+				.then(result => JSON.parse(result) as string[])
+	}
+}

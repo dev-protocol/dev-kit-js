@@ -1,15 +1,21 @@
 import Web3 from 'web3'
+import { createMarketContract } from './market'
 
-export const devKitClient = (host: string, timeout?: number): Web3 => {
+interface DevkitContract {
+	market: ReturnType<typeof createMarketContract>
+}
+
+const devkitContract = (client: Web3): DevkitContract => ({
+	market: createMarketContract(client)
+})
+
+export const contractFactory = (
+	host: string,
+	timeout?: number
+): ReturnType<typeof devkitContract> => {
 	const client = new Web3()
 
 	client.setProvider(new Web3.providers.HttpProvider(host, timeout))
-	return client
-}
 
-export interface CustomOptions {
-	from?: string
-	gasPrice?: string
-	gas: number
-	data: string
+	return devkitContract(client)
 }
