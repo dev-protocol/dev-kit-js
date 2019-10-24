@@ -5,7 +5,7 @@ interface DevkitContract {
 	market: ReturnType<typeof createMarketContract>
 }
 
-const devkitContract = (client: Web3): DevkitContract => ({
+export const devkitContract = (client: Web3): DevkitContract => ({
 	market: createMarketContract(client)
 })
 

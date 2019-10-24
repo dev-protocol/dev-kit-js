@@ -1,11 +1,20 @@
-import { devKitClient } from './client'
+import { devkitContract, contractFactory } from './client'
 import Web3 from 'web3'
 
-describe('devKitClient', () => {
-	it('check instance type', () => {
-		const host = 'localhost'
-		const client = devKitClient(host)
-		const result = client instanceof Web3
-		expect(result).toBe(true)
+describe('client.ts', () => {
+	describe('contractFactory', () => {
+		it('check return object', () => {
+			const host = 'localhost'
+
+			const client = new Web3()
+
+			client.setProvider(new Web3.providers.HttpProvider(host))
+
+			const expected = devkitContract(client)
+
+			const result = contractFactory(host)
+
+			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
+		})
 	})
 })
