@@ -3,9 +3,9 @@ import {
 	createMarketContract,
 	createSchemaCaller,
 	CreateMarketContract
-} from './market'
-import { CustomOptions } from './option'
-import { marketAbi } from './market-abi'
+} from '.'
+import { CustomOptions } from '../option'
+import { marketAbi } from './abi'
 
 describe('market.ts', () => {
 	describe('createMarketContract', () => {

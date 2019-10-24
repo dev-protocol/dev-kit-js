@@ -1,7 +1,7 @@
 import Web3 from 'web3'
 import Contract from 'web3/eth/contract'
-import { marketAbi } from './market-abi'
-import { CustomOptions } from './option'
+import { marketAbi } from './abi'
+import { CustomOptions } from '../option'
 
 export const createBaseSchemaCaller = async (
 	contract: Contract
