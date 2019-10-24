@@ -1,1 +1,1 @@
-export { schema } from './market'
+export { contractFactory } from './client'
