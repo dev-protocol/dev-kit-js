@@ -1,9 +1,6 @@
 import Web3 from 'web3'
-import {
-	createMarketContract,
-	createSchemaCaller,
-	CreateMarketContract
-} from '.'
+import { createMarketContract, CreateMarketContract } from '.'
+import { createSchemaCaller } from './schema'
 import { CustomOptions } from '../option'
 import { marketAbi } from './abi'
 
