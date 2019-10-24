@@ -1,5 +1,5 @@
 import Web3 from 'web3'
-import { createMarketContract } from './market'
+import { createMarketContract } from './market/index'
 
 export interface DevkitContract {
 	market: ReturnType<typeof createMarketContract>
