@@ -3,7 +3,7 @@ import { createMarketContract } from './market'
 import Web3 from 'web3'
 
 describe('client.ts', () => {
-	describe('createDevkitContrac', () => {
+	describe('createDevkitContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
 

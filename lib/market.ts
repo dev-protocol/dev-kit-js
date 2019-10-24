@@ -3,19 +3,30 @@ import Contract from 'web3/eth/contract'
 import { marketAbi } from './market-abi'
 import { CustomOptions } from './option'
 
+export const createBaseSchemaCaller = async (
+	contract: Contract
+): Promise<string> => contract.methods.schema().call()
+
+export const createSchemaCaller = (
+	contract: Contract
+): (() => Promise<string[]>) => async () =>
+	createBaseSchemaCaller(contract).then(
+		result => JSON.parse(result) as string[]
+	)
+
+export interface CreateMarketContract {
+	schema: () => Promise<string[]>
+}
+
 export const createMarketContract = (client: Web3) => (
 	address?: string,
 	options?: CustomOptions
-) => {
+): CreateMarketContract => {
 	const contractClient: Contract = new client.eth.Contract(marketAbi, address, {
 		...options
 	})
 
 	return {
-		schema: async () =>
-			contractClient.methods
-				.schema()
-				.call()
-				.then(result => JSON.parse(result) as string[])
+		schema: createSchemaCaller(contractClient)
 	}
 }
