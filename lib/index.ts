@@ -1,1 +1,3 @@
-export { contractFactory } from './client'
+import { contractFactory } from './client'
+
+export { contractFactory }
