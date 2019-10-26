@@ -40,5 +40,37 @@ describe('authenticate.ts', () => {
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
+
+		it('call success', async () => {
+			const value = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
+
+			const address = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
+			const args = ['aaa', 'bbbb', 'ccccc']
+
+			const callbackMock = jest.fn((opts: object, cb) => cb(null, { address }))
+
+			const marketContract = {
+				methods: {
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
+					authenticate: (address: string, args: string[]) => ({
+						call: jest
+							.fn()
+							.mockImplementation(async () => Promise.resolve(true))
+					})
+				},
+				events: {
+					authenticatedCallback: callbackMock
+				}
+			}
+
+			const expected = value
+
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const caller = createAuthenticateCaller(marketContract as any)
+
+			const result = await caller(address, args)
+
+			expect(result).toEqual(expected)
+		})
 	})
 })
