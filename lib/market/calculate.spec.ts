@@ -64,5 +64,31 @@ describe('calculate.ts', () => {
 
 			expect(result).toEqual(expected)
 		})
+
+		it('call failure', async () => {
+			const error = 'error'
+
+			const metrics = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
+			const start = '415015037515107510571371750157109'
+			const end = '415015037515107510571371750157109'
+
+			const marketContract = {
+				methods: {
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
+					calculate: (metrics: string, start: string, end: string) => ({
+						call: jest
+							.fn()
+							.mockImplementation(async () => Promise.reject(error))
+					})
+				}
+			}
+
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const caller = createCalculateCaller(marketContract as any)
+
+			const result = await caller(metrics, start, end).catch(err => err)
+
+			expect(result).toEqual(error)
+		})
 	})
 })
