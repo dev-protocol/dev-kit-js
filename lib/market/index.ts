@@ -4,10 +4,12 @@ import { marketAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createSchemaCaller } from './schema'
 import { createCalculateCaller } from './calculate'
+import { createVoteCaller } from './vote'
 
 export interface CreateMarketContract {
 	schema: () => Promise<string[]>
 	calculate: (metrics: string, start: string, end: string) => Promise<boolean>
+	vote: (tokenNumber: string) => Promise<void>
 }
 
 export const createMarketContract = (client: Web3) => (
@@ -20,6 +22,7 @@ export const createMarketContract = (client: Web3) => (
 
 	return {
 		schema: createSchemaCaller(contractClient),
-		calculate: createCalculateCaller(contractClient)
+		calculate: createCalculateCaller(contractClient),
+		vote: createVoteCaller(contractClient)
 	}
 }
