@@ -3,9 +3,11 @@ import Contract from 'web3/eth/contract'
 import { marketAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createSchemaCaller } from './schema'
+import { createCalculateCaller } from './calculate'
 
 export interface CreateMarketContract {
 	schema: () => Promise<string[]>
+	calculate: (metrics: string, start: string, end: string) => Promise<boolean>
 }
 
 export const createMarketContract = (client: Web3) => (
@@ -17,6 +19,7 @@ export const createMarketContract = (client: Web3) => (
 	})
 
 	return {
-		schema: createSchemaCaller(contractClient)
+		schema: createSchemaCaller(contractClient),
+		calculate: createCalculateCaller(contractClient)
 	}
 }
