@@ -28,7 +28,7 @@ describe('calculate.ts', () => {
 				end: string
 			) =>
 				marketContract.methods
-					.calculate(metrics, start, end)
+					.calculate([metrics, start, end])
 					.call()
 					.then(result => JSON.parse(result) as boolean)
 
