@@ -75,13 +75,16 @@ describe('authenticate.ts', () => {
 			expect(result).toEqual(expected)
 		})
 
-		it('call failure', async () => {
+		it('method call failure', async () => {
 			const error = 'error'
 
+			const value = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 			const address = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 			const args = ['aaa', 'bbbb', 'ccccc']
 
-			const callbackMock = jest.fn((opts: object, cb) => cb(null, { address }))
+			const callbackMock = jest.fn((opts: object, cb) =>
+				cb(null, { address: value })
+			)
 
 			const marketContract = {
 				methods: {
