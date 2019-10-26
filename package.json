@@ -45,7 +45,7 @@
 		}
 	},
 	"lint-staged": {
-		"*.ts": [
+		"./lib/**/*.ts": [
 			"yarn lint",
 			"git add"
 		]
@@ -61,7 +61,11 @@
 		},
 		"moduleFileExtensions": [
 			"js",
-			"ts"
+			"ts",
+			"json"
+		],
+		"transformIgnorePatterns": [
+			"<rootDir>/node_modules/"
 		]
 	},
 	"dependencies": {

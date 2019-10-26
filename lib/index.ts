@@ -1,5 +1,3 @@
-const helloWorld = (name: string): string => {
-	return `Hello World! Mr.${name}`
-}
+import { contractFactory } from './client'
 
-export default helloWorld
+export { contractFactory }
