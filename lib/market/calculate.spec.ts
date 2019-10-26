@@ -18,10 +18,6 @@ describe('calculate.ts', () => {
 				...options
 			})
 
-			// const metrics = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
-			// const start = '415015037515107510571371750157109'
-			// const end = '415015037515107510571371750157109'
-
 			const expected: (
 				metrics: string,
 				start: string,
@@ -39,6 +35,34 @@ describe('calculate.ts', () => {
 			const result = createCalculateCaller(marketContract)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
+		})
+
+		it('call success', async () => {
+			const value = true
+
+			const metrics = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
+			const start = '415015037515107510571371750157109'
+			const end = '415015037515107510571371750157109'
+
+			const marketContract = {
+				methods: {
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
+					calculate: (metrics: string, start: string, end: string) => ({
+						call: jest
+							.fn()
+							.mockImplementation(async () => Promise.resolve(value))
+					})
+				}
+			}
+
+			const expected = value
+
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const caller = createCalculateCaller(marketContract as any)
+
+			const result = await caller(metrics, start, end)
+
+			expect(result).toEqual(expected)
 		})
 	})
 })

@@ -8,6 +8,6 @@ export const createCalculateCaller = (
 	end: string
 ) => Promise<boolean>) => async (metrics: string, start: string, end: string) =>
 	contract.methods
-		.schema([metrics, start, end])
+		.calculate([metrics, start, end])
 		.call()
 		.then(result => result as boolean)
