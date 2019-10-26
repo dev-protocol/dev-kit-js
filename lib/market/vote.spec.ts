@@ -30,5 +30,25 @@ describe('vote.ts', () => {
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
+
+		it('call success', async () => {
+			const tokenNumber = '415015037515107510571371750157109'
+
+			const marketContract = {
+				methods: {
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
+					vote: (tokenNumber: string) => ({
+						call: jest.fn().mockImplementation(async () => Promise.resolve())
+					})
+				}
+			}
+
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const caller = createVoteCaller(marketContract as any)
+
+			const result = await caller(tokenNumber)
+
+			expect(result).toEqual(undefined)
+		})
 	})
 })
