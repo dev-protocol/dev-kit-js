@@ -1,8 +1,11 @@
 import Web3 from 'web3'
 import { createMarketContract, CreateMarketContract } from '.'
 import { createSchemaCaller } from './schema'
+import { createCalculateCaller } from './calculate'
+import { createVoteCaller } from './vote'
 import { CustomOptions } from '../option'
 import { marketAbi } from './abi'
+import { createAuthenticateCaller } from './authenticate'
 
 describe('market.ts', () => {
 	describe('createMarketContract', () => {
@@ -22,13 +25,17 @@ describe('market.ts', () => {
 					...options
 				})
 				return {
-					schema: createSchemaCaller(marketContract)
+					schema: createSchemaCaller(marketContract),
+					calculate: createCalculateCaller(marketContract),
+					vote: createVoteCaller(marketContract),
+					authenticate: createAuthenticateCaller(marketContract)
 				}
 			}
 
 			const result = createMarketContract(client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
+			expect(JSON.stringify(result())).toEqual(JSON.stringify(expected()))
 		})
 	})
 })
