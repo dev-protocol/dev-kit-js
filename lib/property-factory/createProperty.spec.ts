@@ -84,7 +84,7 @@ describe('createProperty.spec.ts', () => {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createCreatePropertyCaller(propertyFactoryContract as any)
 
-			const result = await caller(name, symbol).then(err => err)
+			const result = await caller(name, symbol).catch(err => err)
 
 			expect(result).toEqual(expected)
 		})
