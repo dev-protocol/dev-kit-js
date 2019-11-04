@@ -1,10 +1,10 @@
 import Web3 from 'web3'
 import { propertyAbi } from './abi'
-import { createOwnerCaller } from './owner'
+import { createTransferCaller } from './transfer'
 import { CustomOptions } from '../option'
 
-describe('owner.spec.ts', () => {
-	describe('createOwnerCaller', () => {
+describe('transfer.spec.ts', () => {
+	describe('createTransferCaller', () => {
 		it('check return value', () => {
 			const host = 'localhost'
 			const client = new Web3()
@@ -19,46 +19,55 @@ describe('owner.spec.ts', () => {
 				...options
 			})
 
-			const expected: () => Promise<string> = async () =>
+			const expected: (to: string, value: number) => Promise<boolean> = async (
+				to: string,
+				value: number
+			) =>
 				propertyContract.methods
-					.owner()
+					.transfer([to, value])
 					.call()
-					.then(result => result as string)
+					.then(result => result as boolean)
 
-			const result = createOwnerCaller(propertyContract)
+			const result = createTransferCaller(propertyContract)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
 
 		it('call success', async () => {
-			const value = 'value'
+			const success = true
+			const to = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
+			const value = 12345
 
 			const propertyContract = {
 				methods: {
-					owner: () => ({
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
+					transfer: (to: string, value: number) => ({
 						call: jest
 							.fn()
-							.mockImplementation(async () => Promise.resolve(value))
+							.mockImplementation(async () => Promise.resolve(success))
 					})
 				}
 			}
 
-			const expected = value
+			const expected = success
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createOwnerCaller(propertyContract as any)
+			const caller = createTransferCaller(propertyContract as any)
 
-			const result = await caller()
+			const result = await caller(to, value)
 
 			expect(result).toEqual(expected)
 		})
 
 		it('call failure', async () => {
 			const error = 'error'
+			const to = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
+			const value = 12345
 
 			const propertyContract = {
 				methods: {
-					owner: () => ({
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
+					transfer: (to: string, value: number) => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error))
@@ -67,9 +76,9 @@ describe('owner.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createOwnerCaller(propertyContract as any)
+			const caller = createTransferCaller(propertyContract as any)
 
-			const result = await caller().catch(err => err)
+			const result = await caller(to, value).catch(err => err)
 
 			expect(result).toEqual(error)
 		})
