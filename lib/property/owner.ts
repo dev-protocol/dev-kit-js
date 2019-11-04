@@ -4,4 +4,4 @@ export const createOwnerCaller = (contract: Contract) => async () =>
 	contract.methods
 		.owner()
 		.call()
-		.then(result => result as boolean)
+		.then(result => result as string)
