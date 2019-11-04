@@ -3,9 +3,11 @@ import Contract from 'web3/eth/contract'
 import { propertyAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createOwnerCaller } from './owner'
+import { createTransferCaller } from './transfer'
 
 export interface CreatePropertyContract {
 	owner: () => Promise<string>
+	transfer: (to: string, value: number) => Promise<boolean>
 }
 
 export const createPropertyContract = (client: Web3) => (
@@ -21,6 +23,7 @@ export const createPropertyContract = (client: Web3) => (
 	)
 
 	return {
-		owner: createOwnerCaller(contractClient)
+		owner: createOwnerCaller(contractClient),
+		transfer: createTransferCaller(contractClient)
 	}
 }
