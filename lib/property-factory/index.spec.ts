@@ -1,12 +1,11 @@
 import Web3 from 'web3'
-import { createPropertyContract, CreatePropertyContract } from '.'
-import { createOwnerCaller } from './owner'
-import { createTransferCaller } from './transfer'
-import { propertyAbi } from './abi'
+import { createPropertyFactoryContract, CreatePropertyFactoryContract } from '.'
+import { createCreatePropertyCaller } from './createProperty'
+import { propertyFactoryAbi } from './abi'
 import { CustomOptions } from '../option'
 
 describe('property/index.ts', () => {
-	describe('createPropertyContract', () => {
+	describe('createPropertyFactoryContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
 			const client = new Web3()
@@ -15,20 +14,24 @@ describe('property/index.ts', () => {
 			const expected: (
 				address?: string,
 				options?: CustomOptions
-			) => CreatePropertyContract = (
+			) => CreatePropertyFactoryContract = (
 				address?: string,
 				options?: CustomOptions
 			) => {
-				const propertyContract = new client.eth.Contract(propertyAbi, address, {
-					...options
-				})
+				const propertyFactoryContract = new client.eth.Contract(
+					propertyFactoryAbi,
+					address,
+					{
+						...options
+					}
+				)
+
 				return {
-					owner: createOwnerCaller(propertyContract),
-					transfer: createTransferCaller(propertyContract)
+					createProperty: createCreatePropertyCaller(propertyFactoryContract)
 				}
 			}
 
-			const result = createPropertyContract(client)
+			const result = createPropertyFactoryContract(client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result())).toEqual(JSON.stringify(expected()))
