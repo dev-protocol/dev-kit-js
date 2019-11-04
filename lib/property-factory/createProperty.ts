@@ -1,6 +1,6 @@
 import Contract from 'web3/eth/contract'
 
-export const createCreateProperty = (contract: Contract) => async (
+export const createCreatePropertyCaller = (contract: Contract) => async (
 	name: string,
 	symbol: string
 ) =>
