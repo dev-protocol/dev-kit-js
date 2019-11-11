@@ -1,9 +1,9 @@
 import Contract from 'web3/eth/contract'
 
-export const createWithdrawCaller = (contract: Contract) => async (
+export const createAllocateCaller = (contract: Contract) => async (
 	address: string
 ) =>
 	contract.methods
-		.withdraw([address])
+		.allocate([address])
 		.call()
 		.then(result => result as void)
