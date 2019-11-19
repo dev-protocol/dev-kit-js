@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"description": "Dev Kit for JavaScript",
 	"author": "abyssparanoia",
-	"license": "MIT",
+	"license": "Apache-2.0",
 	"files": [
 		"cjs",
 		"esm"
@@ -14,7 +14,9 @@
 		"build": "yarn clean && yarn build:cjs && yarn build:esm",
 		"build:cjs": "tsc --project . --module commonjs --outDir ./cjs",
 		"build:esm": "tsc --project . --module es2015 --outDir ./esm",
-		"lint": "eslint -c ./.eslintrc.json './lib/**/*.ts' --fix",
+		"lint": "yarn lint:eslint && yarn lint:format",
+		"lint:eslint": "eslint -c ./.eslintrc.json './lib/**/*.ts' --fix",
+		"lint:format": "prettier --write '**/*.{json,md,yml}'",
 		"test": "jest",
 		"test:coverage": "jest --coverage",
 		"prepublishOnly": "yarn test && yarn build",
@@ -70,5 +72,16 @@
 	},
 	"dependencies": {
 		"web3": "^1.2.1"
-	}
+	},
+	"directories": {
+		"lib": "lib"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/dev-protocol/dev-kit-js.git"
+	},
+	"bugs": {
+		"url": "https://github.com/dev-protocol/dev-kit-js/issues"
+	},
+	"homepage": "https://github.com/dev-protocol/dev-kit-js#readme"
 }
