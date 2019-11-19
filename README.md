@@ -1,5 +1,9 @@
 # dev-kit-js
 
+[![CI Status](https://github.com/dev-protocol/dev-kit-js/workflows/Node/badge.svg)](https://github.com/dev-protocol/dev-kit-js/actions)
+[![code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
 Dev Kit for JavaScript
 
 ## how to develop
