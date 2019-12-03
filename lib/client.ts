@@ -1,5 +1,5 @@
 import Web3 from 'web3'
-import { Provider } from 'web3/providers'
+import { provider } from 'web3-core'
 import { createMarketContract } from './market/index'
 import { createPropertyContract } from './property/index'
 import { createPropertyFactoryContract } from './property-factory/index'
@@ -11,7 +11,7 @@ export interface DevkitContract {
 	property: ReturnType<typeof createPropertyContract>
 	propertyFactory: ReturnType<typeof createPropertyFactoryContract>
 }
-export type ContractFactory = (provider: Provider) => DevkitContract
+export type ContractFactory = (provider: provider) => DevkitContract
 export type CreateDevkitContract = (client: Web3) => DevkitContract
 
 export const createDevkitContract: CreateDevkitContract = (
@@ -24,7 +24,7 @@ export const createDevkitContract: CreateDevkitContract = (
 })
 
 export const contractFactory: ContractFactory = (
-	provider: Provider
+	provider: provider
 ): DevkitContract => {
 	const client = new Web3(provider)
 

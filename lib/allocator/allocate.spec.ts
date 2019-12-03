@@ -24,7 +24,7 @@ describe('allocate.ts', () => {
 				allocatorContract.methods
 					.allocate([address])
 					.call()
-					.then(result => result as void)
+					.then((result: void) => result)
 
 			const result = createAllocateCaller(allocatorContract)
 

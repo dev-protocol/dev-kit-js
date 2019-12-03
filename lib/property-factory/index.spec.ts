@@ -1,5 +1,5 @@
 import Web3 from 'web3'
-import { createPropertyFactoryContract, CreatePropertyFactoryContract } from '.'
+import { createPropertyFactoryContract, PropertyFactoryContract } from '.'
 import { createCreatePropertyCaller } from './createProperty'
 import { propertyFactoryAbi } from './abi'
 import { CustomOptions } from '../option'
@@ -14,7 +14,7 @@ describe('property/index.ts', () => {
 			const expected: (
 				address?: string,
 				options?: CustomOptions
-			) => CreatePropertyFactoryContract = (
+			) => PropertyFactoryContract = (
 				address?: string,
 				options?: CustomOptions
 			) => {

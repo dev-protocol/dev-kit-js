@@ -1,3 +1,5 @@
+import { AbiItem } from 'web3-utils'
+
 export const propertyFactoryAbi = [
 	{
 		anonymous: false,
@@ -132,4 +134,4 @@ export const propertyFactoryAbi = [
 		stateMutability: 'nonpayable',
 		type: 'function'
 	}
-]
+] as AbiItem[]

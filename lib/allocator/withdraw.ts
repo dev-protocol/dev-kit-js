@@ -1,4 +1,4 @@
-import Contract from 'web3/eth/contract'
+import { Contract } from 'web3-eth-contract/types'
 
 export type CreateWithdrawCaller = (
 	contract: Contract
@@ -10,4 +10,4 @@ export const createWithdrawCaller: CreateWithdrawCaller = (
 	contract.methods
 		.withdraw([address])
 		.call()
-		.then(result => result as void)
+		.then((result: void) => result)

@@ -1,4 +1,4 @@
-import Contract from 'web3/eth/contract'
+import { Contract } from 'web3-eth-contract/types'
 
 export type CreateTransferCaller = (
 	contract: Contract
@@ -10,4 +10,4 @@ export const createTransferCaller: CreateTransferCaller = (
 	contract.methods
 		.transfer([to, value])
 		.call()
-		.then(result => result as boolean)
+		.then((result: boolean) => result)

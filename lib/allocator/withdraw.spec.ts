@@ -24,7 +24,7 @@ describe('withdraw.ts', () => {
 				allocatorContract.methods
 					.withdraw([address])
 					.call()
-					.then(result => result as void)
+					.then((result: void) => result)
 
 			const result = createWithdrawCaller(allocatorContract)
 

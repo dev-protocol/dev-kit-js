@@ -26,7 +26,7 @@ describe('transfer.spec.ts', () => {
 				propertyContract.methods
 					.transfer([to, value])
 					.call()
-					.then(result => result as boolean)
+					.then((result: boolean) => result)
 
 			const result = createTransferCaller(propertyContract)
 

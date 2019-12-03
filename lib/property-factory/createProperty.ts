@@ -1,4 +1,4 @@
-import Contract from 'web3/eth/contract'
+import { Contract } from 'web3-eth-contract/types'
 
 export type CreateCreatePropertyCaller = (
 	contract: Contract
@@ -10,4 +10,4 @@ export const createCreatePropertyCaller: CreateCreatePropertyCaller = (
 	contract.methods
 		.createProperty([name, symbol])
 		.call()
-		.then(result => result as string)
+		.then((result: string) => result)

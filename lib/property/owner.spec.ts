@@ -23,7 +23,7 @@ describe('owner.spec.ts', () => {
 				propertyContract.methods
 					.owner()
 					.call()
-					.then(result => result as string)
+					.then((result: string) => result)
 
 			const result = createOwnerCaller(propertyContract)
 

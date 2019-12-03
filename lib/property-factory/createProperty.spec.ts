@@ -30,7 +30,7 @@ describe('createProperty.spec.ts', () => {
 				propertyFactoryContract.methods
 					.createProperty([name, symbol])
 					.call()
-					.then(result => result as string)
+					.then((result: string) => result)
 
 			const result = createCreatePropertyCaller(propertyFactoryContract)
 

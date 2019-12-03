@@ -1,5 +1,5 @@
 import Web3 from 'web3'
-import { createPropertyContract, CreatePropertyContract } from '.'
+import { createPropertyContract, PropertyContract } from '.'
 import { createOwnerCaller } from './owner'
 import { createTransferCaller } from './transfer'
 import { propertyAbi } from './abi'
@@ -15,10 +15,7 @@ describe('property/index.ts', () => {
 			const expected: (
 				address?: string,
 				options?: CustomOptions
-			) => CreatePropertyContract = (
-				address?: string,
-				options?: CustomOptions
-			) => {
+			) => PropertyContract = (address?: string, options?: CustomOptions) => {
 				const propertyContract = new client.eth.Contract(propertyAbi, address, {
 					...options
 				})

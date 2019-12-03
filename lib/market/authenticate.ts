@@ -1,4 +1,4 @@
-import Contract from 'web3/eth/contract'
+import { Contract } from 'web3-eth-contract/types'
 
 export type CreateAuthenticateCaller = (
 	contract: Contract
@@ -10,13 +10,13 @@ export const createAuthenticateCaller: CreateAuthenticateCaller = (
 	await contract.methods
 		.authenticate([address, ...args])
 		.call()
-		.then(result => result as boolean)
+		.then((result: boolean) => result)
 
 	return new Promise<string>((resolve, reject) =>
 		contract.events
-			.authenticatedCallback({}, (_, event) => {
+			.authenticatedCallback({}, (_: any, event: any) => {
 				resolve(event.address)
 			})
-			.on('error', error => reject(error))
+			.on('error', (error: Error) => reject(error))
 	)
 }

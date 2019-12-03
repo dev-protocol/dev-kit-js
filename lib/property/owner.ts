@@ -1,4 +1,4 @@
-import Contract from 'web3/eth/contract'
+import { Contract } from 'web3-eth-contract/types'
 
 export type CreateOwnerCaller = (contract: Contract) => () => Promise<string>
 
@@ -8,4 +8,4 @@ export const createOwnerCaller: CreateOwnerCaller = (
 	contract.methods
 		.owner()
 		.call()
-		.then(result => result as string)
+		.then((result: string) => result)

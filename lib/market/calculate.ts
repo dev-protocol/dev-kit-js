@@ -1,4 +1,4 @@
-import Contract from 'web3/eth/contract'
+import { Contract } from 'web3-eth-contract/types'
 
 export type CreateCalculateCaller = (
 	contract: Contract
@@ -14,4 +14,4 @@ export const createCalculateCaller: CreateCalculateCaller = (
 	contract.methods
 		.calculate([metrics, start, end])
 		.call()
-		.then(result => result as boolean)
+		.then((result: boolean) => result)

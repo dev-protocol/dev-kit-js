@@ -1,4 +1,4 @@
-import Contract from 'web3/eth/contract'
+import { Contract } from 'web3-eth-contract/types'
 
 export type CreateAllocateCaller = (
 	contract: Contract
@@ -10,4 +10,4 @@ export const createAllocateCaller: CreateAllocateCaller = (
 	contract.methods
 		.allocate([address])
 		.call()
-		.then(result => result as void)
+		.then((result: void) => result)

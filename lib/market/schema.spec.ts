@@ -22,7 +22,7 @@ describe('schema.ts', () => {
 				marketContract.methods
 					.schema()
 					.call()
-					.then(result => JSON.parse(result) as string[])
+					.then((result: string) => JSON.parse(result) as string[])
 
 			const result = createSchemaCaller(marketContract)
 

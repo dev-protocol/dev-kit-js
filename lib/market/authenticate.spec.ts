@@ -1,3 +1,4 @@
+// eslint-disable @typescript-eslint/no-explicit-any
 import Web3 from 'web3'
 import { marketAbi } from './abi'
 import { createAuthenticateCaller } from './authenticate'
@@ -12,7 +13,6 @@ describe('authenticate.ts', () => {
 
 			// example address
 			const address = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const options = ({} as any) as CustomOptions
 			const marketContract = new client.eth.Contract(marketAbi, address, {
 				...options
@@ -25,14 +25,17 @@ describe('authenticate.ts', () => {
 				await marketContract.methods
 					.authenticate([address, ...args])
 					.call()
-					.then(result => result as boolean)
+					.then((result: boolean) => result)
 
 				return new Promise<string>((resolve, reject) =>
 					marketContract.events
-						.authenticatedCallback({}, (_, event) => {
-							resolve(event.address)
-						})
-						.on('error', error => reject(error))
+						.authenticatedCallback(
+							{},
+							(_: any, event: { address: string | PromiseLike<string> }) => {
+								resolve(event.address)
+							}
+						)
+						.on('error', (error: any) => reject(error))
 				)
 			}
 
@@ -67,7 +70,6 @@ describe('authenticate.ts', () => {
 
 			const expected = value
 
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createAuthenticateCaller(marketContract as any)
 
 			const result = await caller(address, args)
@@ -100,7 +102,6 @@ describe('authenticate.ts', () => {
 				}
 			}
 
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createAuthenticateCaller(marketContract as any)
 
 			const result = await caller(address, args).catch(err => err)

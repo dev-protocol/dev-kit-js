@@ -1,5 +1,5 @@
 import Web3 from 'web3'
-import Contract from 'web3/eth/contract'
+import { Contract } from 'web3-eth-contract/types'
 import { propertyAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createOwnerCaller } from './owner'

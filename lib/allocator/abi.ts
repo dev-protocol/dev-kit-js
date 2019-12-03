@@ -1,3 +1,5 @@
+import { AbiItem } from 'web3-utils'
+
 export const allocatorAbi = [
 	{
 		anonymous: false,
@@ -311,4 +313,4 @@ export const allocatorAbi = [
 		stateMutability: 'nonpayable',
 		type: 'function'
 	}
-]
+] as AbiItem[]
