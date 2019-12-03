@@ -12,7 +12,8 @@
 		"declarationMap": true,
 		"pretty": true,
 		"newLine": "lf",
-		"esModuleInterop": true
+		"esModuleInterop": true,
+		"moduleResolution": "node"
 	},
 	"include": ["lib"],
 	"exclude": ["node_modules", "**/*.spec.ts"]
