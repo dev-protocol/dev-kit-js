@@ -5,15 +5,18 @@ import { CustomOptions } from '../option'
 import { createOwnerCaller } from './owner'
 import { createTransferCaller } from './transfer'
 
-export interface CreatePropertyContract {
+export interface PropertyContract {
 	owner: () => Promise<string>
 	transfer: (to: string, value: number) => Promise<boolean>
 }
 
-export const createPropertyContract = (client: Web3) => (
-	address?: string,
-	options?: CustomOptions
-): CreatePropertyContract => {
+export type CreatePropertyContract = (
+	client: Web3
+) => (address?: string, options?: CustomOptions) => PropertyContract
+
+export const createPropertyContract: CreatePropertyContract = (
+	client: Web3
+) => (address?: string, options?: CustomOptions): PropertyContract => {
 	const contractClient: Contract = new client.eth.Contract(
 		propertyAbi,
 		address,

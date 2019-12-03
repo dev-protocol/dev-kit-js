@@ -11,15 +11,21 @@ export interface DevkitContract {
 	property: ReturnType<typeof createPropertyContract>
 	propertyFactory: ReturnType<typeof createPropertyFactoryContract>
 }
+export type ContractFactory = (provider: Provider) => DevkitContract
+export type CreateDevkitContract = (client: Web3) => DevkitContract
 
-export const createDevkitContract = (client: Web3): DevkitContract => ({
+export const createDevkitContract: CreateDevkitContract = (
+	client: Web3
+): DevkitContract => ({
 	allocator: createAllocatorContract(client),
 	market: createMarketContract(client),
 	property: createPropertyContract(client),
 	propertyFactory: createPropertyFactoryContract(client)
 })
 
-export const contractFactory = (provider: Provider): DevkitContract => {
+export const contractFactory: ContractFactory = (
+	provider: Provider
+): DevkitContract => {
 	const client = new Web3(provider)
 
 	return createDevkitContract(client)

@@ -1,6 +1,10 @@
 import Contract from 'web3/eth/contract'
 
-export const createOwnerCaller = (contract: Contract) => async () =>
+export type CreateOwnerCaller = (contract: Contract) => () => Promise<string>
+
+export const createOwnerCaller: CreateOwnerCaller = (
+	contract: Contract
+) => async () =>
 	contract.methods
 		.owner()
 		.call()

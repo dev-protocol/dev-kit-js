@@ -1,6 +1,10 @@
 import Contract from 'web3/eth/contract'
 
-export const createCalculateCaller = (
+export type CreateCalculateCaller = (
+	contract: Contract
+) => (metrics: string, start: string, end: string) => Promise<boolean>
+
+export const createCalculateCaller: CreateCalculateCaller = (
 	contract: Contract
 ): ((
 	metrics: string,

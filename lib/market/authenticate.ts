@@ -1,9 +1,12 @@
 import Contract from 'web3/eth/contract'
 
-export const createAuthenticateCaller = (contract: Contract) => async (
-	address: string,
-	args: string[]
-) => {
+export type CreateAuthenticateCaller = (
+	contract: Contract
+) => (address: string, args: string[]) => Promise<string>
+
+export const createAuthenticateCaller: CreateAuthenticateCaller = (
+	contract: Contract
+) => async (address: string, args: string[]) => {
 	await contract.methods
 		.authenticate([address, ...args])
 		.call()

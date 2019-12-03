@@ -1,6 +1,10 @@
 import Contract from 'web3/eth/contract'
 
-export const createVoteCaller = (
+export type CreateVoteCaller = (
+	contract: Contract
+) => (tokenNumber: string) => Promise<void>
+
+export const createVoteCaller: CreateVoteCaller = (
 	contract: Contract
 ): ((tokenNumber: string) => Promise<void>) => async (tokenNumber: string) =>
 	contract.methods

@@ -1,6 +1,8 @@
 import Contract from 'web3/eth/contract'
 
-export const createSchemaCaller = (
+export type CreateSchemaCaller = (contract: Contract) => () => Promise<string[]>
+
+export const createSchemaCaller: CreateSchemaCaller = (
 	contract: Contract
 ): (() => Promise<string[]>) => async () =>
 	contract.methods
