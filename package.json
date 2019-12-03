@@ -83,5 +83,8 @@
 	"bugs": {
 		"url": "https://github.com/dev-protocol/dev-kit-js/issues"
 	},
-	"homepage": "https://github.com/dev-protocol/dev-kit-js#readme"
+	"homepage": "https://github.com/dev-protocol/dev-kit-js#readme",
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com/"
+	}
 }
