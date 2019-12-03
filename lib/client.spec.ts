@@ -29,15 +29,13 @@ describe('client.ts', () => {
 
 	describe('contractFactory', () => {
 		it('check return object', () => {
-			const host = 'localhost'
-
 			const client = new Web3()
 
-			client.setProvider(new Web3.providers.HttpProvider(host))
+			client.setProvider(new Web3.providers.HttpProvider('localhost'))
 
 			const expected = createDevkitContract(client)
 
-			const result = contractFactory(host)
+			const result = contractFactory(client.currentProvider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})

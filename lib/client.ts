@@ -1,4 +1,5 @@
 import Web3 from 'web3'
+import { Provider } from 'web3/providers'
 import { createMarketContract } from './market/index'
 import { createPropertyContract } from './property/index'
 import { createPropertyFactoryContract } from './property-factory/index'
@@ -18,13 +19,8 @@ export const createDevkitContract = (client: Web3): DevkitContract => ({
 	propertyFactory: createPropertyFactoryContract(client)
 })
 
-export const contractFactory = (
-	host: string,
-	timeout?: number
-): DevkitContract => {
-	const client = new Web3()
-
-	client.setProvider(new Web3.providers.HttpProvider(host, timeout))
+export const contractFactory = (provider: Provider): DevkitContract => {
+	const client = new Web3(provider)
 
 	return createDevkitContract(client)
 }
