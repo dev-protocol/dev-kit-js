@@ -19,7 +19,7 @@
 		"lint:format": "prettier --write '**/*.{json,md,yml}'",
 		"test": "jest",
 		"test:coverage": "jest --coverage",
-		"prepublishOnly": "yarn test && yarn build",
+		"prepack": "yarn test && yarn build",
 		"clean": "rimraf esm cjs"
 	},
 	"devDependencies": {
