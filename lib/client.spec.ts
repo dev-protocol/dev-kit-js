@@ -3,6 +3,7 @@ import { createAllocatorContract } from './allocator/index'
 import { createMarketContract } from './market'
 import { createPropertyContract } from './property/index'
 import { createPropertyFactoryContract } from './property-factory/index'
+import { createLockupContract } from './lockup/index'
 import Web3 from 'web3'
 
 describe('client.ts', () => {
@@ -18,7 +19,8 @@ describe('client.ts', () => {
 				allocator: createAllocatorContract(client),
 				market: createMarketContract(client),
 				property: createPropertyContract(client),
-				propertyFactory: createPropertyFactoryContract(client)
+				propertyFactory: createPropertyFactoryContract(client),
+				lockup: createLockupContract(client)
 			}
 
 			const result = createDevkitContract(client)
