@@ -70,7 +70,10 @@
 		]
 	},
 	"dependencies": {
-		"web3": "^1.2.4"
+		"web3": "^1.2.5-rc.0"
+	},
+	"peerDependencies": {
+		"web3": "^1.2.5-rc.0"
 	},
 	"directories": {
 		"lib": "lib"
