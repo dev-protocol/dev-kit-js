@@ -5,6 +5,7 @@ import { createPropertyContract } from './property/index'
 import { createPropertyFactoryContract } from './property-factory/index'
 import { createLockupContract } from './lockup/index'
 import Web3 from 'web3'
+import { createDevContract } from './dev'
 
 describe('client.ts', () => {
 	describe('createDevkitContract', () => {
@@ -20,7 +21,8 @@ describe('client.ts', () => {
 				market: createMarketContract(client),
 				property: createPropertyContract(client),
 				propertyFactory: createPropertyFactoryContract(client),
-				lockup: createLockupContract(client)
+				lockup: createLockupContract(client),
+				dev: createDevContract(client)
 			}
 
 			const result = createDevkitContract(client)
