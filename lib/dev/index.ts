@@ -4,8 +4,10 @@ import { devAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createTransferCaller } from './transfer'
 import { createDepositCaller } from './deposit'
+import { createBalanceOfCaller } from './balanceOf'
 
 export interface DevContract {
+	balanceOf: (address: string) => Promise<string>
 	transfer: (to: string, value: number) => Promise<boolean>
 	deposit: (to: string, value: number) => Promise<boolean>
 }
@@ -23,6 +25,7 @@ export const createDevContract: CreateDevContract = (client: Web3) => (
 	})
 
 	return {
+		balanceOf: createBalanceOfCaller(contractClient),
 		transfer: createTransferCaller(contractClient),
 		deposit: createDepositCaller(contractClient)
 	}

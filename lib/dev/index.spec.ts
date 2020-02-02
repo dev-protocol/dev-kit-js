@@ -4,6 +4,7 @@ import { createTransferCaller } from './transfer'
 import { devAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createDepositCaller } from './deposit'
+import { createBalanceOfCaller } from './balanceOf'
 
 describe('property/index.ts', () => {
 	describe('createPropertyContract', () => {
@@ -20,6 +21,7 @@ describe('property/index.ts', () => {
 					...options
 				})
 				return {
+					balanceOf: createBalanceOfCaller(propertyContract),
 					transfer: createTransferCaller(propertyContract),
 					deposit: createDepositCaller(propertyContract)
 				}
