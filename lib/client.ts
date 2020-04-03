@@ -6,6 +6,7 @@ import { createPropertyFactoryContract } from './property-factory/index'
 import { createAllocatorContract } from './allocator/index'
 import { createLockupContract } from './lockup/index'
 import { createDevContract } from './dev/index'
+import { createWithdrawContract } from './withdraw/index'
 
 export interface DevkitContract {
 	allocator: ReturnType<typeof createAllocatorContract>
@@ -13,6 +14,7 @@ export interface DevkitContract {
 	property: ReturnType<typeof createPropertyContract>
 	propertyFactory: ReturnType<typeof createPropertyFactoryContract>
 	lockup: ReturnType<typeof createLockupContract>
+	withdraw: ReturnType<typeof createWithdrawContract>
 	dev: ReturnType<typeof createDevContract>
 }
 export type ContractFactory = (provider: provider) => DevkitContract
@@ -26,6 +28,7 @@ export const createDevkitContract: CreateDevkitContract = (
 	property: createPropertyContract(client),
 	propertyFactory: createPropertyFactoryContract(client),
 	lockup: createLockupContract(client),
+	withdraw: createWithdrawContract(client),
 	dev: createDevContract(client)
 })
 
