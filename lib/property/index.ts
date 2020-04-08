@@ -7,7 +7,7 @@ import { createTransferCaller } from './transfer'
 
 export interface PropertyContract {
 	owner: () => Promise<string>
-	transfer: (to: string, value: number) => Promise<boolean>
+	transfer: (to: string, value: string) => Promise<boolean>
 }
 
 export type CreatePropertyContract = (

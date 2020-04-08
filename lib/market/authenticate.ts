@@ -9,7 +9,7 @@ export const createAuthenticateCaller: CreateAuthenticateCaller = (
 ) => async (address: string, args: string[]) => {
 	await contract.methods
 		.authenticate([address, ...args])
-		.call()
+		.send()
 		.then((result: boolean) => result)
 
 	return new Promise<string>((resolve, reject) =>

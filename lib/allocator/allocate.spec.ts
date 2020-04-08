@@ -23,7 +23,7 @@ describe('allocate.ts', () => {
 			) =>
 				allocatorContract.methods
 					.allocate([address])
-					.call()
+					.send()
 					.then((result: void) => result)
 
 			const result = createAllocateCaller(allocatorContract)
@@ -38,7 +38,7 @@ describe('allocate.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					allocate: (address: string) => ({
-						call: jest.fn().mockImplementation(async () => Promise.resolve())
+						send: jest.fn().mockImplementation(async () => Promise.resolve())
 					})
 				}
 			}
@@ -60,7 +60,7 @@ describe('allocate.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					allocate: (address: string) => ({
-						call: jest
+						send: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error))
 					})

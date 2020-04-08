@@ -13,5 +13,5 @@ export const createCalculateCaller: CreateCalculateCaller = (
 ) => Promise<boolean>) => async (metrics: string, start: string, end: string) =>
 	contract.methods
 		.calculate([metrics, start, end])
-		.call()
+		.send()
 		.then((result: boolean) => result)

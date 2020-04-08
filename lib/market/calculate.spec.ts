@@ -29,7 +29,7 @@ describe('calculate.ts', () => {
 			) =>
 				marketContract.methods
 					.calculate([metrics, start, end])
-					.call()
+					.send()
 					.then((result: string) => JSON.parse(result) as boolean)
 
 			const result = createCalculateCaller(marketContract)
@@ -48,7 +48,7 @@ describe('calculate.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					calculate: (metrics: string, start: string, end: string) => ({
-						call: jest
+						send: jest
 							.fn()
 							.mockImplementation(async () => Promise.resolve(value))
 					})
@@ -76,7 +76,7 @@ describe('calculate.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					calculate: (metrics: string, start: string, end: string) => ({
-						call: jest
+						send: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error))
 					})

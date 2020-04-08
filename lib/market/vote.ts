@@ -9,5 +9,5 @@ export const createVoteCaller: CreateVoteCaller = (
 ): ((tokenNumber: string) => Promise<void>) => async (tokenNumber: string) =>
 	contract.methods
 		.vote([tokenNumber])
-		.call()
+		.send()
 		.then(() => {})

@@ -2,12 +2,12 @@ import { Contract } from 'web3-eth-contract/types'
 
 export type CreateDepositCaller = (
 	contract: Contract
-) => (to: string, value: number) => Promise<boolean>
+) => (to: string, value: string) => Promise<boolean>
 
 export const createDepositCaller: CreateDepositCaller = (
 	contract: Contract
-) => async (to: string, value: number) =>
+) => async (to: string, value: string) =>
 	contract.methods
 		.deposit([to, value])
-		.call()
+		.send()
 		.then((result: boolean) => result)

@@ -9,5 +9,5 @@ export const createCreatePropertyCaller: CreateCreatePropertyCaller = (
 ) => async (name: string, symbol: string) =>
 	contract.methods
 		.createProperty([name, symbol])
-		.call()
+		.send()
 		.then((result: string) => result)

@@ -29,7 +29,7 @@ describe('createProperty.spec.ts', () => {
 			) => Promise<string> = async (name: string, symbol: string) =>
 				propertyFactoryContract.methods
 					.createProperty([name, symbol])
-					.call()
+					.send()
 					.then((result: string) => result)
 
 			const result = createCreatePropertyCaller(propertyFactoryContract)
@@ -46,7 +46,7 @@ describe('createProperty.spec.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					createProperty: (name: string, symbol: string) => ({
-						call: jest
+						send: jest
 							.fn()
 							.mockImplementation(async () => Promise.resolve(value))
 					})
@@ -72,7 +72,7 @@ describe('createProperty.spec.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					createProperty: (name: string, symbol: string) => ({
-						call: jest
+						send: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error))
 					})

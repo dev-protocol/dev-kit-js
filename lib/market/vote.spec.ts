@@ -23,7 +23,7 @@ describe('vote.ts', () => {
 			) =>
 				marketContract.methods
 					.vote([tokenNumber])
-					.call()
+					.send()
 					.then(() => {})
 
 			const result = createVoteCaller(marketContract)
@@ -38,7 +38,7 @@ describe('vote.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					vote: (tokenNumber: string) => ({
-						call: jest.fn().mockImplementation(async () => Promise.resolve())
+						send: jest.fn().mockImplementation(async () => Promise.resolve())
 					})
 				}
 			}
@@ -60,7 +60,7 @@ describe('vote.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					vote: (tokenNumber: string) => ({
-						call: jest
+						send: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error))
 					})

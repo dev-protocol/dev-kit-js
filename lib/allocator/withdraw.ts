@@ -9,5 +9,5 @@ export const createWithdrawCaller: CreateWithdrawCaller = (
 ) => async (address: string) =>
 	contract.methods
 		.withdraw([address])
-		.call()
+		.send()
 		.then((result: void) => result)

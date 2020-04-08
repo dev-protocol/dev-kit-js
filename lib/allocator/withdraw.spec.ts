@@ -23,7 +23,7 @@ describe('withdraw.ts', () => {
 			) =>
 				allocatorContract.methods
 					.withdraw([address])
-					.call()
+					.send()
 					.then((result: void) => result)
 
 			const result = createWithdrawCaller(allocatorContract)
@@ -38,7 +38,7 @@ describe('withdraw.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					withdraw: (address: string) => ({
-						call: jest.fn().mockImplementation(async () => Promise.resolve())
+						send: jest.fn().mockImplementation(async () => Promise.resolve())
 					})
 				}
 			}
@@ -60,7 +60,7 @@ describe('withdraw.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					withdraw: (address: string) => ({
-						call: jest
+						send: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error))
 					})

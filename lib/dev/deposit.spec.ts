@@ -25,7 +25,7 @@ describe('deposit.spec.ts', () => {
 			) =>
 				devContract.methods
 					.deposit([to, value])
-					.call()
+					.send()
 					.then((result: boolean) => result)
 
 			const result = createDepositCaller(devContract)
@@ -36,13 +36,13 @@ describe('deposit.spec.ts', () => {
 		it('call success', async () => {
 			const success = true
 			const to = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
-			const value = 12345
+			const value = '12345'
 
 			const devContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					deposit: (to: string, value: number) => ({
-						call: jest
+						send: jest
 							.fn()
 							.mockImplementation(async () => Promise.resolve(success))
 					})
@@ -62,13 +62,13 @@ describe('deposit.spec.ts', () => {
 		it('call failure', async () => {
 			const error = 'error'
 			const to = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
-			const value = 12345
+			const value = '12345'
 
 			const devContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					deposit: (to: string, value: number) => ({
-						call: jest
+						send: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error))
 					})

@@ -8,8 +8,8 @@ import { createBalanceOfCaller } from './balanceOf'
 
 export interface DevContract {
 	balanceOf: (address: string) => Promise<string>
-	transfer: (to: string, value: number) => Promise<boolean>
-	deposit: (to: string, value: number) => Promise<boolean>
+	transfer: (to: string, value: string) => Promise<boolean>
+	deposit: (to: string, value: string) => Promise<boolean>
 }
 
 export type CreateDevContract = (

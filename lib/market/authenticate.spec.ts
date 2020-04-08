@@ -24,7 +24,7 @@ describe('authenticate.ts', () => {
 			) => Promise<string> = async (address: string, args: string[]) => {
 				await marketContract.methods
 					.authenticate([address, ...args])
-					.call()
+					.send()
 					.then((result: boolean) => result)
 
 				return new Promise<string>((resolve, reject) =>
@@ -58,7 +58,7 @@ describe('authenticate.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					authenticate: (address: string, args: string[]) => ({
-						call: jest
+						send: jest
 							.fn()
 							.mockImplementation(async () => Promise.resolve(true))
 					})
@@ -92,7 +92,7 @@ describe('authenticate.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					authenticate: (address: string, args: string[]) => ({
-						call: jest
+						send: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error))
 					})

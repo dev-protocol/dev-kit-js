@@ -9,5 +9,5 @@ export const createAllocateCaller: CreateAllocateCaller = (
 ) => async (address: string) =>
 	contract.methods
 		.allocate([address])
-		.call()
+		.send()
 		.then((result: void) => result)
