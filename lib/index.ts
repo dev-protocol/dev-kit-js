@@ -1,3 +1,4 @@
 import { contractFactory } from './client'
+import { addresses } from './addresses'
 
-export { contractFactory }
+export { contractFactory, addresses }
