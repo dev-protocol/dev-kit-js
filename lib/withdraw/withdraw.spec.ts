@@ -28,9 +28,11 @@ describe('withdraw.spec.ts', () => {
 				...options
 			})
 
-			const expected: () => Promise<string> = async () =>
+			const expected: (propertyAddress: string) => Promise<string> = async (
+				propertyAddress: string
+			) =>
 				withdrawContract.methods
-					.withdraw()
+					.withdraw([propertyAddress])
 					.send({ from: await getAccount(client) })
 					.then(() => true)
 
