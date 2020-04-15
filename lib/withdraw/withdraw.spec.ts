@@ -32,7 +32,7 @@ describe('withdraw.spec.ts', () => {
 				propertyAddress: string
 			) =>
 				withdrawContract.methods
-					.withdraw([propertyAddress])
+					.withdraw(propertyAddress)
 					.send({ from: await getAccount(client) })
 					.then(() => true)
 

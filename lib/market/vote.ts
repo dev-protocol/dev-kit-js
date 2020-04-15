@@ -12,6 +12,6 @@ export const createVoteCaller: CreateVoteCaller = (
 	client: Web3
 ): ((tokenNumber: string) => Promise<void>) => async (tokenNumber: string) =>
 	contract.methods
-		.vote([tokenNumber])
+		.vote(tokenNumber)
 		.send({ from: await getAccount(client) })
 		.then(() => {})

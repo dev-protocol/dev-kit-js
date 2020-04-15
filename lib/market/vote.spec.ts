@@ -31,7 +31,7 @@ describe('vote.ts', () => {
 				tokenNumber: string
 			) =>
 				marketContract.methods
-					.vote([tokenNumber])
+					.vote(tokenNumber)
 					.send({ from: await getAccount(client) })
 					.then(() => {})
 

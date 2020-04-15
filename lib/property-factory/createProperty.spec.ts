@@ -37,7 +37,7 @@ describe('createProperty.spec.ts', () => {
 				symbol: string
 			) => Promise<string> = async (name: string, symbol: string) =>
 				propertyFactoryContract.methods
-					.createProperty([name, symbol])
+					.createProperty(name, symbol)
 					.send({ from: await getAccount(client) })
 					.then((result: string) => result)
 

@@ -12,6 +12,6 @@ export const createWithdrawCaller: CreateWithdrawCaller = (
 	client: Web3
 ) => async propertyAddress =>
 	contract.methods
-		.withdraw([propertyAddress])
+		.withdraw(propertyAddress)
 		.send({ from: await getAccount(client) })
 		.then(() => true)

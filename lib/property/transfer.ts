@@ -12,6 +12,6 @@ export const createTransferCaller: CreateTransferCaller = (
 	client: Web3
 ) => async (to: string, value: string) =>
 	contract.methods
-		.transfer([to, value])
+		.transfer(to, value)
 		.send({ from: await getAccount(client) })
 		.then((result: boolean) => result)

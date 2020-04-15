@@ -12,6 +12,6 @@ export const createCreatePropertyCaller: CreateCreatePropertyCaller = (
 	client: Web3
 ) => async (name: string, symbol: string) =>
 	contract.methods
-		.createProperty([name, symbol])
+		.createProperty(name, symbol)
 		.send({ from: await getAccount(client) })
 		.then((result: string) => result)

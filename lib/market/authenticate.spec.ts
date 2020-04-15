@@ -32,7 +32,7 @@ describe('authenticate.ts', () => {
 				args: string[]
 			) => Promise<string> = async (address: string, args: string[]) => {
 				await marketContract.methods
-					.authenticate([address, ...args])
+					.authenticate(address, ...args)
 					.send({ from: await getAccount(client) })
 					.then((result: boolean) => result)
 

@@ -33,7 +33,7 @@ describe('transfer.spec.ts', () => {
 				value: number
 			) =>
 				propertyContract.methods
-					.transfer([to, value])
+					.transfer(to, value)
 					.send({ from: await getAccount(client) })
 					.then((result: boolean) => result)
 

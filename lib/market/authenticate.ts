@@ -12,7 +12,7 @@ export const createAuthenticateCaller: CreateAuthenticateCaller = (
 	client: Web3
 ) => async (address: string, args: string[]) => {
 	await contract.methods
-		.authenticate([address, ...args])
+		.authenticate(address, ...args)
 		.send({ from: await getAccount(client) })
 		.then((result: boolean) => result)
 

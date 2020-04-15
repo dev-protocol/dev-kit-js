@@ -12,6 +12,6 @@ export const createWithdrawCaller: CreateWithdrawCaller = (
 	client: Web3
 ) => async (address: string) =>
 	contract.methods
-		.withdraw([address])
+		.withdraw(address)
 		.send({ from: await getAccount(client) })
 		.then((result: void) => result)

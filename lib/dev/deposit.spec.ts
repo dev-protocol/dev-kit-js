@@ -33,7 +33,7 @@ describe('deposit.spec.ts', () => {
 				value: number
 			) =>
 				devContract.methods
-					.deposit([to, value])
+					.deposit(to, value)
 					.send({ from: await getAccount(client) })
 					.then((result: boolean) => result)
 

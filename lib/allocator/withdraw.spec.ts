@@ -31,7 +31,7 @@ describe('withdraw.ts', () => {
 				address: string
 			) =>
 				allocatorContract.methods
-					.withdraw([address])
+					.withdraw(address)
 					.send({ from: await getAccount(client) })
 					.then((result: void) => result)
 

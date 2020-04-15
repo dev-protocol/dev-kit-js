@@ -22,7 +22,7 @@ describe('allocate.ts', () => {
 				address: string
 			) =>
 				allocatorContract.methods
-					.allocate([address])
+					.allocate(address)
 					.send()
 					.then((result: void) => result)
 

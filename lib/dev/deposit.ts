@@ -12,6 +12,6 @@ export const createDepositCaller: CreateDepositCaller = (
 	client: Web3
 ) => async (to: string, value: string) =>
 	contract.methods
-		.deposit([to, value])
+		.deposit(to, value)
 		.send({ from: await getAccount(client) })
 		.then((result: boolean) => result)
