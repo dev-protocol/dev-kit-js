@@ -2,6 +2,15 @@ import Web3 from 'web3'
 import { propertyAbi } from './abi'
 import { createTransferCaller } from './transfer'
 import { CustomOptions } from '../option'
+import { getAccount } from '../utils/getAccount'
+
+const web3Stub = ({
+	eth: {
+		async getAccounts() {
+			return ['0x']
+		}
+	}
+} as unknown) as Web3
 
 describe('transfer.spec.ts', () => {
 	describe('createTransferCaller', () => {
@@ -25,10 +34,10 @@ describe('transfer.spec.ts', () => {
 			) =>
 				propertyContract.methods
 					.transfer([to, value])
-					.send()
+					.send({ from: await getAccount(client) })
 					.then((result: boolean) => result)
 
-			const result = createTransferCaller(propertyContract)
+			const result = createTransferCaller(propertyContract, client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
@@ -52,7 +61,7 @@ describe('transfer.spec.ts', () => {
 			const expected = success
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createTransferCaller(propertyContract as any)
+			const caller = createTransferCaller(propertyContract as any, web3Stub)
 
 			const result = await caller(to, value)
 
@@ -76,7 +85,7 @@ describe('transfer.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createTransferCaller(propertyContract as any)
+			const caller = createTransferCaller(propertyContract as any, web3Stub)
 
 			const result = await caller(to, value).catch(err => err)
 

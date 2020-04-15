@@ -1,15 +1,19 @@
 import { Contract } from 'web3-eth-contract/types'
+import Web3 from 'web3'
+import { getAccount } from '../utils/getAccount'
 
 export type CreateAuthenticateCaller = (
-	contract: Contract
+	contract: Contract,
+	client: Web3
 ) => (address: string, args: string[]) => Promise<string>
 
 export const createAuthenticateCaller: CreateAuthenticateCaller = (
-	contract: Contract
+	contract: Contract,
+	client: Web3
 ) => async (address: string, args: string[]) => {
 	await contract.methods
 		.authenticate([address, ...args])
-		.send()
+		.send({ from: await getAccount(client) })
 		.then((result: boolean) => result)
 
 	return new Promise<string>((resolve, reject) =>

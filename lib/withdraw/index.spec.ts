@@ -21,7 +21,7 @@ describe('lockup/index.ts', () => {
 					...options
 				})
 				return {
-					withdraw: createWithdrawCaller(withdrawContract),
+					withdraw: createWithdrawCaller(withdrawContract, client),
 					getRewardsAmount: createGetRewardsAmountCaller(withdrawContract),
 					calculateWithdrawableAmount: createCalculateWithdrawableAmountCaller(
 						withdrawContract

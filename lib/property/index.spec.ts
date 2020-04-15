@@ -21,7 +21,7 @@ describe('property/index.ts', () => {
 				})
 				return {
 					owner: createOwnerCaller(propertyContract),
-					transfer: createTransferCaller(propertyContract)
+					transfer: createTransferCaller(propertyContract, client)
 				}
 			}
 

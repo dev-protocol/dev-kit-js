@@ -2,6 +2,15 @@ import Web3 from 'web3'
 import { allocatorAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createWithdrawCaller } from './withdraw'
+import { getAccount } from '../utils/getAccount'
+
+const web3Stub = ({
+	eth: {
+		async getAccounts() {
+			return ['0x']
+		}
+	}
+} as unknown) as Web3
 
 describe('withdraw.ts', () => {
 	describe('createWithdrawCaller', () => {
@@ -23,10 +32,10 @@ describe('withdraw.ts', () => {
 			) =>
 				allocatorContract.methods
 					.withdraw([address])
-					.send()
+					.send({ from: await getAccount(client) })
 					.then((result: void) => result)
 
-			const result = createWithdrawCaller(allocatorContract)
+			const result = createWithdrawCaller(allocatorContract, client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
@@ -44,7 +53,7 @@ describe('withdraw.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createWithdrawCaller(allocatorContract as any)
+			const caller = createWithdrawCaller(allocatorContract as any, web3Stub)
 
 			const result = await caller(address)
 
@@ -68,7 +77,7 @@ describe('withdraw.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createWithdrawCaller(allocatorContract as any)
+			const caller = createWithdrawCaller(allocatorContract as any, web3Stub)
 
 			const result = await caller(address).catch(err => err)
 

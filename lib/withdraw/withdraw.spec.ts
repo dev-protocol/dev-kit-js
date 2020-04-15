@@ -2,6 +2,15 @@ import Web3 from 'web3'
 import { withdrawAbi } from './abi'
 import { createWithdrawCaller } from './withdraw'
 import { CustomOptions } from '../option'
+import { getAccount } from '../utils/getAccount'
+
+const web3Stub = ({
+	eth: {
+		async getAccounts() {
+			return ['0x']
+		}
+	}
+} as unknown) as Web3
 
 describe('withdraw.spec.ts', () => {
 	describe('createwithdrawCaller', () => {
@@ -22,10 +31,10 @@ describe('withdraw.spec.ts', () => {
 			const expected: () => Promise<string> = async () =>
 				withdrawContract.methods
 					.withdraw()
-					.send()
+					.send({ from: await getAccount(client) })
 					.then(() => true)
 
-			const result = createWithdrawCaller(withdrawContract)
+			const result = createWithdrawCaller(withdrawContract, client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
@@ -47,7 +56,7 @@ describe('withdraw.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createWithdrawCaller(withdrawContract as any)
+			const caller = createWithdrawCaller(withdrawContract as any, web3Stub)
 
 			const result = await caller('0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5')
 
@@ -69,7 +78,7 @@ describe('withdraw.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createWithdrawCaller(withdrawContract as any)
+			const caller = createWithdrawCaller(withdrawContract as any, web3Stub)
 
 			const result = await caller(
 				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5'

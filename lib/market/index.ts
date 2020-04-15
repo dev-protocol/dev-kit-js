@@ -25,7 +25,7 @@ export const createMarketContract = (client: Web3) => (
 	return {
 		schema: createSchemaCaller(contractClient),
 		calculate: createCalculateCaller(contractClient),
-		vote: createVoteCaller(contractClient),
-		authenticate: createAuthenticateCaller(contractClient)
+		vote: createVoteCaller(contractClient, client),
+		authenticate: createAuthenticateCaller(contractClient, client)
 	}
 }

@@ -27,8 +27,8 @@ describe('market.ts', () => {
 				return {
 					schema: createSchemaCaller(marketContract),
 					calculate: createCalculateCaller(marketContract),
-					vote: createVoteCaller(marketContract),
-					authenticate: createAuthenticateCaller(marketContract)
+					vote: createVoteCaller(marketContract, client),
+					authenticate: createAuthenticateCaller(marketContract, client)
 				}
 			}
 

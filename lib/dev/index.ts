@@ -26,7 +26,7 @@ export const createDevContract: CreateDevContract = (client: Web3) => (
 
 	return {
 		balanceOf: createBalanceOfCaller(contractClient),
-		transfer: createTransferCaller(contractClient),
-		deposit: createDepositCaller(contractClient)
+		transfer: createTransferCaller(contractClient, client),
+		deposit: createDepositCaller(contractClient, client)
 	}
 }

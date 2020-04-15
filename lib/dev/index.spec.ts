@@ -22,8 +22,8 @@ describe('property/index.ts', () => {
 				})
 				return {
 					balanceOf: createBalanceOfCaller(propertyContract),
-					transfer: createTransferCaller(propertyContract),
-					deposit: createDepositCaller(propertyContract)
+					transfer: createTransferCaller(propertyContract, client),
+					deposit: createDepositCaller(propertyContract, client)
 				}
 			}
 

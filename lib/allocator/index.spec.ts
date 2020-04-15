@@ -28,7 +28,7 @@ describe('allocator/index.ts', () => {
 				)
 				return {
 					allocate: createAllocateCaller(allocatorContract),
-					withdraw: createWithdrawCaller(allocatorContract)
+					withdraw: createWithdrawCaller(allocatorContract, client)
 				}
 			}
 
