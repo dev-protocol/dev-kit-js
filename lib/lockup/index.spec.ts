@@ -5,6 +5,7 @@ import { lockupAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createGetPropertyValueCaller } from './getPropertyValue'
 import { createCancelCaller } from './cancel'
+import { createWithdrawCaller } from './withdraw'
 
 describe('lockup/index.ts', () => {
 	describe('createLockupContract', () => {
@@ -23,7 +24,8 @@ describe('lockup/index.ts', () => {
 				return {
 					getValue: createGetValueCaller(lockupContract),
 					getPropertyValue: createGetPropertyValueCaller(lockupContract),
-					cancel: createCancelCaller(lockupContract, client)
+					cancel: createCancelCaller(lockupContract, client),
+					withdraw: createWithdrawCaller(lockupContract, client)
 				}
 			}
 
