@@ -2,6 +2,15 @@ import Web3 from 'web3'
 import { propertyFactoryAbi } from './abi'
 import { createCreatePropertyCaller } from './createProperty'
 import { CustomOptions } from '../option'
+import { getAccount } from '../utils/getAccount'
+
+const web3Stub = ({
+	eth: {
+		async getAccounts() {
+			return ['0x']
+		}
+	}
+} as unknown) as Web3
 
 describe('createProperty.spec.ts', () => {
 	describe('createCreatePropertyCaller', () => {
@@ -28,11 +37,11 @@ describe('createProperty.spec.ts', () => {
 				symbol: string
 			) => Promise<string> = async (name: string, symbol: string) =>
 				propertyFactoryContract.methods
-					.createProperty([name, symbol])
-					.send()
+					.createProperty(name, symbol)
+					.send({ from: await getAccount(client) })
 					.then((result: string) => result)
 
-			const result = createCreatePropertyCaller(propertyFactoryContract)
+			const result = createCreatePropertyCaller(propertyFactoryContract, client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
@@ -56,7 +65,10 @@ describe('createProperty.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createCreatePropertyCaller(propertyFactoryContract as any)
+			const caller = createCreatePropertyCaller(
+				propertyFactoryContract as any,
+				web3Stub
+			)
 
 			const result = await caller(name, symbol)
 
@@ -82,7 +94,10 @@ describe('createProperty.spec.ts', () => {
 			const expected = error
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createCreatePropertyCaller(propertyFactoryContract as any)
+			const caller = createCreatePropertyCaller(
+				propertyFactoryContract as any,
+				web3Stub
+			)
 
 			const result = await caller(name, symbol).catch(err => err)
 

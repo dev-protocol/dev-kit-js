@@ -2,6 +2,15 @@ import Web3 from 'web3'
 import { marketAbi } from './abi'
 import { createVoteCaller } from './vote'
 import { CustomOptions } from '../option'
+import { getAccount } from '../utils/getAccount'
+
+const web3Stub = ({
+	eth: {
+		async getAccounts() {
+			return ['0x']
+		}
+	}
+} as unknown) as Web3
 
 describe('vote.ts', () => {
 	describe('createVoteCaller', () => {
@@ -22,11 +31,11 @@ describe('vote.ts', () => {
 				tokenNumber: string
 			) =>
 				marketContract.methods
-					.vote([tokenNumber])
-					.send()
+					.vote(tokenNumber)
+					.send({ from: await getAccount(client) })
 					.then(() => {})
 
-			const result = createVoteCaller(marketContract)
+			const result = createVoteCaller(marketContract, client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
@@ -44,7 +53,7 @@ describe('vote.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createVoteCaller(marketContract as any)
+			const caller = createVoteCaller(marketContract as any, web3Stub)
 
 			const result = await caller(tokenNumber)
 
@@ -68,7 +77,7 @@ describe('vote.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createVoteCaller(marketContract as any)
+			const caller = createVoteCaller(marketContract as any, web3Stub)
 
 			const result = await caller(tokenNumber).catch(err => err)
 

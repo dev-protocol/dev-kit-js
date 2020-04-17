@@ -3,6 +3,15 @@ import Web3 from 'web3'
 import { marketAbi } from './abi'
 import { createAuthenticateCaller } from './authenticate'
 import { CustomOptions } from '../option'
+import { getAccount } from '../utils/getAccount'
+
+const web3Stub = ({
+	eth: {
+		async getAccounts() {
+			return ['0x']
+		}
+	}
+} as unknown) as Web3
 
 describe('authenticate.ts', () => {
 	describe('createAuthenticateCaller', () => {
@@ -23,8 +32,8 @@ describe('authenticate.ts', () => {
 				args: string[]
 			) => Promise<string> = async (address: string, args: string[]) => {
 				await marketContract.methods
-					.authenticate([address, ...args])
-					.send()
+					.authenticate(address, ...args)
+					.send({ from: await getAccount(client) })
 					.then((result: boolean) => result)
 
 				return new Promise<string>((resolve, reject) =>
@@ -39,7 +48,7 @@ describe('authenticate.ts', () => {
 				)
 			}
 
-			const result = createAuthenticateCaller(marketContract)
+			const result = createAuthenticateCaller(marketContract, client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
@@ -70,7 +79,7 @@ describe('authenticate.ts', () => {
 
 			const expected = value
 
-			const caller = createAuthenticateCaller(marketContract as any)
+			const caller = createAuthenticateCaller(marketContract as any, web3Stub)
 
 			const result = await caller(address, args)
 
@@ -102,7 +111,7 @@ describe('authenticate.ts', () => {
 				}
 			}
 
-			const caller = createAuthenticateCaller(marketContract as any)
+			const caller = createAuthenticateCaller(marketContract as any, web3Stub)
 
 			const result = await caller(address, args).catch(err => err)
 

@@ -31,7 +31,7 @@ export const createWithdrawContract: CreateWithdrawContract = (
 	)
 
 	return {
-		withdraw: createWithdrawCaller(contractClient),
+		withdraw: createWithdrawCaller(contractClient, client),
 		getRewardsAmount: createGetRewardsAmountCaller(contractClient),
 		calculateWithdrawableAmount: createCalculateWithdrawableAmountCaller(
 			contractClient

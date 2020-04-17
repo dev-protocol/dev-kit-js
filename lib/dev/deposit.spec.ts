@@ -2,6 +2,15 @@ import Web3 from 'web3'
 import { devAbi } from './abi'
 import { createDepositCaller } from './deposit'
 import { CustomOptions } from '../option'
+import { getAccount } from '../utils/getAccount'
+
+const web3Stub = ({
+	eth: {
+		async getAccounts() {
+			return ['0x']
+		}
+	}
+} as unknown) as Web3
 
 describe('deposit.spec.ts', () => {
 	describe('createDepositCaller', () => {
@@ -24,11 +33,11 @@ describe('deposit.spec.ts', () => {
 				value: number
 			) =>
 				devContract.methods
-					.deposit([to, value])
-					.send()
+					.deposit(to, value)
+					.send({ from: await getAccount(client) })
 					.then((result: boolean) => result)
 
-			const result = createDepositCaller(devContract)
+			const result = createDepositCaller(devContract, client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
@@ -52,7 +61,7 @@ describe('deposit.spec.ts', () => {
 			const expected = success
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createDepositCaller(devContract as any)
+			const caller = createDepositCaller(devContract as any, web3Stub)
 
 			const result = await caller(to, value)
 
@@ -76,7 +85,7 @@ describe('deposit.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createDepositCaller(devContract as any)
+			const caller = createDepositCaller(devContract as any, web3Stub)
 
 			const result = await caller(to, value).catch(err => err)
 

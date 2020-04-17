@@ -24,6 +24,6 @@ export const createAllocatorContract = (client: Web3) => (
 
 	return {
 		allocate: createAllocateCaller(contractClient),
-		withdraw: createWithdrawCaller(contractClient)
+		withdraw: createWithdrawCaller(contractClient, client)
 	}
 }

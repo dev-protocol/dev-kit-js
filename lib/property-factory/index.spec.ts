@@ -27,7 +27,10 @@ describe('property/index.ts', () => {
 				)
 
 				return {
-					createProperty: createCreatePropertyCaller(propertyFactoryContract)
+					createProperty: createCreatePropertyCaller(
+						propertyFactoryContract,
+						client
+					)
 				}
 			}
 

@@ -8,6 +8,6 @@ export const createAllocateCaller: CreateAllocateCaller = (
 	contract: Contract
 ) => async (address: string) =>
 	contract.methods
-		.allocate([address])
+		.allocate(address)
 		.send()
 		.then((result: void) => result)

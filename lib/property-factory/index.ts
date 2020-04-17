@@ -24,6 +24,6 @@ export const createPropertyFactoryContract: CreatePropertyFactoryContract = (
 	)
 
 	return {
-		createProperty: createCreatePropertyCaller(contractClient)
+		createProperty: createCreatePropertyCaller(contractClient, client)
 	}
 }

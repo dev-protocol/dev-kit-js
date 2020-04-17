@@ -27,6 +27,6 @@ export const createPropertyContract: CreatePropertyContract = (
 
 	return {
 		owner: createOwnerCaller(contractClient),
-		transfer: createTransferCaller(contractClient)
+		transfer: createTransferCaller(contractClient, client)
 	}
 }
