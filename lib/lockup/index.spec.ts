@@ -6,6 +6,7 @@ import { CustomOptions } from '../option'
 import { createGetPropertyValueCaller } from './getPropertyValue'
 import { createCancelCaller } from './cancel'
 import { createWithdrawCaller } from './withdraw'
+import { createWithdrawInterestCaller } from './withdrawInterest'
 
 describe('lockup/index.ts', () => {
 	describe('createLockupContract', () => {
@@ -25,7 +26,8 @@ describe('lockup/index.ts', () => {
 					getValue: createGetValueCaller(lockupContract),
 					getPropertyValue: createGetPropertyValueCaller(lockupContract),
 					cancel: createCancelCaller(lockupContract, client),
-					withdraw: createWithdrawCaller(lockupContract, client)
+					withdraw: createWithdrawCaller(lockupContract, client),
+					withdrawInterest: createWithdrawInterestCaller(lockupContract, client)
 				}
 			}
 

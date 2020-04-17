@@ -6,12 +6,14 @@ import { createGetValueCaller } from './getValue'
 import { createGetPropertyValueCaller } from './getPropertyValue'
 import { createCancelCaller } from './cancel'
 import { createWithdrawCaller } from './withdraw'
+import { createWithdrawInterestCaller } from './withdrawInterest'
 
 export interface LockupContract {
 	getValue: (propertyAddress: string, accountAddress: string) => Promise<string>
 	getPropertyValue: (address: string) => Promise<string>
 	cancel: (propertyAddress: string) => Promise<true>
 	withdraw: (propertyAddress: string) => Promise<true>
+	withdrawInterest: (propertyAddress: string) => Promise<true>
 }
 
 export type CreateLockupContract = (
@@ -30,6 +32,7 @@ export const createLockupContract: CreateLockupContract = (client: Web3) => (
 		getValue: createGetValueCaller(contractClient),
 		getPropertyValue: createGetPropertyValueCaller(contractClient),
 		cancel: createCancelCaller(contractClient, client),
-		withdraw: createWithdrawCaller(contractClient, client)
+		withdraw: createWithdrawCaller(contractClient, client),
+		withdrawInterest: createWithdrawInterestCaller(contractClient, client)
 	}
 }
