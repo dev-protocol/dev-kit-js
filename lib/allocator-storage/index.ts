@@ -3,11 +3,13 @@ import { Contract } from 'web3-eth-contract/types'
 import { allocatorStorageAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createGetLastAssetValueEachMarketPerBlockCaller } from './getLastAssetValueEachMarketPerBlock'
+import { createGetLastAssetValueEachMetricsCaller } from './getLastAssetValueEachMetrics'
 
 export interface AllocatorStorageContract {
 	getLastAssetValueEachMarketPerBlock: (
 		marketAddress: string
 	) => Promise<string>
+	getLastAssetValueEachMetrics: (metricsAddress: string) => Promise<string>
 }
 
 export type CreateAllocatorStorageContract = (
@@ -27,6 +29,9 @@ export const createAllocatorStorageContract: CreateAllocatorStorageContract = (
 
 	return {
 		getLastAssetValueEachMarketPerBlock: createGetLastAssetValueEachMarketPerBlockCaller(
+			contractClient
+		),
+		getLastAssetValueEachMetrics: createGetLastAssetValueEachMetricsCaller(
 			contractClient
 		)
 	}
