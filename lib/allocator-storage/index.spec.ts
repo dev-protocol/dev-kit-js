@@ -3,6 +3,7 @@ import { createAllocatorStorageContract, AllocatorStorageContract } from '.'
 import { allocatorStorageAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createGetLastAssetValueEachMarketPerBlockCaller } from './getLastAssetValueEachMarketPerBlock'
+import { createGetLastAssetValueEachMetricsCaller } from './getLastAssetValueEachMetrics'
 
 describe('allocator-storage/index.ts', () => {
 	describe('createAllocatorStorageContract', () => {
@@ -27,6 +28,9 @@ describe('allocator-storage/index.ts', () => {
 				)
 				return {
 					getLastAssetValueEachMarketPerBlock: createGetLastAssetValueEachMarketPerBlockCaller(
+						allocatorStorageContract
+					),
+					getLastAssetValueEachMetrics: createGetLastAssetValueEachMetricsCaller(
 						allocatorStorageContract
 					)
 				}
