@@ -8,6 +8,7 @@ import { createCancelCaller } from './cancel'
 import { createWithdrawCaller } from './withdraw'
 import { createWithdrawInterestCaller } from './withdrawInterest'
 import { createCalculateWithdrawableInterestAmountCaller } from './calculateWithdrawableInterestAmount'
+import { createGetAllValueCaller } from './getAllValue'
 
 describe('lockup/index.ts', () => {
 	describe('createLockupContract', () => {
@@ -25,6 +26,7 @@ describe('lockup/index.ts', () => {
 				})
 				return {
 					getValue: createGetValueCaller(lockupContract),
+					getAllValue: createGetAllValueCaller(lockupContract),
 					getPropertyValue: createGetPropertyValueCaller(lockupContract),
 					cancel: createCancelCaller(lockupContract, client),
 					withdraw: createWithdrawCaller(lockupContract, client),
