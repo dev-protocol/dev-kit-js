@@ -4,10 +4,12 @@ import { lockupAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createGetValueCaller } from './getValue'
 import { createGetPropertyValueCaller } from './getPropertyValue'
+import { createCancelCaller } from './cancel'
 
 export interface LockupContract {
 	getValue: (propertyAddress: string, accountAddress: string) => Promise<string>
 	getPropertyValue: (address: string) => Promise<string>
+	cancel: (propertyAddress: string) => Promise<true>
 }
 
 export type CreateLockupContract = (
@@ -24,6 +26,7 @@ export const createLockupContract: CreateLockupContract = (client: Web3) => (
 
 	return {
 		getValue: createGetValueCaller(contractClient),
-		getPropertyValue: createGetPropertyValueCaller(contractClient)
+		getPropertyValue: createGetPropertyValueCaller(contractClient),
+		cancel: createCancelCaller(contractClient, client)
 	}
 }

@@ -91,6 +91,21 @@ export const lockupAbi = ([
 		type: 'event'
 	},
 	{
+		constant: true,
+		inputs: [],
+		name: '_owner',
+		outputs: [
+			{
+				internalType: 'address payable',
+				name: '',
+				type: 'address'
+			}
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function'
+	},
+	{
 		constant: false,
 		inputs: [
 			{
@@ -103,6 +118,21 @@ export const lockupAbi = ([
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'configAddress',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address'
+			}
+		],
+		payable: false,
+		stateMutability: 'view',
 		type: 'function'
 	},
 	{
@@ -124,6 +154,15 @@ export const lockupAbi = ([
 		],
 		payable: false,
 		stateMutability: 'view',
+		type: 'function'
+	},
+	{
+		constant: false,
+		inputs: [],
+		name: 'kill',
+		outputs: [],
+		payable: false,
+		stateMutability: 'nonpayable',
 		type: 'function'
 	},
 	{
@@ -308,6 +347,21 @@ export const lockupAbi = ([
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
+		type: 'function'
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'getAllValue',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256'
+			}
+		],
+		payable: false,
+		stateMutability: 'view',
 		type: 'function'
 	},
 	{
