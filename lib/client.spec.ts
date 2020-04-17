@@ -8,6 +8,7 @@ import Web3 from 'web3'
 import { createDevContract } from './dev'
 import { createWithdrawContract } from './withdraw'
 import { createRegistryContract } from './registry'
+import { createLockupStorageContract } from './lockup-storage'
 
 describe('client.ts', () => {
 	describe('createDevkitContract', () => {
@@ -24,6 +25,7 @@ describe('client.ts', () => {
 				property: createPropertyContract(client),
 				propertyFactory: createPropertyFactoryContract(client),
 				lockup: createLockupContract(client),
+				lockupStorage: createLockupStorageContract(client),
 				withdraw: createWithdrawContract(client),
 				dev: createDevContract(client),
 				registry: createRegistryContract(client)

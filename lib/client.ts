@@ -8,6 +8,7 @@ import { createLockupContract } from './lockup/index'
 import { createDevContract } from './dev/index'
 import { createWithdrawContract } from './withdraw/index'
 import { createRegistryContract } from './registry/index'
+import { createLockupStorageContract } from './lockup-storage'
 
 export interface DevkitContract {
 	allocator: ReturnType<typeof createAllocatorContract>
@@ -15,6 +16,7 @@ export interface DevkitContract {
 	property: ReturnType<typeof createPropertyContract>
 	propertyFactory: ReturnType<typeof createPropertyFactoryContract>
 	lockup: ReturnType<typeof createLockupContract>
+	lockupStorage: ReturnType<typeof createLockupStorageContract>
 	withdraw: ReturnType<typeof createWithdrawContract>
 	dev: ReturnType<typeof createDevContract>
 	registry: ReturnType<typeof createRegistryContract>
@@ -30,6 +32,7 @@ export const createDevkitContract: CreateDevkitContract = (
 	property: createPropertyContract(client),
 	propertyFactory: createPropertyFactoryContract(client),
 	lockup: createLockupContract(client),
+	lockupStorage: createLockupStorageContract(client),
 	withdraw: createWithdrawContract(client),
 	dev: createDevContract(client),
 	registry: createRegistryContract(client)
