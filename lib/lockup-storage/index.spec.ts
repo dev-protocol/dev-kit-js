@@ -22,13 +22,13 @@ describe('lockup-storage/index.ts', () => {
 					lockupStorageAbi,
 					address,
 					{
-						...options
+						...options,
 					}
 				)
 				return {
 					getWithdrawalStatus: createGetWithdrawalStatusCaller(
 						lockupStorageContract
-					)
+					),
 				}
 			}
 

@@ -8,8 +8,8 @@ describe('getAccount.ts', () => {
 
 			const web3Stub = {
 				eth: {
-					getAccounts: jest.fn(async () => ['0x'])
-				}
+					getAccounts: jest.fn(async () => Promise.resolve(['0x'])),
+				},
 			}
 			const result = await getAccount((web3Stub as unknown) as Web3)
 
@@ -21,8 +21,8 @@ describe('getAccount.ts', () => {
 
 			const web3Stub = {
 				eth: {
-					getAccounts: jest.fn(async () => ['0x'])
-				}
+					getAccounts: jest.fn(async () => Promise.resolve(['0x'])),
+				},
 			}
 			await getAccount((web3Stub as unknown) as Web3) // First call.
 			await getAccount((web3Stub as unknown) as Web3) // Second call.

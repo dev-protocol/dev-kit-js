@@ -33,7 +33,7 @@ describe('registry/index.ts', () => {
 					addressConfigAbi,
 					address,
 					{
-						...options
+						...options,
 					}
 				)
 				return {
@@ -51,7 +51,7 @@ describe('registry/index.ts', () => {
 					propertyGroup: createPropertyGroupCaller(registryContract),
 					token: createTokenCaller(registryContract),
 					withdraw: createWithdrawCaller(registryContract),
-					withdrawStorage: createWithdrawStorageCaller(registryContract)
+					withdrawStorage: createWithdrawStorageCaller(registryContract),
 				}
 			}
 

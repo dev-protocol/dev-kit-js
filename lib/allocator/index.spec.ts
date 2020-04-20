@@ -23,12 +23,12 @@ describe('allocator/index.ts', () => {
 					allocatorAbi,
 					address,
 					{
-						...options
+						...options,
 					}
 				)
 				return {
-					allocate: createAllocateCaller(allocatorContract),
-					withdraw: createWithdrawCaller(allocatorContract, client)
+					allocate: createAllocateCaller(allocatorContract, client),
+					withdraw: createWithdrawCaller(allocatorContract, client),
 				}
 			}
 

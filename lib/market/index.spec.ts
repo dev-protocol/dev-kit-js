@@ -1,7 +1,6 @@
 import Web3 from 'web3'
 import { createMarketContract, CreateMarketContract } from '.'
 import { createSchemaCaller } from './schema'
-import { createCalculateCaller } from './calculate'
 import { createVoteCaller } from './vote'
 import { CustomOptions } from '../option'
 import { marketAbi } from './abi'
@@ -22,13 +21,12 @@ describe('market.ts', () => {
 				options?: CustomOptions
 			) => {
 				const marketContract = new client.eth.Contract(marketAbi, address, {
-					...options
+					...options,
 				})
 				return {
 					schema: createSchemaCaller(marketContract),
-					calculate: createCalculateCaller(marketContract),
 					vote: createVoteCaller(marketContract, client),
-					authenticate: createAuthenticateCaller(marketContract, client)
+					authenticate: createAuthenticateCaller(marketContract, client),
 				}
 			}
 

@@ -18,12 +18,12 @@ describe('property/index.ts', () => {
 				options?: CustomOptions
 			) => DevContract = (address?: string, options?: CustomOptions) => {
 				const propertyContract = new client.eth.Contract(devAbi, address, {
-					...options
+					...options,
 				})
 				return {
 					balanceOf: createBalanceOfCaller(propertyContract),
 					transfer: createTransferCaller(propertyContract, client),
-					deposit: createDepositCaller(propertyContract, client)
+					deposit: createDepositCaller(propertyContract, client),
 				}
 			}
 

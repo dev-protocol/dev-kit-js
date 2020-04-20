@@ -17,11 +17,11 @@ describe('property/index.ts', () => {
 				options?: CustomOptions
 			) => PropertyContract = (address?: string, options?: CustomOptions) => {
 				const propertyContract = new client.eth.Contract(propertyAbi, address, {
-					...options
+					...options,
 				})
 				return {
 					owner: createOwnerCaller(propertyContract),
-					transfer: createTransferCaller(propertyContract, client)
+					transfer: createTransferCaller(propertyContract, client),
 				}
 			}
 

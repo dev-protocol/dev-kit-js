@@ -23,7 +23,7 @@ describe('allocator-storage/index.ts', () => {
 					allocatorStorageAbi,
 					address,
 					{
-						...options
+						...options,
 					}
 				)
 				return {
@@ -32,7 +32,7 @@ describe('allocator-storage/index.ts', () => {
 					),
 					getLastAssetValueEachMetrics: createGetLastAssetValueEachMetricsCaller(
 						allocatorStorageContract
-					)
+					),
 				}
 			}
 

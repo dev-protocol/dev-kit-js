@@ -22,7 +22,7 @@ describe('lockup/index.ts', () => {
 				options?: CustomOptions
 			) => LockupContract = (address?: string, options?: CustomOptions) => {
 				const lockupContract = new client.eth.Contract(lockupAbi, address, {
-					...options
+					...options,
 				})
 				return {
 					getValue: createGetValueCaller(lockupContract),
@@ -36,7 +36,7 @@ describe('lockup/index.ts', () => {
 					),
 					calculateWithdrawableInterestAmount: createCalculateWithdrawableInterestAmountCaller(
 						lockupContract
-					)
+					),
 				}
 			}
 

@@ -22,7 +22,7 @@ describe('property/index.ts', () => {
 					propertyFactoryAbi,
 					address,
 					{
-						...options
+						...options,
 					}
 				)
 
@@ -30,7 +30,7 @@ describe('property/index.ts', () => {
 					createProperty: createCreatePropertyCaller(
 						propertyFactoryContract,
 						client
-					)
+					),
 				}
 			}
 
