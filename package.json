@@ -49,8 +49,7 @@
 	},
 	"lint-staged": {
 		"./lib/**/*.ts": [
-			"yarn lint",
-			"git add"
+			"yarn lint"
 		]
 	},
 	"jest": {
