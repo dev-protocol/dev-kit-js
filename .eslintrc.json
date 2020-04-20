@@ -6,17 +6,15 @@
 		"jest": true
 	},
 	"extends": [
-		"eslint-config-xo-typescript",
+		"xo",
+		"xo-typescript",
 		"eslint:recommended",
-		"plugin:@typescript-eslint/recommended",
 		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:@typescript-eslint/recommended-requiring-type-checking",
 		"plugin:prettier/recommended",
 		"prettier/@typescript-eslint"
 	],
-	"globals": {
-		"Atomics": "readonly",
-		"SharedArrayBuffer": "readonly"
-	},
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"project": "./tsconfig.json",
@@ -29,13 +27,14 @@
 	},
 	"plugins": ["@typescript-eslint", "jest"],
 	"rules": {
-		"no-unused-vars": "off",
-		"@typescript-eslint/no-unused-vars": [
-			"error",
-			{ "argsIgnorePattern": "^_" }
-		],
-		"require-atomic-updates": "off",
-		"no-console": "off",
-		"semi": ["error", "never", { "beforeStatementContinuationChars": "never" }]
-	}
+		"@typescript-eslint/prefer-readonly-parameter-types": "warn"
+	},
+	"overrides": [
+		{
+			"files":["**/*.spec.ts"],
+			"rules": {
+				"@typescript-eslint/no-unsafe-return":"off"
+			}
+		}
+	]
 }
