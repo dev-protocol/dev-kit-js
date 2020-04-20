@@ -8,17 +8,17 @@ export const addressConfigAbi = [
 				indexed: true,
 				internalType: 'address',
 				name: 'previousOwner',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				indexed: true,
 				internalType: 'address',
 				name: 'newOwner',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'OwnershipTransferred',
-		type: 'event'
+		type: 'event',
 	},
 	{
 		constant: true,
@@ -28,12 +28,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address payable',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -43,12 +43,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -58,12 +58,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -73,12 +73,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'bool',
 				name: '',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -87,7 +87,7 @@ export const addressConfigAbi = [
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -97,12 +97,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -112,12 +112,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -127,12 +127,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -142,12 +142,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -157,12 +157,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -172,12 +172,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -187,12 +187,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -202,12 +202,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -217,12 +217,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -232,12 +232,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -247,12 +247,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -262,12 +262,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -277,12 +277,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -291,7 +291,7 @@ export const addressConfigAbi = [
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -301,12 +301,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -314,14 +314,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: 'newOwner',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'transferOwnership',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -331,12 +331,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -346,12 +346,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -361,12 +361,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -376,12 +376,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -391,12 +391,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -406,12 +406,12 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -419,14 +419,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setAllocator',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -434,14 +434,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setAllocatorStorage',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -449,14 +449,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setWithdraw',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -464,14 +464,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setWithdrawStorage',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -479,14 +479,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setMarketFactory',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -494,14 +494,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setMarketGroup',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -509,14 +509,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setPropertyFactory',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -524,14 +524,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setPropertyGroup',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -539,14 +539,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setMetricsFactory',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -554,14 +554,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setMetricsGroup',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -569,14 +569,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setPolicyFactory',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -584,14 +584,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setPolicyGroup',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -599,14 +599,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setPolicySet',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -614,14 +614,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setPolicy',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -629,14 +629,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setToken',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -644,14 +644,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setLockup',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -659,14 +659,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setLockupStorage',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -674,14 +674,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setVoteTimes',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -689,14 +689,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setVoteTimesStorage',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -704,14 +704,14 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setVoteCounter',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -719,13 +719,13 @@ export const addressConfigAbi = [
 			{
 				internalType: 'address',
 				name: '_addr',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setVoteCounterStorage',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
-	}
+		type: 'function',
+	},
 ] as AbiItem[]

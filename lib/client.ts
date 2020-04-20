@@ -38,7 +38,7 @@ export const createDevkitContract: CreateDevkitContract = (
 	lockupStorage: createLockupStorageContract(client),
 	withdraw: createWithdrawContract(client),
 	dev: createDevContract(client),
-	registry: createRegistryContract(client)
+	registry: createRegistryContract(client),
 })
 
 export const contractFactory: ContractFactory = (

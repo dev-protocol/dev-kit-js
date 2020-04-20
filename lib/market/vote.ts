@@ -1,6 +1,6 @@
 import { Contract } from 'web3-eth-contract/types'
 import Web3 from 'web3'
-import { getAccount } from '../utils/getAccount'
+import { execute } from '../utils/execute'
 
 export type CreateVoteCaller = (
 	contract: Contract,
@@ -11,7 +11,10 @@ export const createVoteCaller: CreateVoteCaller = (
 	contract: Contract,
 	client: Web3
 ): ((tokenNumber: string) => Promise<void>) => async (tokenNumber: string) =>
-	contract.methods
-		.vote(tokenNumber)
-		.send({ from: await getAccount(client) })
-		.then(() => {})
+	execute({
+		contract,
+		method: 'vote',
+		mutation: true,
+		client,
+		args: [tokenNumber],
+	})

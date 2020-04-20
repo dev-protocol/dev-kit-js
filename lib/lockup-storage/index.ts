@@ -22,11 +22,11 @@ export const createLockupStorageContract: CreateLockupStorageContract = (
 		lockupStorageAbi,
 		address,
 		{
-			...options
+			...options,
 		}
 	)
 
 	return {
-		getWithdrawalStatus: createGetWithdrawalStatusCaller(contractClient)
+		getWithdrawalStatus: createGetWithdrawalStatusCaller(contractClient),
 	}
 }

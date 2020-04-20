@@ -8,17 +8,17 @@ export const propertyFactoryAbi = [
 				indexed: true,
 				internalType: 'address',
 				name: '_from',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				indexed: false,
 				internalType: 'address',
 				name: '_property',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'Create',
-		type: 'event'
+		type: 'event',
 	},
 	{
 		anonymous: false,
@@ -27,17 +27,17 @@ export const propertyFactoryAbi = [
 				indexed: true,
 				internalType: 'address',
 				name: 'previousOwner',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				indexed: true,
 				internalType: 'address',
 				name: 'newOwner',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'OwnershipTransferred',
-		type: 'event'
+		type: 'event',
 	},
 	{
 		constant: false,
@@ -45,14 +45,14 @@ export const propertyFactoryAbi = [
 			{
 				internalType: 'address',
 				name: 'nextState',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'changeStateAddress',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -62,12 +62,12 @@ export const propertyFactoryAbi = [
 			{
 				internalType: 'bool',
 				name: '',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -77,12 +77,12 @@ export const propertyFactoryAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -91,7 +91,7 @@ export const propertyFactoryAbi = [
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -99,14 +99,14 @@ export const propertyFactoryAbi = [
 			{
 				internalType: 'address',
 				name: 'newOwner',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'transferOwnership',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -114,24 +114,24 @@ export const propertyFactoryAbi = [
 			{
 				internalType: 'string',
 				name: '_name',
-				type: 'string'
+				type: 'string',
 			},
 			{
 				internalType: 'string',
 				name: '_symbol',
-				type: 'string'
-			}
+				type: 'string',
+			},
 		],
 		name: 'createProperty',
 		outputs: [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
-	}
+		type: 'function',
+	},
 ] as AbiItem[]

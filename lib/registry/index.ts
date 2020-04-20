@@ -47,7 +47,7 @@ export const createRegistryContract: CreateRegistryContract = (
 		addressConfigAbi,
 		address,
 		{
-			...options
+			...options,
 		}
 	)
 
@@ -66,6 +66,6 @@ export const createRegistryContract: CreateRegistryContract = (
 		propertyGroup: createPropertyGroupCaller(contractClient),
 		token: createTokenCaller(contractClient),
 		withdraw: createWithdrawCaller(contractClient),
-		withdrawStorage: createWithdrawStorageCaller(contractClient)
+		withdrawStorage: createWithdrawStorageCaller(contractClient),
 	}
 }

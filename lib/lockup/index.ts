@@ -32,7 +32,7 @@ export const createLockupContract: CreateLockupContract = (client: Web3) => (
 	options?: CustomOptions
 ): LockupContract => {
 	const contractClient: Contract = new client.eth.Contract(lockupAbi, address, {
-		...options
+		...options,
 	})
 
 	return {
@@ -44,6 +44,6 @@ export const createLockupContract: CreateLockupContract = (client: Web3) => (
 		withdrawInterest: createWithdrawInterestCaller(contractClient, client),
 		calculateWithdrawableInterestAmount: createCalculateWithdrawableInterestAmountCaller(
 			contractClient
-		)
+		),
 	}
 }

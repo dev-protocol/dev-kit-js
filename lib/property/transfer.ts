@@ -1,6 +1,6 @@
 import { Contract } from 'web3-eth-contract/types'
 import Web3 from 'web3'
-import { getAccount } from '../utils/getAccount'
+import { execute } from '../utils/execute'
 
 export type CreateTransferCaller = (
 	contract: Contract,
@@ -11,7 +11,10 @@ export const createTransferCaller: CreateTransferCaller = (
 	contract: Contract,
 	client: Web3
 ) => async (to: string, value: string) =>
-	contract.methods
-		.transfer(to, value)
-		.send({ from: await getAccount(client) })
-		.then((result: boolean) => result)
+	execute({
+		contract,
+		method: 'transfer',
+		mutation: true,
+		client,
+		args: [to, value],
+	}).then(() => true)

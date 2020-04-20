@@ -1,4 +1,5 @@
 import { Contract } from 'web3-eth-contract/types'
+import { execute } from '../utils/execute'
 
 export type CreatePropertyGroupCaller = (
 	contract: Contract
@@ -6,8 +7,4 @@ export type CreatePropertyGroupCaller = (
 
 export const createPropertyGroupCaller: CreatePropertyGroupCaller = (
 	contract: Contract
-) => async () =>
-	contract.methods
-		.propertyGroup()
-		.call()
-		.then((result: string) => result)
+) => async () => execute({ contract, method: 'propertyGroup' })

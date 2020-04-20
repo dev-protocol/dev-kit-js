@@ -1,4 +1,5 @@
 import { Contract } from 'web3-eth-contract/types'
+import { execute } from '../utils/execute'
 
 export type CreateGetPropertyValueCaller = (
 	contract: Contract
@@ -7,7 +8,4 @@ export type CreateGetPropertyValueCaller = (
 export const createGetPropertyValueCaller: CreateGetPropertyValueCaller = (
 	contract: Contract
 ) => async (address: string) =>
-	contract.methods
-		.getPropertyValue(address)
-		.call()
-		.then((result: string) => result)
+	execute({ contract, method: 'getPropertyValue', args: [address] })

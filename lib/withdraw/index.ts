@@ -26,7 +26,7 @@ export const createWithdrawContract: CreateWithdrawContract = (
 		withdrawAbi,
 		address,
 		{
-			...options
+			...options,
 		}
 	)
 
@@ -35,6 +35,6 @@ export const createWithdrawContract: CreateWithdrawContract = (
 		getRewardsAmount: createGetRewardsAmountCaller(contractClient),
 		calculateWithdrawableAmount: createCalculateWithdrawableAmountCaller(
 			contractClient
-		)
+		),
 	}
 }

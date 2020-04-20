@@ -23,7 +23,7 @@ export const createAllocatorStorageContract: CreateAllocatorStorageContract = (
 		allocatorStorageAbi,
 		address,
 		{
-			...options
+			...options,
 		}
 	)
 
@@ -33,6 +33,6 @@ export const createAllocatorStorageContract: CreateAllocatorStorageContract = (
 		),
 		getLastAssetValueEachMetrics: createGetLastAssetValueEachMetricsCaller(
 			contractClient
-		)
+		),
 	}
 }

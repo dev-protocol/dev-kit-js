@@ -18,12 +18,12 @@ export const createAllocatorContract = (client: Web3) => (
 		allocatorAbi,
 		address,
 		{
-			...options
+			...options,
 		}
 	)
 
 	return {
-		allocate: createAllocateCaller(contractClient),
-		withdraw: createWithdrawCaller(contractClient, client)
+		allocate: createAllocateCaller(contractClient, client),
+		withdraw: createWithdrawCaller(contractClient, client),
 	}
 }

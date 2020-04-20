@@ -6,12 +6,12 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_config',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'constructor'
+		type: 'constructor',
 	},
 	{
 		anonymous: false,
@@ -20,17 +20,17 @@ export const lockupStorageAbi = ([
 				indexed: true,
 				internalType: 'address',
 				name: 'previousOwner',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				indexed: true,
 				internalType: 'address',
 				name: 'newOwner',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'OwnershipTransferred',
-		type: 'event'
+		type: 'event',
 	},
 	{
 		anonymous: false,
@@ -39,11 +39,11 @@ export const lockupStorageAbi = ([
 				indexed: false,
 				internalType: 'address',
 				name: 'account',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'Paused',
-		type: 'event'
+		type: 'event',
 	},
 	{
 		anonymous: false,
@@ -52,11 +52,11 @@ export const lockupStorageAbi = ([
 				indexed: true,
 				internalType: 'address',
 				name: 'account',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'PauserAdded',
-		type: 'event'
+		type: 'event',
 	},
 	{
 		anonymous: false,
@@ -65,11 +65,11 @@ export const lockupStorageAbi = ([
 				indexed: true,
 				internalType: 'address',
 				name: 'account',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'PauserRemoved',
-		type: 'event'
+		type: 'event',
 	},
 	{
 		anonymous: false,
@@ -78,11 +78,11 @@ export const lockupStorageAbi = ([
 				indexed: false,
 				internalType: 'address',
 				name: 'account',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'Unpaused',
-		type: 'event'
+		type: 'event',
 	},
 	{
 		constant: true,
@@ -92,12 +92,12 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address payable',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -105,14 +105,14 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: 'account',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'addPauser',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -120,14 +120,14 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: 'newOwner',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'changeOwner',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -137,12 +137,12 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -151,7 +151,7 @@ export const lockupStorageAbi = ([
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -161,12 +161,12 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -176,12 +176,12 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'bool',
 				name: '',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -189,20 +189,20 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: 'account',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'isPauser',
 		outputs: [
 			{
 				internalType: 'bool',
 				name: '',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -211,7 +211,7 @@ export const lockupStorageAbi = ([
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -221,12 +221,12 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -235,7 +235,7 @@ export const lockupStorageAbi = ([
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -245,12 +245,12 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'bool',
 				name: '',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -259,7 +259,7 @@ export const lockupStorageAbi = ([
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -268,7 +268,7 @@ export const lockupStorageAbi = ([
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -276,14 +276,14 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_storageAddress',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setStorage',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -291,14 +291,14 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: 'newOwner',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'transferOwnership',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -307,7 +307,7 @@ export const lockupStorageAbi = ([
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -315,20 +315,20 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'uint256',
 				name: '_value',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'setAllValue',
 		outputs: [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -338,12 +338,12 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -351,30 +351,30 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_property',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'address',
 				name: '_sender',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'uint256',
 				name: '_value',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'setValue',
 		outputs: [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -382,25 +382,25 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_property',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'address',
 				name: '_sender',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'getValue',
 		outputs: [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -408,25 +408,25 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_property',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'uint256',
 				name: '_value',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'setPropertyValue',
 		outputs: [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -434,20 +434,20 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_property',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'getPropertyValue',
 		outputs: [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -455,24 +455,24 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_property',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'address',
 				name: '_from',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'uint256',
 				name: '_value',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'setWithdrawalStatus',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -480,25 +480,25 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_property',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'address',
 				name: '_from',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'getWithdrawalStatus',
 		outputs: [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -506,25 +506,25 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_property',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'uint256',
 				name: '_value',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'setInterestPrice',
 		outputs: [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -532,20 +532,20 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_property',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'getInterestPrice',
 		outputs: [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -553,24 +553,24 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_property',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'address',
 				name: '_user',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'uint256',
 				name: '_value',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'setLastInterestPrice',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -578,25 +578,25 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_property',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'address',
 				name: '_user',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'getLastInterestPrice',
 		outputs: [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -604,24 +604,24 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_property',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'address',
 				name: '_user',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'uint256',
 				name: '_value',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'setPendingInterestWithdrawal',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -629,24 +629,24 @@ export const lockupStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_property',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'address',
 				name: '_user',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'getPendingInterestWithdrawal',
 		outputs: [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
-	}
+		type: 'function',
+	},
 ] as unknown) as AbiItem[]

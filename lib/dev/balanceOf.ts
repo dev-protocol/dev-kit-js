@@ -1,4 +1,5 @@
 import { Contract } from 'web3-eth-contract/types'
+import { execute } from '../utils/execute'
 
 export type CreateBalanceOfCaller = (
 	contract: Contract
@@ -7,7 +8,4 @@ export type CreateBalanceOfCaller = (
 export const createBalanceOfCaller: CreateBalanceOfCaller = (
 	contract: Contract
 ) => async (address: string) =>
-	contract.methods
-		.balanceOf(address)
-		.call()
-		.then((result: string) => result)
+	execute({ contract, method: 'balanceOf', args: [address] })

@@ -1,13 +1,20 @@
 import { Contract } from 'web3-eth-contract/types'
+import { execute } from '../utils/execute'
+import Web3 from 'web3'
 
 export type CreateAllocateCaller = (
-	contract: Contract
+	contract: Contract,
+	client: Web3
 ) => (address: string) => Promise<void>
 
 export const createAllocateCaller: CreateAllocateCaller = (
-	contract: Contract
+	contract: Contract,
+	client: Web3
 ) => async (address: string) =>
-	contract.methods
-		.allocate(address)
-		.send()
-		.then((result: void) => result)
+	execute({
+		contract,
+		method: 'allocate',
+		mutation: true,
+		client,
+		args: [address],
+	})

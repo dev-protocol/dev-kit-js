@@ -21,12 +21,12 @@ export const createDevContract: CreateDevContract = (client: Web3) => (
 	options?: CustomOptions
 ): DevContract => {
 	const contractClient: Contract = new client.eth.Contract(devAbi, address, {
-		...options
+		...options,
 	})
 
 	return {
 		balanceOf: createBalanceOfCaller(contractClient),
 		transfer: createTransferCaller(contractClient, client),
-		deposit: createDepositCaller(contractClient, client)
+		deposit: createDepositCaller(contractClient, client),
 	}
 }

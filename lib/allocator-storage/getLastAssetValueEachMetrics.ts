@@ -1,4 +1,5 @@
 import { Contract } from 'web3-eth-contract/types'
+import { execute } from '../utils/execute'
 
 export type CreateGetLastAssetValueEachMetricsCaller = (
 	contract: Contract
@@ -7,7 +8,8 @@ export type CreateGetLastAssetValueEachMetricsCaller = (
 export const createGetLastAssetValueEachMetricsCaller: CreateGetLastAssetValueEachMetricsCaller = (
 	contract: Contract
 ) => async (metricsAddress: string) =>
-	contract.methods
-		.getLastAssetValueEachMetrics(metricsAddress)
-		.call()
-		.then((result: string) => result)
+	execute({
+		contract,
+		method: 'getLastAssetValueEachMetrics',
+		args: [metricsAddress],
+	})

@@ -21,12 +21,12 @@ export const createPropertyContract: CreatePropertyContract = (
 		propertyAbi,
 		address,
 		{
-			...options
+			...options,
 		}
 	)
 
 	return {
 		owner: createOwnerCaller(contractClient),
-		transfer: createTransferCaller(contractClient, client)
+		transfer: createTransferCaller(contractClient, client),
 	}
 }

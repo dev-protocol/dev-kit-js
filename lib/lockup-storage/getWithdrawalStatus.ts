@@ -1,4 +1,5 @@
 import { Contract } from 'web3-eth-contract/types'
+import { execute } from '../utils/execute'
 
 export type CreateGetWithdrawalStatusCaller = (
 	contract: Contract
@@ -7,7 +8,8 @@ export type CreateGetWithdrawalStatusCaller = (
 export const createGetWithdrawalStatusCaller: CreateGetWithdrawalStatusCaller = (
 	contract: Contract
 ) => async (propertyAddress: string, accountAddress: string) =>
-	contract.methods
-		.getWithdrawalStatus(propertyAddress, accountAddress)
-		.call()
-		.then((result: string) => result)
+	execute({
+		contract,
+		method: 'getWithdrawalStatus',
+		args: [propertyAddress, accountAddress],
+	})

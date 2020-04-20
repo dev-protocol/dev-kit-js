@@ -8,17 +8,17 @@ export const allocatorAbi = [
 				indexed: true,
 				internalType: 'address',
 				name: 'previousOwner',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				indexed: true,
 				internalType: 'address',
 				name: 'newOwner',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'OwnershipTransferred',
-		type: 'event'
+		type: 'event',
 	},
 	{
 		constant: true,
@@ -28,12 +28,12 @@ export const allocatorAbi = [
 			{
 				internalType: 'address payable',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -41,24 +41,24 @@ export const allocatorAbi = [
 			{
 				internalType: 'address',
 				name: '_token',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'address',
 				name: '_from',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'address',
 				name: '_to',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'beforeBalanceChange',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -66,14 +66,14 @@ export const allocatorAbi = [
 			{
 				internalType: 'address',
 				name: 'nextState',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'changeStateAddress',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -83,12 +83,12 @@ export const allocatorAbi = [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -98,12 +98,12 @@ export const allocatorAbi = [
 			{
 				internalType: 'bool',
 				name: '',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -112,7 +112,7 @@ export const allocatorAbi = [
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -122,12 +122,12 @@ export const allocatorAbi = [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -137,12 +137,12 @@ export const allocatorAbi = [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -152,12 +152,12 @@ export const allocatorAbi = [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -167,12 +167,12 @@ export const allocatorAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -181,7 +181,7 @@ export const allocatorAbi = [
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -191,12 +191,12 @@ export const allocatorAbi = [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -204,14 +204,14 @@ export const allocatorAbi = [
 			{
 				internalType: 'address',
 				name: 'newOwner',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'transferOwnership',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -219,14 +219,14 @@ export const allocatorAbi = [
 			{
 				internalType: 'address',
 				name: '_token',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'withdraw',
 		outputs: [],
 		payable: true,
 		stateMutability: 'payable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -234,14 +234,14 @@ export const allocatorAbi = [
 			{
 				internalType: 'uint256',
 				name: '_sec',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'setSecondsPerBlock',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -249,14 +249,14 @@ export const allocatorAbi = [
 			{
 				internalType: 'uint256',
 				name: '_value',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'updateAllocateValue',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -264,14 +264,14 @@ export const allocatorAbi = [
 			{
 				internalType: 'address',
 				name: '_metrics',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'allocate',
 		outputs: [],
 		payable: true,
 		stateMutability: 'payable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -279,19 +279,19 @@ export const allocatorAbi = [
 			{
 				internalType: 'address',
 				name: '_metrics',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'uint256',
 				name: '_value',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'calculatedCallback',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -299,18 +299,18 @@ export const allocatorAbi = [
 			{
 				internalType: 'address',
 				name: '_property',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'uint256',
 				name: '_amount',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'investToProperty',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
-	}
+		type: 'function',
+	},
 ] as AbiItem[]

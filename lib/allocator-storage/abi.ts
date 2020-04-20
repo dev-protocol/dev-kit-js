@@ -6,12 +6,12 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_config',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'constructor'
+		type: 'constructor',
 	},
 	{
 		anonymous: false,
@@ -20,17 +20,17 @@ export const allocatorStorageAbi = ([
 				indexed: true,
 				internalType: 'address',
 				name: 'previousOwner',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				indexed: true,
 				internalType: 'address',
 				name: 'newOwner',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'OwnershipTransferred',
-		type: 'event'
+		type: 'event',
 	},
 	{
 		anonymous: false,
@@ -39,11 +39,11 @@ export const allocatorStorageAbi = ([
 				indexed: false,
 				internalType: 'address',
 				name: 'account',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'Paused',
-		type: 'event'
+		type: 'event',
 	},
 	{
 		anonymous: false,
@@ -52,11 +52,11 @@ export const allocatorStorageAbi = ([
 				indexed: true,
 				internalType: 'address',
 				name: 'account',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'PauserAdded',
-		type: 'event'
+		type: 'event',
 	},
 	{
 		anonymous: false,
@@ -65,11 +65,11 @@ export const allocatorStorageAbi = ([
 				indexed: true,
 				internalType: 'address',
 				name: 'account',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'PauserRemoved',
-		type: 'event'
+		type: 'event',
 	},
 	{
 		anonymous: false,
@@ -78,11 +78,11 @@ export const allocatorStorageAbi = ([
 				indexed: false,
 				internalType: 'address',
 				name: 'account',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'Unpaused',
-		type: 'event'
+		type: 'event',
 	},
 	{
 		constant: false,
@@ -90,14 +90,14 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: 'account',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'addPauser',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -105,14 +105,14 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: 'newOwner',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'changeOwner',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -122,12 +122,12 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -136,7 +136,7 @@ export const allocatorStorageAbi = ([
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -146,12 +146,12 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -161,12 +161,12 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'bool',
 				name: '',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -174,20 +174,20 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: 'account',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'isPauser',
 		outputs: [
 			{
 				internalType: 'bool',
 				name: '',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -197,12 +197,12 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -211,7 +211,7 @@ export const allocatorStorageAbi = ([
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -221,12 +221,12 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'bool',
 				name: '',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -235,7 +235,7 @@ export const allocatorStorageAbi = ([
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -244,7 +244,7 @@ export const allocatorStorageAbi = ([
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -252,14 +252,14 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_storageAddress',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'setStorage',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -267,14 +267,14 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: 'newOwner',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'transferOwnership',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -283,7 +283,7 @@ export const allocatorStorageAbi = ([
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -291,19 +291,19 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_metrics',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'uint256',
 				name: '_blocks',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'setLastBlockNumber',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -311,20 +311,20 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_metrics',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'getLastBlockNumber',
 		outputs: [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -332,14 +332,14 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'uint256',
 				name: '_blockNumber',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'setBaseBlockNumber',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -349,12 +349,12 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -362,19 +362,19 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_metrics',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'bool',
 				name: 'value',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		name: 'setPendingIncrement',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -382,20 +382,20 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_metrics',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'getPendingIncrement',
 		outputs: [
 			{
 				internalType: 'bool',
 				name: '',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -403,19 +403,19 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_metrics',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'uint256',
 				name: 'value',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'setLastAssetValueEachMetrics',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -423,20 +423,20 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_metrics',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'getLastAssetValueEachMetrics',
 		outputs: [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -444,19 +444,19 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_market',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'uint256',
 				name: 'value',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'setLastAssetValueEachMarketPerBlock',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -464,20 +464,20 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_market',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'getLastAssetValueEachMarketPerBlock',
 		outputs: [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -485,19 +485,19 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_metrics',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'uint256',
 				name: 'value',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'setPendingLastBlockNumber',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -505,19 +505,19 @@ export const allocatorStorageAbi = ([
 			{
 				internalType: 'address',
 				name: '_metrics',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'getPendingLastBlockNumber',
 		outputs: [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
-	}
+		type: 'function',
+	},
 ] as unknown) as AbiItem[]

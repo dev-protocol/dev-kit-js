@@ -1,4 +1,5 @@
 import { Contract } from 'web3-eth-contract/types'
+import { execute } from '../utils/execute'
 
 export type CreateMarketGroupCaller = (
 	contract: Contract
@@ -6,8 +7,4 @@ export type CreateMarketGroupCaller = (
 
 export const createMarketGroupCaller: CreateMarketGroupCaller = (
 	contract: Contract
-) => async () =>
-	contract.methods
-		.marketGroup()
-		.call()
-		.then((result: string) => result)
+) => async () => execute({ contract, method: 'marketGroup' })

@@ -30,7 +30,7 @@ describe('client.ts', () => {
 				lockupStorage: createLockupStorageContract(client),
 				withdraw: createWithdrawContract(client),
 				dev: createDevContract(client),
-				registry: createRegistryContract(client)
+				registry: createRegistryContract(client),
 			}
 
 			const result = createDevkitContract(client)

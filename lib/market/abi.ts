@@ -6,17 +6,17 @@ export const marketAbi = [
 			{
 				internalType: 'address',
 				name: '_behavior',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'bool',
 				name: '_enabled',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'constructor'
+		type: 'constructor',
 	},
 	{
 		anonymous: false,
@@ -25,17 +25,17 @@ export const marketAbi = [
 				indexed: true,
 				internalType: 'address',
 				name: 'previousOwner',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				indexed: true,
 				internalType: 'address',
 				name: 'newOwner',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'OwnershipTransferred',
-		type: 'event'
+		type: 'event',
 	},
 	{
 		constant: true,
@@ -45,12 +45,12 @@ export const marketAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -58,14 +58,14 @@ export const marketAbi = [
 			{
 				internalType: 'address',
 				name: 'nextState',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'changeStateAddress',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -75,12 +75,12 @@ export const marketAbi = [
 			{
 				internalType: 'bool',
 				name: '',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -90,12 +90,12 @@ export const marketAbi = [
 			{
 				internalType: 'bool',
 				name: '',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -105,12 +105,12 @@ export const marketAbi = [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -120,12 +120,12 @@ export const marketAbi = [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -134,7 +134,7 @@ export const marketAbi = [
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -144,12 +144,12 @@ export const marketAbi = [
 			{
 				internalType: 'uint256',
 				name: '',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -157,14 +157,14 @@ export const marketAbi = [
 			{
 				internalType: 'address',
 				name: 'newOwner',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'transferOwnership',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: true,
@@ -174,12 +174,12 @@ export const marketAbi = [
 			{
 				internalType: 'string',
 				name: '',
-				type: 'string'
-			}
+				type: 'string',
+			},
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -187,45 +187,45 @@ export const marketAbi = [
 			{
 				internalType: 'address',
 				name: '_prop',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'string',
 				name: '_args1',
-				type: 'string'
+				type: 'string',
 			},
 			{
 				internalType: 'string',
 				name: '_args2',
-				type: 'string'
+				type: 'string',
 			},
 			{
 				internalType: 'string',
 				name: '_args3',
-				type: 'string'
+				type: 'string',
 			},
 			{
 				internalType: 'string',
 				name: '_args4',
-				type: 'string'
+				type: 'string',
 			},
 			{
 				internalType: 'string',
 				name: '_args5',
-				type: 'string'
-			}
+				type: 'string',
+			},
 		],
 		name: 'authenticate',
 		outputs: [
 			{
 				internalType: 'bool',
 				name: '',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -233,30 +233,30 @@ export const marketAbi = [
 			{
 				internalType: 'address',
 				name: '_metrics',
-				type: 'address'
+				type: 'address',
 			},
 			{
 				internalType: 'uint256',
 				name: '_start',
-				type: 'uint256'
+				type: 'uint256',
 			},
 			{
 				internalType: 'uint256',
 				name: '_end',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'calculate',
 		outputs: [
 			{
 				internalType: 'bool',
 				name: '',
-				type: 'bool'
-			}
+				type: 'bool',
+			},
 		],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -264,14 +264,14 @@ export const marketAbi = [
 			{
 				internalType: 'uint256',
 				name: '_tokenNumber',
-				type: 'uint256'
-			}
+				type: 'uint256',
+			},
 		],
 		name: 'vote',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
+		type: 'function',
 	},
 	{
 		constant: false,
@@ -279,19 +279,19 @@ export const marketAbi = [
 			{
 				internalType: 'address',
 				name: '_prop',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		name: 'authenticatedCallback',
 		outputs: [
 			{
 				internalType: 'address',
 				name: '',
-				type: 'address'
-			}
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function'
-	}
+		type: 'function',
+	},
 ] as AbiItem[]

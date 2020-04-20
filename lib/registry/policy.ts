@@ -1,11 +1,8 @@
 import { Contract } from 'web3-eth-contract/types'
+import { execute } from '../utils/execute'
 
 export type CreatePolicyCaller = (contract: Contract) => () => Promise<string>
 
 export const createPolicyCaller: CreatePolicyCaller = (
 	contract: Contract
-) => async () =>
-	contract.methods
-		.policy()
-		.call()
-		.then((result: string) => result)
+) => async () => execute({ contract, method: 'policy' })

@@ -1,6 +1,7 @@
 import { Contract } from 'web3-eth-contract/types'
 import Web3 from 'web3'
 import { getAccount } from '../utils/getAccount'
+import { execute } from '../utils/execute'
 
 export type CreateWithdrawCaller = (
 	contract: Contract,
@@ -10,8 +11,11 @@ export type CreateWithdrawCaller = (
 export const createWithdrawCaller: CreateWithdrawCaller = (
 	contract: Contract,
 	client: Web3
-) => async propertyAddress =>
-	contract.methods
-		.withdraw(propertyAddress)
-		.send({ from: await getAccount(client) })
-		.then(() => true)
+) => async (propertyAddress) =>
+	execute({
+		contract,
+		method: 'withdraw',
+		mutation: true,
+		client,
+		args: [propertyAddress],
+	}).then(() => true)

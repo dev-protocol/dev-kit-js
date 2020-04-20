@@ -1,4 +1,5 @@
 import { Contract } from 'web3-eth-contract/types'
+import { execute } from '../utils/execute'
 
 export type CreateGetRewardsAmountCaller = (
 	contract: Contract
@@ -7,7 +8,4 @@ export type CreateGetRewardsAmountCaller = (
 export const createGetRewardsAmountCaller: CreateGetRewardsAmountCaller = (
 	contract: Contract
 ) => async (address: string) =>
-	contract.methods
-		.getRewardsAmount(address)
-		.call()
-		.then((result: string) => result)
+	execute({ contract, method: 'getRewardsAmount', args: [address] })

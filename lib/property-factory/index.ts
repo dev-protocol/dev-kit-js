@@ -19,11 +19,11 @@ export const createPropertyFactoryContract: CreatePropertyFactoryContract = (
 		propertyFactoryAbi,
 		address,
 		{
-			...options
+			...options,
 		}
 	)
 
 	return {
-		createProperty: createCreatePropertyCaller(contractClient, client)
+		createProperty: createCreatePropertyCaller(contractClient, client),
 	}
 }

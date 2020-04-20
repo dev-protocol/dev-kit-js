@@ -1,4 +1,5 @@
 import { Contract } from 'web3-eth-contract/types'
+import { execute } from '../utils/execute'
 
 export type CreatePropertyFactoryCaller = (
 	contract: Contract
@@ -6,8 +7,4 @@ export type CreatePropertyFactoryCaller = (
 
 export const createPropertyFactoryCaller: CreatePropertyFactoryCaller = (
 	contract: Contract
-) => async () =>
-	contract.methods
-		.propertyFactory()
-		.call()
-		.then((result: string) => result)
+) => async () => execute({ contract, method: 'propertyFactory' })

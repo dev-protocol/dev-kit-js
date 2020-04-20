@@ -1,4 +1,5 @@
 import { Contract } from 'web3-eth-contract/types'
+import { execute } from '../utils/execute'
 
 export type CreateAllocatorCaller = (
 	contract: Contract
@@ -6,8 +7,4 @@ export type CreateAllocatorCaller = (
 
 export const createAllocatorCaller: CreateAllocatorCaller = (
 	contract: Contract
-) => async () =>
-	contract.methods
-		.allocator()
-		.call()
-		.then((result: string) => result)
+) => async () => execute({ contract, method: 'allocator' })

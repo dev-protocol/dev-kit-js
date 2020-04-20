@@ -1,4 +1,5 @@
 import { Contract } from 'web3-eth-contract/types'
+import { execute } from '../utils/execute'
 
 export type CreateCalculateWithdrawableInterestAmountCaller = (
 	contract: Contract
@@ -7,7 +8,8 @@ export type CreateCalculateWithdrawableInterestAmountCaller = (
 export const createCalculateWithdrawableInterestAmountCaller: CreateCalculateWithdrawableInterestAmountCaller = (
 	contract: Contract
 ) => async (propertyAddress: string, account: string) =>
-	contract.methods
-		.calculateWithdrawableInterestAmount(propertyAddress, account)
-		.call()
-		.then((result: string) => result)
+	execute({
+		contract,
+		method: 'calculateWithdrawableInterestAmount',
+		args: [propertyAddress, account],
+	})

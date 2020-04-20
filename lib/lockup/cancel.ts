@@ -1,6 +1,6 @@
 import { Contract } from 'web3-eth-contract/types'
 import Web3 from 'web3'
-import { getAccount } from '../utils/getAccount'
+import { execute } from '../utils/execute'
 
 export type CreateCancelCaller = (
 	contract: Contract,
@@ -11,7 +11,10 @@ export const createCancelCaller: CreateCancelCaller = (
 	contract: Contract,
 	client: Web3
 ) => async (propertyAddress: string) =>
-	contract.methods
-		.cancel(propertyAddress)
-		.send({ from: await getAccount(client) })
-		.then(() => true)
+	execute({
+		contract,
+		method: 'cancel',
+		mutation: true,
+		client,
+		args: [propertyAddress],
+	}).then(() => true)
