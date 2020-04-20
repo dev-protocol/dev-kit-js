@@ -31,9 +31,9 @@
 	},
 	"overrides": [
 		{
-			"files":["**/*.spec.ts"],
+			"files": ["**/*.spec.ts"],
 			"rules": {
-				"@typescript-eslint/no-unsafe-return":"off"
+				"@typescript-eslint/no-unsafe-return": "off"
 			}
 		}
 	]
