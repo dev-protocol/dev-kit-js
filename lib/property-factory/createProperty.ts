@@ -5,16 +5,16 @@ import { execute } from '../utils/execute'
 export type CreateCreatePropertyCaller = (
 	contract: Contract,
 	client: Web3
-) => (name: string, symbol: string) => Promise<string>
+) => (name: string, symbol: string, author: string) => Promise<string>
 
 export const createCreatePropertyCaller: CreateCreatePropertyCaller = (
 	contract: Contract,
 	client: Web3
-) => async (name: string, symbol: string) =>
+) => async (name: string, symbol: string, author: string) =>
 	execute<string>({
 		contract,
 		method: 'createProperty',
-		args: [name, symbol],
+		args: [name, symbol, author],
 		mutation: true,
 		client,
 	})

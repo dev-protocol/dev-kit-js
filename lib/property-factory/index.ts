@@ -5,7 +5,11 @@ import { CustomOptions } from '../option'
 import { createCreatePropertyCaller } from './createProperty'
 
 export interface PropertyFactoryContract {
-	createProperty: (name: string, symbol: string) => Promise<string>
+	createProperty: (
+		name: string,
+		symbol: string,
+		author: string
+	) => Promise<string>
 }
 
 export type CreatePropertyFactoryContract = (
