@@ -1,8 +1,8 @@
 import { Contract } from 'web3-eth-contract/types'
+import { Event } from './web3-txs'
 import { watchEvent } from './watchEvent'
-import { Event } from './txPromisify'
 
-const mock = (err: Readonly<Error> | null, event: Event) =>
+const mock = (err: Readonly<Error> | null, event: Event): Contract =>
 	(({
 		events: {
 			allEvents(

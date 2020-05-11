@@ -8,9 +8,7 @@ export const txPromisify = async (tx: SendTx): Promise<TxReceipt> =>
 			}
 
 			reject(new Error('An error occurred in the transaction.'))
+		}).on('error', (err) => {
+			reject(err)
 		})
-			.on('error', (err) => {
-				reject(err)
-			})
-			.catch((err) => err)
 	})

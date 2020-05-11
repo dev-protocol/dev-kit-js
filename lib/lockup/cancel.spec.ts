@@ -1,5 +1,5 @@
 import { createCancelCaller } from './cancel'
-import { stubbedWeb3 } from '../utils/for-test'
+import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
 
 describe('cancel.spec.ts', () => {
 	describe('createCancelCaller', () => {
@@ -10,9 +10,7 @@ describe('cancel.spec.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					cancel: (property: string) => ({
-						send: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
+						send: jest.fn().mockImplementation(() => stubbedSendTx()),
 					}),
 				},
 			}
@@ -28,15 +26,13 @@ describe('cancel.spec.ts', () => {
 		})
 
 		it('call failure', async () => {
-			const error = 'error'
-
 			const lockupContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					cancel: (property: string) => ({
 						send: jest
 							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
+							.mockImplementation(() => stubbedSendTx(undefined, true)),
 					}),
 				},
 			}
@@ -48,7 +44,7 @@ describe('cancel.spec.ts', () => {
 				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5'
 			).catch((err) => err)
 
-			expect(result).toEqual(error)
+			expect(result).toBeInstanceOf(Error)
 		})
 	})
 })

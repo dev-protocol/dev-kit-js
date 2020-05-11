@@ -1,5 +1,5 @@
 import { createTransferCaller } from './transfer'
-import { stubbedWeb3 } from '../utils/for-test'
+import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
 
 describe('transfer.spec.ts', () => {
 	describe('createTransferCaller', () => {
@@ -12,9 +12,7 @@ describe('transfer.spec.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					transfer: (to: string, value: number) => ({
-						send: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(success)),
+						send: jest.fn().mockImplementation(() => stubbedSendTx()),
 					}),
 				},
 			}
@@ -30,7 +28,6 @@ describe('transfer.spec.ts', () => {
 		})
 
 		it('call failure', async () => {
-			const error = 'error'
 			const to = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 			const value = '12345'
 
@@ -40,7 +37,7 @@ describe('transfer.spec.ts', () => {
 					transfer: (to: string, value: number) => ({
 						send: jest
 							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
+							.mockImplementation(() => stubbedSendTx(undefined, true)),
 					}),
 				},
 			}
@@ -50,7 +47,7 @@ describe('transfer.spec.ts', () => {
 
 			const result = await caller(to, value).catch((err) => err)
 
-			expect(result).toEqual(error)
+			expect(result).toBeInstanceOf(Error)
 		})
 	})
 })

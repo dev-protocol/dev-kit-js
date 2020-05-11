@@ -1,5 +1,6 @@
 import { createAllocateCaller } from './allocate'
-import { stubbedWeb3 } from '../utils/for-test'
+import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
+import { txPromisify } from '../utils/txPromisify'
 
 describe('allocate.ts', () => {
 	describe('createAllocateCaller', () => {
@@ -10,7 +11,7 @@ describe('allocate.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					allocate: (address: string) => ({
-						send: jest.fn().mockImplementation(async () => Promise.resolve()),
+						send: jest.fn().mockImplementation(() => stubbedSendTx()),
 					}),
 				},
 			}
@@ -20,12 +21,10 @@ describe('allocate.ts', () => {
 
 			const result = await caller(address)
 
-			expect(result).toEqual(undefined)
+			expect(result).toEqual(await txPromisify(stubbedSendTx()))
 		})
 
 		it('call failure', async () => {
-			const error = 'error'
-
 			const address = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 
 			const allocatorContract = {
@@ -34,7 +33,7 @@ describe('allocate.ts', () => {
 					allocate: (address: string) => ({
 						send: jest
 							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
+							.mockImplementation(() => stubbedSendTx(undefined, true)),
 					}),
 				},
 			}
@@ -44,7 +43,7 @@ describe('allocate.ts', () => {
 
 			const result = await caller(address).catch((err) => err)
 
-			expect(result).toEqual(error)
+			expect(result).toBeInstanceOf(Error)
 		})
 	})
 })

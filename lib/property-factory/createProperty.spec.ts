@@ -1,5 +1,5 @@
 import { createCreatePropertyCaller } from './createProperty'
-import { stubbedWeb3 } from '../utils/for-test'
+import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
 
 describe('createProperty.spec.ts', () => {
 	describe('createCreatePropertyCaller', () => {
@@ -15,7 +15,9 @@ describe('createProperty.spec.ts', () => {
 					createProperty: (name: string, symbol: string, author: string) => ({
 						send: jest
 							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
+							.mockImplementation(() =>
+								stubbedSendTx({ name: 'Create', property: '_property', value })
+							),
 					}),
 				},
 			}
@@ -34,7 +36,6 @@ describe('createProperty.spec.ts', () => {
 		})
 
 		it('call failure', async () => {
-			const error = 'error'
 			const name = 'hoge'
 			const symbol = 'symbol'
 			const author = '0xD3E15c84c1eb38B530EC628145B73c90308645a2'
@@ -45,12 +46,15 @@ describe('createProperty.spec.ts', () => {
 					createProperty: (name: string, symbol: string, author: string) => ({
 						send: jest
 							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
+							.mockImplementation(() =>
+								stubbedSendTx(
+									{ name: 'Create', property: '_property', value: '' },
+									true
+								)
+							),
 					}),
 				},
 			}
-
-			const expected = error
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createCreatePropertyCaller(
@@ -60,7 +64,7 @@ describe('createProperty.spec.ts', () => {
 
 			const result = await caller(name, symbol, author).catch((err) => err)
 
-			expect(result).toEqual(expected)
+			expect(result).toBeInstanceOf(Error)
 		})
 	})
 })

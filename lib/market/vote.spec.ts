@@ -1,5 +1,6 @@
 import { createVoteCaller } from './vote'
-import { stubbedWeb3 } from '../utils/for-test'
+import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
+import { txPromisify } from '../utils/txPromisify'
 
 describe('vote.ts', () => {
 	describe('createVoteCaller', () => {
@@ -10,7 +11,7 @@ describe('vote.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					vote: (tokenNumber: string) => ({
-						send: jest.fn().mockImplementation(async () => Promise.resolve()),
+						send: jest.fn().mockImplementation(() => stubbedSendTx()),
 					}),
 				},
 			}
@@ -20,12 +21,10 @@ describe('vote.ts', () => {
 
 			const result = await caller(tokenNumber)
 
-			expect(result).toEqual(undefined)
+			expect(result).toEqual(await txPromisify(stubbedSendTx()))
 		})
 
 		it('call failure', async () => {
-			const error = 'error'
-
 			const tokenNumber = '415015037515107510571371750157109'
 
 			const marketContract = {
@@ -34,7 +33,7 @@ describe('vote.ts', () => {
 					vote: (tokenNumber: string) => ({
 						send: jest
 							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
+							.mockImplementation(() => stubbedSendTx(undefined, true)),
 					}),
 				},
 			}
@@ -44,7 +43,7 @@ describe('vote.ts', () => {
 
 			const result = await caller(tokenNumber).catch((err) => err)
 
-			expect(result).toEqual(error)
+			expect(result).toBeInstanceOf(Error)
 		})
 	})
 })
