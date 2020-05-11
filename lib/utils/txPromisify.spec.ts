@@ -1,35 +1,38 @@
-import { txPromisify, SendTx } from './txPromisify'
+import { SendTx } from './web3-txs'
+import { txPromisify } from './txPromisify'
 
+// eslint-disable-next-line @typescript-eslint/promise-function-async
 const mock = (
 	confirmationEvent: string,
 	reject = false,
 	rejectOnConfirmation = false
-): SendTx => ({
-	on(event, cb: (...args: any[]) => void) {
-		if (event === 'confirmation') {
-			setTimeout(() => {
-				if (rejectOnConfirmation) {
-					cb(0, {
-						status: false,
-					})
-				} else {
-					cb(0, {
-						status: true,
-						events: { [confirmationEvent]: { event: confirmationEvent } },
-					})
-				}
-			}, 100)
-		}
+): SendTx =>
+	(({
+		on(event: string, cb: (...args: any[]) => void) {
+			if (event === 'confirmation') {
+				setTimeout(() => {
+					if (rejectOnConfirmation) {
+						cb(0, {
+							status: false,
+						})
+					} else {
+						cb(0, {
+							status: true,
+							events: { [confirmationEvent]: { event: confirmationEvent } },
+						})
+					}
+				}, 100)
+			}
 
-		if (event === 'error' && reject) {
-			setTimeout(() => {
-				cb(new Error('Transaction error'))
-			}, 90)
-		}
+			if (event === 'error' && reject) {
+				setTimeout(() => {
+					cb(new Error('Transaction error'))
+				}, 90)
+			}
 
-		return this
-	},
-})
+			return this
+		},
+	} as unknown) as SendTx)
 
 describe('txPromisify.ts', () => {
 	describe('txPromisify', () => {

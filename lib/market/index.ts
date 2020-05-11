@@ -5,10 +5,11 @@ import { CustomOptions } from '../option'
 import { createSchemaCaller } from './schema'
 import { createVoteCaller } from './vote'
 import { createAuthenticateCaller } from './authenticate'
+import { TxReceipt } from '../utils/web3-txs'
 
 export interface CreateMarketContract {
 	schema: () => Promise<string[]>
-	vote: (tokenNumber: string) => Promise<void>
+	vote: (tokenNumber: string) => Promise<TxReceipt>
 	authenticate: (address: string, args: string[]) => Promise<string>
 }
 

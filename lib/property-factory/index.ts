@@ -3,13 +3,14 @@ import { Contract } from 'web3-eth-contract/types'
 import { propertyFactoryAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createCreatePropertyCaller } from './createProperty'
+import { TxReceipt } from '../utils/web3-txs'
 
 export interface PropertyFactoryContract {
 	createProperty: (
 		name: string,
 		symbol: string,
 		author: string
-	) => Promise<string>
+	) => Promise<TxReceipt>
 }
 
 export type CreatePropertyFactoryContract = (

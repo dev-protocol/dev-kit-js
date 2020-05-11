@@ -4,10 +4,11 @@ import { allocatorAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createAllocateCaller } from './allocate'
 import { createWithdrawCaller } from './withdraw'
+import { TxReceipt } from '../utils/web3-txs'
 
 export interface CreateAllocatorContract {
-	allocate: (address: string) => Promise<void>
-	withdraw: (address: string) => Promise<void>
+	allocate: (address: string) => Promise<TxReceipt>
+	withdraw: (address: string) => Promise<TxReceipt>
 }
 
 export const createAllocatorContract = (client: Web3) => (

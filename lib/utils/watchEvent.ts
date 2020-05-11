@@ -1,5 +1,5 @@
 import { Contract } from 'web3-eth-contract/types'
-import { Event } from './txPromisify'
+import { Event } from './web3-txs'
 
 export interface WatchEventOptions<T> {
 	readonly contract: Contract
