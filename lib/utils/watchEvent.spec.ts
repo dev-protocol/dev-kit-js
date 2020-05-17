@@ -24,17 +24,23 @@ describe('watchEvent.ts', () => {
 						MyParam: 1,
 					},
 				} as unknown) as Event),
-				event: 'test',
-				handler: (e) => e.returnValues.MyParam,
+				resolver: (resolve, e) =>
+					e.event === 'test' && e.returnValues.MyParam === 1
+						? resolve()
+						: undefined,
 			})
-			expect(res).toBe(1)
+			expect(res).toEqual({
+				event: 'test',
+				returnValues: {
+					MyParam: 1,
+				},
+			})
 		})
 
 		it('Throw an error when that occurred an error on passed contract', async () => {
 			const res = await watchEvent({
 				contract: mock(new Error('Test'), ({} as unknown) as Event),
-				event: 'test',
-				handler: (e) => e,
+				resolver: () => undefined,
 			}).catch((err: Error) => err)
 			expect((res as Error).message).toBe('Test')
 			expect(res).toBeInstanceOf(Error)

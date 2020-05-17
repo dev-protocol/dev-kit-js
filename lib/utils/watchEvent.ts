@@ -1,17 +1,15 @@
 import { Contract } from 'web3-eth-contract/types'
 import { Event } from './web3-txs'
 
-export interface WatchEventOptions<T> {
+export interface WatchEventOptions {
 	readonly contract: Contract
-	readonly event: string
-	readonly handler: (e: Event) => T
+	readonly resolver: (resolve: () => void, e: Event) => void
 }
 
-export const watchEvent = async <T>({
+export const watchEvent = async ({
 	contract,
-	event,
-	handler,
-}: WatchEventOptions<T>): Promise<T> =>
+	resolver,
+}: WatchEventOptions): Promise<Event> =>
 	new Promise((resolve, reject) => {
 		const { events } = contract
 		events.allEvents(
@@ -21,9 +19,7 @@ export const watchEvent = async <T>({
 					reject(err)
 				}
 
-				if (e.event === event) {
-					resolve(handler(e))
-				}
+				resolver(() => resolve(e), e)
 			}
 		)
 	})

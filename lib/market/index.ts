@@ -10,7 +10,13 @@ import { TxReceipt } from '../utils/web3-txs'
 export interface CreateMarketContract {
 	schema: () => Promise<string[]>
 	vote: (tokenNumber: string) => Promise<TxReceipt>
-	authenticate: (address: string, args: string[]) => Promise<string>
+	authenticate: (
+		address: string,
+		args: string[],
+		options: {
+			readonly metricsFactory: string
+		}
+	) => Promise<string>
 }
 
 export const createMarketContract = (client: Web3) => (
