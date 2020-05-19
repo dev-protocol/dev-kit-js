@@ -34,26 +34,28 @@ export const createAuthenticateCaller: CreateAuthenticateCaller = (
 	propertyAddress: string,
 	args: string[],
 	{ metricsFactory }: WaitForEventOptions
-): Promise<string> => {
-	execute({
-		contract,
-		method: 'authenticate',
-		mutation: true,
-		client,
-		args: [propertyAddress, ...args],
-	}).catch((err) => err)
-
-	return watchEvent({
-		contract: new client.eth.Contract(metricsFactoryAbi, metricsFactory),
-		resolver: async (resolve, e) => {
-			const metricsAddress =
-				e.event === 'Create' ? (e.returnValues._metrics as string) : undefined
-			if (metricsAddress) {
-				const property = await getMetricsProperty(metricsAddress, client)
-				if (property === propertyAddress) {
-					resolve()
+): Promise<string> =>
+	new Promise((resolve, reject) => {
+		execute({
+			contract,
+			method: 'authenticate',
+			mutation: true,
+			client,
+			args: [propertyAddress, ...args],
+		}).catch((err) => reject(err))
+		watchEvent({
+			contract: new client.eth.Contract(metricsFactoryAbi, metricsFactory),
+			resolver: async (_resolve, e) => {
+				const metricsAddress =
+					e.event === 'Create' ? (e.returnValues._metrics as string) : undefined
+				if (metricsAddress) {
+					const property = await getMetricsProperty(metricsAddress, client)
+					if (property === propertyAddress) {
+						_resolve()
+					}
 				}
-			}
-		},
-	}).then((res) => res.returnValues._metrics as string)
-}
+			},
+		})
+			.then((res) => resolve(res.returnValues._metrics as string))
+			.catch((err) => reject(err))
+	})

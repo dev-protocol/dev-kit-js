@@ -1,79 +1,149 @@
-// eslint-disable @typescript-eslint/no-explicit-any
+/* eslint-disable @typescript-eslint/promise-function-async */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { createAuthenticateCaller } from './authenticate'
 import { stubbedWeb3 } from '../utils/for-test'
+import { Event } from '../utils/web3-txs'
+import Web3 from 'web3'
+import { marketAbi } from './abi'
 
 describe('authenticate.ts', () => {
 	describe('createAuthenticateCaller', () => {
-		it.skip('call success', async () => {
+		it('call success', async () => {
 			const value = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 
-			const address = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
+			const propertyAddress = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 			const args = ['aaa', 'bbbb', 'ccccc']
 
-			const callbackMock = jest.fn((opts: object, cb) =>
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
-				cb(null, { address: value })
-			)
+			const client = ({
+				eth: {
+					...{
+						Contract: class {
+							public abi: any
+							public address: string
+							public methods: any
+							public events = {
+								allEvents(
+									opts: any,
+									callback: (err: Error | null, e: Event) => void
+								) {
+									setTimeout(() => {
+										callback(null, ({
+											event: 'Create',
+											returnValues: { _metrics: value },
+										} as unknown) as Event)
+									}, 800)
+								},
+							}
 
-			const marketContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					authenticate: (address: string, args: string[]) => ({
-						send: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(true)),
-					}),
+							constructor(abi: string, address: string) {
+								this.abi = abi
+								this.address = address
+
+								if (this.abi.some(({ name = '' }) => name === 'authenticate')) {
+									// Market Contract
+									this.methods = {
+										authenticate: (...args: any[]) => ({
+											send: async () => {
+												// eslint-disable-next-line no-extend-native
+												;(Promise.prototype as any).on = function () {
+													return this
+												}
+
+												return new Promise(() => true)
+											},
+										}),
+									}
+								} else {
+									// Metrics Contract
+									this.methods = {
+										property: (...args: any[]) => ({
+											call: async () => Promise.resolve(propertyAddress),
+										}),
+									}
+								}
+							}
+						},
+					},
+					...stubbedWeb3.eth,
 				},
-				events: {
-					authenticatedCallback: callbackMock,
-				},
-			}
+			} as unknown) as Web3
 
 			const expected = value
 
 			const caller = createAuthenticateCaller(
-				marketContract as any,
-				stubbedWeb3
+				new client.eth.Contract(marketAbi, '0x...'),
+				client
 			)
 
-			const result = await caller(address, args, { metricsFactory: '0x' })
+			const result = await caller(propertyAddress, args, {
+				metricsFactory: '0x...',
+			})
 
 			expect(result).toEqual(expected)
 		})
 
-		it.skip('method call failure', async () => {
+		it('method call failure', async () => {
 			const error = 'error'
 
-			const value = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
-			const address = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
+			const propertyAddress = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 			const args = ['aaa', 'bbbb', 'ccccc']
 
-			const callbackMock = jest.fn((opts: object, cb) =>
-				// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
-				cb(null, { address: value })
-			)
+			const client = ({
+				eth: {
+					...{
+						Contract: class {
+							public abi: any
+							public address: string
+							public methods: any
+							public events = {
+								allEvents() {
+									// Nothing
+								},
+							}
 
-			const marketContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					authenticate: (address: string, args: string[]) => ({
-						send: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
+							constructor(abi: string, address: string) {
+								this.abi = abi
+								this.address = address
+
+								if (this.abi.some(({ name = '' }) => name === 'authenticate')) {
+									// Market Contract
+									this.methods = {
+										authenticate: (...args: any[]) => ({
+											send: async () => {
+												// eslint-disable-next-line no-extend-native
+												;(Promise.prototype as any).on = function () {
+													return this
+												}
+
+												return Promise.reject(error)
+											},
+										}),
+									}
+								} else {
+									// Metrics Contract
+									this.methods = {
+										property: (...args: any[]) => ({
+											call: async () => Promise.resolve(propertyAddress),
+										}),
+									}
+								}
+							}
+						},
+					},
+					...stubbedWeb3.eth,
 				},
-				events: {
-					authenticatedCallback: callbackMock,
-				},
-			}
+			} as unknown) as Web3
 
 			const caller = createAuthenticateCaller(
-				marketContract as any,
-				stubbedWeb3
+				new client.eth.Contract(marketAbi, '0x...'),
+				client
 			)
 
-			const result = await caller(address, args, {
-				metricsFactory: '0x',
+			const result = await caller(propertyAddress, args, {
+				metricsFactory: '0x..',
 			}).catch((err) => err)
 
 			expect(result).toEqual(error)
