@@ -54,4 +54,7 @@ export const stubbedSendTx = (
 
 			return this
 		},
+		catch(cb: (err: Error) => void) {
+			// Nothing
+		},
 	} as unknown) as SendTx)
