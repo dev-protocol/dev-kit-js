@@ -6,18 +6,19 @@ import { TxReceipt } from '../utils/web3-txs'
 export type CreateVoteCaller = (
 	contract: Contract,
 	client: Web3
-) => (tokenNumber: string) => Promise<TxReceipt>
+) => (propertyAddress: string, agree: boolean) => Promise<TxReceipt>
 
 export const createVoteCaller: CreateVoteCaller = (
 	contract: Contract,
 	client: Web3
-): ((tokenNumber: string) => Promise<TxReceipt>) => async (
-	tokenNumber: string
+): ((propertyAddress: string, agree: boolean) => Promise<TxReceipt>) => async (
+	propertyAddress: string,
+	agree: boolean
 ): Promise<TxReceipt> =>
 	execute({
 		contract,
 		method: 'vote',
 		mutation: true,
 		client,
-		args: [tokenNumber],
+		args: [propertyAddress, agree],
 	})

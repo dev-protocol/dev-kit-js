@@ -3,12 +3,10 @@ import { Contract } from 'web3-eth-contract/types'
 import { allocatorAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createAllocateCaller } from './allocate'
-import { createWithdrawCaller } from './withdraw'
 import { TxReceipt } from '../utils/web3-txs'
 
 export interface CreateAllocatorContract {
 	allocate: (address: string) => Promise<TxReceipt>
-	withdraw: (address: string) => Promise<TxReceipt>
 }
 
 export const createAllocatorContract = (client: Web3) => (
@@ -25,6 +23,5 @@ export const createAllocatorContract = (client: Web3) => (
 
 	return {
 		allocate: createAllocateCaller(contractClient, client),
-		withdraw: createWithdrawCaller(contractClient, client),
 	}
 }

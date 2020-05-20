@@ -5,6 +5,11 @@ export const propertyAbi = ([
 		inputs: [
 			{
 				internalType: 'address',
+				name: '_config',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
 				name: '_own',
 				type: 'address',
 			},
@@ -17,16 +22,6 @@ export const propertyAbi = ([
 				internalType: 'string',
 				name: '_symbol',
 				type: 'string',
-			},
-			{
-				internalType: 'uint8',
-				name: '_decimals',
-				type: 'uint8',
-			},
-			{
-				internalType: 'uint256',
-				name: '_supply',
-				type: 'uint256',
 			},
 		],
 		payable: false,
@@ -64,25 +59,6 @@ export const propertyAbi = ([
 			{
 				indexed: true,
 				internalType: 'address',
-				name: 'previousOwner',
-				type: 'address',
-			},
-			{
-				indexed: true,
-				internalType: 'address',
-				name: 'newOwner',
-				type: 'address',
-			},
-		],
-		name: 'OwnershipTransferred',
-		type: 'event',
-	},
-	{
-		anonymous: false,
-		inputs: [
-			{
-				indexed: true,
-				internalType: 'address',
 				name: 'from',
 				type: 'address',
 			},
@@ -101,21 +77,6 @@ export const propertyAbi = ([
 		],
 		name: 'Transfer',
 		type: 'event',
-	},
-	{
-		constant: true,
-		inputs: [],
-		name: '_owner',
-		outputs: [
-			{
-				internalType: 'address',
-				name: '',
-				type: 'address',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
 	},
 	{
 		constant: true,
@@ -153,7 +114,7 @@ export const propertyAbi = ([
 			},
 			{
 				internalType: 'uint256',
-				name: 'value',
+				name: 'amount',
 				type: 'uint256',
 			},
 		],
@@ -167,6 +128,21 @@ export const propertyAbi = ([
 		],
 		payable: false,
 		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'author',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
 		type: 'function',
 	},
 	{
@@ -191,18 +167,18 @@ export const propertyAbi = ([
 		type: 'function',
 	},
 	{
-		constant: false,
-		inputs: [
+		constant: true,
+		inputs: [],
+		name: 'configAddress',
+		outputs: [
 			{
 				internalType: 'address',
-				name: 'nextState',
+				name: '',
 				type: 'address',
 			},
 		],
-		name: 'changeStateAddress',
-		outputs: [],
 		payable: false,
-		stateMutability: 'nonpayable',
+		stateMutability: 'view',
 		type: 'function',
 	},
 	{
@@ -275,21 +251,6 @@ export const propertyAbi = ([
 	{
 		constant: true,
 		inputs: [],
-		name: 'isOwner',
-		outputs: [
-			{
-				internalType: 'bool',
-				name: '',
-				type: 'bool',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [],
 		name: 'name',
 		outputs: [
 			{
@@ -300,15 +261,6 @@ export const propertyAbi = ([
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [],
-		name: 'renounceOwnership',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
@@ -377,36 +329,6 @@ export const propertyAbi = ([
 		inputs: [
 			{
 				internalType: 'address',
-				name: 'newOwner',
-				type: 'address',
-			},
-		],
-		name: 'transferOwnership',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [],
-		name: 'owner',
-		outputs: [
-			{
-				internalType: 'address',
-				name: '',
-				type: 'address',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [
-			{
-				internalType: 'address',
 				name: '_to',
 				type: 'address',
 			},
@@ -424,6 +346,26 @@ export const propertyAbi = ([
 				type: 'bool',
 			},
 		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_sender',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: '_value',
+				type: 'uint256',
+			},
+		],
+		name: 'withdraw',
+		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',

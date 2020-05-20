@@ -1,6 +1,6 @@
 import Web3 from 'web3'
 import { createPropertyFactoryContract, PropertyFactoryContract } from '.'
-import { createCreatePropertyCaller } from './createProperty'
+import { createCreatePropertyCaller } from './create'
 import { propertyFactoryAbi } from './abi'
 import { CustomOptions } from '../option'
 
@@ -27,10 +27,7 @@ describe('property/index.ts', () => {
 				)
 
 				return {
-					createProperty: createCreatePropertyCaller(
-						propertyFactoryContract,
-						client
-					),
+					create: createCreatePropertyCaller(propertyFactoryContract, client),
 				}
 			}
 

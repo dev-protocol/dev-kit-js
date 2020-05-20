@@ -2,7 +2,6 @@ import Web3 from 'web3'
 import { CustomOptions } from '../option'
 import { createAllocatorContract, CreateAllocatorContract } from '.'
 import { createAllocateCaller } from './allocate'
-import { createWithdrawCaller } from './withdraw'
 import { allocatorAbi } from './abi'
 
 describe('allocator/index.ts', () => {
@@ -28,7 +27,6 @@ describe('allocator/index.ts', () => {
 				)
 				return {
 					allocate: createAllocateCaller(allocatorContract, client),
-					withdraw: createWithdrawCaller(allocatorContract, client),
 				}
 			}
 

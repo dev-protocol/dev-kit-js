@@ -10,7 +10,7 @@ import { txPromisify } from './txPromisify'
 interface Options {
 	contract: Contract
 	method: string
-	args?: string[]
+	args?: Array<string | boolean>
 	mutation?: boolean
 	client?: Web3
 }

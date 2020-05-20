@@ -2,14 +2,10 @@ import Web3 from 'web3'
 import { Contract } from 'web3-eth-contract/types'
 import { propertyFactoryAbi } from './abi'
 import { CustomOptions } from '../option'
-import { createCreatePropertyCaller } from './createProperty'
+import { createCreatePropertyCaller } from './create'
 
 export interface PropertyFactoryContract {
-	createProperty: (
-		name: string,
-		symbol: string,
-		author: string
-	) => Promise<string>
+	create: (name: string, symbol: string, author: string) => Promise<string>
 }
 
 export type CreatePropertyFactoryContract = (
@@ -28,6 +24,6 @@ export const createPropertyFactoryContract: CreatePropertyFactoryContract = (
 	)
 
 	return {
-		createProperty: createCreatePropertyCaller(contractClient, client),
+		create: createCreatePropertyCaller(contractClient, client),
 	}
 }

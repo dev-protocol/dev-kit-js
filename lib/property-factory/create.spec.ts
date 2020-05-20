@@ -1,4 +1,4 @@
-import { createCreatePropertyCaller } from './createProperty'
+import { createCreatePropertyCaller } from './create'
 import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
 
 describe('createProperty.spec.ts', () => {
@@ -12,7 +12,7 @@ describe('createProperty.spec.ts', () => {
 			const propertyFactoryContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					createProperty: (name: string, symbol: string, author: string) => ({
+					create: (name: string, symbol: string, author: string) => ({
 						send: jest
 							.fn()
 							.mockImplementation(() =>
@@ -43,7 +43,7 @@ describe('createProperty.spec.ts', () => {
 			const propertyFactoryContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					createProperty: (name: string, symbol: string, author: string) => ({
+					create: (name: string, symbol: string, author: string) => ({
 						send: jest
 							.fn()
 							.mockImplementation(() =>

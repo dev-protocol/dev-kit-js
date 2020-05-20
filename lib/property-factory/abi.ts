@@ -2,6 +2,18 @@ import { AbiItem } from 'web3-utils'
 
 export const propertyFactoryAbi = [
 	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_config',
+				type: 'address',
+			},
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'constructor',
+	},
+	{
 		anonymous: false,
 		inputs: [
 			{
@@ -24,19 +36,52 @@ export const propertyFactoryAbi = [
 		anonymous: false,
 		inputs: [
 			{
-				indexed: true,
+				indexed: false,
 				internalType: 'address',
-				name: 'previousOwner',
-				type: 'address',
-			},
-			{
-				indexed: true,
-				internalType: 'address',
-				name: 'newOwner',
+				name: 'account',
 				type: 'address',
 			},
 		],
-		name: 'OwnershipTransferred',
+		name: 'Paused',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'account',
+				type: 'address',
+			},
+		],
+		name: 'PauserAdded',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'account',
+				type: 'address',
+			},
+		],
+		name: 'PauserRemoved',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: false,
+				internalType: 'address',
+				name: 'account',
+				type: 'address',
+			},
+		],
+		name: 'Unpaused',
 		type: 'event',
 	},
 	{
@@ -44,11 +89,11 @@ export const propertyFactoryAbi = [
 		inputs: [
 			{
 				internalType: 'address',
-				name: 'nextState',
+				name: 'account',
 				type: 'address',
 			},
 		],
-		name: 'changeStateAddress',
+		name: 'addPauser',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
@@ -57,7 +102,28 @@ export const propertyFactoryAbi = [
 	{
 		constant: true,
 		inputs: [],
-		name: 'isOwner',
+		name: 'configAddress',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'account',
+				type: 'address',
+			},
+		],
+		name: 'isPauser',
 		outputs: [
 			{
 				internalType: 'bool',
@@ -70,14 +136,23 @@ export const propertyFactoryAbi = [
 		type: 'function',
 	},
 	{
+		constant: false,
+		inputs: [],
+		name: 'pause',
+		outputs: [],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
 		constant: true,
 		inputs: [],
-		name: 'owner',
+		name: 'paused',
 		outputs: [
 			{
-				internalType: 'address',
+				internalType: 'bool',
 				name: '',
-				type: 'address',
+				type: 'bool',
 			},
 		],
 		payable: false,
@@ -87,7 +162,7 @@ export const propertyFactoryAbi = [
 	{
 		constant: false,
 		inputs: [],
-		name: 'renounceOwnership',
+		name: 'renouncePauser',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
@@ -95,14 +170,8 @@ export const propertyFactoryAbi = [
 	},
 	{
 		constant: false,
-		inputs: [
-			{
-				internalType: 'address',
-				name: 'newOwner',
-				type: 'address',
-			},
-		],
-		name: 'transferOwnership',
+		inputs: [],
+		name: 'unpause',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
@@ -121,8 +190,13 @@ export const propertyFactoryAbi = [
 				name: '_symbol',
 				type: 'string',
 			},
+			{
+				internalType: 'address',
+				name: '_author',
+				type: 'address',
+			},
 		],
-		name: 'createProperty',
+		name: 'create',
 		outputs: [
 			{
 				internalType: 'address',

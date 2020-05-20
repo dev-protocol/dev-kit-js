@@ -5,12 +5,12 @@ import { txPromisify } from '../utils/txPromisify'
 describe('vote.ts', () => {
 	describe('createVoteCaller', () => {
 		it('call success', async () => {
-			const tokenNumber = '415015037515107510571371750157109'
+			const propertyAddress = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 
 			const marketContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					vote: (tokenNumber: string) => ({
+					vote: (propertyAddress: string, agree: boolean) => ({
 						send: jest.fn().mockImplementation(() => stubbedSendTx()),
 					}),
 				},
@@ -19,18 +19,18 @@ describe('vote.ts', () => {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createVoteCaller(marketContract as any, stubbedWeb3)
 
-			const result = await caller(tokenNumber)
+			const result = await caller(propertyAddress, true)
 
 			expect(result).toEqual(await txPromisify(stubbedSendTx()))
 		})
 
 		it('call failure', async () => {
-			const tokenNumber = '415015037515107510571371750157109'
+			const propertyAddress = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 
 			const marketContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					vote: (tokenNumber: string) => ({
+					vote: (propertyAddress: string, agree: boolean) => ({
 						send: jest
 							.fn()
 							.mockImplementation(() => stubbedSendTx(undefined, true)),
@@ -41,7 +41,7 @@ describe('vote.ts', () => {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createVoteCaller(marketContract as any, stubbedWeb3)
 
-			const result = await caller(tokenNumber).catch((err) => err)
+			const result = await caller(propertyAddress, true).catch((err) => err)
 
 			expect(result).toBeInstanceOf(Error)
 		})

@@ -13,7 +13,7 @@ export const createCreatePropertyCaller: CreateCreatePropertyCaller = (
 ) => async (name: string, symbol: string, author: string): Promise<string> =>
 	execute({
 		contract,
-		method: 'createProperty',
+		method: 'create',
 		args: [name, symbol, author],
 		mutation: true,
 		client,
