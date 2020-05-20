@@ -14,7 +14,7 @@ export type CreateAuthenticateCaller = (
 	client: Web3
 ) => (
 	propertyAddress: string,
-	args: string[],
+	args: readonly string[],
 	options: WaitForEventOptions
 ) => Promise<string>
 
@@ -32,7 +32,7 @@ export const createAuthenticateCaller: CreateAuthenticateCaller = (
 	client: Web3
 ) => async (
 	propertyAddress: string,
-	args: string[],
+	args: readonly string[],
 	{ metricsFactory }: WaitForEventOptions
 ): Promise<string> =>
 	new Promise((resolve, reject) => {
