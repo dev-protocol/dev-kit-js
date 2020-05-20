@@ -42,6 +42,7 @@ export const createAuthenticateCaller: CreateAuthenticateCaller = (
 			mutation: true,
 			client,
 			args: [propertyAddress, ...args],
+			padEnd: 6,
 		}).catch((err) => reject(err))
 		watchEvent({
 			contract: new client.eth.Contract(metricsFactoryAbi, metricsFactory),

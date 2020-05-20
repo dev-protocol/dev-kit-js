@@ -7,12 +7,14 @@ import { getAccount } from './getAccount'
 import { TxReceipt } from './web3-txs'
 import { txPromisify } from './txPromisify'
 
+type Args = ReadonlyArray<string | boolean>
 interface Options {
 	contract: Contract
 	method: string
-	args?: Array<string | boolean>
+	args?: Args
 	mutation?: boolean
 	client?: Web3
+	padEnd?: number
 }
 
 export interface SendOptions extends Options {
@@ -41,6 +43,23 @@ type R<T, O extends ExecuteOptions> = O extends CallOptions
 	? TxReceipt
 	: never
 
+type PadCaller = (
+	arr: Args,
+	v: string | boolean | undefined,
+	i: number,
+	fn: PadCaller
+) => Args
+const pad = (args: Args, index: number): Args =>
+	((fn: PadCaller): Args => fn([], args[0], 0, fn))(
+		(
+			arr: Args,
+			v: string | boolean | undefined,
+			i: number,
+			fn: PadCaller
+		): Args =>
+			i < index ? fn(arr.concat(v ?? ''), args[i + 1], i + 1, fn) : arr
+	)
+
 export const execute: ExecuteFunction = async <
 	T = string,
 	O extends ExecuteOptions = CallOptions
@@ -50,11 +69,15 @@ export const execute: ExecuteFunction = async <
 	args,
 	mutation,
 	client,
-}: O): Promise<R<T, O>> =>
-	(async (m): Promise<R<T, O>> =>
-		(async (x): Promise<R<T, O>> =>
-			mutation === true
-				? txPromisify(x.send({ from: await getAccount(client as Web3) })).then(
-						(receipt) => receipt
-				  )
-				: x.call())(args ? m(...args) : m()))(contract.methods[method])
+	padEnd,
+}: O): Promise<R<T, O>> => {
+	const m = contract.methods[method]
+	const a =
+		args !== undefined && padEnd !== undefined ? pad(args, padEnd) : args
+	const x = a ? m(...a) : m()
+	return mutation === true
+		? txPromisify(x.send({ from: await getAccount(client as Web3) })).then(
+				(receipt) => receipt
+		  )
+		: x.call()
+}

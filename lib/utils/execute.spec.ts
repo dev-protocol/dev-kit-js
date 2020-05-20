@@ -113,5 +113,46 @@ describe('execute.ts', () => {
 			expect(sendStub.mock.calls.length).toEqual(1)
 			expect(fooStub.mock.calls[0].length).toEqual(0)
 		})
+		it('empty-padding to an arguments array if `padEnd` is specified', async () => {
+			const sendStub = jest.fn(async () => Promise.resolve(true))
+			const fooStub = jest.fn((
+				arg1: string,
+				arg2: string,
+				arg3: string,
+				arg4: boolean,
+				arg5: boolean,
+				arg6: string,
+				arg7: string,
+				arg8: string
+				// eslint-disable-next-line max-params
+			) => ({
+				send: sendStub,
+			}))
+			const contract = ({
+				methods: {
+					foo: fooStub,
+				},
+			} as unknown) as Contract
+			const result = await execute({
+				contract,
+				method: 'foo',
+				args: ['abc', 'xyz', '', true, false],
+				mutation: true,
+				client: stubbedWeb3,
+				padEnd: 8,
+			})
+			expect(result).toEqual(TXPROMISIFY_TXPROMISIFY_MOCK_RETURN)
+			expect(sendStub.mock.calls.length).toEqual(1)
+			expect(fooStub.mock.calls[0][0]).toEqual('abc')
+			expect(fooStub.mock.calls[0][1]).toEqual('xyz')
+			expect(fooStub.mock.calls[0][2]).toEqual('')
+			expect(fooStub.mock.calls[0][3]).toEqual(true)
+			expect(fooStub.mock.calls[0][4]).toEqual(false)
+			expect(fooStub.mock.calls[0][5]).toEqual('')
+			expect(fooStub.mock.calls[0][6]).toEqual('')
+			expect(fooStub.mock.calls[0][7]).toEqual('')
+			// @ts-expect-error
+			expect(fooStub.mock.calls[0][8]).toEqual(undefined)
+		})
 	})
 })
