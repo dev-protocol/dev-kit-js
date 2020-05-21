@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-extend-native */
 import Web3 from 'web3'
 import { SendTx } from './web3-txs'
 
@@ -21,40 +24,42 @@ export const stubbedSendTx = (
 	},
 	reject = false,
 	rejectOnConfirmation = false
-): SendTx =>
-	(({
-		on(event: string, cb: (...args: any[]) => void) {
-			if (event === 'confirmation') {
-				setTimeout(() => {
-					if (rejectOnConfirmation) {
-						cb(0, {
-							status: false,
-						})
-					} else {
-						cb(0, {
-							status: true,
-							events: {
-								[confirmationEvent.name]: {
-									event: confirmationEvent.name,
-									returnValues: {
-										[confirmationEvent.property]: confirmationEvent.value,
-									},
-								},
-							},
-						})
-					}
-				}, 100)
-			}
-
-			if (event === 'error' && reject) {
-				setTimeout(() => {
-					cb(new Error('Transaction error'))
-				}, 90)
-			}
-
-			return this
+): SendTx => {
+	const result = {
+		status: true,
+		events: {
+			[confirmationEvent.name]: {
+				event: confirmationEvent.name,
+				returnValues: {
+					[confirmationEvent.property]: confirmationEvent.value,
+				},
+			},
 		},
-		catch(cb: (err: Error) => void) {
-			// Nothing
-		},
-	} as unknown) as SendTx)
+	}
+	;(Promise.prototype as any).on = function (
+		event: string,
+		cb: (...args: any[]) => void
+	) {
+		if (event === 'confirmation') {
+			setTimeout(() => {
+				if (rejectOnConfirmation) {
+					cb(0, {
+						status: false,
+					})
+				} else {
+					cb(0, result)
+				}
+			}, 100)
+		}
+
+		if (event === 'error' && reject) {
+			setTimeout(() => {
+				cb(new Error('Transaction error'))
+			}, 90)
+		}
+
+		return this
+	}
+
+	return new Promise((resolve) => resolve(result)) as any
+}

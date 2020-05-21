@@ -32,7 +32,7 @@ export interface TxReceipt {
 	readonly transactionHash: string
 	readonly transactionIndex: number
 }
-export interface SendTx extends Thenable<TxReceipt> {
+export interface SendTx extends Promise<TxReceipt> {
 	readonly on: <T extends 'transactionHash' | 'confirmation' | 'error'>(
 		type: T,
 		callback: T extends 'transactionHash'

@@ -11,7 +11,7 @@ describe('allocate.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					allocate: (address: string) => ({
-						send: jest.fn().mockImplementation(() => stubbedSendTx()),
+						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
 					}),
 				},
 			}
@@ -33,7 +33,7 @@ describe('allocate.ts', () => {
 					allocate: (address: string) => ({
 						send: jest
 							.fn()
-							.mockImplementation(() => stubbedSendTx(undefined, true)),
+							.mockImplementation(async () => stubbedSendTx(undefined, true)),
 					}),
 				},
 			}

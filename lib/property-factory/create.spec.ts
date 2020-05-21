@@ -15,7 +15,7 @@ describe('createProperty.spec.ts', () => {
 					create: (name: string, symbol: string, author: string) => ({
 						send: jest
 							.fn()
-							.mockImplementation(() =>
+							.mockImplementation(async () =>
 								stubbedSendTx({ name: 'Create', property: '_property', value })
 							),
 					}),
@@ -46,7 +46,7 @@ describe('createProperty.spec.ts', () => {
 					create: (name: string, symbol: string, author: string) => ({
 						send: jest
 							.fn()
-							.mockImplementation(() =>
+							.mockImplementation(async () =>
 								stubbedSendTx(
 									{ name: 'Create', property: '_property', value: '' },
 									true

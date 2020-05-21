@@ -9,7 +9,7 @@ describe('withdraw.spec.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					withdraw: (property: string) => ({
-						send: jest.fn().mockImplementation(() => stubbedSendTx()),
+						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
 					}),
 				},
 			}
@@ -29,7 +29,7 @@ describe('withdraw.spec.ts', () => {
 					withdraw: (property: string) => ({
 						send: jest
 							.fn()
-							.mockImplementation(() => stubbedSendTx(undefined, true)),
+							.mockImplementation(async () => stubbedSendTx(undefined, true)),
 					}),
 				},
 			}

@@ -11,7 +11,7 @@ describe('vote.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					vote: (propertyAddress: string, agree: boolean) => ({
-						send: jest.fn().mockImplementation(() => stubbedSendTx()),
+						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
 					}),
 				},
 			}
@@ -33,7 +33,7 @@ describe('vote.ts', () => {
 					vote: (propertyAddress: string, agree: boolean) => ({
 						send: jest
 							.fn()
-							.mockImplementation(() => stubbedSendTx(undefined, true)),
+							.mockImplementation(async () => stubbedSendTx(undefined, true)),
 					}),
 				},
 			}
