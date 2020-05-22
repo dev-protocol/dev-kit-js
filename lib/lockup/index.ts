@@ -10,14 +10,17 @@ import { createWithdrawInterestCaller } from './withdrawInterest'
 import { createCalculateWithdrawableInterestAmountCaller } from './calculateWithdrawableInterestAmount'
 import { createGetAllValueCaller } from './getAllValue'
 
-export interface LockupContract {
-	getValue: (propertyAddress: string, accountAddress: string) => Promise<string>
-	getAllValue: () => Promise<string>
-	getPropertyValue: (address: string) => Promise<string>
-	cancel: (propertyAddress: string) => Promise<true>
-	withdraw: (propertyAddress: string) => Promise<true>
-	withdrawInterest: (propertyAddress: string) => Promise<true>
-	calculateWithdrawableInterestAmount: (
+export type LockupContract = {
+	readonly getValue: (
+		propertyAddress: string,
+		accountAddress: string
+	) => Promise<string>
+	readonly getAllValue: () => Promise<string>
+	readonly getPropertyValue: (address: string) => Promise<string>
+	readonly cancel: (propertyAddress: string) => Promise<boolean>
+	readonly withdraw: (propertyAddress: string) => Promise<boolean>
+	readonly withdrawInterest: (propertyAddress: string) => Promise<boolean>
+	readonly calculateWithdrawableInterestAmount: (
 		propertyAddress: string,
 		accountAddress: string
 	) => Promise<string>
@@ -31,9 +34,13 @@ export const createLockupContract: CreateLockupContract = (client: Web3) => (
 	address?: string,
 	options?: CustomOptions
 ): LockupContract => {
-	const contractClient: Contract = new client.eth.Contract(lockupAbi, address, {
-		...options,
-	})
+	const contractClient: Contract = new client.eth.Contract(
+		[...lockupAbi],
+		address,
+		{
+			...options,
+		}
+	)
 
 	return {
 		getValue: createGetValueCaller(contractClient),

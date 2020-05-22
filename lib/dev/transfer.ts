@@ -1,7 +1,7 @@
 import { Contract } from 'web3-eth-contract/types'
 import Web3 from 'web3'
-import { getAccount } from '../utils/getAccount'
 import { execute } from '../utils/execute'
+import { T } from 'ramda'
 
 export type CreateTransferCaller = (
 	contract: Contract,
@@ -18,4 +18,4 @@ export const createTransferCaller: CreateTransferCaller = (
 		mutation: true,
 		client,
 		args: [to, value],
-	}).then(() => true)
+	}).then(T)

@@ -5,11 +5,13 @@ import { CustomOptions } from '../option'
 import { createGetLastAssetValueEachMarketPerBlockCaller } from './getLastAssetValueEachMarketPerBlock'
 import { createGetLastAssetValueEachMetricsCaller } from './getLastAssetValueEachMetrics'
 
-export interface AllocatorStorageContract {
-	getLastAssetValueEachMarketPerBlock: (
+export type AllocatorStorageContract = {
+	readonly getLastAssetValueEachMarketPerBlock: (
 		marketAddress: string
 	) => Promise<string>
-	getLastAssetValueEachMetrics: (metricsAddress: string) => Promise<string>
+	readonly getLastAssetValueEachMetrics: (
+		metricsAddress: string
+	) => Promise<string>
 }
 
 export type CreateAllocatorStorageContract = (
@@ -20,7 +22,7 @@ export const createAllocatorStorageContract: CreateAllocatorStorageContract = (
 	client: Web3
 ) => (address?: string, options?: CustomOptions): AllocatorStorageContract => {
 	const contractClient: Contract = new client.eth.Contract(
-		allocatorStorageAbi,
+		[...allocatorStorageAbi],
 		address,
 		{
 			...options,

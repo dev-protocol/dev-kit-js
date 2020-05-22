@@ -1,6 +1,7 @@
 import { Contract } from 'web3-eth-contract/types'
 import Web3 from 'web3'
 import { execute } from '../utils/execute'
+import { T } from 'ramda'
 
 export type CreateDepositCaller = (
 	contract: Contract,
@@ -17,4 +18,4 @@ export const createDepositCaller: CreateDepositCaller = (
 		mutation: true,
 		client,
 		args: [to, value],
-	}).then(() => true)
+	}).then(T)

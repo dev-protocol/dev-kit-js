@@ -6,10 +6,10 @@ import { createWithdrawCaller } from './withdraw'
 import { createGetRewardsAmountCaller } from './getRewardsAmount'
 import { createCalculateWithdrawableAmountCaller } from './calculateWithdrawableAmount'
 
-export interface WithdrawContract {
-	withdraw: (propertyAddress: string) => Promise<true>
-	getRewardsAmount: (propertyAddress: string) => Promise<string>
-	calculateWithdrawableAmount: (
+export type WithdrawContract = {
+	readonly withdraw: (propertyAddress: string) => Promise<boolean>
+	readonly getRewardsAmount: (propertyAddress: string) => Promise<string>
+	readonly calculateWithdrawableAmount: (
 		propertyAddress: string,
 		accountAddress: string
 	) => Promise<string>
@@ -23,7 +23,7 @@ export const createWithdrawContract: CreateWithdrawContract = (
 	client: Web3
 ) => (address?: string, options?: CustomOptions): WithdrawContract => {
 	const contractClient: Contract = new client.eth.Contract(
-		withdrawAbi,
+		[...withdrawAbi],
 		address,
 		{
 			...options,

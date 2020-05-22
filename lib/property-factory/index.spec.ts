@@ -19,7 +19,7 @@ describe('property/index.ts', () => {
 				options?: CustomOptions
 			) => {
 				const propertyFactoryContract = new client.eth.Contract(
-					propertyFactoryAbi,
+					[...propertyFactoryAbi],
 					address,
 					{
 						...options,

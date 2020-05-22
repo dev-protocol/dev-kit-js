@@ -5,8 +5,8 @@ import { CustomOptions } from '../option'
 import { createAllocateCaller } from './allocate'
 import { TxReceipt } from '../utils/web3-txs'
 
-export interface CreateAllocatorContract {
-	allocate: (address: string) => Promise<TxReceipt>
+export type CreateAllocatorContract = {
+	readonly allocate: (address: string) => Promise<TxReceipt>
 }
 
 export const createAllocatorContract = (client: Web3) => (
@@ -14,7 +14,7 @@ export const createAllocatorContract = (client: Web3) => (
 	options?: CustomOptions
 ): CreateAllocatorContract => {
 	const contractClient: Contract = new client.eth.Contract(
-		allocatorAbi,
+		[...allocatorAbi],
 		address,
 		{
 			...options,

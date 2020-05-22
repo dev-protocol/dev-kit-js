@@ -1,6 +1,6 @@
-export interface CustomOptions {
-	from?: string
-	gasPrice?: string
-	gas: number
-	data: string
+export type CustomOptions = {
+	readonly from?: string
+	readonly gasPrice?: string
+	readonly gas: number
+	readonly data: string
 }

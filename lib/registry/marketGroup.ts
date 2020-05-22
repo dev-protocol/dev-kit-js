@@ -1,5 +1,6 @@
 import { Contract } from 'web3-eth-contract/types'
 import { execute } from '../utils/execute'
+import { always } from 'ramda'
 
 export type CreateMarketGroupCaller = (
 	contract: Contract
@@ -7,4 +8,4 @@ export type CreateMarketGroupCaller = (
 
 export const createMarketGroupCaller: CreateMarketGroupCaller = (
 	contract: Contract
-) => async () => execute({ contract, method: 'marketGroup' })
+) => always(execute({ contract, method: 'marketGroup' }))

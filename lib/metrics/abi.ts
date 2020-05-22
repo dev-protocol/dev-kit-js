@@ -48,4 +48,4 @@ export const metricsAbi = [
 		stateMutability: 'view',
 		type: 'function',
 	},
-] as AbiItem[]
+] as readonly AbiItem[]

@@ -11,17 +11,17 @@ import { createRegistryContract } from './registry/index'
 import { createLockupStorageContract } from './lockup-storage'
 import { createAllocatorStorageContract } from './allocator-storage'
 
-export interface DevkitContract {
-	allocator: ReturnType<typeof createAllocatorContract>
-	allocatorStorage: ReturnType<typeof createAllocatorStorageContract>
-	market: ReturnType<typeof createMarketContract>
-	property: ReturnType<typeof createPropertyContract>
-	propertyFactory: ReturnType<typeof createPropertyFactoryContract>
-	lockup: ReturnType<typeof createLockupContract>
-	lockupStorage: ReturnType<typeof createLockupStorageContract>
-	withdraw: ReturnType<typeof createWithdrawContract>
-	dev: ReturnType<typeof createDevContract>
-	registry: ReturnType<typeof createRegistryContract>
+export type DevkitContract = {
+	readonly allocator: ReturnType<typeof createAllocatorContract>
+	readonly allocatorStorage: ReturnType<typeof createAllocatorStorageContract>
+	readonly market: ReturnType<typeof createMarketContract>
+	readonly property: ReturnType<typeof createPropertyContract>
+	readonly propertyFactory: ReturnType<typeof createPropertyFactoryContract>
+	readonly lockup: ReturnType<typeof createLockupContract>
+	readonly lockupStorage: ReturnType<typeof createLockupStorageContract>
+	readonly withdraw: ReturnType<typeof createWithdrawContract>
+	readonly dev: ReturnType<typeof createDevContract>
+	readonly registry: ReturnType<typeof createRegistryContract>
 }
 export type ContractFactory = (provider: provider) => DevkitContract
 export type CreateDevkitContract = (client: Web3) => DevkitContract

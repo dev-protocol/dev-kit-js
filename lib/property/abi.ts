@@ -370,4 +370,4 @@ export const propertyAbi = ([
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
-] as unknown) as AbiItem[]
+] as unknown) as readonly AbiItem[]

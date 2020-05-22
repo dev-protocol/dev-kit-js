@@ -1,4 +1,4 @@
-export interface Event {
+export type Event = {
 	readonly address: string
 	readonly blockHash: string
 	readonly blockNumber: number
@@ -15,10 +15,10 @@ export interface Event {
 	readonly transactionHash: string
 	readonly transactionIndex: number
 }
-export interface ReceiptEvent {
+export type ReceiptEvent = {
 	readonly [key: string]: Event
 }
-export interface TxReceipt {
+export type TxReceipt = {
 	readonly blockHash: string
 	readonly blockNumber: number
 	readonly contractAddress: string | null
@@ -32,13 +32,13 @@ export interface TxReceipt {
 	readonly transactionHash: string
 	readonly transactionIndex: number
 }
-export interface SendTx extends Promise<TxReceipt> {
+export type SendTx = Promise<TxReceipt> & {
 	readonly on: <T extends 'transactionHash' | 'confirmation' | 'error'>(
 		type: T,
-		callback: T extends 'transactionHash'
+		callback: T extends 'transactionHash' // eslint-disable-next-line functional/no-return-void
 			? (hash: string) => void
-			: T extends 'confirmation'
-			? (confirmationNumber: number, receipt: TxReceipt) => void
+			: T extends 'confirmation' // eslint-disable-next-line functional/no-return-void
+			? (confirmationNumber: number, receipt: TxReceipt) => void // eslint-disable-next-line functional/no-return-void
 			: (err: Readonly<Error>) => void
 	) => SendTx
 }

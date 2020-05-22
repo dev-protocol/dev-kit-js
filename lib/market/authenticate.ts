@@ -5,7 +5,7 @@ import { metricsFactoryAbi } from '../metrics-factory/abi'
 import { metricsAbi } from '../metrics/abi'
 import { watchEvent } from '../utils/watchEvent'
 
-export interface WaitForEventOptions {
+export type WaitForEventOptions = {
 	readonly metricsFactory: string
 }
 
@@ -23,7 +23,7 @@ const getMetricsProperty = async (
 	client: Web3
 ): Promise<string> =>
 	execute({
-		contract: new client.eth.Contract(metricsAbi, address),
+		contract: new client.eth.Contract(metricsAbi as any, address),
 		method: 'property',
 	})
 
@@ -36,6 +36,7 @@ export const createAuthenticateCaller: CreateAuthenticateCaller = (
 	{ metricsFactory }: WaitForEventOptions
 ): Promise<string> =>
 	new Promise((resolve, reject) => {
+		// eslint-disable-next-line functional/no-expression-statement
 		execute({
 			contract,
 			method: 'authenticate',
@@ -44,18 +45,21 @@ export const createAuthenticateCaller: CreateAuthenticateCaller = (
 			args: [propertyAddress, ...args],
 			padEnd: 6,
 		}).catch((err) => reject(err))
+		// eslint-disable-next-line functional/no-expression-statement
 		watchEvent({
-			contract: new client.eth.Contract(metricsFactoryAbi, metricsFactory),
-			resolver: async (_resolve, e) => {
-				const metricsAddress =
+			contract: new client.eth.Contract(
+				metricsFactoryAbi as any,
+				metricsFactory
+			),
+			resolver: async (_resolve, e) =>
+				((metricsAddress) =>
+					metricsAddress
+						? getMetricsProperty(metricsAddress, client).then((property) =>
+								property === propertyAddress ? _resolve() : undefined
+						  )
+						: undefined)(
 					e.event === 'Create' ? (e.returnValues._metrics as string) : undefined
-				if (metricsAddress) {
-					const property = await getMetricsProperty(metricsAddress, client)
-					if (property === propertyAddress) {
-						_resolve()
-					}
-				}
-			},
+				),
 		})
 			.then((res) => resolve(res.returnValues._metrics as string))
 			.catch((err) => reject(err))

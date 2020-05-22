@@ -315,4 +315,4 @@ export const withdrawAbi = ([
 		stateMutability: 'view',
 		type: 'function',
 	},
-] as unknown) as AbiItem[]
+] as unknown) as readonly AbiItem[]

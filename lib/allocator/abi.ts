@@ -386,4 +386,4 @@ export const allocatorAbi = [
 		stateMutability: 'pure',
 		type: 'function',
 	},
-] as AbiItem[]
+] as readonly AbiItem[]

@@ -17,7 +17,7 @@ describe('property/index.ts', () => {
 				address?: string,
 				options?: CustomOptions
 			) => DevContract = (address?: string, options?: CustomOptions) => {
-				const propertyContract = new client.eth.Contract(devAbi, address, {
+				const propertyContract = new client.eth.Contract([...devAbi], address, {
 					...options,
 				})
 				return {
