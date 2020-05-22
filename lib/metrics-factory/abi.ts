@@ -232,4 +232,4 @@ export const metricsFactoryAbi = [
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
-] as AbiItem[]
+] as readonly AbiItem[]

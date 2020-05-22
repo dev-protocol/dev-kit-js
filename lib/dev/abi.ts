@@ -535,4 +535,4 @@ export const devAbi = ([
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
-] as unknown) as AbiItem[]
+] as unknown) as readonly AbiItem[]

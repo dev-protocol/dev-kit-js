@@ -19,7 +19,7 @@ describe('lockup-storage/index.ts', () => {
 				options?: CustomOptions
 			) => {
 				const lockupStorageContract = new client.eth.Contract(
-					lockupStorageAbi,
+					[...lockupStorageAbi],
 					address,
 					{
 						...options,

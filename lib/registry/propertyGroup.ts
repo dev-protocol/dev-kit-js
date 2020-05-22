@@ -1,5 +1,6 @@
 import { Contract } from 'web3-eth-contract/types'
 import { execute } from '../utils/execute'
+import { always } from 'ramda'
 
 export type CreatePropertyGroupCaller = (
 	contract: Contract
@@ -7,4 +8,4 @@ export type CreatePropertyGroupCaller = (
 
 export const createPropertyGroupCaller: CreatePropertyGroupCaller = (
 	contract: Contract
-) => async () => execute({ contract, method: 'propertyGroup' })
+) => always(execute({ contract, method: 'propertyGroup' }))

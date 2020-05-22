@@ -20,9 +20,13 @@ describe('market.ts', () => {
 				address?: string,
 				options?: CustomOptions
 			) => {
-				const marketContract = new client.eth.Contract(marketAbi, address, {
-					...options,
-				})
+				const marketContract = new client.eth.Contract(
+					[...marketAbi],
+					address,
+					{
+						...options,
+					}
+				)
 				return {
 					schema: createSchemaCaller(marketContract),
 					vote: createVoteCaller(marketContract, client),

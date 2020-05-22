@@ -1,5 +1,6 @@
 import { Contract } from 'web3-eth-contract/types'
 import { execute } from '../utils/execute'
+import { always } from 'ramda'
 
 export type CreateGetAllValueCaller = (
 	contract: Contract
@@ -7,4 +8,4 @@ export type CreateGetAllValueCaller = (
 
 export const createGetAllValueCaller: CreateGetAllValueCaller = (
 	contract: Contract
-) => async () => execute({ contract, method: 'getAllValue' })
+) => always(execute({ contract, method: 'getAllValue' }))

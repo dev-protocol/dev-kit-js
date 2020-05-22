@@ -1,5 +1,6 @@
 import { Contract } from 'web3-eth-contract/types'
 import { execute } from '../utils/execute'
+import { always } from 'ramda'
 
 export type CreateAllocatorCaller = (
 	contract: Contract
@@ -7,4 +8,4 @@ export type CreateAllocatorCaller = (
 
 export const createAllocatorCaller: CreateAllocatorCaller = (
 	contract: Contract
-) => async () => execute({ contract, method: 'allocator' })
+) => always(execute({ contract, method: 'allocator' }))

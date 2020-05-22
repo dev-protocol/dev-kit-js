@@ -4,8 +4,8 @@ import { lockupStorageAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createGetWithdrawalStatusCaller } from './getWithdrawalStatus'
 
-export interface LockupStorageContract {
-	getWithdrawalStatus: (
+export type LockupStorageContract = {
+	readonly getWithdrawalStatus: (
 		propertyAddress: string,
 		accountAddress: string
 	) => Promise<string>
@@ -19,7 +19,7 @@ export const createLockupStorageContract: CreateLockupStorageContract = (
 	client: Web3
 ) => (address?: string, options?: CustomOptions): LockupStorageContract => {
 	const contractClient: Contract = new client.eth.Contract(
-		lockupStorageAbi,
+		[...lockupStorageAbi],
 		address,
 		{
 			...options,

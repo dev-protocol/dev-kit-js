@@ -30,7 +30,7 @@ describe('registry/index.ts', () => {
 				options?: CustomOptions
 			) => RegistryContract = (address?: string, options?: CustomOptions) => {
 				const registryContract = new client.eth.Contract(
-					addressConfigAbi,
+					[...addressConfigAbi],
 					address,
 					{
 						...options,

@@ -7,10 +7,10 @@ import { createVoteCaller } from './vote'
 import { createAuthenticateCaller } from './authenticate'
 import { TxReceipt } from '../utils/web3-txs'
 
-export interface CreateMarketContract {
-	schema: () => Promise<string[]>
-	vote: (propertyAddress: string, agree: boolean) => Promise<TxReceipt>
-	authenticate: (
+export type CreateMarketContract = {
+	readonly schema: () => Promise<readonly string[]>
+	readonly vote: (propertyAddress: string, agree: boolean) => Promise<TxReceipt>
+	readonly authenticate: (
 		address: string,
 		args: readonly string[],
 		options: {
@@ -23,9 +23,13 @@ export const createMarketContract = (client: Web3) => (
 	address?: string,
 	options?: CustomOptions
 ): CreateMarketContract => {
-	const contractClient: Contract = new client.eth.Contract(marketAbi, address, {
-		...options,
-	})
+	const contractClient: Contract = new client.eth.Contract(
+		[...marketAbi],
+		address,
+		{
+			...options,
+		}
+	)
 
 	return {
 		schema: createSchemaCaller(contractClient),

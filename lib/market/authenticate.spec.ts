@@ -1,3 +1,6 @@
+/* eslint-disable functional/no-this-expression */
+/* eslint-disable functional/no-conditional-statement */
+/* eslint-disable functional/no-class */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -21,10 +24,10 @@ describe('authenticate.ts', () => {
 				eth: {
 					...{
 						Contract: class {
-							public abi: any
-							public address: string
-							public methods: any
-							public events = {
+							public readonly abi: any
+							public readonly address: string
+							public readonly methods: any
+							public readonly events = {
 								allEvents(
 									opts: any,
 									callback: (err: Error | null, e: Event) => void
@@ -45,7 +48,7 @@ describe('authenticate.ts', () => {
 								if (this.abi.some(({ name = '' }) => name === 'authenticate')) {
 									// Market Contract
 									this.methods = {
-										authenticate: (...args: any[]) => ({
+										authenticate: (...args: readonly any[]) => ({
 											send: async () => {
 												// eslint-disable-next-line no-extend-native
 												;(Promise.prototype as any).on = function () {
@@ -59,7 +62,7 @@ describe('authenticate.ts', () => {
 								} else {
 									// Metrics Contract
 									this.methods = {
-										property: (...args: any[]) => ({
+										property: (...args: readonly any[]) => ({
 											call: async () => Promise.resolve(propertyAddress),
 										}),
 									}
@@ -74,7 +77,7 @@ describe('authenticate.ts', () => {
 			const expected = value
 
 			const caller = createAuthenticateCaller(
-				new client.eth.Contract(marketAbi, '0x...'),
+				new client.eth.Contract([...marketAbi], '0x...'),
 				client
 			)
 
@@ -95,10 +98,10 @@ describe('authenticate.ts', () => {
 				eth: {
 					...{
 						Contract: class {
-							public abi: any
-							public address: string
-							public methods: any
-							public events = {
+							public readonly abi: any
+							public readonly address: string
+							public readonly methods: any
+							public readonly events = {
 								allEvents() {
 									// Nothing
 								},
@@ -111,7 +114,7 @@ describe('authenticate.ts', () => {
 								if (this.abi.some(({ name = '' }) => name === 'authenticate')) {
 									// Market Contract
 									this.methods = {
-										authenticate: (...args: any[]) => ({
+										authenticate: (...args: readonly any[]) => ({
 											send: async () => {
 												// eslint-disable-next-line no-extend-native
 												;(Promise.prototype as any).on = function () {
@@ -125,7 +128,7 @@ describe('authenticate.ts', () => {
 								} else {
 									// Metrics Contract
 									this.methods = {
-										property: (...args: any[]) => ({
+										property: (...args: readonly any[]) => ({
 											call: async () => Promise.resolve(propertyAddress),
 										}),
 									}
@@ -138,7 +141,7 @@ describe('authenticate.ts', () => {
 			} as unknown) as Web3
 
 			const caller = createAuthenticateCaller(
-				new client.eth.Contract(marketAbi, '0x...'),
+				new client.eth.Contract([...marketAbi], '0x...'),
 				client
 			)
 

@@ -21,9 +21,13 @@ describe('lockup/index.ts', () => {
 				address?: string,
 				options?: CustomOptions
 			) => LockupContract = (address?: string, options?: CustomOptions) => {
-				const lockupContract = new client.eth.Contract(lockupAbi, address, {
-					...options,
-				})
+				const lockupContract = new client.eth.Contract(
+					[...lockupAbi],
+					address,
+					{
+						...options,
+					}
+				)
 				return {
 					getValue: createGetValueCaller(lockupContract),
 					getAllValue: createGetAllValueCaller(lockupContract),

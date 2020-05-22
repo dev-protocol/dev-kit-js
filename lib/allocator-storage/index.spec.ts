@@ -20,7 +20,7 @@ describe('allocator-storage/index.ts', () => {
 				options?: CustomOptions
 			) => {
 				const allocatorStorageContract = new client.eth.Contract(
-					allocatorStorageAbi,
+					[...allocatorStorageAbi],
 					address,
 					{
 						...options,

@@ -4,8 +4,12 @@ import { propertyFactoryAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createCreatePropertyCaller } from './create'
 
-export interface PropertyFactoryContract {
-	create: (name: string, symbol: string, author: string) => Promise<string>
+export type PropertyFactoryContract = {
+	readonly create: (
+		name: string,
+		symbol: string,
+		author: string
+	) => Promise<string>
 }
 
 export type CreatePropertyFactoryContract = (
@@ -16,7 +20,7 @@ export const createPropertyFactoryContract: CreatePropertyFactoryContract = (
 	client: Web3
 ) => (address?: string, options?: CustomOptions) => {
 	const contractClient: Contract = new client.eth.Contract(
-		propertyFactoryAbi,
+		[...propertyFactoryAbi],
 		address,
 		{
 			...options,

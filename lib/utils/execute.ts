@@ -8,22 +8,22 @@ import { TxReceipt } from './web3-txs'
 import { txPromisify } from './txPromisify'
 
 type Args = ReadonlyArray<string | boolean>
-interface Options {
-	contract: Contract
-	method: string
-	args?: Args
-	mutation?: boolean
-	client?: Web3
-	padEnd?: number
+type Options = {
+	readonly contract: Contract
+	readonly method: string
+	readonly args?: Args
+	readonly mutation?: boolean
+	readonly client?: Web3
+	readonly padEnd?: number
 }
 
-export interface SendOptions extends Options {
-	mutation: true
-	client: Web3
+export type SendOptions = Options & {
+	readonly mutation: true
+	readonly client: Web3
 }
 
-export interface CallOptions extends Options {
-	mutation?: false
+export type CallOptions = Options & {
+	readonly mutation?: false
 }
 
 export type ExecuteOptions = CallOptions | SendOptions

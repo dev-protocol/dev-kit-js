@@ -728,4 +728,4 @@ export const addressConfigAbi = [
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
-] as AbiItem[]
+] as readonly AbiItem[]

@@ -1,5 +1,6 @@
 import { Contract } from 'web3-eth-contract/types'
 import { execute } from '../utils/execute'
+import { always } from 'ramda'
 
 export type CreateLockupStorageCaller = (
 	contract: Contract
@@ -7,4 +8,4 @@ export type CreateLockupStorageCaller = (
 
 export const createLockupStorageCaller: CreateLockupStorageCaller = (
 	contract: Contract
-) => async () => execute({ contract, method: 'lockupStorage' })
+) => always(execute({ contract, method: 'lockupStorage' }))

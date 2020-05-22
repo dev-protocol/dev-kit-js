@@ -520,4 +520,4 @@ export const allocatorStorageAbi = ([
 		stateMutability: 'view',
 		type: 'function',
 	},
-] as unknown) as AbiItem[]
+] as unknown) as readonly AbiItem[]

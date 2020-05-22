@@ -209,4 +209,4 @@ export const marketAbi = [
 		stateMutability: 'view',
 		type: 'function',
 	},
-] as AbiItem[]
+] as readonly AbiItem[]

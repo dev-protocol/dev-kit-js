@@ -19,7 +19,7 @@ describe('allocator/index.ts', () => {
 				options?: CustomOptions
 			) => {
 				const allocatorContract = new client.eth.Contract(
-					allocatorAbi,
+					[...allocatorAbi],
 					address,
 					{
 						...options,

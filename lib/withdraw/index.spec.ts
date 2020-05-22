@@ -17,9 +17,13 @@ describe('lockup/index.ts', () => {
 				address?: string,
 				options?: CustomOptions
 			) => WithdrawContract = (address?: string, options?: CustomOptions) => {
-				const withdrawContract = new client.eth.Contract(withdrawAbi, address, {
-					...options,
-				})
+				const withdrawContract = new client.eth.Contract(
+					[...withdrawAbi],
+					address,
+					{
+						...options,
+					}
+				)
 				return {
 					withdraw: createWithdrawCaller(withdrawContract, client),
 					getRewardsAmount: createGetRewardsAmountCaller(withdrawContract),

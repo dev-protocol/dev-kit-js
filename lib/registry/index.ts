@@ -18,22 +18,22 @@ import { createWithdrawCaller } from './withdraw'
 import { createWithdrawStorageCaller } from './withdrawStorage'
 import { createPolicyFactoryCaller } from './policyFactory'
 
-export interface RegistryContract {
-	allocator: () => Promise<string>
-	allocatorStorage: () => Promise<string>
-	lockup: () => Promise<string>
-	lockupStorage: () => Promise<string>
-	marketFactory: () => Promise<string>
-	marketGroup: () => Promise<string>
-	metricsFactory: () => Promise<string>
-	metricsGroup: () => Promise<string>
-	policy: () => Promise<string>
-	policyFactory: () => Promise<string>
-	propertyFactory: () => Promise<string>
-	propertyGroup: () => Promise<string>
-	token: () => Promise<string>
-	withdraw: () => Promise<string>
-	withdrawStorage: () => Promise<string>
+export type RegistryContract = {
+	readonly allocator: () => Promise<string>
+	readonly allocatorStorage: () => Promise<string>
+	readonly lockup: () => Promise<string>
+	readonly lockupStorage: () => Promise<string>
+	readonly marketFactory: () => Promise<string>
+	readonly marketGroup: () => Promise<string>
+	readonly metricsFactory: () => Promise<string>
+	readonly metricsGroup: () => Promise<string>
+	readonly policy: () => Promise<string>
+	readonly policyFactory: () => Promise<string>
+	readonly propertyFactory: () => Promise<string>
+	readonly propertyGroup: () => Promise<string>
+	readonly token: () => Promise<string>
+	readonly withdraw: () => Promise<string>
+	readonly withdrawStorage: () => Promise<string>
 }
 
 export type CreateRegistryContract = (
@@ -44,7 +44,7 @@ export const createRegistryContract: CreateRegistryContract = (
 	client: Web3
 ) => (address?: string, options?: CustomOptions): RegistryContract => {
 	const contractClient: Contract = new client.eth.Contract(
-		addressConfigAbi,
+		[...addressConfigAbi],
 		address,
 		{
 			...options,

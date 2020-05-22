@@ -1,5 +1,6 @@
 import { Contract } from 'web3-eth-contract/types'
 import { execute } from '../utils/execute'
+import { always } from 'ramda'
 
 export type CreateWithdrawStorageCaller = (
 	contract: Contract
@@ -7,4 +8,4 @@ export type CreateWithdrawStorageCaller = (
 
 export const createWithdrawStorageCaller: CreateWithdrawStorageCaller = (
 	contract: Contract
-) => async () => execute({ contract, method: 'withdrawStorage' })
+) => always(execute({ contract, method: 'withdrawStorage' }))
