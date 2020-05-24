@@ -24,9 +24,8 @@ export const createAllocateCaller: CreateAllocateCaller = (
 		// eslint-disable-next-line functional/no-expression-statement
 		watchEvent({
 			contract,
-			resolver: (_resolve, e) =>
-				((metricsAddress) =>
-					metricsAddress === address ? _resolve() : undefined)(
+			resolver: async (e) =>
+				((metricsAddress) => (metricsAddress === address ? true : false))(
 					e.event === 'AllocationResult'
 						? (e.returnValues._metrics as string)
 						: undefined

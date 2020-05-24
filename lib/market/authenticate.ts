@@ -51,13 +51,13 @@ export const createAuthenticateCaller: CreateAuthenticateCaller = (
 				metricsFactoryAbi as any,
 				metricsFactory
 			),
-			resolver: async (_resolve, e) =>
+			resolver: async (e) =>
 				((metricsAddress) =>
 					metricsAddress
 						? getMetricsProperty(metricsAddress, client).then((property) =>
-								property === propertyAddress ? _resolve() : undefined
+								property === propertyAddress ? true : false
 						  )
-						: undefined)(
+						: false)(
 					e.event === 'Create' ? (e.returnValues._metrics as string) : undefined
 				),
 		})
