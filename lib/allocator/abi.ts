@@ -386,4 +386,25 @@ export const allocatorAbi = [
 		stateMutability: 'pure',
 		type: 'function',
 	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_metrics',
+				type: 'address',
+			},
+		],
+		name: 'allocatable',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
 ] as readonly AbiItem[]
