@@ -2,10 +2,10 @@ import Web3 from 'web3'
 import { Contract } from 'web3-eth-contract/types'
 import { allocatorAbi } from './abi'
 import { CustomOptions } from '../option'
-import { createAllocateCaller } from './allocate'
+import { createCalculateMaxRewardsPerBlockCaller } from './calculateMaxRewardsPerBlock'
 
 export type CreateAllocatorContract = {
-	readonly allocate: (address: string) => Promise<string>
+	readonly calculateMaxRewardsPerBlock: () => Promise<string>
 }
 
 export const createAllocatorContract = (client: Web3) => (
@@ -21,6 +21,8 @@ export const createAllocatorContract = (client: Web3) => (
 	)
 
 	return {
-		allocate: createAllocateCaller(contractClient, client),
+		calculateMaxRewardsPerBlock: createCalculateMaxRewardsPerBlockCaller(
+			contractClient
+		),
 	}
 }

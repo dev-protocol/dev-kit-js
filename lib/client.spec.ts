@@ -9,7 +9,6 @@ import { createDevContract } from './dev'
 import { createWithdrawContract } from './withdraw'
 import { createRegistryContract } from './registry'
 import { createLockupStorageContract } from './lockup-storage'
-import { createAllocatorStorageContract } from './allocator-storage'
 
 describe('client.ts', () => {
 	describe('createDevkitContract', () => {
@@ -22,7 +21,6 @@ describe('client.ts', () => {
 
 			const expected: DevkitContract = {
 				allocator: createAllocatorContract(client),
-				allocatorStorage: createAllocatorStorageContract(client),
 				market: createMarketContract(client),
 				property: createPropertyContract(client),
 				propertyFactory: createPropertyFactoryContract(client),

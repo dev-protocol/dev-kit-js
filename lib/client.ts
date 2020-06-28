@@ -9,11 +9,9 @@ import { createDevContract } from './dev/index'
 import { createWithdrawContract } from './withdraw/index'
 import { createRegistryContract } from './registry/index'
 import { createLockupStorageContract } from './lockup-storage'
-import { createAllocatorStorageContract } from './allocator-storage'
 
 export type DevkitContract = {
 	readonly allocator: ReturnType<typeof createAllocatorContract>
-	readonly allocatorStorage: ReturnType<typeof createAllocatorStorageContract>
 	readonly market: ReturnType<typeof createMarketContract>
 	readonly property: ReturnType<typeof createPropertyContract>
 	readonly propertyFactory: ReturnType<typeof createPropertyFactoryContract>
@@ -30,7 +28,6 @@ export const createDevkitContract: CreateDevkitContract = (
 	client: Web3
 ): DevkitContract => ({
 	allocator: createAllocatorContract(client),
-	allocatorStorage: createAllocatorStorageContract(client),
 	market: createMarketContract(client),
 	property: createPropertyContract(client),
 	propertyFactory: createPropertyFactoryContract(client),
