@@ -5,8 +5,10 @@ import { CustomOptions } from '../option'
 import { createTransferCaller } from './transfer'
 import { createDepositCaller } from './deposit'
 import { createBalanceOfCaller } from './balanceOf'
+import { createTotalSupplyCaller } from './totalSupply'
 
 export type DevContract = {
+	readonly totalSupply: () => Promise<string>
 	readonly balanceOf: (address: string) => Promise<string>
 	readonly transfer: (to: string, value: string) => Promise<boolean>
 	readonly deposit: (to: string, value: string) => Promise<boolean>
@@ -29,6 +31,7 @@ export const createDevContract: CreateDevContract = (client: Web3) => (
 	)
 
 	return {
+		totalSupply: createTotalSupplyCaller(contractClient),
 		balanceOf: createBalanceOfCaller(contractClient),
 		transfer: createTransferCaller(contractClient, client),
 		deposit: createDepositCaller(contractClient, client),
