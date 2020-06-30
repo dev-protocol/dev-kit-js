@@ -1,14 +1,15 @@
+import Web3 from 'web3'
 import { createDevkitContract, contractFactory, DevkitContract } from './client'
 import { createAllocatorContract } from './allocator/index'
 import { createMarketContract } from './market'
 import { createPropertyContract } from './property/index'
 import { createPropertyFactoryContract } from './property-factory/index'
 import { createLockupContract } from './lockup/index'
-import Web3 from 'web3'
 import { createDevContract } from './dev'
 import { createWithdrawContract } from './withdraw'
 import { createRegistryContract } from './registry'
 import { createLockupStorageContract } from './lockup-storage'
+import { createPolicyContract } from './policy'
 
 describe('client.ts', () => {
 	describe('createDevkitContract', () => {
@@ -29,6 +30,7 @@ describe('client.ts', () => {
 				withdraw: createWithdrawContract(client),
 				dev: createDevContract(client),
 				registry: createRegistryContract(client),
+				policy: createPolicyContract(client),
 			}
 
 			const result = createDevkitContract(client)
