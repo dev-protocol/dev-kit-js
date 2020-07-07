@@ -1,5 +1,6 @@
 import { Contract } from 'web3-eth-contract/types'
 import { execute } from '../utils/execute'
+import { always } from 'ramda'
 
 export type CreateTotalSupplyCaller = (
 	contract: Contract
@@ -7,5 +8,4 @@ export type CreateTotalSupplyCaller = (
 
 export const createTotalSupplyCaller: CreateTotalSupplyCaller = (
 	contract: Contract
-	// eslint-disable-next-line functional/functional-parameters
-) => async () => execute({ contract, method: 'totalSupply' })
+) => always(execute({ contract, method: 'totalSupply' }))

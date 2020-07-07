@@ -1,5 +1,6 @@
 import { Contract } from 'web3-eth-contract/types'
 import { execute } from '../utils/execute'
+import { always } from 'ramda'
 
 export type CreateCalculateMaxRewardsPerBlockCaller = (
 	contract: Contract
@@ -7,9 +8,10 @@ export type CreateCalculateMaxRewardsPerBlockCaller = (
 
 export const createCalculateMaxRewardsPerBlockCaller: CreateCalculateMaxRewardsPerBlockCaller = (
 	contract: Contract
-	// eslint-disable-next-line functional/functional-parameters
-) => async () =>
-	execute({
-		contract,
-		method: 'calculateMaxRewardsPerBlock',
-	})
+) =>
+	always(
+		execute({
+			contract,
+			method: 'calculateMaxRewardsPerBlock',
+		})
+	)
