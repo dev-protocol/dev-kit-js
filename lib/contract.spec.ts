@@ -1,5 +1,9 @@
 import Web3 from 'web3'
-import { createDevkitContract, contractFactory, DevkitContract } from './client'
+import {
+	createDevkitContract,
+	contractFactory,
+	DevkitContract,
+} from './contract'
 import { createAllocatorContract } from './allocator/index'
 import { createMarketContract } from './market'
 import { createPropertyContract } from './property/index'
@@ -11,7 +15,7 @@ import { createRegistryContract } from './registry'
 import { createPolicyContract } from './policy'
 import { createPolicySetContract } from './policy-set'
 
-describe('client.ts', () => {
+describe('contract.ts', () => {
 	describe('createDevkitContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'

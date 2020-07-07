@@ -1,4 +1,4 @@
-import { contractFactory } from './client'
+import { contractFactory } from './contract'
 import { addresses } from './addresses'
 import { utils } from './utils'
 
