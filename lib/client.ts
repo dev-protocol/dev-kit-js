@@ -9,6 +9,7 @@ import { createDevContract } from './dev/index'
 import { createWithdrawContract } from './withdraw/index'
 import { createRegistryContract } from './registry/index'
 import { createPolicyContract } from './policy'
+import { createPolicySetContract } from './policy-set'
 
 export type DevkitContract = {
 	readonly allocator: ReturnType<typeof createAllocatorContract>
@@ -20,6 +21,7 @@ export type DevkitContract = {
 	readonly dev: ReturnType<typeof createDevContract>
 	readonly registry: ReturnType<typeof createRegistryContract>
 	readonly policy: ReturnType<typeof createPolicyContract>
+	readonly policySet: ReturnType<typeof createPolicySetContract>
 }
 export type ContractFactory = (provider: provider) => DevkitContract
 export type CreateDevkitContract = (client: Web3) => DevkitContract
@@ -36,6 +38,7 @@ export const createDevkitContract: CreateDevkitContract = (
 	dev: createDevContract(client),
 	registry: createRegistryContract(client),
 	policy: createPolicyContract(client),
+	policySet: createPolicySetContract(client),
 })
 
 export const contractFactory: ContractFactory = (
