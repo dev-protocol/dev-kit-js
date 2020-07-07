@@ -17,6 +17,7 @@ import { createPropertyGroupCaller } from './propertyGroup'
 import { createWithdrawCaller } from './withdraw'
 import { createWithdrawStorageCaller } from './withdrawStorage'
 import { createPolicyFactoryCaller } from './policyFactory'
+import { createPolicySetCaller } from './policySet'
 
 describe('registry/index.ts', () => {
 	describe('createRegistryContract', () => {
@@ -46,6 +47,7 @@ describe('registry/index.ts', () => {
 					metricsFactory: createMetricsFactoryCaller(registryContract),
 					metricsGroup: createMetricsGroupCaller(registryContract),
 					policy: createPolicyCaller(registryContract),
+					policySet: createPolicySetCaller(registryContract),
 					policyFactory: createPolicyFactoryCaller(registryContract),
 					propertyFactory: createPropertyFactoryCaller(registryContract),
 					propertyGroup: createPropertyGroupCaller(registryContract),
