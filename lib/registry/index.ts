@@ -17,6 +17,7 @@ import { createPropertyGroupCaller } from './propertyGroup'
 import { createWithdrawCaller } from './withdraw'
 import { createWithdrawStorageCaller } from './withdrawStorage'
 import { createPolicyFactoryCaller } from './policyFactory'
+import { createPolicySetCaller } from './policySet'
 
 export type RegistryContract = {
 	readonly allocator: () => Promise<string>
@@ -29,6 +30,7 @@ export type RegistryContract = {
 	readonly metricsGroup: () => Promise<string>
 	readonly policy: () => Promise<string>
 	readonly policyFactory: () => Promise<string>
+	readonly policySet: () => Promise<string>
 	readonly propertyFactory: () => Promise<string>
 	readonly propertyGroup: () => Promise<string>
 	readonly token: () => Promise<string>
@@ -61,6 +63,7 @@ export const createRegistryContract: CreateRegistryContract = (
 		metricsFactory: createMetricsFactoryCaller(contractClient),
 		metricsGroup: createMetricsGroupCaller(contractClient),
 		policy: createPolicyCaller(contractClient),
+		policySet: createPolicySetCaller(contractClient),
 		policyFactory: createPolicyFactoryCaller(contractClient),
 		propertyFactory: createPropertyFactoryCaller(contractClient),
 		propertyGroup: createPropertyGroupCaller(contractClient),
