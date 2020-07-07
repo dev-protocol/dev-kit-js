@@ -1,14 +1,14 @@
-import { createGetWithdrawalStatusCaller } from './getWithdrawalStatus'
+import { createGetStorageWithdrawalStatusCaller } from './getStorageWithdrawalStatus'
 
-describe('getWithdrawalStatus.spec.ts', () => {
-	describe('createGetWithdrawalStatusCaller', () => {
+describe('getStorageWithdrawalStatus.spec.ts', () => {
+	describe('createGetStorageWithdrawalStatusCaller', () => {
 		it('call success', async () => {
 			const value = 'value'
 
-			const lockupStorageContract = {
+			const lockupContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					getWithdrawalStatus: (property: string, account: string) => ({
+					getStorageWithdrawalStatus: (property: string, account: string) => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.resolve(value)),
@@ -19,8 +19,8 @@ describe('getWithdrawalStatus.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createGetWithdrawalStatusCaller(
-				lockupStorageContract as any
+			const caller = createGetStorageWithdrawalStatusCaller(
+				lockupContract as any
 			)
 
 			const result = await caller(
@@ -34,10 +34,10 @@ describe('getWithdrawalStatus.spec.ts', () => {
 		it('call failure', async () => {
 			const error = 'error'
 
-			const lockupStorageContract = {
+			const lockupContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					getWithdrawalStatus: (property: string, account: string) => ({
+					getStorageWithdrawalStatus: (property: string, account: string) => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error)),
@@ -46,8 +46,8 @@ describe('getWithdrawalStatus.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createGetWithdrawalStatusCaller(
-				lockupStorageContract as any
+			const caller = createGetStorageWithdrawalStatusCaller(
+				lockupContract as any
 			)
 
 			const result = await caller(

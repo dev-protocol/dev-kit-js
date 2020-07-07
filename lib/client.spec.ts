@@ -8,7 +8,6 @@ import { createLockupContract } from './lockup/index'
 import { createDevContract } from './dev'
 import { createWithdrawContract } from './withdraw'
 import { createRegistryContract } from './registry'
-import { createLockupStorageContract } from './lockup-storage'
 import { createPolicyContract } from './policy'
 
 describe('client.ts', () => {
@@ -26,7 +25,6 @@ describe('client.ts', () => {
 				property: createPropertyContract(client),
 				propertyFactory: createPropertyFactoryContract(client),
 				lockup: createLockupContract(client),
-				lockupStorage: createLockupStorageContract(client),
 				withdraw: createWithdrawContract(client),
 				dev: createDevContract(client),
 				registry: createRegistryContract(client),

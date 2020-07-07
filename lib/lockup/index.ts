@@ -9,6 +9,7 @@ import { createWithdrawCaller } from './withdraw'
 import { createWithdrawInterestCaller } from './withdrawInterest'
 import { createCalculateWithdrawableInterestAmountCaller } from './calculateWithdrawableInterestAmount'
 import { createGetAllValueCaller } from './getAllValue'
+import { createGetStorageWithdrawalStatusCaller } from './getStorageWithdrawalStatus'
 
 export type LockupContract = {
 	readonly getValue: (
@@ -21,6 +22,10 @@ export type LockupContract = {
 	readonly withdraw: (propertyAddress: string) => Promise<boolean>
 	readonly withdrawInterest: (propertyAddress: string) => Promise<boolean>
 	readonly calculateWithdrawableInterestAmount: (
+		propertyAddress: string,
+		accountAddress: string
+	) => Promise<string>
+	readonly getStorageWithdrawalStatus: (
 		propertyAddress: string,
 		accountAddress: string
 	) => Promise<string>
@@ -50,6 +55,9 @@ export const createLockupContract: CreateLockupContract = (client: Web3) => (
 		withdraw: createWithdrawCaller(contractClient, client),
 		withdrawInterest: createWithdrawInterestCaller(contractClient, client),
 		calculateWithdrawableInterestAmount: createCalculateWithdrawableInterestAmountCaller(
+			contractClient
+		),
+		getStorageWithdrawalStatus: createGetStorageWithdrawalStatusCaller(
 			contractClient
 		),
 	}

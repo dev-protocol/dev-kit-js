@@ -8,7 +8,6 @@ import { createLockupContract } from './lockup/index'
 import { createDevContract } from './dev/index'
 import { createWithdrawContract } from './withdraw/index'
 import { createRegistryContract } from './registry/index'
-import { createLockupStorageContract } from './lockup-storage'
 import { createPolicyContract } from './policy'
 
 export type DevkitContract = {
@@ -17,7 +16,6 @@ export type DevkitContract = {
 	readonly property: ReturnType<typeof createPropertyContract>
 	readonly propertyFactory: ReturnType<typeof createPropertyFactoryContract>
 	readonly lockup: ReturnType<typeof createLockupContract>
-	readonly lockupStorage: ReturnType<typeof createLockupStorageContract>
 	readonly withdraw: ReturnType<typeof createWithdrawContract>
 	readonly dev: ReturnType<typeof createDevContract>
 	readonly registry: ReturnType<typeof createRegistryContract>
@@ -34,7 +32,6 @@ export const createDevkitContract: CreateDevkitContract = (
 	property: createPropertyContract(client),
 	propertyFactory: createPropertyFactoryContract(client),
 	lockup: createLockupContract(client),
-	lockupStorage: createLockupStorageContract(client),
 	withdraw: createWithdrawContract(client),
 	dev: createDevContract(client),
 	registry: createRegistryContract(client),
