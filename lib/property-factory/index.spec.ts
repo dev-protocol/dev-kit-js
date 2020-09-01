@@ -3,6 +3,7 @@ import { createPropertyFactoryContract, PropertyFactoryContract } from '.'
 import { createCreatePropertyCaller } from './create'
 import { propertyFactoryAbi } from './abi'
 import { CustomOptions } from '../option'
+import { createCreateAndAuthenticateCaller } from './createAndAuthenticate'
 
 describe('property/index.ts', () => {
 	describe('createPropertyFactoryContract', () => {
@@ -28,6 +29,10 @@ describe('property/index.ts', () => {
 
 				return {
 					create: createCreatePropertyCaller(propertyFactoryContract, client),
+					createAndAuthenticate: createCreateAndAuthenticateCaller(
+						propertyFactoryContract,
+						client
+					),
 				}
 			}
 

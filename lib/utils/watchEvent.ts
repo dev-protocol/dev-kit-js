@@ -1,11 +1,10 @@
-/* eslint-disable functional/no-return-void */
+/* eslint-disable functional/no-return-void, functional/no-mixed-type */
 import { Contract } from 'web3-eth-contract/types'
 import { Event } from './web3-txs'
 
 export type WatchEventOptions = {
 	readonly contract: Contract
-	// eslint-disable-next-line functional/no-mixed-type
-	readonly resolver: (e: Event) => Promise<boolean>
+	readonly resolver: (e: Event) => Promise<boolean | void>
 }
 
 export const watchEvent = async ({
