@@ -27,7 +27,7 @@
 		"@types/ramda": "0.27.14",
 		"@typescript-eslint/eslint-plugin": "4.0.1",
 		"@typescript-eslint/parser": "4.0.1",
-		"eslint": "7.8.0",
+		"eslint": "7.8.1",
 		"eslint-config-prettier": "6.11.0",
 		"eslint-plugin-functional": "3.0.2",
 		"eslint-plugin-jest": "23.20.0",
