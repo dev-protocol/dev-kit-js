@@ -24,7 +24,7 @@
 	},
 	"devDependencies": {
 		"@types/jest": "26.0.14",
-		"@types/ramda": "0.27.24",
+		"@types/ramda": "0.27.25",
 		"@typescript-eslint/eslint-plugin": "4.4.1",
 		"@typescript-eslint/parser": "4.4.1",
 		"eslint": "7.11.0",
