@@ -8,6 +8,21 @@ export const policySetAbi = [
 				name: '_config',
 				type: 'address',
 			},
+			{
+				internalType: 'address',
+				name: '_own',
+				type: 'address',
+			},
+			{
+				internalType: 'string',
+				name: '_name',
+				type: 'string',
+			},
+			{
+				internalType: 'string',
+				name: '_symbol',
+				type: 'string',
+			},
 		],
 		payable: false,
 		stateMutability: 'nonpayable',
@@ -19,28 +34,70 @@ export const policySetAbi = [
 			{
 				indexed: true,
 				internalType: 'address',
-				name: 'previousOwner',
+				name: 'owner',
 				type: 'address',
 			},
 			{
 				indexed: true,
 				internalType: 'address',
-				name: 'newOwner',
+				name: 'spender',
 				type: 'address',
 			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'value',
+				type: 'uint256',
+			},
 		],
-		name: 'OwnershipTransferred',
+		name: 'Approval',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'from',
+				type: 'address',
+			},
+			{
+				indexed: true,
+				internalType: 'address',
+				name: 'to',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'value',
+				type: 'uint256',
+			},
+		],
+		name: 'Transfer',
 		type: 'event',
 	},
 	{
 		constant: true,
-		inputs: [],
-		name: '_owner',
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'owner',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: 'spender',
+				type: 'address',
+			},
+		],
+		name: 'allowance',
 		outputs: [
 			{
-				internalType: 'address payable',
+				internalType: 'uint256',
 				name: '',
-				type: 'address',
+				type: 'uint256',
 			},
 		],
 		payable: false,
@@ -52,14 +109,61 @@ export const policySetAbi = [
 		inputs: [
 			{
 				internalType: 'address',
-				name: 'newOwner',
+				name: 'spender',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: 'amount',
+				type: 'uint256',
+			},
+		],
+		name: 'approve',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool',
+			},
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'author',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
 				type: 'address',
 			},
 		],
-		name: 'changeOwner',
-		outputs: [],
 		payable: false,
-		stateMutability: 'nonpayable',
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'account',
+				type: 'address',
+			},
+		],
+		name: 'balanceOf',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
 		type: 'function',
 	},
 	{
@@ -78,23 +182,14 @@ export const policySetAbi = [
 		type: 'function',
 	},
 	{
-		constant: false,
-		inputs: [],
-		name: 'createStorage',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
 		constant: true,
 		inputs: [],
-		name: 'getStorageAddress',
+		name: 'decimals',
 		outputs: [
 			{
-				internalType: 'address',
+				internalType: 'uint8',
 				name: '',
-				type: 'address',
+				type: 'uint8',
 			},
 		],
 		payable: false,
@@ -102,9 +197,20 @@ export const policySetAbi = [
 		type: 'function',
 	},
 	{
-		constant: true,
-		inputs: [],
-		name: 'isOwner',
+		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'spender',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: 'subtractedValue',
+				type: 'uint256',
+			},
+		],
+		name: 'decreaseAllowance',
 		outputs: [
 			{
 				internalType: 'bool',
@@ -113,92 +219,31 @@ export const policySetAbi = [
 			},
 		],
 		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [],
-		name: 'kill',
-		outputs: [],
-		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
-		constant: true,
-		inputs: [],
-		name: 'owner',
+		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'spender',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: 'addedValue',
+				type: 'uint256',
+			},
+		],
+		name: 'increaseAllowance',
 		outputs: [
 			{
-				internalType: 'address',
+				internalType: 'bool',
 				name: '',
-				type: 'address',
+				type: 'bool',
 			},
 		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [],
-		name: 'renounceOwnership',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_storageAddress',
-				type: 'address',
-			},
-		],
-		name: 'setStorage',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [
-			{
-				internalType: 'address',
-				name: 'newOwner',
-				type: 'address',
-			},
-		],
-		name: 'transferOwnership',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_addr',
-				type: 'address',
-			},
-		],
-		name: 'addSet',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [],
-		name: 'deleteAll',
-		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
@@ -206,7 +251,37 @@ export const policySetAbi = [
 	{
 		constant: true,
 		inputs: [],
-		name: 'count',
+		name: 'name',
+		outputs: [
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'symbol',
+		outputs: [
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'totalSupply',
 		outputs: [
 			{
 				internalType: 'uint256',
@@ -219,24 +294,80 @@ export const policySetAbi = [
 		type: 'function',
 	},
 	{
-		constant: true,
+		constant: false,
 		inputs: [
 			{
+				internalType: 'address',
+				name: '_to',
+				type: 'address',
+			},
+			{
 				internalType: 'uint256',
-				name: '_index',
+				name: '_value',
 				type: 'uint256',
 			},
 		],
-		name: 'get',
+		name: 'transfer',
 		outputs: [
 			{
-				internalType: 'address',
+				internalType: 'bool',
 				name: '',
-				type: 'address',
+				type: 'bool',
 			},
 		],
 		payable: false,
-		stateMutability: 'view',
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_from',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_to',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: '_value',
+				type: 'uint256',
+			},
+		],
+		name: 'transferFrom',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool',
+			},
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_sender',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: '_value',
+				type: 'uint256',
+			},
+		],
+		name: 'withdraw',
+		outputs: [],
+		payable: false,
+		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 ] as readonly AbiItem[]

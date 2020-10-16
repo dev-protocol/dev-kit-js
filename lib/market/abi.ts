@@ -79,6 +79,21 @@ export const marketAbi = [
 		type: 'function',
 	},
 	{
+		constant: true,
+		inputs: [],
+		name: 'votingEndBlockNumber',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
 		constant: false,
 		inputs: [],
 		name: 'toEnable',
@@ -124,9 +139,60 @@ export const marketAbi = [
 		name: 'authenticate',
 		outputs: [
 			{
-				internalType: 'address',
+				internalType: 'bool',
 				name: '',
+				type: 'bool',
+			},
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_prop',
 				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_author',
+				type: 'address',
+			},
+			{
+				internalType: 'string',
+				name: '_args1',
+				type: 'string',
+			},
+			{
+				internalType: 'string',
+				name: '_args2',
+				type: 'string',
+			},
+			{
+				internalType: 'string',
+				name: '_args3',
+				type: 'string',
+			},
+			{
+				internalType: 'string',
+				name: '_args4',
+				type: 'string',
+			},
+			{
+				internalType: 'string',
+				name: '_args5',
+				type: 'string',
+			},
+		],
+		name: 'authenticateFromPropertyFactory',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool',
 			},
 		],
 		payable: false,
@@ -169,26 +235,6 @@ export const marketAbi = [
 			},
 		],
 		name: 'deauthenticate',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-			{
-				internalType: 'bool',
-				name: '_agree',
-				type: 'bool',
-			},
-		],
-		name: 'vote',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',

@@ -1,6 +1,6 @@
 import { AbiItem } from 'web3-utils'
 
-export const withdrawAbi = ([
+export const withdrawAbi = [
 	{
 		inputs: [
 			{
@@ -17,39 +17,19 @@ export const withdrawAbi = ([
 		anonymous: false,
 		inputs: [
 			{
-				indexed: false,
+				indexed: true,
 				internalType: 'address',
-				name: 'account',
+				name: 'previousOwner',
 				type: 'address',
 			},
-		],
-		name: 'Paused',
-		type: 'event',
-	},
-	{
-		anonymous: false,
-		inputs: [
 			{
 				indexed: true,
 				internalType: 'address',
-				name: 'account',
+				name: 'newOwner',
 				type: 'address',
 			},
 		],
-		name: 'PauserAdded',
-		type: 'event',
-	},
-	{
-		anonymous: false,
-		inputs: [
-			{
-				indexed: true,
-				internalType: 'address',
-				name: 'account',
-				type: 'address',
-			},
-		],
-		name: 'PauserRemoved',
+		name: 'OwnershipTransferred',
 		type: 'event',
 	},
 	{
@@ -58,38 +38,35 @@ export const withdrawAbi = ([
 			{
 				indexed: false,
 				internalType: 'address',
-				name: 'account',
+				name: '_property',
 				type: 'address',
 			},
-		],
-		name: 'Unpaused',
-		type: 'event',
-	},
-	{
-		constant: true,
-		inputs: [],
-		name: '_owner',
-		outputs: [
 			{
-				internalType: 'address payable',
-				name: '',
+				indexed: false,
+				internalType: 'address',
+				name: '_from',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				internalType: 'address',
+				name: '_to',
 				type: 'address',
 			},
 		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
+		name: 'PropertyTransfer',
+		type: 'event',
 	},
 	{
 		constant: false,
 		inputs: [
 			{
 				internalType: 'address',
-				name: 'account',
+				name: 'newOwner',
 				type: 'address',
 			},
 		],
-		name: 'addPauser',
+		name: 'changeOwner',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
@@ -111,20 +88,29 @@ export const withdrawAbi = ([
 		type: 'function',
 	},
 	{
+		constant: false,
+		inputs: [],
+		name: 'createStorage',
+		outputs: [],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
 		constant: true,
 		inputs: [
 			{
 				internalType: 'address',
-				name: 'account',
+				name: '_property',
 				type: 'address',
 			},
 		],
-		name: 'isPauser',
+		name: 'getCumulativePrice',
 		outputs: [
 			{
-				internalType: 'bool',
+				internalType: 'uint256',
 				name: '',
-				type: 'bool',
+				type: 'uint256',
 			},
 		],
 		payable: false,
@@ -132,27 +118,201 @@ export const withdrawAbi = ([
 		type: 'function',
 	},
 	{
-		constant: false,
-		inputs: [],
-		name: 'kill',
-		outputs: [],
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_user',
+				type: 'address',
+			},
+		],
+		name: 'getLastCumulativeHoldersReward',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
 		payable: false,
-		stateMutability: 'nonpayable',
+		stateMutability: 'view',
 		type: 'function',
 	},
 	{
-		constant: false,
-		inputs: [],
-		name: 'pause',
-		outputs: [],
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_user',
+				type: 'address',
+			},
+		],
+		name: 'getLastWithdrawalPrice',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
 		payable: false,
-		stateMutability: 'nonpayable',
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_user',
+				type: 'address',
+			},
+		],
+		name: 'getPendingWithdrawal',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+		],
+		name: 'getRewardsAmount',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
 		type: 'function',
 	},
 	{
 		constant: true,
 		inputs: [],
-		name: 'paused',
+		name: 'getStorageAddress',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_user',
+				type: 'address',
+			},
+		],
+		name: 'getStorageLastWithdrawnReward',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_user',
+				type: 'address',
+			},
+		],
+		name: 'getWithdrawalLimitBalance',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_user',
+				type: 'address',
+			},
+		],
+		name: 'getWithdrawalLimitTotal',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'isOwner',
 		outputs: [
 			{
 				internalType: 'bool',
@@ -165,9 +325,24 @@ export const withdrawAbi = ([
 		type: 'function',
 	},
 	{
+		constant: true,
+		inputs: [],
+		name: 'owner',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
 		constant: false,
 		inputs: [],
-		name: 'renouncePauser',
+		name: 'renounceOwnership',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
@@ -175,8 +350,29 @@ export const withdrawAbi = ([
 	},
 	{
 		constant: false,
-		inputs: [],
-		name: 'unpause',
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_storageAddress',
+				type: 'address',
+			},
+		],
+		name: 'setStorage',
+		outputs: [],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
+				name: 'newOwner',
+				type: 'address',
+			},
+		],
+		name: 'transferOwnership',
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
@@ -223,73 +419,6 @@ export const withdrawAbi = ([
 		type: 'function',
 	},
 	{
-		constant: false,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-			{
-				internalType: 'uint256',
-				name: '_allocationResult',
-				type: 'uint256',
-			},
-		],
-		name: 'increment',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-		],
-		name: 'getRewardsAmount',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_user',
-				type: 'address',
-			},
-		],
-		name: 'calculateAmount',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
 		constant: true,
 		inputs: [
 			{
@@ -315,4 +444,4 @@ export const withdrawAbi = ([
 		stateMutability: 'view',
 		type: 'function',
 	},
-] as unknown) as readonly AbiItem[]
+] as readonly AbiItem[]

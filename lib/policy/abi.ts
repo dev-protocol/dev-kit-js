@@ -2,77 +2,6 @@ import { AbiItem } from 'web3-utils'
 
 export const policyAbi = [
 	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_config',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_innerPolicyAddress',
-				type: 'address',
-			},
-		],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'constructor',
-	},
-	{
-		constant: true,
-		inputs: [],
-		name: '_owner',
-		outputs: [
-			{
-				internalType: 'address payable',
-				name: '',
-				type: 'address',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [],
-		name: 'configAddress',
-		outputs: [
-			{
-				internalType: 'address',
-				name: '',
-				type: 'address',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [],
-		name: 'kill',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [],
-		name: 'voting',
-		outputs: [
-			{
-				internalType: 'bool',
-				name: '',
-				type: 'bool',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
 		constant: true,
 		inputs: [
 			{
@@ -292,26 +221,6 @@ export const policyAbi = [
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-			{
-				internalType: 'bool',
-				name: '_agree',
-				type: 'bool',
-			},
-		],
-		name: 'vote',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 ] as readonly AbiItem[]

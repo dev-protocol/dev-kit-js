@@ -247,8 +247,85 @@ export const lockupAbi = [
 				name: '_property',
 				type: 'address',
 			},
+			{
+				internalType: 'address',
+				name: '_user',
+				type: 'address',
+			},
 		],
-		name: 'getStorageLastBlockNumber',
+		name: 'getStorageLastCumulativeGlobalReward',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+		],
+		name: 'getStorageLastCumulativeHoldersRewardAmountPerProperty',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'getStorageLastCumulativeHoldersRewardPrice',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+		],
+		name: 'getStorageLastCumulativeHoldersRewardPricePerProperty',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'getStorageLastCumulativeInterestPrice',
 		outputs: [
 			{
 				internalType: 'uint256',
@@ -274,7 +351,38 @@ export const lockupAbi = [
 				type: 'address',
 			},
 		],
-		name: 'getStorageLastCumulativeGlobalReward',
+		name: 'getStorageLastCumulativeLockedUpAndBlock',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '_cLocked',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: '_block',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_user',
+				type: 'address',
+			},
+		],
+		name: 'getStorageLastCumulativePropertyInterest',
 		outputs: [
 			{
 				internalType: 'uint256',
@@ -325,6 +433,47 @@ export const lockupAbi = [
 			{
 				internalType: 'uint256',
 				name: '_block',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_user',
+				type: 'address',
+			},
+		],
+		name: 'getStorageLastStakedInterestPrice',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'getStorageLastStakesChangedCumulativeReward',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
 				type: 'uint256',
 			},
 		],
@@ -557,28 +706,22 @@ export const lockupAbi = [
 	},
 	{
 		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-		],
-		name: 'getCumulativeLockedUp',
+		inputs: [],
+		name: 'calculateCumulativeRewardPrices',
 		outputs: [
 			{
 				internalType: 'uint256',
-				name: '_value',
+				name: '_reward',
 				type: 'uint256',
 			},
 			{
 				internalType: 'uint256',
-				name: '_unit',
+				name: '_holders',
 				type: 'uint256',
 			},
 			{
 				internalType: 'uint256',
-				name: '_block',
+				name: '_interest',
 				type: 'uint256',
 			},
 		],
@@ -588,22 +731,18 @@ export const lockupAbi = [
 	},
 	{
 		constant: true,
-		inputs: [],
-		name: 'getCumulativeLockedUpAll',
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+		],
+		name: 'calculateCumulativeHoldersRewardAmount',
 		outputs: [
 			{
 				internalType: 'uint256',
-				name: '_value',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_unit',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_block',
+				name: '',
 				type: 'uint256',
 			},
 		],
@@ -618,88 +757,6 @@ export const lockupAbi = [
 		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-			{
-				internalType: 'uint256',
-				name: '_lastReward',
-				type: 'uint256',
-			},
-		],
-		name: 'difference',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '_reward',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_holdersAmount',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_holdersPrice',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_interestAmount',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_interestPrice',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-		],
-		name: 'next',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '_holders',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_interest',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_holdersPrice',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_interestPrice',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
 		type: 'function',
 	},
 	{
