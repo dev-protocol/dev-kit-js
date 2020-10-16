@@ -10,6 +10,7 @@ import { createWithdrawInterestCaller } from './withdrawInterest'
 import { createCalculateWithdrawableInterestAmountCaller } from './calculateWithdrawableInterestAmount'
 import { createGetAllValueCaller } from './getAllValue'
 import { createGetStorageWithdrawalStatusCaller } from './getStorageWithdrawalStatus'
+import { createCalculateCumulativeHoldersRewardAmountCaller } from './calculateCumulativeHoldersRewardAmount'
 
 describe('lockup/index.ts', () => {
 	describe('createLockupContract', () => {
@@ -40,6 +41,9 @@ describe('lockup/index.ts', () => {
 						client
 					),
 					calculateWithdrawableInterestAmount: createCalculateWithdrawableInterestAmountCaller(
+						lockupContract
+					),
+					calculateCumulativeHoldersRewardAmount: createCalculateCumulativeHoldersRewardAmountCaller(
 						lockupContract
 					),
 					getStorageWithdrawalStatus: createGetStorageWithdrawalStatusCaller(
