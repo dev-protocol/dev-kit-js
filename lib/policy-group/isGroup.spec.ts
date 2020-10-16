@@ -1,14 +1,14 @@
-import { createCountCaller } from './count'
+import { createIsGroupCaller } from './isGroup'
 
-describe('count.spec.ts', () => {
-	describe('createCountCaller', () => {
+describe('isGroup.spec.ts', () => {
+	describe('createIsGroupCaller', () => {
 		it('call success', async () => {
-			const value = '12345'
+			const value = true
 
-			const policySetContract = {
+			const policyGroupContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					count: () => ({
+					isGroup: (policy: string) => ({
 						call: jest.fn().mockImplementation(async () => value),
 					}),
 				},
@@ -17,9 +17,9 @@ describe('count.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createCountCaller(policySetContract as any)
+			const caller = createIsGroupCaller(policyGroupContract as any)
 
-			const result = await caller()
+			const result = await caller('0x0')
 
 			expect(result).toEqual(expected)
 		})
@@ -27,10 +27,10 @@ describe('count.spec.ts', () => {
 		it('call failure', async () => {
 			const error = 'error'
 
-			const policySetContract = {
+			const policyGroupContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					count: () => ({
+					isGroup: (policy: string) => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error)),
@@ -39,9 +39,9 @@ describe('count.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createCountCaller(policySetContract as any)
+			const caller = createIsGroupCaller(policyGroupContract as any)
 
-			const result = await caller().catch((err) => err)
+			const result = await caller('0x0').catch((err) => err)
 
 			expect(result).toEqual(error)
 		})

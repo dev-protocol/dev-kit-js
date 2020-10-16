@@ -1,18 +1,49 @@
-import { PolicySetContract } from '../policy-set'
-
-const ZERO = '0x0000000000000000000000000000000000000000'
+import bent from 'bent'
+import { always, not } from 'ramda'
+import { aFindIndex } from 'async-ray'
+import { PolicyGroupContract } from '../policy-group'
 
 export type CreateGetVotablePolicyCaller = (
-	policySet: PolicySetContract
+	policyGroup: PolicyGroupContract
 ) => () => Promise<readonly string[]>
 
 export const createGetVotablePolicy: CreateGetVotablePolicyCaller = (
-	policySet: PolicySetContract
-	// eslint-disable-next-line functional/functional-parameters
-) => async (): Promise<readonly string[]> => {
-	const index = await policySet.count().then(Number)
-	const addresses = await Promise.all(
-		new Array(index).fill(0).map((_, i) => policySet.get(String(i)))
+	policyGroup: PolicyGroupContract
+) => {
+	const fetcher = always(
+		bent(
+			'https://api.devprtcl.com/v1/graphql',
+			'POST',
+			'json'
+		)('/', {
+			query: `{
+				policy_factory_create(order_by: {block_number: desc}, limit: 100) {
+					policy_address
+				}
+			}`,
+		}).then(
+			(r) =>
+				(r as unknown) as {
+					readonly data: {
+						readonly policy_factory_create: ReadonlyArray<{
+							readonly policy_address: string
+						}>
+					}
+				}
+		)
 	)
-	return addresses.filter((x) => x !== ZERO)
+	const checker = async (policy: string): Promise<boolean> =>
+		policyGroup.isGroup(policy)
+
+	// eslint-disable-next-line functional/functional-parameters
+	return async () => {
+		const policies = await fetcher().then(
+			({ data }) => data.policy_factory_create
+		)
+		const policyAddresses = policies.map(({ policy_address }) => policy_address)
+		const notPolicyIndex = await aFindIndex(policyAddresses, async (policy) =>
+			not(await checker(policy))
+		)
+		return policyAddresses.filter((_, i) => i < notPolicyIndex)
+	}
 }

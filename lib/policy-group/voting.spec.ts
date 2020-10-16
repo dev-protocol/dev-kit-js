@@ -1,14 +1,14 @@
-import { createGetCaller } from './get'
+import { createVotingCaller } from './voting'
 
-describe('get.spec.ts', () => {
-	describe('createGetCaller', () => {
+describe('voting.spec.ts', () => {
+	describe('createVotingCaller', () => {
 		it('call success', async () => {
-			const value = '12345'
+			const value = true
 
-			const policySetContract = {
+			const policyGroupContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					get: (index: string) => ({
+					voting: (policy: string) => ({
 						call: jest.fn().mockImplementation(async () => value),
 					}),
 				},
@@ -17,9 +17,9 @@ describe('get.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createGetCaller(policySetContract as any)
+			const caller = createVotingCaller(policyGroupContract as any)
 
-			const result = await caller('1')
+			const result = await caller('0x0')
 
 			expect(result).toEqual(expected)
 		})
@@ -27,10 +27,10 @@ describe('get.spec.ts', () => {
 		it('call failure', async () => {
 			const error = 'error'
 
-			const policySetContract = {
+			const policyGroupContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					get: (index: string) => ({
+					voting: (policy: string) => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error)),
@@ -39,9 +39,9 @@ describe('get.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createGetCaller(policySetContract as any)
+			const caller = createVotingCaller(policyGroupContract as any)
 
-			const result = await caller('1').catch((err) => err)
+			const result = await caller('0x0').catch((err) => err)
 
 			expect(result).toEqual(error)
 		})

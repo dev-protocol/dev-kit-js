@@ -71,6 +71,9 @@
 		]
 	},
 	"dependencies": {
+		"@types/bent": "^7.3.1",
+		"async-ray": "^3.2.0",
+		"bent": "^7.3.12",
 		"ramda": "^0.27.0",
 		"web3": "^1.2.5-rc.0"
 	},

@@ -697,6 +697,13 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/bent@^7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@types/bent/-/bent-7.3.1.tgz#e59e9144058da1843c00b8fcc3c5b3ed7bfab9e6"
+  integrity sha512-76ieb6NdaxXAURJwTXaFYovU7lXB2cO03vMMCDlfTb12Uw7jgEBdAABBMvsm/SIB6LavDofvFXYDhiU/qAySDg==
+  dependencies:
+    "@types/node" "*"
+
 "@types/bn.js@^4.11.3", "@types/bn.js@^4.11.4":
   version "4.11.6"
   resolved "https://registry.yarnpkg.com/@types/bn.js/-/bn.js-4.11.6.tgz#c306c70d9358aaea33cd4eda092a742b9505967c"
@@ -1205,6 +1212,11 @@ async-limiter@~1.0.0:
   resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.1.tgz#dd379e94f0db8310b08291f9d64c3209766617fd"
   integrity sha512-csOlWGAcRFJaI6m+F2WKdnMKr4HhdhFVBk0H/QbJFMCr+uO2kwohwXQPxw/9OCxp05r5ghVBFSyioixx3gfkNQ==
 
+async-ray@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/async-ray/-/async-ray-3.2.0.tgz#331e1b3549a80b456304b37a3d43939c6170164d"
+  integrity sha512-w1t9m2Wp0A+yQ5xaBxbOMVuZAxdZEntQAiOoV3JaDsLlme+oqdKmi5k0z0lJPoEy7zmD7mfqKgBw7kzaKc+ZRQ==
+
 asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
@@ -1321,6 +1333,15 @@ bcrypt-pbkdf@^1.0.0:
   integrity sha1-pDAdOJtqQ/m2f/PKEaP2Y342Dp4=
   dependencies:
     tweetnacl "^0.14.3"
+
+bent@^7.3.12:
+  version "7.3.12"
+  resolved "https://registry.yarnpkg.com/bent/-/bent-7.3.12.tgz#e0a2775d4425e7674c64b78b242af4f49da6b035"
+  integrity sha512-T3yrKnVGB63zRuoco/7Ybl7BwwGZR0lceoVG5XmQyMIH9s19SV5m+a8qam4if0zQuAmOQTyPTPmsQBdAorGK3w==
+  dependencies:
+    bytesish "^0.4.1"
+    caseless "~0.12.0"
+    is-stream "^2.0.0"
 
 bignumber.js@^9.0.0:
   version "9.0.0"
@@ -1518,6 +1539,11 @@ bytes@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.0.tgz#f6cf7933a360e0588fa9fde85651cdc7f805d1f6"
   integrity sha512-zauLjrfCG+xvoyaqLoV8bLVXXNGC4JqlxFCutSDWA6fJrTo2ZuvLYTqZ7aHBLZSMOopbzwv8f+wZcVzfVTI2Dg==
+
+bytesish@^0.4.1:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/bytesish/-/bytesish-0.4.4.tgz#f3b535a0f1153747427aee27256748cff92347e6"
+  integrity sha512-i4uu6M4zuMUiyfZN4RU2+i9+peJh//pXhd9x1oSe1LBkZ3LEbCoygu8W0bXTukU1Jme2txKuotpCZRaC3FLxcQ==
 
 cache-base@^1.0.1:
   version "1.0.1"

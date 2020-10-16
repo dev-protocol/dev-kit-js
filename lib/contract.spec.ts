@@ -13,7 +13,7 @@ import { createDevContract } from './dev'
 import { createWithdrawContract } from './withdraw'
 import { createRegistryContract } from './registry'
 import { createPolicyContract } from './policy'
-import { createPolicySetContract } from './policy-set'
+import { createPolicyGroupContract } from './policy-group'
 
 describe('contract.ts', () => {
 	describe('createDevkitContract', () => {
@@ -34,7 +34,7 @@ describe('contract.ts', () => {
 				dev: createDevContract(client),
 				registry: createRegistryContract(client),
 				policy: createPolicyContract(client),
-				policySet: createPolicySetContract(client),
+				policyGroup: createPolicyGroupContract(client),
 			}
 
 			const result = createDevkitContract(client)
