@@ -3,12 +3,21 @@ import { Contract } from 'web3-eth-contract/types'
 import { propertyFactoryAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createCreatePropertyCaller } from './create'
+import { WaitForEventOptions } from '../market/authenticate'
+import { createCreateAndAuthenticateCaller } from './createAndAuthenticate'
 
 export type PropertyFactoryContract = {
 	readonly create: (
 		name: string,
 		symbol: string,
 		author: string
+	) => Promise<string>
+	readonly createAndAuthenticate: (
+		name: string,
+		symbol: string,
+		marketAddress: string,
+		args: readonly string[],
+		options: WaitForEventOptions
 	) => Promise<string>
 }
 
@@ -29,5 +38,9 @@ export const createPropertyFactoryContract: CreatePropertyFactoryContract = (
 
 	return {
 		create: createCreatePropertyCaller(contractClient, client),
+		createAndAuthenticate: createCreateAndAuthenticateCaller(
+			contractClient,
+			client
+		),
 	}
 }
