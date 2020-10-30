@@ -1,13 +1,13 @@
-import { createOwnerCaller } from './owner'
+import { createAuthorCaller } from './author'
 
-describe('owner.spec.ts', () => {
-	describe('createOwnerCaller', () => {
+describe('author.spec.ts', () => {
+	describe('createAuthorCaller', () => {
 		it('call success', async () => {
 			const value = 'value'
 
 			const propertyContract = {
 				methods: {
-					owner: () => ({
+					author: () => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.resolve(value)),
@@ -18,7 +18,7 @@ describe('owner.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createOwnerCaller(propertyContract as any)
+			const caller = createAuthorCaller(propertyContract as any)
 
 			const result = await caller()
 
@@ -30,7 +30,7 @@ describe('owner.spec.ts', () => {
 
 			const propertyContract = {
 				methods: {
-					owner: () => ({
+					author: () => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error)),
@@ -39,7 +39,7 @@ describe('owner.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createOwnerCaller(propertyContract as any)
+			const caller = createAuthorCaller(propertyContract as any)
 
 			const result = await caller().catch((err) => err)
 

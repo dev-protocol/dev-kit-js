@@ -1,6 +1,6 @@
 import Web3 from 'web3'
 import { createPropertyContract, PropertyContract } from '.'
-import { createOwnerCaller } from './owner'
+import { createAuthorCaller } from './author'
 import { createTransferCaller } from './transfer'
 import { propertyAbi } from './abi'
 import { CustomOptions } from '../option'
@@ -24,7 +24,7 @@ describe('property/index.ts', () => {
 					}
 				)
 				return {
-					owner: createOwnerCaller(propertyContract),
+					author: createAuthorCaller(propertyContract),
 					transfer: createTransferCaller(propertyContract, client),
 				}
 			}

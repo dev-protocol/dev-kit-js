@@ -2,11 +2,11 @@ import Web3 from 'web3'
 import { Contract } from 'web3-eth-contract/types'
 import { propertyAbi } from './abi'
 import { CustomOptions } from '../option'
-import { createOwnerCaller } from './owner'
+import { createAuthorCaller } from './author'
 import { createTransferCaller } from './transfer'
 
 export type PropertyContract = {
-	readonly owner: () => Promise<string>
+	readonly author: () => Promise<string>
 	readonly transfer: (to: string, value: string) => Promise<boolean>
 }
 
@@ -26,7 +26,7 @@ export const createPropertyContract: CreatePropertyContract = (
 	)
 
 	return {
-		owner: createOwnerCaller(contractClient),
+		author: createAuthorCaller(contractClient),
 		transfer: createTransferCaller(contractClient, client),
 	}
 }
