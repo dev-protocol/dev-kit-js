@@ -79,5 +79,7 @@ export const execute: ExecuteFunction = async <
 		? txPromisify(x.send({ from: await getAccount(client as Web3) })).then(
 				(receipt) => receipt
 		  )
+		: client
+		? x.call({ from: await getAccount(client) })
 		: x.call()
 }
