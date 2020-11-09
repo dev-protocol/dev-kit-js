@@ -4,7 +4,6 @@ import { createGetValueCaller } from './getValue'
 import { lockupAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createGetPropertyValueCaller } from './getPropertyValue'
-import { createCancelCaller } from './cancel'
 import { createWithdrawCaller } from './withdraw'
 import { createCalculateWithdrawableInterestAmountCaller } from './calculateWithdrawableInterestAmount'
 import { createGetAllValueCaller } from './getAllValue'
@@ -33,7 +32,6 @@ describe('lockup/index.ts', () => {
 					getValue: createGetValueCaller(lockupContract),
 					getAllValue: createGetAllValueCaller(lockupContract),
 					getPropertyValue: createGetPropertyValueCaller(lockupContract),
-					cancel: createCancelCaller(lockupContract, client),
 					withdraw: createWithdrawCaller(lockupContract, client),
 					calculateWithdrawableInterestAmount: createCalculateWithdrawableInterestAmountCaller(
 						lockupContract

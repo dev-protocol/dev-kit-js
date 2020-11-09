@@ -4,7 +4,6 @@ import { lockupAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createGetValueCaller } from './getValue'
 import { createGetPropertyValueCaller } from './getPropertyValue'
-import { createCancelCaller } from './cancel'
 import { createWithdrawCaller } from './withdraw'
 import { createCalculateWithdrawableInterestAmountCaller } from './calculateWithdrawableInterestAmount'
 import { createGetAllValueCaller } from './getAllValue'
@@ -18,7 +17,6 @@ export type LockupContract = {
 	) => Promise<string>
 	readonly getAllValue: () => Promise<string>
 	readonly getPropertyValue: (address: string) => Promise<string>
-	readonly cancel: (propertyAddress: string) => Promise<boolean>
 	readonly withdraw: (
 		propertyAddress: string,
 		amount: string
@@ -56,7 +54,6 @@ export const createLockupContract: CreateLockupContract = (client: Web3) => (
 		getValue: createGetValueCaller(contractClient),
 		getAllValue: createGetAllValueCaller(contractClient),
 		getPropertyValue: createGetPropertyValueCaller(contractClient),
-		cancel: createCancelCaller(contractClient, client),
 		withdraw: createWithdrawCaller(contractClient, client),
 		calculateWithdrawableInterestAmount: createCalculateWithdrawableInterestAmountCaller(
 			contractClient
