@@ -682,20 +682,10 @@ export const lockupAbi = [
 				name: '_property',
 				type: 'address',
 			},
-		],
-		name: 'cancel',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [
 			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
+				internalType: 'uint256',
+				name: '_amount',
+				type: 'uint256',
 			},
 		],
 		name: 'withdraw',
@@ -783,21 +773,6 @@ export const lockupAbi = [
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-		],
-		name: 'withdrawInterest',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{

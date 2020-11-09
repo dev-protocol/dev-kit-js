@@ -6,16 +6,16 @@ import { T } from 'ramda'
 export type CreateWithdrawCaller = (
 	contract: Contract,
 	client: Web3
-) => (propertyAddress: string) => Promise<boolean>
+) => (propertyAddress: string, amount: string) => Promise<boolean>
 
 export const createWithdrawCaller: CreateWithdrawCaller = (
 	contract: Contract,
 	client: Web3
-) => async (propertyAddress: string) =>
+) => async (propertyAddress: string, amount: string) =>
 	execute({
 		contract,
 		method: 'withdraw',
 		mutation: true,
 		client,
-		args: [propertyAddress],
+		args: [propertyAddress, amount],
 	}).then(T)

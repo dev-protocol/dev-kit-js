@@ -6,7 +6,6 @@ import { createGetValueCaller } from './getValue'
 import { createGetPropertyValueCaller } from './getPropertyValue'
 import { createCancelCaller } from './cancel'
 import { createWithdrawCaller } from './withdraw'
-import { createWithdrawInterestCaller } from './withdrawInterest'
 import { createCalculateWithdrawableInterestAmountCaller } from './calculateWithdrawableInterestAmount'
 import { createGetAllValueCaller } from './getAllValue'
 import { createGetStorageWithdrawalStatusCaller } from './getStorageWithdrawalStatus'
@@ -20,8 +19,10 @@ export type LockupContract = {
 	readonly getAllValue: () => Promise<string>
 	readonly getPropertyValue: (address: string) => Promise<string>
 	readonly cancel: (propertyAddress: string) => Promise<boolean>
-	readonly withdraw: (propertyAddress: string) => Promise<boolean>
-	readonly withdrawInterest: (propertyAddress: string) => Promise<boolean>
+	readonly withdraw: (
+		propertyAddress: string,
+		amount: string
+	) => Promise<boolean>
 	readonly calculateWithdrawableInterestAmount: (
 		propertyAddress: string,
 		accountAddress: string
@@ -57,7 +58,6 @@ export const createLockupContract: CreateLockupContract = (client: Web3) => (
 		getPropertyValue: createGetPropertyValueCaller(contractClient),
 		cancel: createCancelCaller(contractClient, client),
 		withdraw: createWithdrawCaller(contractClient, client),
-		withdrawInterest: createWithdrawInterestCaller(contractClient, client),
 		calculateWithdrawableInterestAmount: createCalculateWithdrawableInterestAmountCaller(
 			contractClient
 		),
