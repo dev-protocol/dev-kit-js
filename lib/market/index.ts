@@ -6,6 +6,7 @@ import { createSchemaCaller } from './schema'
 import { createVoteCaller } from './vote'
 import { createAuthenticateCaller } from './authenticate'
 import { TxReceipt } from '../utils/web3-txs'
+import { always } from 'ramda'
 
 export type CreateMarketContract = {
 	readonly schema: () => Promise<readonly string[]>
@@ -17,6 +18,7 @@ export type CreateMarketContract = {
 			readonly metricsFactory: string
 		}
 	) => Promise<string>
+	readonly contract: () => Contract
 }
 
 export const createMarketContract = (client: Web3) => (
@@ -35,5 +37,6 @@ export const createMarketContract = (client: Web3) => (
 		schema: createSchemaCaller(contractClient),
 		vote: createVoteCaller(contractClient, client),
 		authenticate: createAuthenticateCaller(contractClient, client),
+		contract: always(contractClient),
 	}
 }

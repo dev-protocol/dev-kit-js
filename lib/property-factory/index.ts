@@ -5,6 +5,7 @@ import { CustomOptions } from '../option'
 import { createCreatePropertyCaller } from './create'
 import { WaitForEventOptions } from '../market/authenticate'
 import { createCreateAndAuthenticateCaller } from './createAndAuthenticate'
+import { always } from 'ramda'
 
 export type PropertyFactoryContract = {
 	readonly create: (
@@ -19,6 +20,7 @@ export type PropertyFactoryContract = {
 		args: readonly string[],
 		options: WaitForEventOptions
 	) => Promise<string>
+	readonly contract: () => Contract
 }
 
 export type CreatePropertyFactoryContract = (
@@ -42,5 +44,6 @@ export const createPropertyFactoryContract: CreatePropertyFactoryContract = (
 			contractClient,
 			client
 		),
+		contract: always(contractClient),
 	}
 }

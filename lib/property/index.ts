@@ -4,10 +4,12 @@ import { propertyAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createAuthorCaller } from './author'
 import { createTransferCaller } from './transfer'
+import { always } from 'ramda'
 
 export type PropertyContract = {
 	readonly author: () => Promise<string>
 	readonly transfer: (to: string, value: string) => Promise<boolean>
+	readonly contract: () => Contract
 }
 
 export type CreatePropertyContract = (
@@ -28,5 +30,6 @@ export const createPropertyContract: CreatePropertyContract = (
 	return {
 		author: createAuthorCaller(contractClient),
 		transfer: createTransferCaller(contractClient, client),
+		contract: always(contractClient),
 	}
 }

@@ -9,6 +9,7 @@ import { createCalculateWithdrawableInterestAmountCaller } from './calculateWith
 import { createGetAllValueCaller } from './getAllValue'
 import { createGetStorageWithdrawalStatusCaller } from './getStorageWithdrawalStatus'
 import { createCalculateCumulativeHoldersRewardAmountCaller } from './calculateCumulativeHoldersRewardAmount'
+import { always } from 'ramda'
 
 export type LockupContract = {
 	readonly getValue: (
@@ -32,6 +33,7 @@ export type LockupContract = {
 		propertyAddress: string,
 		accountAddress: string
 	) => Promise<string>
+	readonly contract: () => Contract
 }
 
 export type CreateLockupContract = (
@@ -64,5 +66,6 @@ export const createLockupContract: CreateLockupContract = (client: Web3) => (
 		getStorageWithdrawalStatus: createGetStorageWithdrawalStatusCaller(
 			contractClient
 		),
+		contract: always(contractClient),
 	}
 }

@@ -5,6 +5,7 @@ import { CustomOptions } from '../option'
 import { createWithdrawCaller } from './withdraw'
 import { createGetRewardsAmountCaller } from './getRewardsAmount'
 import { createCalculateWithdrawableAmountCaller } from './calculateWithdrawableAmount'
+import { always } from 'ramda'
 
 export type WithdrawContract = {
 	readonly withdraw: (propertyAddress: string) => Promise<boolean>
@@ -13,6 +14,7 @@ export type WithdrawContract = {
 		propertyAddress: string,
 		accountAddress: string
 	) => Promise<string>
+	readonly contract: () => Contract
 }
 
 export type CreateWithdrawContract = (
@@ -36,5 +38,6 @@ export const createWithdrawContract: CreateWithdrawContract = (
 		calculateWithdrawableAmount: createCalculateWithdrawableAmountCaller(
 			contractClient
 		),
+		contract: always(contractClient),
 	}
 }

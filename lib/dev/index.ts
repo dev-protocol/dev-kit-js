@@ -6,12 +6,14 @@ import { createTransferCaller } from './transfer'
 import { createDepositCaller } from './deposit'
 import { createBalanceOfCaller } from './balanceOf'
 import { createTotalSupplyCaller } from './totalSupply'
+import { always } from 'ramda'
 
 export type DevContract = {
 	readonly totalSupply: () => Promise<string>
 	readonly balanceOf: (address: string) => Promise<string>
 	readonly transfer: (to: string, value: string) => Promise<boolean>
 	readonly deposit: (to: string, value: string) => Promise<boolean>
+	readonly contract: () => Contract
 }
 
 export type CreateDevContract = (
@@ -35,5 +37,6 @@ export const createDevContract: CreateDevContract = (client: Web3) => (
 		balanceOf: createBalanceOfCaller(contractClient),
 		transfer: createTransferCaller(contractClient, client),
 		deposit: createDepositCaller(contractClient, client),
+		contract: always(contractClient),
 	}
 }

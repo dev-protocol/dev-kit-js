@@ -25,13 +25,18 @@ describe('policy/index.ts', () => {
 
 				return {
 					holdersShare: createHoldersShareCaller(policyContract),
+					contract: () => policyContract,
 				}
 			}
 
 			const result = createPolicyContract(client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(JSON.stringify(result())).toEqual(JSON.stringify(expected()))
+			expect(
+				JSON.stringify(result('0x0000000000000000000000000000000000000000'))
+			).toEqual(
+				JSON.stringify(expected('0x0000000000000000000000000000000000000000'))
+			)
 		})
 	})
 })

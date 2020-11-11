@@ -4,10 +4,12 @@ import { policyGroupAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createVotingCaller } from './voting'
 import { createIsGroupCaller } from './isGroup'
+import { always } from 'ramda'
 
 export type PolicyGroupContract = {
 	readonly voting: (policyAddress: string) => Promise<boolean>
 	readonly isGroup: (policyAddress: string) => Promise<boolean>
+	readonly contract: () => Contract
 }
 
 export type CreatePolicyGroupContract = (
@@ -28,5 +30,6 @@ export const createPolicyGroupContract: CreatePolicyGroupContract = (
 	return {
 		voting: createVotingCaller(contractClient),
 		isGroup: createIsGroupCaller(contractClient),
+		contract: always(contractClient),
 	}
 }

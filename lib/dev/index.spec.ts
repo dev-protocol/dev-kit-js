@@ -26,13 +26,18 @@ describe('property/index.ts', () => {
 					balanceOf: createBalanceOfCaller(propertyContract),
 					transfer: createTransferCaller(propertyContract, client),
 					deposit: createDepositCaller(propertyContract, client),
+					contract: () => propertyContract,
 				}
 			}
 
 			const result = createDevContract(client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(JSON.stringify(result())).toEqual(JSON.stringify(expected()))
+			expect(
+				JSON.stringify(result('0x0000000000000000000000000000000000000000'))
+			).toEqual(
+				JSON.stringify(expected('0x0000000000000000000000000000000000000000'))
+			)
 		})
 	})
 })

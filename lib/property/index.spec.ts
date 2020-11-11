@@ -26,13 +26,18 @@ describe('property/index.ts', () => {
 				return {
 					author: createAuthorCaller(propertyContract),
 					transfer: createTransferCaller(propertyContract, client),
+					contract: () => propertyContract,
 				}
 			}
 
 			const result = createPropertyContract(client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(JSON.stringify(result())).toEqual(JSON.stringify(expected()))
+			expect(
+				JSON.stringify(result('0x0000000000000000000000000000000000000000'))
+			).toEqual(
+				JSON.stringify(expected('0x0000000000000000000000000000000000000000'))
+			)
 		})
 	})
 })

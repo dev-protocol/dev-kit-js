@@ -3,9 +3,11 @@ import { Contract } from 'web3-eth-contract/types'
 import { allocatorAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createCalculateMaxRewardsPerBlockCaller } from './calculateMaxRewardsPerBlock'
+import { always } from 'ramda'
 
 export type CreateAllocatorContract = {
 	readonly calculateMaxRewardsPerBlock: () => Promise<string>
+	readonly contract: () => Contract
 }
 
 export const createAllocatorContract = (client: Web3) => (
@@ -24,5 +26,6 @@ export const createAllocatorContract = (client: Web3) => (
 		calculateMaxRewardsPerBlock: createCalculateMaxRewardsPerBlockCaller(
 			contractClient
 		),
+		contract: always(contractClient),
 	}
 }
