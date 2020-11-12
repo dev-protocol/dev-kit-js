@@ -4,6 +4,8 @@ import { createAuthorCaller } from './author'
 import { createTransferCaller } from './transfer'
 import { propertyAbi } from './abi'
 import { CustomOptions } from '../option'
+import { createNameCaller } from './name'
+import { createSymbolCaller } from './symbol'
 
 describe('property/index.ts', () => {
 	describe('createPropertyContract', () => {
@@ -26,6 +28,8 @@ describe('property/index.ts', () => {
 				return {
 					author: createAuthorCaller(propertyContract),
 					transfer: createTransferCaller(propertyContract, client),
+					name: createNameCaller(propertyContract),
+					symbol: createSymbolCaller(propertyContract),
 					contract: () => propertyContract,
 				}
 			}

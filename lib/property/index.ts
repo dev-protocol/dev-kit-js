@@ -5,11 +5,15 @@ import { CustomOptions } from '../option'
 import { createAuthorCaller } from './author'
 import { createTransferCaller } from './transfer'
 import { always } from 'ramda'
+import { createNameCaller } from './name'
+import { createSymbolCaller } from './symbol'
 
 export type PropertyContract = {
 	readonly author: () => Promise<string>
 	readonly transfer: (to: string, value: string) => Promise<boolean>
 	readonly contract: () => Contract
+	readonly name: () => Promise<string>
+	readonly symbol: () => Promise<string>
 }
 
 export type CreatePropertyContract = (
@@ -30,6 +34,8 @@ export const createPropertyContract: CreatePropertyContract = (
 	return {
 		author: createAuthorCaller(contractClient),
 		transfer: createTransferCaller(contractClient, client),
+		name: createNameCaller(contractClient),
+		symbol: createSymbolCaller(contractClient),
 		contract: always(contractClient),
 	}
 }
