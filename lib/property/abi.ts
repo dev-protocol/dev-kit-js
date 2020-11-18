@@ -1,6 +1,6 @@
 import { AbiItem } from 'web3-utils'
 
-export const propertyAbi = ([
+export const propertyAbi = [
 	{
 		inputs: [
 			{
@@ -298,21 +298,16 @@ export const propertyAbi = ([
 		inputs: [
 			{
 				internalType: 'address',
-				name: 'sender',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: 'recipient',
+				name: '_to',
 				type: 'address',
 			},
 			{
 				internalType: 'uint256',
-				name: 'amount',
+				name: '_value',
 				type: 'uint256',
 			},
 		],
-		name: 'transferFrom',
+		name: 'transfer',
 		outputs: [
 			{
 				internalType: 'bool',
@@ -329,6 +324,11 @@ export const propertyAbi = ([
 		inputs: [
 			{
 				internalType: 'address',
+				name: '_from',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
 				name: '_to',
 				type: 'address',
 			},
@@ -338,7 +338,7 @@ export const propertyAbi = ([
 				type: 'uint256',
 			},
 		],
-		name: 'transfer',
+		name: 'transferFrom',
 		outputs: [
 			{
 				internalType: 'bool',
@@ -370,4 +370,4 @@ export const propertyAbi = ([
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
-] as unknown) as readonly AbiItem[]
+] as readonly AbiItem[]

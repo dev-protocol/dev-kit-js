@@ -208,19 +208,4 @@ export const policyAbi = [
 		stateMutability: 'view',
 		type: 'function',
 	},
-	{
-		constant: true,
-		inputs: [],
-		name: 'lockUpBlocks',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
 ] as readonly AbiItem[]
