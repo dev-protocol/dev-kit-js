@@ -6,6 +6,11 @@ import { propertyAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createNameCaller } from './name'
 import { createSymbolCaller } from './symbol'
+import { createTotalSupplyCaller } from './totalSupply'
+import { createDecimalsCaller } from './decimals'
+import { createTransferFromCaller } from './transferFrom'
+import { createBalanceOfCaller } from './balanceOf'
+import { createApproveCaller } from './approve'
 
 describe('property/index.ts', () => {
 	describe('createPropertyContract', () => {
@@ -27,9 +32,14 @@ describe('property/index.ts', () => {
 				)
 				return {
 					author: createAuthorCaller(propertyContract),
+					balanceOf: createBalanceOfCaller(propertyContract),
+					approve: createApproveCaller(propertyContract, client),
 					transfer: createTransferCaller(propertyContract, client),
+					transferFrom: createTransferFromCaller(propertyContract, client),
 					name: createNameCaller(propertyContract),
 					symbol: createSymbolCaller(propertyContract),
+					totalSupply: createTotalSupplyCaller(propertyContract),
+					decimals: createDecimalsCaller(propertyContract),
 					contract: () => propertyContract,
 				}
 			}
