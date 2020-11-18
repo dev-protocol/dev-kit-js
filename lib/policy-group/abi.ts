@@ -195,21 +195,6 @@ export const policyGroupAbi = [
 		type: 'function',
 	},
 	{
-		constant: false,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_addr',
-				type: 'address',
-			},
-		],
-		name: 'addGroupOwner',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
 		constant: true,
 		inputs: [
 			{

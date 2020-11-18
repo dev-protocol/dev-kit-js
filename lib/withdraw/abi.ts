@@ -131,32 +131,6 @@ export const withdrawAbi = [
 				type: 'address',
 			},
 		],
-		name: 'getLastCumulativeHoldersReward',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_user',
-				type: 'address',
-			},
-		],
 		name: 'getLastWithdrawalPrice',
 		outputs: [
 			{
@@ -246,58 +220,6 @@ export const withdrawAbi = [
 			},
 		],
 		name: 'getStorageLastWithdrawnReward',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_user',
-				type: 'address',
-			},
-		],
-		name: 'getWithdrawalLimitBalance',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_user',
-				type: 'address',
-			},
-		],
-		name: 'getWithdrawalLimitTotal',
 		outputs: [
 			{
 				internalType: 'uint256',

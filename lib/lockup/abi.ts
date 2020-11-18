@@ -58,21 +58,6 @@ export const lockupAbi = [
 		type: 'event',
 	},
 	{
-		constant: true,
-		inputs: [],
-		name: 'basis',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
 		constant: false,
 		inputs: [
 			{
@@ -158,53 +143,6 @@ export const lockupAbi = [
 	},
 	{
 		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_addr',
-				type: 'address',
-			},
-		],
-		name: 'getStorageCumulativeLockedUpUnitAndBlock',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '_unit',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_block',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_addr',
-				type: 'address',
-			},
-		],
-		name: 'getStorageCumulativeLockedUpValue',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
 		inputs: [],
 		name: 'getStorageDIP4GenesisBlock',
 		outputs: [
@@ -228,32 +166,6 @@ export const lockupAbi = [
 			},
 		],
 		name: 'getStorageInterestPrice',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_user',
-				type: 'address',
-			},
-		],
-		name: 'getStorageLastCumulativeGlobalReward',
 		outputs: [
 			{
 				internalType: 'uint256',
@@ -326,63 +238,6 @@ export const lockupAbi = [
 		constant: true,
 		inputs: [],
 		name: 'getStorageLastCumulativeInterestPrice',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_user',
-				type: 'address',
-			},
-		],
-		name: 'getStorageLastCumulativeLockedUpAndBlock',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '_cLocked',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_block',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_user',
-				type: 'address',
-			},
-		],
-		name: 'getStorageLastCumulativePropertyInterest',
 		outputs: [
 			{
 				internalType: 'uint256',
@@ -543,32 +398,6 @@ export const lockupAbi = [
 			},
 		],
 		name: 'getStorageValue',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_from',
-				type: 'address',
-			},
-		],
-		name: 'getStorageWithdrawalStatus',
 		outputs: [
 			{
 				internalType: 'uint256',
