@@ -1,9 +1,10 @@
 import Web3 from 'web3'
 import { createPropertyContract, PropertyContract } from '.'
-import { createAuthorCaller } from './author'
-import { createTransferCaller } from './../erc20/transfer'
 import { propertyAbi } from './abi'
 import { CustomOptions } from '../option'
+import { createAuthorCaller } from './author'
+import { createChangeAuthorCaller } from './changeAuthor'
+import { createTransferCaller } from './../erc20/transfer'
 import { createNameCaller } from './../erc20/name'
 import { createSymbolCaller } from './../erc20/symbol'
 import { createTotalSupplyCaller } from './../erc20/totalSupply'
@@ -42,6 +43,7 @@ describe('property/index.ts', () => {
 					symbol: createSymbolCaller(propertyContract),
 					decimals: createDecimalsCaller(propertyContract),
 					author: createAuthorCaller(propertyContract),
+					changeAuthor: createChangeAuthorCaller(propertyContract, client),
 					contract: () => propertyContract,
 				}
 			}
