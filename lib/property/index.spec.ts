@@ -1,11 +1,17 @@
 import Web3 from 'web3'
 import { createPropertyContract, PropertyContract } from '.'
 import { createAuthorCaller } from './author'
-import { createTransferCaller } from './transfer'
+import { createTransferCaller } from './../erc20/transfer'
 import { propertyAbi } from './abi'
 import { CustomOptions } from '../option'
-import { createNameCaller } from './name'
-import { createSymbolCaller } from './symbol'
+import { createNameCaller } from './../erc20/name'
+import { createSymbolCaller } from './../erc20/symbol'
+import { createTotalSupplyCaller } from './../erc20/totalSupply'
+import { createDecimalsCaller } from './../erc20/decimals'
+import { createTransferFromCaller } from '../erc20/transferFrom'
+import { createBalanceOfCaller } from './../erc20/balanceOf'
+import { createApproveCaller } from './../erc20/approve'
+import { createAllowanceCaller } from './../erc20/allowance'
 
 describe('property/index.ts', () => {
 	describe('createPropertyContract', () => {
@@ -26,10 +32,16 @@ describe('property/index.ts', () => {
 					}
 				)
 				return {
-					author: createAuthorCaller(propertyContract),
+					totalSupply: createTotalSupplyCaller(propertyContract),
+					balanceOf: createBalanceOfCaller(propertyContract),
 					transfer: createTransferCaller(propertyContract, client),
+					allowance: createAllowanceCaller(propertyContract),
+					approve: createApproveCaller(propertyContract, client),
+					transferFrom: createTransferFromCaller(propertyContract, client),
 					name: createNameCaller(propertyContract),
 					symbol: createSymbolCaller(propertyContract),
+					decimals: createDecimalsCaller(propertyContract),
+					author: createAuthorCaller(propertyContract),
 					contract: () => propertyContract,
 				}
 			}

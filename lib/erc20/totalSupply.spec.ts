@@ -1,13 +1,13 @@
-import { createSymbolCaller } from './symbol'
+import { createTotalSupplyCaller } from './totalSupply'
 
-describe('symbol.spec.ts', () => {
-	describe('createSymbolCaller', () => {
+describe('totalSupply.spec.ts', () => {
+	describe('createTotalSupplyCaller', () => {
 		it('call success', async () => {
-			const value = 'value'
+			const value = '10000000000000000000000000'
 
-			const propertyContract = {
+			const contract = {
 				methods: {
-					symbol: () => ({
+					totalSupply: () => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.resolve(value)),
@@ -18,7 +18,7 @@ describe('symbol.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createSymbolCaller(propertyContract as any)
+			const caller = createTotalSupplyCaller(contract as any)
 
 			const result = await caller()
 
@@ -28,9 +28,9 @@ describe('symbol.spec.ts', () => {
 		it('call failure', async () => {
 			const error = 'error'
 
-			const propertyContract = {
+			const contract = {
 				methods: {
-					symbol: () => ({
+					totalSupply: () => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error)),
@@ -39,7 +39,7 @@ describe('symbol.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createSymbolCaller(propertyContract as any)
+			const caller = createTotalSupplyCaller(contract as any)
 
 			const result = await caller().catch((err) => err)
 

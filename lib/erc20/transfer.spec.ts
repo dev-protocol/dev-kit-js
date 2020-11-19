@@ -8,7 +8,7 @@ describe('transfer.spec.ts', () => {
 			const to = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 			const value = '12345'
 
-			const propertyContract = {
+			const contract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					transfer: (to: string, value: number) => ({
@@ -20,7 +20,7 @@ describe('transfer.spec.ts', () => {
 			const expected = success
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createTransferCaller(propertyContract as any, stubbedWeb3)
+			const caller = createTransferCaller(contract as any, stubbedWeb3)
 
 			const result = await caller(to, value)
 
@@ -31,7 +31,7 @@ describe('transfer.spec.ts', () => {
 			const to = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 			const value = '12345'
 
-			const propertyContract = {
+			const contract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					transfer: (to: string, value: number) => ({
@@ -43,7 +43,7 @@ describe('transfer.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createTransferCaller(propertyContract as any, stubbedWeb3)
+			const caller = createTransferCaller(contract as any, stubbedWeb3)
 
 			const result = await caller(to, value).catch((err) => err)
 

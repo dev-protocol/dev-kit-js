@@ -1,14 +1,13 @@
-import { createTotalSupplyCaller } from './totalSupply'
+import { createSymbolCaller } from './symbol'
 
-describe('totalSupply.spec.ts', () => {
-	describe('createTotalSupplyCaller', () => {
+describe('symbol.spec.ts', () => {
+	describe('createSymbolCaller', () => {
 		it('call success', async () => {
-			const value = '12345'
+			const value = 'value'
 
-			const devContract = {
+			const contract = {
 				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					totalSupply: () => ({
+					symbol: () => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.resolve(value)),
@@ -19,7 +18,7 @@ describe('totalSupply.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createTotalSupplyCaller(devContract as any)
+			const caller = createSymbolCaller(contract as any)
 
 			const result = await caller()
 
@@ -29,10 +28,9 @@ describe('totalSupply.spec.ts', () => {
 		it('call failure', async () => {
 			const error = 'error'
 
-			const devContract = {
+			const contract = {
 				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					totalSupply: () => ({
+					symbol: () => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error)),
@@ -41,7 +39,7 @@ describe('totalSupply.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createTotalSupplyCaller(devContract as any)
+			const caller = createSymbolCaller(contract as any)
 
 			const result = await caller().catch((err) => err)
 
