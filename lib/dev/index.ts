@@ -18,18 +18,18 @@ export type DevContract = {
 	readonly totalSupply: () => Promise<string>
 	readonly balanceOf: (address: string) => Promise<string>
 	readonly transfer: (to: string, value: string) => Promise<boolean>
-	readonly deposit: (to: string, value: string) => Promise<boolean>
-	readonly approve: (to: string, value: string) => Promise<boolean>
 	readonly allowance: (from: string, to: string) => Promise<string>
+	readonly approve: (to: string, value: string) => Promise<boolean>
 	readonly transferFrom: (
 		from: string,
 		to: string,
 		value: string
 	) => Promise<boolean>
-	readonly contract: () => Contract
 	readonly name: () => Promise<string>
 	readonly symbol: () => Promise<string>
 	readonly decimals: () => Promise<string>
+	readonly deposit: (to: string, value: string) => Promise<boolean>
+	readonly contract: () => Contract
 }
 
 export type CreateDevContract = (
@@ -51,14 +51,14 @@ export const createDevContract: CreateDevContract = (client: Web3) => (
 	return {
 		totalSupply: createTotalSupplyCaller(contractClient),
 		balanceOf: createBalanceOfCaller(contractClient),
+		transfer: createTransferCaller(contractClient, client),
+		allowance: createAllowanceCaller(contractClient),
 		approve: createApproveCaller(contractClient, client),
 		transferFrom: createTransferFromCaller(contractClient, client),
-		transfer: createTransferCaller(contractClient, client),
-		deposit: createDepositCaller(contractClient, client),
 		name: createNameCaller(contractClient),
 		symbol: createSymbolCaller(contractClient),
 		decimals: createDecimalsCaller(contractClient),
-		allowance: createAllowanceCaller(contractClient),
+		deposit: createDepositCaller(contractClient, client),
 		contract: always(contractClient),
 	}
 }

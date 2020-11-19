@@ -31,13 +31,13 @@ describe('dev/index.ts', () => {
 					totalSupply: createTotalSupplyCaller(devContract),
 					balanceOf: createBalanceOfCaller(devContract),
 					transfer: createTransferCaller(devContract, client),
+					allowance: createAllowanceCaller(devContract),
+					approve: createApproveCaller(devContract, client),
 					transferFrom: createTransferFromCaller(devContract, client),
 					name: createNameCaller(devContract),
 					symbol: createSymbolCaller(devContract),
-					deposit: createDepositCaller(devContract, client),
-					approve: createApproveCaller(devContract, client),
 					decimals: createDecimalsCaller(devContract),
-					allowance: createAllowanceCaller(devContract),
+					deposit: createDepositCaller(devContract, client),
 					contract: () => devContract,
 				}
 			}

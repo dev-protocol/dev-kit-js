@@ -15,21 +15,21 @@ import { createApproveCaller } from './../erc20/approve'
 import { createAllowanceCaller } from './../erc20/allowance'
 
 export type PropertyContract = {
-	readonly author: () => Promise<string>
+	readonly totalSupply: () => Promise<string>
 	readonly balanceOf: (address: string) => Promise<string>
 	readonly transfer: (to: string, value: string) => Promise<boolean>
-	readonly approve: (to: string, value: string) => Promise<boolean>
 	readonly allowance: (from: string, to: string) => Promise<string>
+	readonly approve: (to: string, value: string) => Promise<boolean>
 	readonly transferFrom: (
 		from: string,
 		to: string,
 		value: string
 	) => Promise<boolean>
-	readonly contract: () => Contract
 	readonly name: () => Promise<string>
 	readonly symbol: () => Promise<string>
-	readonly totalSupply: () => Promise<string>
 	readonly decimals: () => Promise<string>
+	readonly author: () => Promise<string>
+	readonly contract: () => Contract
 }
 
 export type CreatePropertyContract = (
@@ -48,16 +48,16 @@ export const createPropertyContract: CreatePropertyContract = (
 	)
 
 	return {
-		author: createAuthorCaller(contractClient),
+		totalSupply: createTotalSupplyCaller(contractClient),
 		balanceOf: createBalanceOfCaller(contractClient),
-		approve: createApproveCaller(contractClient, client),
 		transfer: createTransferCaller(contractClient, client),
+		allowance: createAllowanceCaller(contractClient),
+		approve: createApproveCaller(contractClient, client),
 		transferFrom: createTransferFromCaller(contractClient, client),
 		name: createNameCaller(contractClient),
 		symbol: createSymbolCaller(contractClient),
-		totalSupply: createTotalSupplyCaller(contractClient),
 		decimals: createDecimalsCaller(contractClient),
-		allowance: createAllowanceCaller(contractClient),
+		author: createAuthorCaller(contractClient),
 		contract: always(contractClient),
 	}
 }

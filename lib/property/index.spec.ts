@@ -32,16 +32,16 @@ describe('property/index.ts', () => {
 					}
 				)
 				return {
-					author: createAuthorCaller(propertyContract),
+					totalSupply: createTotalSupplyCaller(propertyContract),
 					balanceOf: createBalanceOfCaller(propertyContract),
-					approve: createApproveCaller(propertyContract, client),
 					transfer: createTransferCaller(propertyContract, client),
+					allowance: createAllowanceCaller(propertyContract),
+					approve: createApproveCaller(propertyContract, client),
 					transferFrom: createTransferFromCaller(propertyContract, client),
 					name: createNameCaller(propertyContract),
 					symbol: createSymbolCaller(propertyContract),
-					totalSupply: createTotalSupplyCaller(propertyContract),
 					decimals: createDecimalsCaller(propertyContract),
-					allowance: createAllowanceCaller(propertyContract),
+					author: createAuthorCaller(propertyContract),
 					contract: () => propertyContract,
 				}
 			}
