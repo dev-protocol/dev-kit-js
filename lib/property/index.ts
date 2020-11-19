@@ -1,23 +1,25 @@
 import Web3 from 'web3'
 import { Contract } from 'web3-eth-contract/types'
+import { always } from 'ramda'
 import { propertyAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createAuthorCaller } from './author'
-import { createTransferCaller } from './transfer'
-import { always } from 'ramda'
-import { createNameCaller } from './name'
-import { createSymbolCaller } from './symbol'
-import { createTotalSupplyCaller } from './totalSupply'
-import { createDecimalsCaller } from './decimals'
-import { createTransferFromCaller } from './transferFrom'
-import { createBalanceOfCaller } from './balanceOf'
-import { createApproveCaller } from './approve'
+import { createTransferCaller } from './../erc20/transfer'
+import { createNameCaller } from './../erc20/name'
+import { createSymbolCaller } from './../erc20/symbol'
+import { createTotalSupplyCaller } from './../erc20/totalSupply'
+import { createDecimalsCaller } from './../erc20/decimals'
+import { createTransferFromCaller } from '../erc20/transferFrom'
+import { createBalanceOfCaller } from './../erc20/balanceOf'
+import { createApproveCaller } from './../erc20/approve'
+import { createAllowanceCaller } from './../erc20/allowance'
 
 export type PropertyContract = {
 	readonly author: () => Promise<string>
 	readonly balanceOf: (address: string) => Promise<string>
 	readonly transfer: (to: string, value: string) => Promise<boolean>
 	readonly approve: (to: string, value: string) => Promise<boolean>
+	readonly allowance: (from: string, to: string) => Promise<string>
 	readonly transferFrom: (
 		from: string,
 		to: string,
@@ -55,6 +57,7 @@ export const createPropertyContract: CreatePropertyContract = (
 		symbol: createSymbolCaller(contractClient),
 		totalSupply: createTotalSupplyCaller(contractClient),
 		decimals: createDecimalsCaller(contractClient),
+		allowance: createAllowanceCaller(contractClient),
 		contract: always(contractClient),
 	}
 }

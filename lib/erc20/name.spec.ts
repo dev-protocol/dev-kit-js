@@ -1,13 +1,13 @@
-import { createSymbolCaller } from './symbol'
+import { createNameCaller } from './name'
 
-describe('symbol.spec.ts', () => {
-	describe('createSymbolCaller', () => {
+describe('name.spec.ts', () => {
+	describe('createNameCaller', () => {
 		it('call success', async () => {
 			const value = 'value'
 
-			const propertyContract = {
+			const contract = {
 				methods: {
-					symbol: () => ({
+					name: () => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.resolve(value)),
@@ -18,7 +18,7 @@ describe('symbol.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createSymbolCaller(propertyContract as any)
+			const caller = createNameCaller(contract as any)
 
 			const result = await caller()
 
@@ -28,9 +28,9 @@ describe('symbol.spec.ts', () => {
 		it('call failure', async () => {
 			const error = 'error'
 
-			const propertyContract = {
+			const contract = {
 				methods: {
-					symbol: () => ({
+					name: () => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error)),
@@ -39,7 +39,7 @@ describe('symbol.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createSymbolCaller(propertyContract as any)
+			const caller = createNameCaller(contract as any)
 
 			const result = await caller().catch((err) => err)
 

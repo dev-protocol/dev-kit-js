@@ -5,7 +5,7 @@ describe('totalSupply.spec.ts', () => {
 		it('call success', async () => {
 			const value = '10000000000000000000000000'
 
-			const propertyContract = {
+			const contract = {
 				methods: {
 					totalSupply: () => ({
 						call: jest
@@ -18,7 +18,7 @@ describe('totalSupply.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createTotalSupplyCaller(propertyContract as any)
+			const caller = createTotalSupplyCaller(contract as any)
 
 			const result = await caller()
 
@@ -28,7 +28,7 @@ describe('totalSupply.spec.ts', () => {
 		it('call failure', async () => {
 			const error = 'error'
 
-			const propertyContract = {
+			const contract = {
 				methods: {
 					totalSupply: () => ({
 						call: jest
@@ -39,7 +39,7 @@ describe('totalSupply.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createTotalSupplyCaller(propertyContract as any)
+			const caller = createTotalSupplyCaller(contract as any)
 
 			const result = await caller().catch((err) => err)
 

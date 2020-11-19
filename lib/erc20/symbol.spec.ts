@@ -1,13 +1,13 @@
-import { createDecimalsCaller } from './decimals'
+import { createSymbolCaller } from './symbol'
 
-describe('dcimals.spec.ts', () => {
-	describe('createDecimalsCaller', () => {
+describe('symbol.spec.ts', () => {
+	describe('createSymbolCaller', () => {
 		it('call success', async () => {
-			const value = '18'
+			const value = 'value'
 
-			const propertyContract = {
+			const contract = {
 				methods: {
-					decimals: () => ({
+					symbol: () => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.resolve(value)),
@@ -18,7 +18,7 @@ describe('dcimals.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createDecimalsCaller(propertyContract as any)
+			const caller = createSymbolCaller(contract as any)
 
 			const result = await caller()
 
@@ -28,9 +28,9 @@ describe('dcimals.spec.ts', () => {
 		it('call failure', async () => {
 			const error = 'error'
 
-			const propertyContract = {
+			const contract = {
 				methods: {
-					decimals: () => ({
+					symbol: () => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error)),
@@ -39,7 +39,7 @@ describe('dcimals.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createDecimalsCaller(propertyContract as any)
+			const caller = createSymbolCaller(contract as any)
 
 			const result = await caller().catch((err) => err)
 
