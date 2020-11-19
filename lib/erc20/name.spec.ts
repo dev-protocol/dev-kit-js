@@ -5,7 +5,7 @@ describe('name.spec.ts', () => {
 		it('call success', async () => {
 			const value = 'value'
 
-			const propertyContract = {
+			const contract = {
 				methods: {
 					name: () => ({
 						call: jest
@@ -18,7 +18,7 @@ describe('name.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createNameCaller(propertyContract as any)
+			const caller = createNameCaller(contract as any)
 
 			const result = await caller()
 
@@ -28,7 +28,7 @@ describe('name.spec.ts', () => {
 		it('call failure', async () => {
 			const error = 'error'
 
-			const propertyContract = {
+			const contract = {
 				methods: {
 					name: () => ({
 						call: jest
@@ -39,7 +39,7 @@ describe('name.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createNameCaller(propertyContract as any)
+			const caller = createNameCaller(contract as any)
 
 			const result = await caller().catch((err) => err)
 

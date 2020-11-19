@@ -6,7 +6,7 @@ describe('balanceOf.spec.ts', () => {
 			const address = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 			const value = '12345'
 
-			const devContract = {
+			const contract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					balanceOf: (address: string) => ({
@@ -20,7 +20,7 @@ describe('balanceOf.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createBalanceOfCaller(devContract as any)
+			const caller = createBalanceOfCaller(contract as any)
 
 			const result = await caller(address)
 
@@ -31,7 +31,7 @@ describe('balanceOf.spec.ts', () => {
 			const error = 'error'
 			const address = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 
-			const devContract = {
+			const contract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					balanceOf: (address: string) => ({
@@ -43,7 +43,7 @@ describe('balanceOf.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createBalanceOfCaller(devContract as any)
+			const caller = createBalanceOfCaller(contract as any)
 
 			const result = await caller(address).catch((err) => err)
 

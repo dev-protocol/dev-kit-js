@@ -3,18 +3,18 @@ import Web3 from 'web3'
 import { execute } from '../utils/execute'
 import { T } from 'ramda'
 
-export type CreateTransferCaller = (
+export type CreateApproveCaller = (
 	contract: Contract,
 	client: Web3
 ) => (to: string, value: string) => Promise<boolean>
 
-export const createTransferCaller: CreateTransferCaller = (
+export const createApproveCaller: CreateApproveCaller = (
 	contract: Contract,
 	client: Web3
 ) => async (to: string, value: string) =>
 	execute({
 		contract,
-		method: 'transfer',
+		method: 'approve',
 		mutation: true,
 		client,
 		args: [to, value],
