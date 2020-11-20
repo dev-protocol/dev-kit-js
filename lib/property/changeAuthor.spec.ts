@@ -5,12 +5,12 @@ describe('changeAuthor.spec.ts', () => {
 	describe('createChangeAuthorCaller', () => {
 		it('call success', async () => {
 			const expected = true
-			const nextOwther = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
+			const nextAuther = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 
 			const contract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					changeAuthor: (nextOwther: string) => ({
+					changeAuthor: (nextAuther: string) => ({
 						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
 					}),
 				},
@@ -19,18 +19,18 @@ describe('changeAuthor.spec.ts', () => {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createChangeAuthorCaller(contract as any, stubbedWeb3)
 
-			const result = await caller(nextOwther)
+			const result = await caller(nextAuther)
 
 			expect(result).toEqual(expected)
 		})
 
 		it('call failure', async () => {
-			const nextOwther = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
+			const nextAuther = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 
 			const contract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					changeAuthor: (nextOwther: string) => ({
+					changeAuthor: (nextAuther: string) => ({
 						send: jest
 							.fn()
 							.mockImplementation(async () => stubbedSendTx(undefined, true)),
@@ -41,7 +41,7 @@ describe('changeAuthor.spec.ts', () => {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createChangeAuthorCaller(contract as any, stubbedWeb3)
 
-			const result = await caller(nextOwther).catch((err) => err)
+			const result = await caller(nextAuther).catch((err) => err)
 
 			expect(result).toBeInstanceOf(Error)
 		})

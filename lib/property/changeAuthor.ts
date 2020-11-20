@@ -6,16 +6,16 @@ import { T } from 'ramda'
 export type CreateChangeAuthorCaller = (
 	contract: Contract,
 	client: Web3
-) => (nextOwther: string) => Promise<boolean>
+) => (nextAuther: string) => Promise<boolean>
 
 export const createChangeAuthorCaller: CreateChangeAuthorCaller = (
 	contract: Contract,
 	client: Web3
-) => async (nextOwther: string) =>
+) => async (nextAuther: string) =>
 	execute({
 		contract,
 		method: 'changeAuthor',
 		mutation: true,
 		client,
-		args: [nextOwther],
+		args: [nextAuther],
 	}).then(T)
