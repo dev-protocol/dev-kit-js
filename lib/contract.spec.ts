@@ -14,6 +14,7 @@ import { createWithdrawContract } from './withdraw'
 import { createRegistryContract } from './registry'
 import { createPolicyContract } from './policy'
 import { createPolicyGroupContract } from './policy-group'
+import { createMetricsContract } from './metrics'
 
 describe('contract.ts', () => {
 	describe('createDevkitContract', () => {
@@ -35,6 +36,7 @@ describe('contract.ts', () => {
 				registry: createRegistryContract(client),
 				policy: createPolicyContract(client),
 				policyGroup: createPolicyGroupContract(client),
+				metrics: createMetricsContract(client),
 			}
 
 			const result = createDevkitContract(client)
