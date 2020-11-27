@@ -5,6 +5,7 @@ import { createVoteCaller } from './vote'
 import { CustomOptions } from '../option'
 import { marketAbi } from './abi'
 import { createAuthenticateCaller } from './authenticate'
+import { createBehaviorCaller } from './behavior'
 
 describe('market.ts', () => {
 	describe('createMarketContract', () => {
@@ -28,6 +29,7 @@ describe('market.ts', () => {
 					}
 				)
 				return {
+					behavior: createBehaviorCaller(marketContract),
 					schema: createSchemaCaller(marketContract),
 					vote: createVoteCaller(marketContract, client),
 					authenticate: createAuthenticateCaller(marketContract, client),
