@@ -68,6 +68,7 @@ describe('createAndAuthenticateCaller.ts', () => {
 								}
 							}
 						},
+						getBlockNumber: () => Promise.resolve(123),
 					},
 					...stubbedWeb3.eth,
 				},
@@ -134,6 +135,7 @@ describe('createAndAuthenticateCaller.ts', () => {
 								}
 							}
 						},
+						getBlockNumber: () => Promise.resolve(123),
 					},
 					...stubbedWeb3.eth,
 				},

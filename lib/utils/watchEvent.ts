@@ -5,17 +5,19 @@ import { Event } from './web3-txs'
 export type WatchEventOptions = {
 	readonly contract: Contract
 	readonly resolver: (e: Event) => Promise<boolean | void>
+	readonly fromBlock?: number
 }
 
 export const watchEvent = async ({
 	contract,
 	resolver,
+	fromBlock = 0,
 }: WatchEventOptions): Promise<Event> =>
 	new Promise((resolve, reject) => {
 		const { events } = contract
 		// eslint-disable-next-line functional/no-expression-statement
 		events.allEvents(
-			{ fromBlock: 0, toBlock: 'latest' },
+			{ fromBlock, toBlock: 'latest' },
 			(err: Readonly<Error> | null, e: Event) =>
 				err
 					? reject(err)

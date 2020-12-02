@@ -35,6 +35,39 @@ describe('watchEvent.ts', () => {
 			})
 		})
 
+		it('Passing `fromBlock` option when it exists', async () => {
+			const mockFn = jest.fn().mockImplementation(() => {})
+			watchEvent({
+				fromBlock: 123456,
+				contract: ({
+					events: {
+						allEvents: mockFn,
+					},
+				} as unknown) as Contract,
+				resolver: (() => undefined) as any,
+			})
+			expect(mockFn.mock.calls[0][0]).toEqual({
+				fromBlock: 123456,
+				toBlock: 'latest',
+			})
+		})
+
+		it('`fromBlock` is 0 by default', async () => {
+			const mockFn = jest.fn().mockImplementation(() => {})
+			watchEvent({
+				contract: ({
+					events: {
+						allEvents: mockFn,
+					},
+				} as unknown) as Contract,
+				resolver: (() => undefined) as any,
+			})
+			expect(mockFn.mock.calls[0][0]).toEqual({
+				fromBlock: 0,
+				toBlock: 'latest',
+			})
+		})
+
 		it('Throw an error when that occurred an error on passed contract', async () => {
 			const res = await watchEvent({
 				contract: mock(new Error('Test'), ({} as unknown) as Event),

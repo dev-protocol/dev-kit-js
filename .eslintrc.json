@@ -35,6 +35,7 @@
 				"@typescript-eslint/no-unsafe-return": "off",
 				"@typescript-eslint/no-explicit-any": "off",
 				"@typescript-eslint/ban-ts-comment": "off",
+				"@typescript-eslint/no-empty-function": "off",
 				"functional/no-expression-statement": "off",
 				"functional/functional-parameters": "off",
 				"functional/no-return-void": "off",
