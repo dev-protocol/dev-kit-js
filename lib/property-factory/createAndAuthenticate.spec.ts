@@ -85,7 +85,7 @@ describe('createAndAuthenticateCaller.ts', () => {
 				metricsFactory: '0x...',
 			})
 
-			expect(result).toEqual(expected)
+			expect(result).toEqual({ property: propertyAddress, metrics: value })
 		})
 
 		it('method call failure', async () => {

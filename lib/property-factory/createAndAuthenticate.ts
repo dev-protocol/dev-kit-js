@@ -13,7 +13,7 @@ export type CreateCreateAndAuthenticateCaller = (
 	marketAddress: string,
 	args: readonly string[],
 	options: WaitForEventOptions
-) => Promise<string>
+) => Promise<{ readonly property: string; readonly metrics: string }>
 
 export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCaller = (
 	contract: Contract,
@@ -24,7 +24,7 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 	marketAddress: string,
 	args: readonly string[],
 	{ metricsFactory }: WaitForEventOptions
-): Promise<string> => {
+): Promise<{ readonly property: string; readonly metrics: string }> => {
 	const property = await execute({
 		contract,
 		method: 'createAndAuthenticate',
@@ -34,5 +34,6 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 		client,
 	}).then(({ events }) => events.Create.returnValues._property as string)
 
-	return waitForCreateMetrics(client, property, metricsFactory)
+	const metrics = await waitForCreateMetrics(client, property, metricsFactory)
+	return { property, metrics }
 }

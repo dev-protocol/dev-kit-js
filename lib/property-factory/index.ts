@@ -19,7 +19,7 @@ export type PropertyFactoryContract = {
 		marketAddress: string,
 		args: readonly string[],
 		options: WaitForEventOptions
-	) => Promise<string>
+	) => Promise<{ readonly property: string; readonly metrics: string }>
 	readonly contract: () => Contract
 }
 
