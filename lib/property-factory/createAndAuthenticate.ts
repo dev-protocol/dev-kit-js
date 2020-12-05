@@ -3,6 +3,8 @@ import Web3 from 'web3'
 import { execute } from '../utils/execute'
 import { WaitForEventOptions } from '../market/authenticate'
 import { waitForCreateMetrics } from '../utils/waitForCreateMetrics'
+import { TxReceipt } from '../utils/web3-txs'
+import { always } from 'ramda'
 
 export type CreateCreateAndAuthenticateCaller = (
 	contract: Contract,
@@ -13,7 +15,11 @@ export type CreateCreateAndAuthenticateCaller = (
 	marketAddress: string,
 	args: readonly string[],
 	options: WaitForEventOptions
-) => Promise<{ readonly property: string; readonly metrics: string }>
+) => Promise<{
+	readonly property: string
+	readonly transaction: TxReceipt
+	readonly waitForAuthentication: () => Promise<string>
+}>
 
 export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCaller = (
 	contract: Contract,
@@ -24,16 +30,25 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 	marketAddress: string,
 	args: readonly string[],
 	{ metricsFactory }: WaitForEventOptions
-): Promise<{ readonly property: string; readonly metrics: string }> => {
-	const property = await execute({
+): Promise<{
+	readonly property: string
+	readonly transaction: TxReceipt
+	readonly waitForAuthentication: () => Promise<string>
+}> => {
+	const transaction = await execute({
 		contract,
 		method: 'createAndAuthenticate',
 		args: [name, symbol, marketAddress, ...args],
 		mutation: true,
 		padEnd: 6,
 		client,
-	}).then(({ events }) => events.Create.returnValues._property as string)
-
-	const metrics = await waitForCreateMetrics(client, property, metricsFactory)
-	return { property, metrics }
+	})
+	const property = transaction.events.Create.returnValues._property as string
+	return {
+		property,
+		transaction,
+		waitForAuthentication: always(
+			waitForCreateMetrics(client, property, metricsFactory)
+		),
+	}
 }
