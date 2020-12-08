@@ -1,8 +1,16 @@
 import Web3 from 'web3'
 import { createPolicyContract, PolicyContract } from '.'
-import { createHoldersShareCaller } from './holdersShare'
 import { policyAbi } from './abi'
 import { CustomOptions } from '../option'
+import { createHoldersShareCaller } from './holdersShare'
+import { createRewardsCaller } from './rewards'
+import { createAuthenticationFeeCaller } from './authenticationFee'
+import { createMarketApprovalCaller } from './marketApproval'
+import { createPolicyApprovalCaller } from './policyApproval'
+import { createMarketVotingBlocksCaller } from './marketVotingBlocks'
+import { createPolicyVotingBlocksCaller } from './policyVotingBlocks'
+import { createShareOfTreasuryCaller } from './shareOfTreasury'
+import { createTreasuryCaller } from './treasury'
 
 describe('policy/index.ts', () => {
 	describe('createPolicyContract', () => {
@@ -25,6 +33,14 @@ describe('policy/index.ts', () => {
 
 				return {
 					holdersShare: createHoldersShareCaller(policyContract),
+					rewards: createRewardsCaller(policyContract),
+					authenticationFee: createAuthenticationFeeCaller(policyContract),
+					marketApproval: createMarketApprovalCaller(policyContract),
+					policyApproval: createPolicyApprovalCaller(policyContract),
+					marketVotingBlocks: createMarketVotingBlocksCaller(policyContract),
+					policyVotingBlocks: createPolicyVotingBlocksCaller(policyContract),
+					shareOfTreasury: createShareOfTreasuryCaller(policyContract),
+					treasury: createTreasuryCaller(policyContract),
 					contract: () => policyContract,
 				}
 			}

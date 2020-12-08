@@ -58,32 +58,6 @@ export const policyAbi = [
 		inputs: [
 			{
 				internalType: 'uint256',
-				name: '_value',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_lockups',
-				type: 'uint256',
-			},
-		],
-		name: 'assetValue',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'uint256',
 				name: '_assets',
 				type: 'uint256',
 			},
@@ -192,16 +166,31 @@ export const policyAbi = [
 		inputs: [
 			{
 				internalType: 'uint256',
-				name: '_count',
+				name: '_supply',
 				type: 'uint256',
 			},
 		],
-		name: 'abstentionPenalty',
+		name: 'shareOfTreasury',
 		outputs: [
 			{
 				internalType: 'uint256',
 				name: '',
 				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'treasury',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
 			},
 		],
 		payable: false,
