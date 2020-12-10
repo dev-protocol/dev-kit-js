@@ -23,7 +23,7 @@
 		"clean": "rimraf esm cjs"
 	},
 	"devDependencies": {
-		"@types/jest": "26.0.18",
+		"@types/jest": "26.0.19",
 		"@types/ramda": "0.27.32",
 		"@typescript-eslint/eslint-plugin": "4.9.1",
 		"@typescript-eslint/parser": "4.9.1",
