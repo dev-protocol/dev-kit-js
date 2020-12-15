@@ -68,6 +68,7 @@ describe('createAndAuthenticateCaller.ts', () => {
 								}
 							}
 						},
+						getBlockNumber: () => Promise.resolve(123),
 					},
 					...stubbedWeb3.eth,
 				},
@@ -84,7 +85,22 @@ describe('createAndAuthenticateCaller.ts', () => {
 				metricsFactory: '0x...',
 			})
 
-			expect(result).toEqual(expected)
+			expect(result.property).toEqual(propertyAddress)
+			expect(result.transaction).toEqual({
+				status: true,
+				events: {
+					Create: {
+						event: 'Create',
+						returnValues: {
+							_property: propertyAddress,
+						},
+					},
+				},
+			})
+
+			const result2 = await result.waitForAuthentication()
+
+			expect(result2).toEqual(value)
 		})
 
 		it('method call failure', async () => {
@@ -134,6 +150,7 @@ describe('createAndAuthenticateCaller.ts', () => {
 								}
 							}
 						},
+						getBlockNumber: () => Promise.resolve(123),
 					},
 					...stubbedWeb3.eth,
 				},

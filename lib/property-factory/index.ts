@@ -6,6 +6,7 @@ import { createCreatePropertyCaller } from './create'
 import { WaitForEventOptions } from '../market/authenticate'
 import { createCreateAndAuthenticateCaller } from './createAndAuthenticate'
 import { always } from 'ramda'
+import { TxReceipt } from '../utils/web3-txs'
 
 export type PropertyFactoryContract = {
 	readonly create: (
@@ -19,7 +20,11 @@ export type PropertyFactoryContract = {
 		marketAddress: string,
 		args: readonly string[],
 		options: WaitForEventOptions
-	) => Promise<string>
+	) => Promise<{
+		readonly property: string
+		readonly transaction: TxReceipt
+		readonly waitForAuthentication: () => Promise<string>
+	}>
 	readonly contract: () => Contract
 }
 

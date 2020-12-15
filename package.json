@@ -1,6 +1,6 @@
 {
-	"name": "@devprtcl/dev-kit-js",
-	"version": "3.3.0",
+	"name": "@devprotocol/dev-kit",
+	"version": "3.7.2",
 	"description": "Dev Kit for JavaScript",
 	"author": "abyssparanoia",
 	"license": "Apache-2.0",
@@ -15,32 +15,31 @@
 		"build:cjs": "tsc --project . --module commonjs --outDir ./cjs",
 		"build:esm": "tsc --project . --module es2015 --outDir ./esm",
 		"lint": "yarn lint:eslint && yarn lint:format",
-		"lint:eslint": "eslint -c ./.eslintrc.json './lib/**/*.ts' --fix",
-		"lint:format": "prettier --write '**/*.{json,md,yml}'",
+		"lint:eslint": "eslint . --ext .ts --fix",
+		"lint:format": "prettier --write '**/*.{ts,js,json,md,yml}'",
 		"test": "jest",
 		"test:coverage": "jest --coverage",
 		"prepack": "yarn test && yarn build",
 		"clean": "rimraf esm cjs"
 	},
 	"devDependencies": {
-		"@types/jest": "26.0.15",
-		"@types/ramda": "0.27.32",
-		"@typescript-eslint/eslint-plugin": "4.8.1",
-		"@typescript-eslint/parser": "4.8.1",
-		"eslint": "7.13.0",
+		"@types/jest": "26.0.19",
+		"@types/ramda": "0.27.33",
+		"@typescript-eslint/eslint-plugin": "4.10.0",
+		"@typescript-eslint/parser": "4.10.0",
+		"eslint": "7.15.0",
 		"eslint-config-prettier": "6.15.0",
 		"eslint-plugin-functional": "3.1.0",
 		"eslint-plugin-jest": "24.1.3",
-		"eslint-plugin-prettier": "3.1.4",
-		"husky": "4.3.0",
+		"husky": "4.3.6",
 		"jest": "26.6.3",
-		"lint-staged": "10.5.1",
+		"lint-staged": "10.5.3",
 		"npm-run-all": "4.1.5",
 		"pre-commit": "1.2.2",
-		"prettier": "2.1.2",
+		"prettier": "2.2.1",
 		"rimraf": "3.0.2",
 		"ts-jest": "26.4.4",
-		"typescript": "4.0.5",
+		"typescript": "4.1.3",
 		"web3": "1.3.0"
 	},
 	"husky": {
@@ -78,7 +77,7 @@
 		"ramda": "^0.27.0"
 	},
 	"peerDependencies": {
-		"web3": "^1.3.0"
+		"web3": "^1.2.0"
 	},
 	"directories": {
 		"lib": "lib"

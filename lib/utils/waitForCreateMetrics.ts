@@ -17,10 +17,12 @@ export const waitForCreateMetrics = async (
 	client: Web3,
 	propertyAddress: string,
 	metricsFactoryAddress: string
-): Promise<string> =>
-	new Promise((resolve, reject) => {
+): Promise<string> => {
+	const fromBlock = await client.eth.getBlockNumber()
+	return new Promise((resolve, reject) => {
 		// eslint-disable-next-line functional/no-expression-statement
 		watchEvent({
+			fromBlock,
 			contract: new client.eth.Contract(
 				[...metricsFactoryAbi],
 				metricsFactoryAddress
@@ -40,3 +42,4 @@ export const waitForCreateMetrics = async (
 			.then((res) => resolve(res.returnValues._metrics as string))
 			.catch(reject)
 	})
+}
