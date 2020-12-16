@@ -30,14 +30,18 @@ export type DevStats = {
 }
 
 type graphBundle = {
-	readonly bundle: {
-		readonly ethPrice: string
+	readonly data: {
+		readonly bundle: {
+			readonly ethPrice: string
+		}
 	}
 }
 
 type graphToken = {
-	readonly token: {
-		readonly derivedETH: string
+	readonly data: {
+		readonly token: {
+			readonly derivedETH: string
+		}
 	}
 }
 
@@ -49,7 +53,7 @@ type propertyFactoryCreateAggregate = {
 	}
 }
 
-export type GetStatsCaller = () => () => Promise<DevStats>
+export type GetStatsCaller = () => Promise<DevStats>
 type GetEthPriceCaller = () => Promise<graphBundle>
 type GetDevEthPriceCaller = () => Promise<graphToken>
 
@@ -57,14 +61,11 @@ type GetDevEthPriceCaller = () => Promise<graphToken>
 const getEthPrice: GetEthPriceCaller = () => {
 	return bent(
 		THEGRAPH_UNISWAP_ENDPOINT,
-		'GET',
+		'POST',
 		'json'
-	)('/', {
-		query: `{
-			bundle(id: 1) {
-				ethPrice
-			}
-		}`,
+	)('', {
+		query: `{ bundle(id: 1) { id ethPrice } }`,
+		variables: null,
 	}).then((r) => r as graphBundle)
 }
 
@@ -72,21 +73,18 @@ const getEthPrice: GetEthPriceCaller = () => {
 const getDevEthPrice: GetDevEthPriceCaller = () => {
 	return bent(
 		THEGRAPH_UNISWAP_ENDPOINT,
-		'GET',
+		'POST',
 		'json'
-	)('/', {
-		query: `{
-			token(id: '${DEV_TEAM_WALLET_ADDRESS}') {
-				derivedETH
-			}
-		}`,
+	)('', {
+		query: `{ token(id: "${DEV_TEAM_WALLET_ADDRESS}") { derivedETH } }`,
+		variables: null,
 	}).then((r) => r as graphToken)
 }
 
 // eslint-disable-next-line functional/functional-parameters
 const getDevPrice: () => Promise<BigNumber> = async () => {
-	const ethPrice = await getEthPrice()
-	const devEthPrice = await getDevEthPrice()
+	const { data: ethPrice } = await getEthPrice()
+	const { data: devEthPrice } = await getDevEthPrice()
 
 	const devPrice =
 		ethPrice &&
@@ -262,36 +260,33 @@ const getCreatorsRewardsDev: (
 }
 
 // eslint-disable-next-line functional/functional-parameters
-export const getStats: GetStatsCaller = () => {
+export const getStats: GetStatsCaller = async () => {
 	const web3 = new Web3(DEV_OWN_HTTP_PROVIDER)
 
-	// eslint-disable-next-line functional/functional-parameters
-	return async () => {
-		const devkit = await createDevkitContract(web3)
+	const devkit = await createDevkitContract(web3)
 
-		const devPrice = await getDevPrice()
-		const totalCap = await getTotalCap(devkit)
-		const marketCap = await getMarketCap(devkit)
-		const stakingRatio = await getStakingRatio(devkit)
-		const stakingAmount = await getStakingAmount(devkit)
-		const { stakerAPY, creatorAPY } = await getAPY(devkit)
-		const annualSupplyGrowthRatio = await getSupplyGrowth(devkit)
-		const assetOnboarded = await getAssetOnboarded()
-		const creatorsRewardsDEV = await getCreatorsRewardsDev(devkit, creatorAPY)
-		const creatorsRewardsUSD = devPrice.multipliedBy(creatorsRewardsDEV)
+	const devPrice = await getDevPrice()
+	const totalCap = await getTotalCap(devkit)
+	const marketCap = await getMarketCap(devkit)
+	const stakingRatio = await getStakingRatio(devkit)
+	const stakingAmount = await getStakingAmount(devkit)
+	const { stakerAPY, creatorAPY } = await getAPY(devkit)
+	const annualSupplyGrowthRatio = await getSupplyGrowth(devkit)
+	const assetOnboarded = await getAssetOnboarded()
+	const creatorsRewardsDEV = await getCreatorsRewardsDev(devkit, creatorAPY)
+	const creatorsRewardsUSD = devPrice.multipliedBy(creatorsRewardsDEV)
 
-		return {
-			devPrice: devPrice.dp(2).toFormat(),
-			totalCap: totalCap.dp(0).toFormat(),
-			marketCap: marketCap.dp(0).toFormat(),
-			stakingRatio: stakingRatio.toFormat(),
-			stakingAmount: stakingAmount.toFormat(),
-			stakerAPY: stakerAPY.toFormat(),
-			creatorAPY: creatorAPY.toFormat(),
-			annualSupplyGrowthRatio: annualSupplyGrowthRatio.toFormat(),
-			assetOnboarded: assetOnboarded,
-			creatorsRewardsDEV: creatorsRewardsDEV.toFormat(),
-			creatorsRewardsUSD: creatorsRewardsUSD.toFormat(),
-		}
+	return {
+		devPrice: devPrice.dp(2).toFormat(),
+		totalCap: totalCap.dp(0).toFormat(),
+		marketCap: marketCap.dp(0).toFormat(),
+		stakingRatio: stakingRatio.toFormat(),
+		stakingAmount: stakingAmount.toFormat(),
+		stakerAPY: stakerAPY.toFormat(),
+		creatorAPY: creatorAPY.toFormat(),
+		annualSupplyGrowthRatio: annualSupplyGrowthRatio.toFormat(),
+		assetOnboarded: assetOnboarded,
+		creatorsRewardsDEV: creatorsRewardsDEV.toFormat(),
+		creatorsRewardsUSD: creatorsRewardsUSD.toFormat(),
 	}
 }
