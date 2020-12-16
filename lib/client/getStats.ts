@@ -9,7 +9,8 @@ const DEV_OWN_HTTP_PROVIDER = 'https://devprotocolnode.net/ethereum/mainnet'
 const DEV_GRAPHQL_ENDPOINT = 'https://api.devprotocol.xyz/v1/graphql'
 const THEGRAPH_UNISWAP_ENDPOINT =
 	'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2'
-const DEV_TEAM_WALLET_ADDRESS = '0x5caf454ba92e6f2c929df14667ee360ed9fd5b26'
+const DEV_TEAM_WALLET_ADDRESS = '0xe23fe51187a807d56189212591f5525127003bdf'
+const DEV_CONTRACT_ADDRESS = '0x5caf454ba92e6f2c929df14667ee360ed9fd5b26'
 
 const falsyOrZero = <T>(num?: T): T | 0 => (num ? num : 0)
 const toNaturalBasis = new BigNumber(10).pow(18)
@@ -71,12 +72,13 @@ const getEthPrice: GetEthPriceCaller = () => {
 
 // eslint-disable-next-line functional/functional-parameters
 const getDevEthPrice: GetDevEthPriceCaller = () => {
+	// TODO: get DEV_CONTRACT_ADDRESS from dev-kit's contract address value
 	return bent(
 		THEGRAPH_UNISWAP_ENDPOINT,
 		'POST',
 		'json'
 	)('', {
-		query: `{ token(id: "${DEV_TEAM_WALLET_ADDRESS}") { derivedETH } }`,
+		query: `{ token(id: "${DEV_CONTRACT_ADDRESS}") { derivedETH } }`,
 		variables: null,
 	}).then((r) => r as graphToken)
 }
@@ -114,15 +116,13 @@ const getCirculatingSupply: (
 	const devContractAddress = await devkit
 		.registry(addresses.eth['main']?.registry)
 		['token']()
-	const totalSupply = await devkit.dev(devContractAddress).totalSupply()
+	const totalSupply = new BigNumber(await getTotalSupply(devkit))
 	const teamAmount = await devkit
 		.dev(devContractAddress)
 		.balanceOf(DEV_TEAM_WALLET_ADDRESS)
-	const circulatingSupply = new BigNumber(totalSupply || '0').minus(
-		new BigNumber(teamAmount || '0')
-	)
+	const circulatingSupply = totalSupply.minus(new BigNumber(teamAmount))
 
-	return toNaturalNumber(circulatingSupply)
+	return circulatingSupply
 }
 
 const getMarketCap: (devkit: DevkitContract) => Promise<BigNumber> = async (
@@ -130,9 +130,7 @@ const getMarketCap: (devkit: DevkitContract) => Promise<BigNumber> = async (
 ) => {
 	// use from input parameter
 	const devPrice = await getDevPrice()
-
 	const circulatingSupply = await getCirculatingSupply(devkit)
-
 	const marketCap = devPrice.multipliedBy(circulatingSupply)
 
 	return marketCap
@@ -184,7 +182,7 @@ const getAPY: (
 		.calculateMaxRewardsPerBlock()
 
 	// TODO: functionize
-	const totalStakingAmount = await getStakingAmount(devkit)
+	const totalStakingAmount = await getTotalStakingAmount(devkit)
 
 	const policyContractAddress = await devkit
 		.registry(addresses.eth['main']?.registry)
@@ -204,6 +202,17 @@ const getAPY: (
 	return { stakerAPY, creatorAPY }
 }
 
+const getTotalSupply: (devkit: DevkitContract) => Promise<string> = async (
+	devkit: DevkitContract
+) => {
+	const devContractAddress = await devkit
+		.registry(addresses.eth['main']?.registry)
+		['token']()
+	const totalSupply = await devkit.dev(devContractAddress).totalSupply()
+
+	return totalSupply
+}
+
 const getSupplyGrowth: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	devkit: DevkitContract
 ) => {
@@ -214,10 +223,7 @@ const getSupplyGrowth: (devkit: DevkitContract) => Promise<BigNumber> = async (
 		.allocator(allocatorContractAddress)
 		.calculateMaxRewardsPerBlock()
 
-	const devContractAddress = await devkit
-		.registry(addresses.eth['main']?.registry)
-		['token']()
-	const totalSupply = await devkit.dev(devContractAddress).totalSupply()
+	const totalSupply = toNaturalNumber(await getTotalSupply(devkit))
 
 	const year = new BigNumber(2102400)
 	const annualSupplyGrowthRatio = new BigNumber(maxRewards)
