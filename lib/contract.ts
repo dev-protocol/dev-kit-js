@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import Web3 from 'web3'
 import { provider } from 'web3-core'
 import { createMarketContract } from './market/index'
@@ -11,6 +12,7 @@ import { createRegistryContract } from './registry/index'
 import { createPolicyContract } from './policy'
 import { createPolicyGroupContract } from './policy-group'
 import { createMetricsContract } from './metrics'
+import { createPolicyFactoryContract } from './policy-factory'
 
 export type DevkitContract = {
 	readonly allocator: ReturnType<typeof createAllocatorContract>
@@ -24,6 +26,7 @@ export type DevkitContract = {
 	readonly policy: ReturnType<typeof createPolicyContract>
 	readonly policyGroup: ReturnType<typeof createPolicyGroupContract>
 	readonly metrics: ReturnType<typeof createMetricsContract>
+	readonly policyFactory: ReturnType<typeof createPolicyFactoryContract>
 }
 export type ContractFactory = (provider: provider) => DevkitContract
 export type CreateDevkitContract = (client: Web3) => DevkitContract
@@ -42,6 +45,7 @@ export const createDevkitContract: CreateDevkitContract = (
 	policy: createPolicyContract(client),
 	policyGroup: createPolicyGroupContract(client),
 	metrics: createMetricsContract(client),
+	policyFactory: createPolicyFactoryContract(client),
 })
 
 export const contractFactory: ContractFactory = (
