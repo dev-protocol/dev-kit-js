@@ -191,7 +191,7 @@ const getAPY: (
 		['policy']()
 	const holdersShare = await devkit
 		.policy(policyContractAddress)
-		.holdersShare(maxRewards, totalStakingAmount.toFormat())
+		.holdersShare(maxRewards, totalStakingAmount.toFixed())
 
 	const stakers = new BigNumber(maxRewards).minus(new BigNumber(holdersShare))
 	const year = new BigNumber(2102400)
@@ -277,16 +277,16 @@ export const getStats: GetStatsCaller = async () => {
 	const creatorsRewardsUSD = devPrice.multipliedBy(creatorsRewardsDEV)
 
 	return {
-		devPrice: devPrice.dp(2).toFormat(),
-		totalCap: totalCap.dp(0).toFormat(),
-		marketCap: marketCap.dp(0).toFormat(),
-		stakingRatio: stakingRatio.toFormat(),
-		stakingAmount: stakingAmount.toFormat(),
-		stakerAPY: stakerAPY.toFormat(),
-		creatorAPY: creatorAPY.toFormat(),
-		annualSupplyGrowthRatio: annualSupplyGrowthRatio.toFormat(),
+		devPrice: devPrice.dp(2).toFixed(),
+		totalCap: totalCap.dp(0).toFixed(),
+		marketCap: marketCap.dp(0).toFixed(),
+		stakingRatio: stakingRatio.toFixed(),
+		stakingAmount: stakingAmount.toFixed(),
+		stakerAPY: stakerAPY.toFixed(),
+		creatorAPY: creatorAPY.toFixed(),
+		annualSupplyGrowthRatio: annualSupplyGrowthRatio.toFixed(),
 		assetOnboarded: assetOnboarded,
-		creatorsRewardsDEV: creatorsRewardsDEV.toFormat(),
-		creatorsRewardsUSD: creatorsRewardsUSD.toFormat(),
+		creatorsRewardsDEV: creatorsRewardsDEV.toFixed(),
+		creatorsRewardsUSD: creatorsRewardsUSD.toFixed(),
 	}
 }
