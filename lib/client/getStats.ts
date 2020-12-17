@@ -271,14 +271,25 @@ export const getStats: GetStatsCaller = async () => {
 
 	const devkit = await createDevkitContract(web3)
 
-	const devPrice = await getDevPrice()
-	const totalCap = await getTotalCap(devkit)
-	const marketCap = await getMarketCap(devkit)
-	const stakingRatio = await getStakingRatio(devkit)
-	const stakingAmount = await getStakingAmount(devkit)
-	const { stakerAPY, creatorAPY } = await getAPY(devkit)
-	const annualSupplyGrowthRatio = await getSupplyGrowth(devkit)
-	const assetOnboarded = await getAssetOnboarded()
+	const [
+		devPrice,
+		totalCap,
+		marketCap,
+		stakingRatio,
+		stakingAmount,
+		{ stakerAPY, creatorAPY },
+		annualSupplyGrowthRatio,
+		assetOnboarded,
+	] = await Promise.all([
+		getDevPrice(),
+		getTotalCap(devkit),
+		getMarketCap(devkit),
+		getStakingRatio(devkit),
+		getStakingAmount(devkit),
+		getAPY(devkit),
+		getSupplyGrowth(devkit),
+		getAssetOnboarded(),
+	])
 	const creatorsRewardsDEV = await getCreatorsRewardsDev(devkit, creatorAPY)
 	const creatorsRewardsUSD = devPrice.multipliedBy(creatorsRewardsDEV)
 
