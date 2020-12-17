@@ -83,16 +83,15 @@ const getDevEthPrice: GetDevEthPriceCaller = () => {
 	}).then((r) => r as graphToken)
 }
 
-// eslint-disable-next-line functional/functional-parameters
-const getDevPrice: () => Promise<BigNumber> = async () => {
-	const { data: ethPrice } = await getEthPrice()
-	const { data: devEthPrice } = await getDevEthPrice()
-
-	const devPrice =
-		ethPrice &&
-		Number(ethPrice?.bundle.ethPrice) * Number(devEthPrice?.token.derivedETH)
-	return new BigNumber(devPrice || '0')
-}
+const getDevPrice: () => Promise<BigNumber> = always(
+	(async (wait) => {
+		const [{ data: ethPrice }, { data: devEthPrice }] = await wait
+		const devPrice =
+			ethPrice &&
+			Number(ethPrice?.bundle.ethPrice) * Number(devEthPrice?.token.derivedETH)
+		return new BigNumber(devPrice || '0')
+	})(Promise.all([getEthPrice(), getDevEthPrice()]))
+)
 
 const getTotalCap: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	devkit: DevkitContract
