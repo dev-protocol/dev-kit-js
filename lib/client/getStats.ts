@@ -269,7 +269,7 @@ const getCreatorsRewardsDev: (
 export const getStats: GetStatsCaller = async () => {
 	const web3 = new Web3(DEV_OWN_HTTP_PROVIDER)
 
-	const devkit = await createDevkitContract(web3)
+	const devkit = createDevkitContract(web3)
 
 	const [
 		devPrice,
