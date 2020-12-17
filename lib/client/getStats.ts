@@ -10,7 +10,6 @@ const DEV_GRAPHQL_ENDPOINT = 'https://api.devprotocol.xyz/v1/graphql'
 const THEGRAPH_UNISWAP_ENDPOINT =
 	'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2'
 const DEV_TEAM_WALLET_ADDRESS = '0xe23fe51187a807d56189212591f5525127003bdf'
-const DEV_CONTRACT_ADDRESS = '0x5caf454ba92e6f2c929df14667ee360ed9fd5b26'
 
 const falsyOrZero = <T>(num?: T): T | 0 => (num ? num : 0)
 const toNaturalBasis = new BigNumber(10).pow(18)
@@ -47,20 +46,21 @@ type graphToken = {
 }
 
 type propertyFactoryCreateAggregate = {
-	readonly property_factory_create_aggregate: {
-		readonly aggregate: {
-			readonly count: string
+	readonly data: {
+		readonly property_factory_create_aggregate: {
+			readonly aggregate: {
+				readonly count: string
+			}
 		}
 	}
 }
 
 export type GetStatsCaller = () => Promise<DevStats>
 type GetEthPriceCaller = () => Promise<graphBundle>
-type GetDevEthPriceCaller = () => Promise<graphToken>
+type GetDevEthPriceCaller = (devkit: DevkitContract) => Promise<graphToken>
 
-// eslint-disable-next-line functional/functional-parameters
-const getEthPrice: GetEthPriceCaller = () => {
-	return bent(
+const getEthPrice: GetEthPriceCaller = always(
+	bent(
 		THEGRAPH_UNISWAP_ENDPOINT,
 		'POST',
 		'json'
@@ -68,30 +68,35 @@ const getEthPrice: GetEthPriceCaller = () => {
 		query: `{ bundle(id: 1) { id ethPrice } }`,
 		variables: null,
 	}).then((r) => r as graphBundle)
-}
+)
 
-// eslint-disable-next-line functional/functional-parameters
-const getDevEthPrice: GetDevEthPriceCaller = () => {
-	// TODO: get DEV_CONTRACT_ADDRESS from dev-kit's contract address value
+const getDevEthPrice: GetDevEthPriceCaller = async (devkit: DevkitContract) => {
+	const devContractAddress = await devkit
+		.registry(addresses.eth['main']?.registry)
+		['token']()
 	return bent(
 		THEGRAPH_UNISWAP_ENDPOINT,
 		'POST',
 		'json'
 	)('', {
-		query: `{ token(id: "${DEV_CONTRACT_ADDRESS}") { derivedETH } }`,
+		query: `{ token(id: "${devContractAddress}") { derivedETH } }`,
 		variables: null,
 	}).then((r) => r as graphToken)
 }
 
-const getDevPrice: () => Promise<BigNumber> = always(
-	(async (wait) => {
-		const [{ data: ethPrice }, { data: devEthPrice }] = await wait
-		const devPrice =
-			ethPrice &&
-			Number(ethPrice?.bundle.ethPrice) * Number(devEthPrice?.token.derivedETH)
-		return new BigNumber(devPrice || '0')
-	})(Promise.all([getEthPrice(), getDevEthPrice()]))
-)
+const getDevPrice: (devkit: DevkitContract) => Promise<BigNumber> = async (
+	devkit: DevkitContract
+) => {
+	const [{ data: ethPrice }, { data: devEthPrice }] = await Promise.all([
+		getEthPrice(),
+		getDevEthPrice(devkit),
+	])
+	const devPrice =
+		ethPrice &&
+		Number(ethPrice?.bundle.ethPrice) *
+			Number(devEthPrice?.token?.derivedETH || '0')
+	return new BigNumber(devPrice || '0')
+}
 
 const getTotalCap: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	devkit: DevkitContract
@@ -101,7 +106,7 @@ const getTotalCap: (devkit: DevkitContract) => Promise<BigNumber> = async (
 		['token']()
 	const totalSupply = await devkit.dev(devContractAddress).totalSupply()
 
-	const devPrice = await getDevPrice()
+	const devPrice = await getDevPrice(devkit)
 
 	const devTotalCap = new BigNumber(
 		devPrice.toNumber() * toNaturalNumber(totalSupply).toNumber()
@@ -128,7 +133,7 @@ const getMarketCap: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	devkit: DevkitContract
 ) => {
 	// use from input parameter
-	const devPrice = await getDevPrice()
+	const devPrice = await getDevPrice(devkit)
 	const circulatingSupply = await getCirculatingSupply(devkit)
 	const marketCap = devPrice.multipliedBy(circulatingSupply)
 
@@ -161,10 +166,9 @@ const getStakingAmount: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	devkit: DevkitContract
 ) => {
 	// use from input parameter
-	const devPrice = await getDevPrice()
 	const totalStakingAmount = await getTotalStakingAmount(devkit)
 
-	return new BigNumber(totalStakingAmount).multipliedBy(devPrice.toNumber())
+	return toNaturalNumber(totalStakingAmount)
 }
 
 const getAPY: (
@@ -225,7 +229,7 @@ const getSupplyGrowth: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	const totalSupply = toNaturalNumber(await getTotalSupply(devkit))
 
 	const year = new BigNumber(2102400)
-	const annualSupplyGrowthRatio = new BigNumber(maxRewards)
+	const annualSupplyGrowthRatio = toNaturalNumber(maxRewards)
 		.times(year)
 		.div(totalSupply)
 		.times(100)
@@ -236,17 +240,16 @@ const getSupplyGrowth: (devkit: DevkitContract) => Promise<BigNumber> = async (
 // eslint-disable-next-line functional/functional-parameters
 const getAssetOnboarded: () => Promise<string> = async () => {
 	const fetcher = always(
-		bent(DEV_GRAPHQL_ENDPOINT)('/', {
-			query: `{
-			property_factory_create_aggregate() {
-				aggregate {
-					count
-				}
-			}
-		}`,
+		bent(
+			DEV_GRAPHQL_ENDPOINT,
+			'POST',
+			'json'
+		)('/', {
+			query: `{ property_factory_create_aggregate { aggregate { count } } }`,
+			variables: null,
 		}).then((r) => r as propertyFactoryCreateAggregate)
 	)
-	const assets = await fetcher()
+	const { data: assets } = await fetcher()
 	return assets.property_factory_create_aggregate.aggregate.count
 }
 
@@ -280,7 +283,7 @@ export const getStats: GetStatsCaller = async () => {
 		annualSupplyGrowthRatio,
 		assetOnboarded,
 	] = await Promise.all([
-		getDevPrice(),
+		getDevPrice(devkit),
 		getTotalCap(devkit),
 		getMarketCap(devkit),
 		getStakingRatio(devkit),
@@ -289,7 +292,9 @@ export const getStats: GetStatsCaller = async () => {
 		getSupplyGrowth(devkit),
 		getAssetOnboarded(),
 	])
-	const creatorsRewardsDEV = await getCreatorsRewardsDev(devkit, creatorAPY)
+	const creatorsRewardsDEV = toNaturalNumber(
+		await getCreatorsRewardsDev(devkit, creatorAPY)
+	)
 	const creatorsRewardsUSD = devPrice.multipliedBy(creatorsRewardsDEV)
 
 	return {
@@ -304,5 +309,5 @@ export const getStats: GetStatsCaller = async () => {
 		assetOnboarded: assetOnboarded,
 		creatorsRewardsDEV: creatorsRewardsDEV.toFixed(),
 		creatorsRewardsUSD: creatorsRewardsUSD.toFixed(),
-	}
+	} as DevStats
 }
