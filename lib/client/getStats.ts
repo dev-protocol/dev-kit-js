@@ -225,23 +225,22 @@ const getSupplyGrowth: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	return annualSupplyGrowthRatio
 }
 
-// eslint-disable-next-line functional/functional-parameters
-const getAssetOnboarded: () => Promise<string> = async () => {
-	const fetcher = always(
-		bent(
-			DEV_GRAPHQL_ENDPOINT,
-			'POST',
-			'json'
-		)('/', {
-			query: `{ property_factory_create_aggregate(
-				where: { authentication: { authentication_id: { _is_null: false } } }
-			) { aggregate { count } } }`,
-			variables: null,
-		}).then((r) => r as propertyFactoryCreateAggregate)
+const getAssetOnboarded: () => Promise<string> = always(
+	bent(
+		DEV_GRAPHQL_ENDPOINT,
+		'POST',
+		'json'
+	)('/', {
+		query: `{ property_factory_create_aggregate(
+			where: { authentication: { authentication_id: { _is_null: false } } }
+		) { aggregate { count } } }`,
+		variables: null,
+	}).then(
+		(r) =>
+			(r as propertyFactoryCreateAggregate).data
+				.property_factory_create_aggregate.aggregate.count
 	)
-	const { data: assets } = await fetcher()
-	return assets.property_factory_create_aggregate.aggregate.count
-}
+)
 
 const getCreatorsRewardsDev: (
 	devkit: DevkitContract,
