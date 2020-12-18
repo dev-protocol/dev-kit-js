@@ -79,7 +79,7 @@ const getDevEthPrice: GetDevEthPriceCaller = async (devkit: DevkitContract) => {
 		'POST',
 		'json'
 	)('', {
-		query: `{ token(id: "${devContractAddress}") { derivedETH } }`,
+		query: `{ token(id: "${devContractAddress.toLowerCase()}") { derivedETH } }`,
 		variables: null,
 	}).then((r) => r as graphToken)
 }
@@ -137,7 +137,7 @@ const getMarketCap: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	const circulatingSupply = await getCirculatingSupply(devkit)
 	const marketCap = devPrice.multipliedBy(circulatingSupply)
 
-	return marketCap
+	return toNaturalNumber(marketCap)
 }
 
 const getTotalStakingAmount: (
@@ -159,16 +159,7 @@ const getStakingRatio: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	const totalStakingAmount = await getTotalStakingAmount(devkit)
 	const circulatingSupply = await getCirculatingSupply(devkit)
 
-	return new BigNumber(totalStakingAmount).div(circulatingSupply)
-}
-
-const getStakingAmount: (devkit: DevkitContract) => Promise<BigNumber> = async (
-	devkit: DevkitContract
-) => {
-	// use from input parameter
-	const totalStakingAmount = await getTotalStakingAmount(devkit)
-
-	return toNaturalNumber(totalStakingAmount)
+	return totalStakingAmount.div(circulatingSupply)
 }
 
 const getAPY: (
@@ -184,7 +175,6 @@ const getAPY: (
 		.allocator(allocatorContractAddress)
 		.calculateMaxRewardsPerBlock()
 
-	// TODO: functionize
 	const totalStakingAmount = await getTotalStakingAmount(devkit)
 
 	const policyContractAddress = await devkit
@@ -196,11 +186,10 @@ const getAPY: (
 
 	const stakers = new BigNumber(maxRewards).minus(new BigNumber(holdersShare))
 	const year = new BigNumber(2102400)
-	const stakerAPY = stakers.times(year).div(totalStakingAmount).times(100)
+	const stakerAPY = stakers.times(year).div(totalStakingAmount)
 	const creatorAPY = new BigNumber(holdersShare)
 		.times(year)
 		.div(totalStakingAmount)
-		.times(100)
 
 	return { stakerAPY, creatorAPY }
 }
@@ -232,7 +221,6 @@ const getSupplyGrowth: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	const annualSupplyGrowthRatio = toNaturalNumber(maxRewards)
 		.times(year)
 		.div(totalSupply)
-		.times(100)
 
 	return annualSupplyGrowthRatio
 }
@@ -263,9 +251,7 @@ const getCreatorsRewardsDev: (
 	creatorAPY: BigNumber
 ) => {
 	const totalStakingAmount = await getTotalStakingAmount(devkit)
-	const creatorsRewardsDev = creatorAPY
-		.div(100)
-		.multipliedBy(totalStakingAmount)
+	const creatorsRewardsDev = creatorAPY.multipliedBy(totalStakingAmount)
 	return creatorsRewardsDev
 }
 
@@ -289,7 +275,7 @@ export const getStats: GetStatsCaller = async () => {
 		getTotalCap(devkit),
 		getMarketCap(devkit),
 		getStakingRatio(devkit),
-		getStakingAmount(devkit),
+		getTotalStakingAmount(devkit),
 		getAPY(devkit),
 		getSupplyGrowth(devkit),
 		getAssetOnboarded(),
@@ -300,11 +286,11 @@ export const getStats: GetStatsCaller = async () => {
 	const creatorsRewardsUSD = devPrice.multipliedBy(creatorsRewardsDEV)
 
 	return {
-		devPrice: devPrice.dp(2).toFixed(),
-		totalCap: totalCap.dp(0).toFixed(),
-		marketCap: marketCap.dp(0).toFixed(),
+		devPrice: devPrice.toFixed(),
+		totalCap: totalCap.toFixed(),
+		marketCap: marketCap.toFixed(),
 		stakingRatio: stakingRatio.toFixed(),
-		stakingAmount: stakingAmount.toFixed(),
+		stakingAmount: toNaturalNumber(stakingAmount).toFixed(),
 		stakerAPY: stakerAPY.toFixed(),
 		creatorAPY: creatorAPY.toFixed(),
 		annualSupplyGrowthRatio: annualSupplyGrowthRatio.toFixed(),
