@@ -245,7 +245,9 @@ const getAssetOnboarded: () => Promise<string> = async () => {
 			'POST',
 			'json'
 		)('/', {
-			query: `{ property_factory_create_aggregate { aggregate { count } } }`,
+			query: `{ property_factory_create_aggregate(
+				where: { authentication: { authentication_id: { _is_null: false } } }
+			) { aggregate { count } } }`,
 			variables: null,
 		}).then((r) => r as propertyFactoryCreateAggregate)
 	)
