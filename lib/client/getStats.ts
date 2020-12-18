@@ -258,7 +258,6 @@ const getCreatorsRewardsDev: (
 // eslint-disable-next-line functional/functional-parameters
 export const getStats: GetStatsCaller = async () => {
 	const web3 = new Web3(DEV_OWN_HTTP_PROVIDER)
-
 	const devkit = createDevkitContract(web3)
 
 	const [
