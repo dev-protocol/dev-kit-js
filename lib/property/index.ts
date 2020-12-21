@@ -4,6 +4,7 @@ import { always } from 'ramda'
 import { propertyAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createAuthorCaller } from './author'
+import { createChangeAuthorCaller } from './changeAuthor'
 import { createTransferCaller } from './../erc20/transfer'
 import { createNameCaller } from './../erc20/name'
 import { createSymbolCaller } from './../erc20/symbol'
@@ -29,6 +30,7 @@ export type PropertyContract = {
 	readonly symbol: () => Promise<string>
 	readonly decimals: () => Promise<string>
 	readonly author: () => Promise<string>
+	readonly changeAuthor: (nextAuthor: string) => Promise<boolean>
 	readonly contract: () => Contract
 }
 
@@ -58,6 +60,7 @@ export const createPropertyContract: CreatePropertyContract = (
 		symbol: createSymbolCaller(contractClient),
 		decimals: createDecimalsCaller(contractClient),
 		author: createAuthorCaller(contractClient),
+		changeAuthor: createChangeAuthorCaller(contractClient, client),
 		contract: always(contractClient),
 	}
 }

@@ -298,6 +298,21 @@ export const propertyAbi = [
 		inputs: [
 			{
 				internalType: 'address',
+				name: '_nextAuthor',
+				type: 'address',
+			},
+		],
+		name: 'changeAuthor',
+		outputs: [],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
 				name: '_to',
 				type: 'address',
 			},
