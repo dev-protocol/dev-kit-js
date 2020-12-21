@@ -17,16 +17,16 @@ export const toNaturalNumber = (num?: number | string | BigNumber): BigNumber =>
 	new BigNumber(falsyOrZero(num)).div(toNaturalBasis)
 
 export type DevStats = {
-	readonly devPrice: string
-	readonly totalCap: string
-	readonly marketCap: string
-	readonly stakingRatio: string
-	readonly stakingAmount: string
-	readonly stakerAPY: string
-	readonly creatorAPY: string
-	readonly annualSupplyGrowthRatio: string
-	readonly creatorsRewardsDEV: string
-	readonly creatorsRewardsUSD: string
+	readonly devPrice: number
+	readonly totalCap: number
+	readonly marketCap: number
+	readonly stakingRatio: number
+	readonly stakingAmount: number
+	readonly stakerAPY: number
+	readonly creatorAPY: number
+	readonly annualSupplyGrowthRatio: number
+	readonly creatorsRewardsDEV: number
+	readonly creatorsRewardsUSD: number
 }
 
 type graphBundle = {
@@ -49,7 +49,7 @@ type propertyFactoryCreateAggregate = {
 	readonly data: {
 		readonly property_factory_create_aggregate: {
 			readonly aggregate: {
-				readonly count: string
+				readonly count: number
 			}
 		}
 	}
@@ -225,7 +225,7 @@ const getSupplyGrowth: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	return annualSupplyGrowthRatio
 }
 
-const getAssetOnboarded: () => Promise<string> = always(
+const getAssetOnboarded: () => Promise<number> = always(
 	bent(
 		DEV_GRAPHQL_ENDPOINT,
 		'POST',
@@ -284,16 +284,16 @@ export const getStats: GetStatsCaller = async () => {
 	const creatorsRewardsUSD = devPrice.multipliedBy(creatorsRewardsDEV)
 
 	return {
-		devPrice: devPrice.toFixed(),
-		totalCap: totalCap.toFixed(),
-		marketCap: marketCap.toFixed(),
-		stakingRatio: stakingRatio.toFixed(),
-		stakingAmount: toNaturalNumber(stakingAmount).toFixed(),
-		stakerAPY: stakerAPY.toFixed(),
-		creatorAPY: creatorAPY.toFixed(),
-		annualSupplyGrowthRatio: annualSupplyGrowthRatio.toFixed(),
+		devPrice: devPrice.toNumber(),
+		totalCap: totalCap.toNumber(),
+		marketCap: marketCap.toNumber(),
+		stakingRatio: stakingRatio.toNumber(),
+		stakingAmount: toNaturalNumber(stakingAmount).toNumber(),
+		stakerAPY: stakerAPY.toNumber(),
+		creatorAPY: creatorAPY.toNumber(),
+		annualSupplyGrowthRatio: annualSupplyGrowthRatio.toNumber(),
 		assetOnboarded: assetOnboarded,
-		creatorsRewardsDEV: creatorsRewardsDEV.toFixed(),
-		creatorsRewardsUSD: creatorsRewardsUSD.toFixed(),
+		creatorsRewardsDEV: creatorsRewardsDEV.toNumber(),
+		creatorsRewardsUSD: creatorsRewardsUSD.toNumber(),
 	} as DevStats
 }

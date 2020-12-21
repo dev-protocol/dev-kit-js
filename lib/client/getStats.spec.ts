@@ -66,17 +66,17 @@ describe('getStats.ts', () => {
 
 			const stats = await getStats()
 			const expected = {
-				devPrice: '7.412448969963391',
-				totalCap: '94249090.40663686',
-				marketCap: '7375645.59891638003044179337',
-				stakingRatio: '0.5644940118894408747',
-				stakingAmount: '561691.256328145520467695',
-				stakerAPY: '0.24612450890836665613',
-				creatorAPY: '0.256170407231157127',
-				annualSupplyGrowthRatio: '0.02218916680648151275',
+				devPrice: 7.412448969963391,
+				totalCap: 94249090.40663686,
+				marketCap: 7375645.59891638003044179337,
+				stakingRatio: 0.5644940118894408747,
+				stakingAmount: 561691.256328145520467695,
+				stakerAPY: 0.24612450890836665613,
+				creatorAPY: 0.256170407231157127,
+				annualSupplyGrowthRatio: 0.02218916680648151275,
 				assetOnboarded: 999,
-				creatorsRewardsDEV: '143888.67787176130060727095',
-				creatorsRewardsUSD: '1066567.48207993122416401861838448991779145',
+				creatorsRewardsDEV: 143888.67787176130060727095,
+				creatorsRewardsUSD: 1066567.48207993122416401861838448991779145,
 			}
 
 			expect(stats).toEqual(expected)
