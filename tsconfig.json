@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
-		"target": "es5",
+		"target": "esnext",
 		"lib": ["dom", "es2018"],
 		"strict": true,
 		"strictNullChecks": true,
@@ -13,7 +13,9 @@
 		"pretty": true,
 		"newLine": "lf",
 		"esModuleInterop": true,
-		"moduleResolution": "node"
+		"moduleResolution": "node",
+		"outDir": "dist",
+		"rootDir": "."
 	},
 	"include": ["lib"],
 	"exclude": ["node_modules", "**/*.spec.ts"]

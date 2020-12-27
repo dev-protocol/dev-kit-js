@@ -4,30 +4,38 @@
 	"description": "Dev Kit for JavaScript",
 	"author": "abyssparanoia",
 	"license": "Apache-2.0",
+	"main": "dist/index.js",
+	"exports": {
+		"import": "./dist/index.mjs",
+		"require": "./dist/index.js"
+	},
+	"types": "./dist/dev-kit.d.ts",
 	"files": [
-		"cjs",
-		"esm"
+		"dist/*.mjs",
+		"dist/*.js",
+		"dist/*.ts",
+		"bundled",
+		"!**/*.spec.*"
 	],
-	"main": "cjs/index.js",
-	"module": "esm/index.js",
 	"scripts": {
-		"build": "yarn clean && run-p -l build:*",
-		"build:cjs": "tsc --project . --module commonjs --outDir ./cjs",
-		"build:esm": "tsc --project . --module es2015 --outDir ./esm",
-		"postbuild": "node ./rollup.js",
+		"build": "yarn clean && yarn build:ts && yarn build:rollup",
+		"build:ts": "tsc",
+		"build:rollup": "rollup -c",
+		"postbuild": "node ./bundle.js",
 		"lint": "yarn lint:eslint && yarn lint:format",
 		"lint:eslint": "eslint . --ext .ts --fix",
 		"lint:format": "prettier --write '**/*.{ts,js,json,md,yml}'",
 		"test": "jest",
 		"test:coverage": "jest --coverage",
 		"prepack": "yarn test && yarn build",
-		"clean": "rimraf esm cjs"
+		"clean": "rimraf dist"
 	},
 	"devDependencies": {
 		"@rollup/plugin-alias": "3.1.1",
 		"@rollup/plugin-commonjs": "17.0.0",
 		"@rollup/plugin-json": "4.1.0",
-		"@rollup/plugin-node-resolve": "11.0.1",
+		"@rollup/plugin-multi-entry": "^4.0.0",
+		"@rollup/plugin-node-resolve": "^11.0.1",
 		"@types/jest": "26.0.19",
 		"@types/ramda": "0.27.34",
 		"@typescript-eslint/eslint-plugin": "4.11.0",
@@ -45,7 +53,8 @@
 		"pre-commit": "1.2.2",
 		"prettier": "2.2.1",
 		"rimraf": "3.0.2",
-		"rollup": "2.35.1",
+		"rollup": "^2.35.1",
+		"rollup-plugin-dts": "^2.0.1",
 		"rollup-plugin-terser": "7.0.2",
 		"ts-jest": "26.4.4",
 		"typescript": "4.1.3",

@@ -61,5 +61,10 @@ typings/
 .next
 
 # build
-cjs
-esm
+dist
+*.js
+*.mjs
+*.d.ts
+*.ts.map
+!bundle.js
+!rollup.config.js

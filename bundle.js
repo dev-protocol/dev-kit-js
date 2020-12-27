@@ -60,7 +60,7 @@ const queue = new PQueue({ concurrency: 1 })
 			const input = inputOptions({ input: path })
 			const bundle = await rollup.rollup(input)
 			const output = outputOptions({
-				file: input.input.replace(/\.js/, '.bundled.js'),
+				file: input.input.replace('dist/lib/', 'bundled/'),
 			})
 
 			await bundle.generate(output)
@@ -68,4 +68,4 @@ const queue = new PQueue({ concurrency: 1 })
 			await bundle.close()
 		})
 	)
-})(globby(['esm/**/index.js']))
+})(globby(['dist/lib/**/index.js']))
