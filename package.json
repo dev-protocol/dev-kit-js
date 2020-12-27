@@ -28,7 +28,7 @@
 		"test": "jest",
 		"test:coverage": "jest --coverage",
 		"prepack": "yarn test && yarn build",
-		"clean": "rimraf dist"
+		"clean": "rimraf dist bundled"
 	},
 	"devDependencies": {
 		"@rollup/plugin-alias": "3.1.1",
