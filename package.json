@@ -19,7 +19,7 @@
 	],
 	"scripts": {
 		"build": "yarn clean && yarn build:ts && yarn build:rollup",
-		"build:ts": "tsc",
+		"build:ts": "tsc --target esnext",
 		"build:rollup": "rollup -c",
 		"postbuild": "node ./bundle.js",
 		"lint": "yarn lint:eslint && yarn lint:format",
