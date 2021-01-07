@@ -12,7 +12,7 @@ export type CreateBulkWithdrawCaller = (
 export const createBulkWithdrawCaller: CreateBulkWithdrawCaller = (
 	contract: Contract,
 	client: Web3
-) => async (propertyAddresses) :Promise<TxReceipt> =>
+) => async (propertyAddresses): Promise<TxReceipt> =>
 	execute({
 		contract,
 		method: 'bulkWithdraw',

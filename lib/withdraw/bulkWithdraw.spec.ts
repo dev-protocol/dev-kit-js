@@ -15,9 +15,14 @@ describe('bulkWithdraw.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createBulkWithdrawCaller(withdrawContract as any, stubbedWeb3)
+			const caller = createBulkWithdrawCaller(
+				withdrawContract as any,
+				stubbedWeb3
+			)
 
-			const result = await caller(['0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5'])
+			const result = await caller([
+				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
+			])
 
 			expect(result).toEqual(await txPromisify(stubbedSendTx()))
 		})
@@ -35,11 +40,14 @@ describe('bulkWithdraw.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createBulkWithdrawCaller(withdrawContract as any, stubbedWeb3)
+			const caller = createBulkWithdrawCaller(
+				withdrawContract as any,
+				stubbedWeb3
+			)
 
-			const result = await caller(
-				['0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5']
-			).catch((err) => err)
+			const result = await caller([
+				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
+			]).catch((err) => err)
 			expect(result).toBeInstanceOf(Error)
 		})
 	})

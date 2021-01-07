@@ -12,7 +12,9 @@ import { always } from 'ramda'
 
 export type WithdrawContract = {
 	readonly withdraw: (propertyAddress: string) => Promise<boolean>
-	readonly bulkWithdraw: (propertyAddresses: readonly string[]) => Promise<TxReceipt>
+	readonly bulkWithdraw: (
+		propertyAddresses: readonly string[]
+	) => Promise<TxReceipt>
 	readonly getRewardsAmount: (propertyAddress: string) => Promise<string>
 	readonly calculateWithdrawableAmount: (
 		propertyAddress: string,
