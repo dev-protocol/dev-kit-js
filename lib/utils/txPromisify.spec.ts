@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { txPromisify } from './txPromisify'
 import { stubbedSendTx } from './for-test'
 

@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { Contract } from 'web3-eth-contract/types'
 import Web3 from 'web3'
-import { getAccount } from '../utils/getAccount'
 import { execute } from '../utils/execute'
 import { T } from 'ramda'
 

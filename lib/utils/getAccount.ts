@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import Web3 from 'web3'
 
 const map: WeakMap<Web3, string> = new WeakMap()

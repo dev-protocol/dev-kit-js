@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import bent from 'bent'
 import BigNumber from 'bignumber.js'
 import Web3 from 'web3'
