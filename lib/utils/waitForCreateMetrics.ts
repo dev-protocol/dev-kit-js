@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import Web3 from 'web3'
 import { metricsFactoryAbi } from '../metrics-factory/abi'
 import { metricsAbi } from '../metrics/abi'

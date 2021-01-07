@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 /* eslint-disable functional/no-return-void, functional/no-mixed-type */
 import { Contract } from 'web3-eth-contract/types'
 import { Event } from './web3-txs'

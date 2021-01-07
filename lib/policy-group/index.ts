@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import Web3 from 'web3'
 import { Contract } from 'web3-eth-contract/types'
 import { policyGroupAbi } from './abi'
