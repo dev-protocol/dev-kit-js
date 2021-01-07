@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import Web3 from 'web3'
 import { Contract } from 'web3-eth-contract/types'
 import { withdrawAbi } from './abi'
@@ -5,10 +6,13 @@ import { CustomOptions } from '../option'
 import { createWithdrawCaller } from './withdraw'
 import { createGetRewardsAmountCaller } from './getRewardsAmount'
 import { createCalculateWithdrawableAmountCaller } from './calculateWithdrawableAmount'
+import { createBulkWithdrawCaller } from './bulkWithdraw'
+import { TxReceipt } from '../utils/web3-txs'
 import { always } from 'ramda'
 
 export type WithdrawContract = {
 	readonly withdraw: (propertyAddress: string) => Promise<boolean>
+	readonly bulkWithdraw: (propertyAddresses: readonly string[]) => Promise<TxReceipt>
 	readonly getRewardsAmount: (propertyAddress: string) => Promise<string>
 	readonly calculateWithdrawableAmount: (
 		propertyAddress: string,
@@ -34,6 +38,7 @@ export const createWithdrawContract: CreateWithdrawContract = (
 
 	return {
 		withdraw: createWithdrawCaller(contractClient, client),
+		bulkWithdraw: createBulkWithdrawCaller(contractClient, client),
 		getRewardsAmount: createGetRewardsAmountCaller(contractClient),
 		calculateWithdrawableAmount: createCalculateWithdrawableAmountCaller(
 			contractClient

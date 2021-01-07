@@ -3,6 +3,7 @@ import { createWithdrawContract, WithdrawContract } from '.'
 import { withdrawAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createWithdrawCaller } from './withdraw'
+import { createBulkWithdrawCaller } from './bulkWithdraw'
 import { createGetRewardsAmountCaller } from './getRewardsAmount'
 import { createCalculateWithdrawableAmountCaller } from './calculateWithdrawableAmount'
 
@@ -26,6 +27,7 @@ describe('lockup/index.ts', () => {
 				)
 				return {
 					withdraw: createWithdrawCaller(withdrawContract, client),
+					bulkWithdraw: createBulkWithdrawCaller(withdrawContract, client),
 					getRewardsAmount: createGetRewardsAmountCaller(withdrawContract),
 					calculateWithdrawableAmount: createCalculateWithdrawableAmountCaller(
 						withdrawContract
