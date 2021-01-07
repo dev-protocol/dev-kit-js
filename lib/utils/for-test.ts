@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable functional/no-this-expression */
 /* eslint-disable functional/no-conditional-statement */
 /* eslint-disable functional/no-return-void */
