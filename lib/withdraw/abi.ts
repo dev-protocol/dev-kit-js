@@ -319,6 +319,27 @@ export const withdrawAbi = [
 		constant: false,
 		inputs: [
 			{
+				internalType: 'address[]',
+				name: '_properties',
+				type: 'address[]',
+			},
+		],
+		name: 'bulkWithdraw',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
 				internalType: 'address',
 				name: '_property',
 				type: 'address',
