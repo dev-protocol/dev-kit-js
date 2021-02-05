@@ -11,6 +11,7 @@ import { createMarketVotingBlocksCaller } from './marketVotingBlocks'
 import { createPolicyVotingBlocksCaller } from './policyVotingBlocks'
 import { createShareOfTreasuryCaller } from './shareOfTreasury'
 import { createTreasuryCaller } from './treasury'
+import { createCapSetterCaller } from './capSetter'
 
 describe('policy/index.ts', () => {
 	describe('createPolicyContract', () => {
@@ -41,6 +42,7 @@ describe('policy/index.ts', () => {
 					policyVotingBlocks: createPolicyVotingBlocksCaller(policyContract),
 					shareOfTreasury: createShareOfTreasuryCaller(policyContract),
 					treasury: createTreasuryCaller(policyContract),
+					capSetter: createCapSetterCaller(policyContract),
 					contract: () => policyContract,
 				}
 			}
