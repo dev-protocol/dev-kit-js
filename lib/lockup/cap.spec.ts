@@ -1,13 +1,13 @@
-import { createGetAllValueCaller } from './getAllValue'
+import { createCapCaller } from './cap'
 
-describe('getAllValue.spec.ts', () => {
-	describe('createGetAllValueCaller', () => {
+describe('cap.spec.ts', () => {
+	describe('createCapCaller', () => {
 		it('call success', async () => {
 			const value = 'value'
 
 			const lockupContract = {
 				methods: {
-					getAllValue: () => ({
+					cap: () => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.resolve(value)),
@@ -18,7 +18,7 @@ describe('getAllValue.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createGetAllValueCaller(lockupContract as any)
+			const caller = createCapCaller(lockupContract as any)
 
 			const result = await caller()
 
@@ -31,7 +31,7 @@ describe('getAllValue.spec.ts', () => {
 			const lockupContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					getAllValue: () => ({
+					cap: () => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error)),
@@ -40,7 +40,7 @@ describe('getAllValue.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createGetAllValueCaller(lockupContract as any)
+			const caller = createCapCaller(lockupContract as any)
 
 			const result = await caller().catch((err) => err)
 

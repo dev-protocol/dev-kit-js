@@ -26,6 +26,7 @@
 		"lint:eslint": "eslint . --ext .ts --fix",
 		"lint:format": "prettier --write '**/*.{ts,js,json,md,yml}'",
 		"test": "jest",
+		"test2": "jest lib/lockup/updateCap.spec.ts",
 		"test:coverage": "jest --coverage",
 		"prepack": "yarn test && yarn build",
 		"clean": "rimraf dist bundled"

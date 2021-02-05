@@ -10,6 +10,11 @@ import { createCalculateWithdrawableInterestAmountCaller } from './calculateWith
 import { createGetAllValueCaller } from './getAllValue'
 import { createGetStorageWithdrawalStatusCaller } from './getStorageWithdrawalStatus'
 import { createCalculateCumulativeHoldersRewardAmountCaller } from './calculateCumulativeHoldersRewardAmount'
+import { createCalculateCumulativeRewardPricesCaller } from './calculateCumulativeRewardPrices'
+import { createCalculateRewardAmountCaller } from './calculateRewardAmount'
+import { createCapCaller } from './cap'
+import { createUpdateCapCaller } from './updateCap'
+import { TxReceipt } from '../utils/web3-txs'
 import { always } from 'ramda'
 
 export type LockupContract = {
@@ -34,6 +39,12 @@ export type LockupContract = {
 		propertyAddress: string,
 		accountAddress: string
 	) => Promise<string>
+	readonly calculateCumulativeRewardPrices: () => Promise<readonly string[]>
+	readonly calculateRewardAmount: (
+		propertyAddress: string
+	) => Promise<readonly string[]>
+	readonly cap: () => Promise<string>
+	readonly updateCap: (geometricMean: string) => Promise<TxReceipt>
 	readonly contract: () => Contract
 }
 
@@ -67,6 +78,12 @@ export const createLockupContract: CreateLockupContract = (client: Web3) => (
 		getStorageWithdrawalStatus: createGetStorageWithdrawalStatusCaller(
 			contractClient
 		),
+		calculateCumulativeRewardPrices: createCalculateCumulativeRewardPricesCaller(
+			contractClient
+		),
+		calculateRewardAmount: createCalculateRewardAmountCaller(contractClient),
+		cap: createCapCaller(contractClient),
+		updateCap: createUpdateCapCaller(contractClient, client),
 		contract: always(contractClient),
 	}
 }
