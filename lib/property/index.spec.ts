@@ -3,6 +3,8 @@ import { createPropertyContract, PropertyContract } from '.'
 import { propertyAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createAuthorCaller } from './author'
+import { createChangeNameCaller } from './changeName'
+import { createChangeSymbolCaller } from './changeSymbol'
 import { createChangeAuthorCaller } from './changeAuthor'
 import { createTransferCaller } from './../erc20/transfer'
 import { createNameCaller } from './../erc20/name'
@@ -44,6 +46,8 @@ describe('property/index.ts', () => {
 					decimals: createDecimalsCaller(propertyContract),
 					author: createAuthorCaller(propertyContract),
 					changeAuthor: createChangeAuthorCaller(propertyContract, client),
+					changeName: createChangeNameCaller(propertyContract, client),
+					changeSymbol: createChangeSymbolCaller(propertyContract, client),
 					contract: () => propertyContract,
 				}
 			}

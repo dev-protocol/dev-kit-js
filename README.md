@@ -34,7 +34,6 @@ It covers all the contracts and their functions that can be executed with the De
 
 The URL of the provider is easy to use with each node provisioning service.
 
-
 ## how to develop
 
 ```bash
