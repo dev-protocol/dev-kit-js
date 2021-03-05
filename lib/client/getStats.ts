@@ -6,7 +6,6 @@ import { always } from 'ramda'
 import { addresses } from '../addresses'
 import { createDevkitContract, DevkitContract } from '../contract'
 
-const DEV_OWN_HTTP_PROVIDER = 'https://devprotocolnode.net/ethereum/mainnet'
 const DEV_GRAPHQL_ENDPOINT = 'https://api.devprotocol.xyz/v1/graphql'
 const THEGRAPH_UNISWAP_ENDPOINT =
 	'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2'
@@ -56,7 +55,7 @@ type propertyFactoryCreateAggregate = {
 	}
 }
 
-export type GetStatsCaller = () => Promise<DevStats>
+export type GetStatsCaller = (httpProviderEndpoint: string) => Promise<DevStats>
 type GetEthPriceCaller = () => Promise<graphBundle>
 type GetDevEthPriceCaller = (devkit: DevkitContract) => Promise<graphToken>
 
@@ -256,8 +255,10 @@ const getCreatorsRewardsDev: (
 }
 
 // eslint-disable-next-line functional/functional-parameters
-export const getStats: GetStatsCaller = async () => {
-	const web3 = new Web3(DEV_OWN_HTTP_PROVIDER)
+export const getStats: GetStatsCaller = async (
+	httpProviderEndpoint: string
+) => {
+	const web3 = new Web3(httpProviderEndpoint)
 	const devkit = createDevkitContract(web3)
 
 	const [

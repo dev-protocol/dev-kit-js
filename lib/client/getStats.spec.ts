@@ -64,7 +64,7 @@ describe('getStats.ts', () => {
 				}
 			)
 
-			const stats = await getStats()
+			const stats = await getStats('http://localhost')
 			const expected = {
 				devPrice: 7.412448969963391,
 				totalCap: 94249090.40663686,
