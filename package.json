@@ -1,6 +1,6 @@
 {
 	"name": "@devprotocol/dev-kit",
-	"version": "4.3.0",
+	"version": "4.3.1",
 	"description": "Dev Kit for JavaScript",
 	"author": "abyssparanoia",
 	"license": "Apache-2.0",
@@ -61,11 +61,6 @@
 		"ts-jest": "26.5.5",
 		"typescript": "4.2.4",
 		"web3": "1.3.5"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "lint-staged"
-		}
 	},
 	"lint-staged": {
 		"./lib/**/*.ts": [
