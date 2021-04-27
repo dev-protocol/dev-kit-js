@@ -30,7 +30,7 @@ describe('calculateRewardAmount.spec.ts', () => {
 		})
 
 		it('call failure', async () => {
-			const error = 'error1'
+			const error = 'error'
 
 			const rewardContract = {
 				methods: {
