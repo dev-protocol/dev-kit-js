@@ -6,6 +6,7 @@ import { createWithdrawCaller } from './withdraw'
 import { createBulkWithdrawCaller } from './bulkWithdraw'
 import { createGetRewardsAmountCaller } from './getRewardsAmount'
 import { createCalculateWithdrawableAmountCaller } from './calculateWithdrawableAmount'
+import { calculateRewardAmountCaller } from './calculateRewardAmount'
 
 describe('lockup/index.ts', () => {
 	describe('createLockupContract', () => {
@@ -32,6 +33,7 @@ describe('lockup/index.ts', () => {
 					calculateWithdrawableAmount: createCalculateWithdrawableAmountCaller(
 						withdrawContract
 					),
+					calculateRewardAmount: calculateRewardAmountCaller(withdrawContract),
 					contract: () => withdrawContract,
 				}
 			}
