@@ -13,8 +13,6 @@ import { createCalculateCumulativeHoldersRewardAmountCaller } from './calculateC
 import { createCalculateCumulativeRewardPricesCaller } from './calculateCumulativeRewardPrices'
 import { createCalculateRewardAmountCaller } from './calculateRewardAmount'
 import { createCapCaller } from './cap'
-import { createUpdateCapCaller } from './updateCap'
-import { TxReceipt } from '../utils/web3-txs'
 import { always } from 'ramda'
 
 export type LockupContract = {
@@ -44,7 +42,6 @@ export type LockupContract = {
 		propertyAddress: string
 	) => Promise<readonly string[]>
 	readonly cap: () => Promise<string>
-	readonly updateCap: (geometricMean: string) => Promise<TxReceipt>
 	readonly contract: () => Contract
 }
 
@@ -83,7 +80,6 @@ export const createLockupContract: CreateLockupContract = (client: Web3) => (
 		),
 		calculateRewardAmount: createCalculateRewardAmountCaller(contractClient),
 		cap: createCapCaller(contractClient),
-		updateCap: createUpdateCapCaller(contractClient, client),
 		contract: always(contractClient),
 	}
 }
