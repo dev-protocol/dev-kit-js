@@ -6,11 +6,11 @@ export type CreateRewardsCaller = (
 	contract: Contract
 ) => (lockups: string, assets: string) => Promise<string>
 
-export const createRewardsCaller: CreateRewardsCaller = (
-	contract: Contract
-) => async (lockups: string, assets: string): Promise<string> =>
-	execute({
-		contract,
-		method: 'rewards',
-		args: [lockups, assets],
-	})
+export const createRewardsCaller: CreateRewardsCaller =
+	(contract: Contract) =>
+	async (lockups: string, assets: string): Promise<string> =>
+		execute({
+			contract,
+			method: 'rewards',
+			args: [lockups, assets],
+		})

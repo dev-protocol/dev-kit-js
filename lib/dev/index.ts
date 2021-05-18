@@ -37,29 +37,28 @@ export type CreateDevContract = (
 	client: Web3
 ) => (address?: string, options?: CustomOptions) => DevContract
 
-export const createDevContract: CreateDevContract = (client: Web3) => (
-	address?: string,
-	options?: CustomOptions
-): DevContract => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...devAbi],
-		address,
-		{
-			...options,
-		}
-	)
+export const createDevContract: CreateDevContract =
+	(client: Web3) =>
+	(address?: string, options?: CustomOptions): DevContract => {
+		const contractClient: Contract = new client.eth.Contract(
+			[...devAbi],
+			address,
+			{
+				...options,
+			}
+		)
 
-	return {
-		totalSupply: createTotalSupplyCaller(contractClient),
-		balanceOf: createBalanceOfCaller(contractClient),
-		transfer: createTransferCaller(contractClient, client),
-		allowance: createAllowanceCaller(contractClient),
-		approve: createApproveCaller(contractClient, client),
-		transferFrom: createTransferFromCaller(contractClient, client),
-		name: createNameCaller(contractClient),
-		symbol: createSymbolCaller(contractClient),
-		decimals: createDecimalsCaller(contractClient),
-		deposit: createDepositCaller(contractClient, client),
-		contract: always(contractClient),
+		return {
+			totalSupply: createTotalSupplyCaller(contractClient),
+			balanceOf: createBalanceOfCaller(contractClient),
+			transfer: createTransferCaller(contractClient, client),
+			allowance: createAllowanceCaller(contractClient),
+			approve: createApproveCaller(contractClient, client),
+			transferFrom: createTransferFromCaller(contractClient, client),
+			name: createNameCaller(contractClient),
+			symbol: createSymbolCaller(contractClient),
+			decimals: createDecimalsCaller(contractClient),
+			deposit: createDepositCaller(contractClient, client),
+			contract: always(contractClient),
+		}
 	}
-}

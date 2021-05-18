@@ -9,14 +9,12 @@ export type CreateWithdrawCaller = (
 	client: Web3
 ) => (propertyAddress: string) => Promise<boolean>
 
-export const createWithdrawCaller: CreateWithdrawCaller = (
-	contract: Contract,
-	client: Web3
-) => async (propertyAddress) =>
-	execute({
-		contract,
-		method: 'withdraw',
-		mutation: true,
-		client,
-		args: [propertyAddress],
-	}).then(T)
+export const createWithdrawCaller: CreateWithdrawCaller =
+	(contract: Contract, client: Web3) => async (propertyAddress) =>
+		execute({
+			contract,
+			method: 'withdraw',
+			mutation: true,
+			client,
+			args: [propertyAddress],
+		}).then(T)

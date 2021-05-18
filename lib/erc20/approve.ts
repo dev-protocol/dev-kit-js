@@ -9,14 +9,12 @@ export type CreateApproveCaller = (
 	client: Web3
 ) => (to: string, value: string) => Promise<boolean>
 
-export const createApproveCaller: CreateApproveCaller = (
-	contract: Contract,
-	client: Web3
-) => async (to: string, value: string) =>
-	execute({
-		contract,
-		method: 'approve',
-		mutation: true,
-		client,
-		args: [to, value],
-	}).then(T)
+export const createApproveCaller: CreateApproveCaller =
+	(contract: Contract, client: Web3) => async (to: string, value: string) =>
+		execute({
+			contract,
+			method: 'approve',
+			mutation: true,
+			client,
+			args: [to, value],
+		}).then(T)

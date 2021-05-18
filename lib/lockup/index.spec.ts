@@ -36,21 +36,16 @@ describe('lockup/index.ts', () => {
 					getAllValue: createGetAllValueCaller(lockupContract),
 					getPropertyValue: createGetPropertyValueCaller(lockupContract),
 					withdraw: createWithdrawCaller(lockupContract, client),
-					calculateWithdrawableInterestAmount: createCalculateWithdrawableInterestAmountCaller(
-						lockupContract
-					),
-					calculateCumulativeHoldersRewardAmount: createCalculateCumulativeHoldersRewardAmountCaller(
-						lockupContract
-					),
-					getStorageWithdrawalStatus: createGetStorageWithdrawalStatusCaller(
-						lockupContract
-					),
-					calculateCumulativeRewardPrices: createCalculateCumulativeRewardPricesCaller(
-						lockupContract
-					),
-					calculateRewardAmount: createCalculateRewardAmountCaller(
-						lockupContract
-					),
+					calculateWithdrawableInterestAmount:
+						createCalculateWithdrawableInterestAmountCaller(lockupContract),
+					calculateCumulativeHoldersRewardAmount:
+						createCalculateCumulativeHoldersRewardAmountCaller(lockupContract),
+					getStorageWithdrawalStatus:
+						createGetStorageWithdrawalStatusCaller(lockupContract),
+					calculateCumulativeRewardPrices:
+						createCalculateCumulativeRewardPricesCaller(lockupContract),
+					calculateRewardAmount:
+						createCalculateRewardAmountCaller(lockupContract),
 					cap: createCapCaller(lockupContract),
 					contract: () => lockupContract,
 				}

@@ -6,7 +6,6 @@ export type CreateGetRewardsAmountCaller = (
 	contract: Contract
 ) => (address: string) => Promise<string>
 
-export const createGetRewardsAmountCaller: CreateGetRewardsAmountCaller = (
-	contract: Contract
-) => async (address: string) =>
-	execute({ contract, method: 'getRewardsAmount', args: [address] })
+export const createGetRewardsAmountCaller: CreateGetRewardsAmountCaller =
+	(contract: Contract) => async (address: string) =>
+		execute({ contract, method: 'getRewardsAmount', args: [address] })

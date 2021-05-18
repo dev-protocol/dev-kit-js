@@ -23,7 +23,7 @@ export const createGetVotablePolicy: CreateGetVotablePolicyCaller = (
 			}`,
 		}).then(
 			(r) =>
-				(r as unknown) as {
+				r as unknown as {
 					readonly data: {
 						readonly policy_factory_create: ReadonlyArray<{
 							readonly policy_address: string

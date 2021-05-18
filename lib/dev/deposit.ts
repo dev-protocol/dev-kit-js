@@ -9,14 +9,12 @@ export type CreateDepositCaller = (
 	client: Web3
 ) => (to: string, value: string) => Promise<boolean>
 
-export const createDepositCaller: CreateDepositCaller = (
-	contract: Contract,
-	client: Web3
-) => async (to: string, value: string) =>
-	execute({
-		contract,
-		method: 'deposit',
-		mutation: true,
-		client,
-		args: [to, value],
-	}).then(T)
+export const createDepositCaller: CreateDepositCaller =
+	(contract: Contract, client: Web3) => async (to: string, value: string) =>
+		execute({
+			contract,
+			method: 'deposit',
+			mutation: true,
+			client,
+			args: [to, value],
+		}).then(T)

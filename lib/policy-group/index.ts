@@ -17,20 +17,19 @@ export type CreatePolicyGroupContract = (
 	client: Web3
 ) => (address?: string, options?: CustomOptions) => PolicyGroupContract
 
-export const createPolicyGroupContract: CreatePolicyGroupContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...policyGroupAbi],
-		address,
-		{
-			...options,
-		}
-	)
+export const createPolicyGroupContract: CreatePolicyGroupContract =
+	(client: Web3) => (address?: string, options?: CustomOptions) => {
+		const contractClient: Contract = new client.eth.Contract(
+			[...policyGroupAbi],
+			address,
+			{
+				...options,
+			}
+		)
 
-	return {
-		voting: createVotingCaller(contractClient),
-		isGroup: createIsGroupCaller(contractClient),
-		contract: always(contractClient),
+		return {
+			voting: createVotingCaller(contractClient),
+			isGroup: createIsGroupCaller(contractClient),
+			contract: always(contractClient),
+		}
 	}
-}

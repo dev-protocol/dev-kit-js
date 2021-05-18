@@ -6,11 +6,12 @@ export type CreateCalculateWithdrawableAmountCaller = (
 	contract: Contract
 ) => (propertyAddress: string, accountAddress: string) => Promise<string>
 
-export const createCalculateWithdrawableAmountCaller: CreateCalculateWithdrawableAmountCaller = (
-	contract: Contract
-) => async (propertyAddress: string, accountAddress: string) =>
-	execute({
-		contract,
-		method: 'calculateWithdrawableAmount',
-		args: [propertyAddress, accountAddress],
-	})
+export const createCalculateWithdrawableAmountCaller: CreateCalculateWithdrawableAmountCaller =
+
+		(contract: Contract) =>
+		async (propertyAddress: string, accountAddress: string) =>
+			execute({
+				contract,
+				method: 'calculateWithdrawableAmount',
+				args: [propertyAddress, accountAddress],
+			})

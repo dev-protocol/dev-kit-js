@@ -9,14 +9,12 @@ export type CreateForceAttachCaller = (
 	client: Web3
 ) => (policy: string) => Promise<boolean>
 
-export const createForceAttachCaller: CreateForceAttachCaller = (
-	contract: Contract,
-	client: Web3
-) => async (policy: string) =>
-	execute({
-		contract,
-		method: 'forceAttach',
-		mutation: true,
-		client,
-		args: [policy],
-	}).then(T)
+export const createForceAttachCaller: CreateForceAttachCaller =
+	(contract: Contract, client: Web3) => async (policy: string) =>
+		execute({
+			contract,
+			method: 'forceAttach',
+			mutation: true,
+			client,
+			args: [policy],
+		}).then(T)

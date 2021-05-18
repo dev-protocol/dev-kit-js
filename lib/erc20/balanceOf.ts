@@ -6,7 +6,6 @@ export type CreateBalanceOfCaller = (
 	contract: Contract
 ) => (address: string) => Promise<string>
 
-export const createBalanceOfCaller: CreateBalanceOfCaller = (
-	contract: Contract
-) => async (address: string) =>
-	execute({ contract, method: 'balanceOf', args: [address] })
+export const createBalanceOfCaller: CreateBalanceOfCaller =
+	(contract: Contract) => async (address: string) =>
+		execute({ contract, method: 'balanceOf', args: [address] })

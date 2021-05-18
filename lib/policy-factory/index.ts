@@ -19,21 +19,20 @@ export type CreatePolicyFactoryContract = (
 	client: Web3
 ) => (address?: string, options?: CustomOptions) => PolicyFactoryContract
 
-export const createPolicyFactoryContract: CreatePolicyFactoryContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...policyFactoryAbi],
-		address,
-		{
-			...options,
-		}
-	)
+export const createPolicyFactoryContract: CreatePolicyFactoryContract =
+	(client: Web3) => (address?: string, options?: CustomOptions) => {
+		const contractClient: Contract = new client.eth.Contract(
+			[...policyFactoryAbi],
+			address,
+			{
+				...options,
+			}
+		)
 
-	return {
-		create: createCreateCaller(contractClient, client),
-		convergePolicy: createConvergePolicyCaller(contractClient, client),
-		forceAttach: createForceAttachCaller(contractClient, client),
-		contract: always(contractClient),
+		return {
+			create: createCreateCaller(contractClient, client),
+			convergePolicy: createConvergePolicyCaller(contractClient, client),
+			forceAttach: createForceAttachCaller(contractClient, client),
+			contract: always(contractClient),
+		}
 	}
-}

@@ -9,14 +9,12 @@ export type CreateCreateCaller = (
 	client: Web3
 ) => (newPolicyAddress: string) => Promise<boolean>
 
-export const createCreateCaller: CreateCreateCaller = (
-	contract: Contract,
-	client: Web3
-) => async (newPolicyAddress: string) =>
-	execute({
-		contract,
-		method: 'create',
-		mutation: true,
-		client,
-		args: [newPolicyAddress],
-	}).then(T)
+export const createCreateCaller: CreateCreateCaller =
+	(contract: Contract, client: Web3) => async (newPolicyAddress: string) =>
+		execute({
+			contract,
+			method: 'create',
+			mutation: true,
+			client,
+			args: [newPolicyAddress],
+		}).then(T)

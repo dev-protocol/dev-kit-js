@@ -17,11 +17,11 @@ describe('execute.ts', () => {
 			const fooStub = jest.fn((arg1: string, arg2: string) => ({
 				call: callStub,
 			}))
-			const contract = ({
+			const contract = {
 				methods: {
 					foo: fooStub,
 				},
-			} as unknown) as Contract
+			} as unknown as Contract
 			const result = await execute({
 				contract,
 				method: 'foo',
@@ -38,11 +38,11 @@ describe('execute.ts', () => {
 			const fooStub = jest.fn((arg1: string, arg2: string) => ({
 				call: callStub,
 			}))
-			const contract = ({
+			const contract = {
 				methods: {
 					foo: fooStub,
 				},
-			} as unknown) as Contract
+			} as unknown as Contract
 			const result = await execute({
 				contract,
 				client: stubbedWeb3,
@@ -60,11 +60,11 @@ describe('execute.ts', () => {
 			const fooStub = jest.fn(() => ({
 				call: callStub,
 			}))
-			const contract = ({
+			const contract = {
 				methods: {
 					foo: fooStub,
 				},
-			} as unknown) as Contract
+			} as unknown as Contract
 			const result = await execute({
 				contract,
 				method: 'foo',
@@ -79,11 +79,11 @@ describe('execute.ts', () => {
 			const fooStub = jest.fn(() => ({
 				call: callStub,
 			}))
-			const contract = ({
+			const contract = {
 				methods: {
 					foo: fooStub,
 				},
-			} as unknown) as Contract
+			} as unknown as Contract
 			const result = await execute({
 				contract,
 				client: stubbedWeb3,
@@ -99,11 +99,11 @@ describe('execute.ts', () => {
 			const fooStub = jest.fn((arg1: string, arg2: string) => ({
 				call: callStub,
 			}))
-			const contract = ({
+			const contract = {
 				methods: {
 					foo: fooStub,
 				},
-			} as unknown) as Contract
+			} as unknown as Contract
 			const result = await execute({
 				contract,
 				method: 'foo',
@@ -121,11 +121,11 @@ describe('execute.ts', () => {
 			const fooStub = jest.fn((arg1: string, arg2: string) => ({
 				send: sendStub,
 			}))
-			const contract = ({
+			const contract = {
 				methods: {
 					foo: fooStub,
 				},
-			} as unknown) as Contract
+			} as unknown as Contract
 			const result = await execute({
 				contract,
 				method: 'foo',
@@ -144,11 +144,11 @@ describe('execute.ts', () => {
 			const fooStub = jest.fn((arg1: string, arg2: string) => ({
 				send: sendStub,
 			}))
-			const contract = ({
+			const contract = {
 				methods: {
 					foo: fooStub,
 				},
-			} as unknown) as Contract
+			} as unknown as Contract
 			const result = await execute({
 				contract,
 				method: 'foo',
@@ -162,24 +162,26 @@ describe('execute.ts', () => {
 		})
 		it('empty-padding to an arguments array if `padEnd` is specified', async () => {
 			const sendStub = jest.fn(async () => Promise.resolve(true))
-			const fooStub = jest.fn((
-				arg1: string,
-				arg2: string,
-				arg3: string,
-				arg4: boolean,
-				arg5: boolean,
-				arg6: string,
-				arg7: string,
-				arg8: string
-				// eslint-disable-next-line max-params
-			) => ({
-				send: sendStub,
-			}))
-			const contract = ({
+			const fooStub = jest.fn(
+				(
+					arg1: string,
+					arg2: string,
+					arg3: string,
+					arg4: boolean,
+					arg5: boolean,
+					arg6: string,
+					arg7: string,
+					arg8: string
+					// eslint-disable-next-line max-params
+				) => ({
+					send: sendStub,
+				})
+			)
+			const contract = {
 				methods: {
 					foo: fooStub,
 				},
-			} as unknown) as Contract
+			} as unknown as Contract
 			const result = await execute({
 				contract,
 				method: 'foo',

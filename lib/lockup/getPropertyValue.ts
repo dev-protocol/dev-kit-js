@@ -6,7 +6,6 @@ export type CreateGetPropertyValueCaller = (
 	contract: Contract
 ) => (address: string) => Promise<string>
 
-export const createGetPropertyValueCaller: CreateGetPropertyValueCaller = (
-	contract: Contract
-) => async (address: string) =>
-	execute({ contract, method: 'getPropertyValue', args: [address] })
+export const createGetPropertyValueCaller: CreateGetPropertyValueCaller =
+	(contract: Contract) => async (address: string) =>
+		execute({ contract, method: 'getPropertyValue', args: [address] })

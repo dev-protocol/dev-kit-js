@@ -120,22 +120,21 @@ const getTotalCap: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	return devTotalCap
 }
 
-const getCirculatingSupply: (
-	devkit: DevkitContract
-) => Promise<BigNumber> = async (devkit: DevkitContract) => {
-	const devContractAddress = await devkit
-		.registry(addresses.eth['main']?.registry)
-		['token']()
-	const totalSupply = new BigNumber(await getTotalSupply(devkit))
-	const dev = devkit.dev(devContractAddress)
-	const teamAmounts = await Promise.all(
-		TEAM_WALLET_ADDRESSES.map(dev.balanceOf)
-	)
-	const teamAmount = BigNumber.sum(...teamAmounts)
-	const circulatingSupply = totalSupply.minus(teamAmount)
+const getCirculatingSupply: (devkit: DevkitContract) => Promise<BigNumber> =
+	async (devkit: DevkitContract) => {
+		const devContractAddress = await devkit
+			.registry(addresses.eth['main']?.registry)
+			['token']()
+		const totalSupply = new BigNumber(await getTotalSupply(devkit))
+		const dev = devkit.dev(devContractAddress)
+		const teamAmounts = await Promise.all(
+			TEAM_WALLET_ADDRESSES.map(dev.balanceOf)
+		)
+		const teamAmount = BigNumber.sum(...teamAmounts)
+		const circulatingSupply = totalSupply.minus(teamAmount)
 
-	return circulatingSupply
-}
+		return circulatingSupply
+	}
 
 const getMarketCap: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	devkit: DevkitContract
@@ -148,18 +147,17 @@ const getMarketCap: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	return toNaturalNumber(marketCap)
 }
 
-const getTotalStakingAmount: (
-	devkit: DevkitContract
-) => Promise<BigNumber> = async (devkit: DevkitContract) => {
-	const devContractAddress = await devkit
-		.registry(addresses.eth['main']?.registry)
-		['lockup']()
-	const totalStakingAmount = await devkit
-		.lockup(devContractAddress)
-		.getAllValue()
+const getTotalStakingAmount: (devkit: DevkitContract) => Promise<BigNumber> =
+	async (devkit: DevkitContract) => {
+		const devContractAddress = await devkit
+			.registry(addresses.eth['main']?.registry)
+			['lockup']()
+		const totalStakingAmount = await devkit
+			.lockup(devContractAddress)
+			.getAllValue()
 
-	return new BigNumber(totalStakingAmount)
-}
+		return new BigNumber(totalStakingAmount)
+	}
 
 const getStakingRatio: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	devkit: DevkitContract
@@ -170,9 +168,7 @@ const getStakingRatio: (devkit: DevkitContract) => Promise<BigNumber> = async (
 	return totalStakingAmount.div(circulatingSupply)
 }
 
-const getAPY: (
-	devkit: DevkitContract
-) => Promise<{
+const getAPY: (devkit: DevkitContract) => Promise<{
 	readonly stakerAPY: BigNumber
 	readonly creatorAPY: BigNumber
 }> = async (devkit: DevkitContract) => {

@@ -19,7 +19,7 @@ describe('getVotablePolicy.ts', () => {
 				'0x2222222222222222222222222222222222222222',
 			]
 
-			;((bent as unknown) as jest.Mock).mockImplementationOnce(
+			;(bent as unknown as jest.Mock).mockImplementationOnce(
 				() => async () => ({
 					data: {
 						policy_factory_create: graphql.map((v) => ({

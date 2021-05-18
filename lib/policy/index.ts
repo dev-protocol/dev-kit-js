@@ -36,29 +36,27 @@ export type CreatePolicyContract = (
 	client: Web3
 ) => (address?: string, options?: CustomOptions) => PolicyContract
 
-export const createPolicyContract: CreatePolicyContract = (client: Web3) => (
-	address?: string,
-	options?: CustomOptions
-) => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...policyAbi],
-		address,
-		{
-			...options,
-		}
-	)
+export const createPolicyContract: CreatePolicyContract =
+	(client: Web3) => (address?: string, options?: CustomOptions) => {
+		const contractClient: Contract = new client.eth.Contract(
+			[...policyAbi],
+			address,
+			{
+				...options,
+			}
+		)
 
-	return {
-		holdersShare: createHoldersShareCaller(contractClient),
-		rewards: createRewardsCaller(contractClient),
-		authenticationFee: createAuthenticationFeeCaller(contractClient),
-		marketApproval: createMarketApprovalCaller(contractClient),
-		policyApproval: createPolicyApprovalCaller(contractClient),
-		marketVotingBlocks: createMarketVotingBlocksCaller(contractClient),
-		policyVotingBlocks: createPolicyVotingBlocksCaller(contractClient),
-		shareOfTreasury: createShareOfTreasuryCaller(contractClient),
-		treasury: createTreasuryCaller(contractClient),
-		capSetter: createCapSetterCaller(contractClient),
-		contract: always(contractClient),
+		return {
+			holdersShare: createHoldersShareCaller(contractClient),
+			rewards: createRewardsCaller(contractClient),
+			authenticationFee: createAuthenticationFeeCaller(contractClient),
+			marketApproval: createMarketApprovalCaller(contractClient),
+			policyApproval: createPolicyApprovalCaller(contractClient),
+			marketVotingBlocks: createMarketVotingBlocksCaller(contractClient),
+			policyVotingBlocks: createPolicyVotingBlocksCaller(contractClient),
+			shareOfTreasury: createShareOfTreasuryCaller(contractClient),
+			treasury: createTreasuryCaller(contractClient),
+			capSetter: createCapSetterCaller(contractClient),
+			contract: always(contractClient),
+		}
 	}
-}

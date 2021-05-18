@@ -9,14 +9,12 @@ export type CreateConvergePolicyCaller = (
 	client: Web3
 ) => (currentPolicyAddress: string) => Promise<boolean>
 
-export const createConvergePolicyCaller: CreateConvergePolicyCaller = (
-	contract: Contract,
-	client: Web3
-) => async (currentPolicyAddress: string) =>
-	execute({
-		contract,
-		method: 'convergePolicy',
-		mutation: true,
-		client,
-		args: [currentPolicyAddress],
-	}).then(T)
+export const createConvergePolicyCaller: CreateConvergePolicyCaller =
+	(contract: Contract, client: Web3) => async (currentPolicyAddress: string) =>
+		execute({
+			contract,
+			method: 'convergePolicy',
+			mutation: true,
+			client,
+			args: [currentPolicyAddress],
+		}).then(T)

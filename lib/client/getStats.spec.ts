@@ -1,6 +1,6 @@
 import bent from 'bent'
 jest.mock('bent')
-;((bent as unknown) as jest.Mock).mockImplementation(
+;(bent as unknown as jest.Mock).mockImplementation(
 	() => async (_: any, query: any) => {
 		return query.query.includes('property_factory_create_aggregate')
 			? {
@@ -38,31 +38,29 @@ jest.mock('../contract')
 describe('getStats.ts', () => {
 	describe('getStats', () => {
 		it('returns stats', async () => {
-			;((createDevkitContract as unknown) as jest.Mock).mockImplementation(
-				() => {
-					return {
-						allocator: () => ({
-							calculateMaxRewardsPerBlock: () => '134196471886248864',
-						}),
-						dev: () => ({
-							balanceOf: () => '2343987666147792601927123',
-							totalSupply: () => '12714973254932553412724975',
-						}),
-						lockup: () => ({
-							getAllValue: () => '561691256328145520467695',
-						}),
-						policy: () => ({
-							holdersShare: () => '68440200661986920',
-						}),
-						registry: () => ({
-							allocator: () => '0x112233',
-							lockup: () => '0x223344',
-							policy: () => '0x445566',
-							token: () => '0x998877',
-						}),
-					}
+			;(createDevkitContract as unknown as jest.Mock).mockImplementation(() => {
+				return {
+					allocator: () => ({
+						calculateMaxRewardsPerBlock: () => '134196471886248864',
+					}),
+					dev: () => ({
+						balanceOf: () => '2343987666147792601927123',
+						totalSupply: () => '12714973254932553412724975',
+					}),
+					lockup: () => ({
+						getAllValue: () => '561691256328145520467695',
+					}),
+					policy: () => ({
+						holdersShare: () => '68440200661986920',
+					}),
+					registry: () => ({
+						allocator: () => '0x112233',
+						lockup: () => '0x223344',
+						policy: () => '0x445566',
+						token: () => '0x998877',
+					}),
 				}
-			)
+			})
 
 			const stats = await getStats('http://localhost')
 			const expected = {

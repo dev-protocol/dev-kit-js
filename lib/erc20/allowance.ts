@@ -6,11 +6,10 @@ export type CreateAllowanceCaller = (
 	contract: Contract
 ) => (from: string, to: string) => Promise<string>
 
-export const createAllowanceCaller: CreateAllowanceCaller = (
-	contract: Contract
-) => async (from: string, to: string) =>
-	execute({
-		contract,
-		method: 'allowance',
-		args: [from, to],
-	})
+export const createAllowanceCaller: CreateAllowanceCaller =
+	(contract: Contract) => async (from: string, to: string) =>
+		execute({
+			contract,
+			method: 'allowance',
+			args: [from, to],
+		})

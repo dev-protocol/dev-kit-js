@@ -33,23 +33,22 @@ export type CreatePropertyFactoryContract = (
 	client: Web3
 ) => (address?: string, options?: CustomOptions) => PropertyFactoryContract
 
-export const createPropertyFactoryContract: CreatePropertyFactoryContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...propertyFactoryAbi],
-		address,
-		{
-			...options,
-		}
-	)
+export const createPropertyFactoryContract: CreatePropertyFactoryContract =
+	(client: Web3) => (address?: string, options?: CustomOptions) => {
+		const contractClient: Contract = new client.eth.Contract(
+			[...propertyFactoryAbi],
+			address,
+			{
+				...options,
+			}
+		)
 
-	return {
-		create: createCreatePropertyCaller(contractClient, client),
-		createAndAuthenticate: createCreateAndAuthenticateCaller(
-			contractClient,
-			client
-		),
-		contract: always(contractClient),
+		return {
+			create: createCreatePropertyCaller(contractClient, client),
+			createAndAuthenticate: createCreateAndAuthenticateCaller(
+				contractClient,
+				client
+			),
+			contract: always(contractClient),
+		}
 	}
-}

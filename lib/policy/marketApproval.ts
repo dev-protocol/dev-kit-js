@@ -6,11 +6,11 @@ export type CreateMarketApprovalCaller = (
 	contract: Contract
 ) => (agree: string, opposite: string) => Promise<boolean>
 
-export const createMarketApprovalCaller: CreateMarketApprovalCaller = (
-	contract: Contract
-) => async (agree: string, opposite: string): Promise<boolean> =>
-	execute({
-		contract,
-		method: 'marketApproval',
-		args: [agree, opposite],
-	})
+export const createMarketApprovalCaller: CreateMarketApprovalCaller =
+	(contract: Contract) =>
+	async (agree: string, opposite: string): Promise<boolean> =>
+		execute({
+			contract,
+			method: 'marketApproval',
+			args: [agree, opposite],
+		})

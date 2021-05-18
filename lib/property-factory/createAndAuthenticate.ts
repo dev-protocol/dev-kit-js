@@ -22,34 +22,35 @@ export type CreateCreateAndAuthenticateCaller = (
 	readonly waitForAuthentication: () => Promise<string>
 }>
 
-export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCaller = (
-	contract: Contract,
-	client: Web3
-) => async (
-	name: string,
-	symbol: string,
-	marketAddress: string,
-	args: readonly string[],
-	{ metricsFactory }: WaitForEventOptions
-): Promise<{
-	readonly property: string
-	readonly transaction: TxReceipt
-	readonly waitForAuthentication: () => Promise<string>
-}> => {
-	const transaction = await execute({
-		contract,
-		method: 'createAndAuthenticate',
-		args: [name, symbol, marketAddress, ...args],
-		mutation: true,
-		padEnd: 6,
-		client,
-	})
-	const property = transaction.events.Create.returnValues._property as string
-	return {
-		property,
-		transaction,
-		waitForAuthentication: always(
-			waitForCreateMetrics(client, property, metricsFactory)
-		),
-	}
-}
+export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCaller =
+
+		(contract: Contract, client: Web3) =>
+		async (
+			name: string,
+			symbol: string,
+			marketAddress: string,
+			args: readonly string[],
+			{ metricsFactory }: WaitForEventOptions
+		): Promise<{
+			readonly property: string
+			readonly transaction: TxReceipt
+			readonly waitForAuthentication: () => Promise<string>
+		}> => {
+			const transaction = await execute({
+				contract,
+				method: 'createAndAuthenticate',
+				args: [name, symbol, marketAddress, ...args],
+				mutation: true,
+				padEnd: 6,
+				client,
+			})
+			const property = transaction.events.Create.returnValues
+				._property as string
+			return {
+				property,
+				transaction,
+				waitForAuthentication: always(
+					waitForCreateMetrics(client, property, metricsFactory)
+				),
+			}
+		}

@@ -7,6 +7,6 @@ export type CreateTotalAuthenticatedPropertiesCaller = (
 	contract: Contract
 ) => () => Promise<string>
 
-export const createTotalAuthenticatedPropertiesCaller: CreateTotalAuthenticatedPropertiesCaller = (
-	contract: Contract
-) => always(execute({ contract, method: 'totalAuthenticatedProperties' }))
+export const createTotalAuthenticatedPropertiesCaller: CreateTotalAuthenticatedPropertiesCaller =
+	(contract: Contract) =>
+		always(execute({ contract, method: 'totalAuthenticatedProperties' }))

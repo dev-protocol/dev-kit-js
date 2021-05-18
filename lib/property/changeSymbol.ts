@@ -9,14 +9,12 @@ export type CreateChangeSymbolCaller = (
 	client: Web3
 ) => (nextAuther: string) => Promise<boolean>
 
-export const createChangeSymbolCaller: CreateChangeSymbolCaller = (
-	contract: Contract,
-	client: Web3
-) => async (nextSymbol: string) =>
-	execute({
-		contract,
-		method: 'changeSymbol',
-		mutation: true,
-		client,
-		args: [nextSymbol],
-	}).then(T)
+export const createChangeSymbolCaller: CreateChangeSymbolCaller =
+	(contract: Contract, client: Web3) => async (nextSymbol: string) =>
+		execute({
+			contract,
+			method: 'changeSymbol',
+			mutation: true,
+			client,
+			args: [nextSymbol],
+		}).then(T)

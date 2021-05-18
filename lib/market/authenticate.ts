@@ -17,27 +17,26 @@ export type CreateAuthenticateCaller = (
 	options: WaitForEventOptions
 ) => Promise<string>
 
-export const createAuthenticateCaller: CreateAuthenticateCaller = (
-	contract: Contract,
-	client: Web3
-) => async (
-	propertyAddress: string,
-	args: readonly string[],
-	{ metricsFactory }: WaitForEventOptions
-): Promise<string> =>
-	new Promise((resolve, reject) => {
-		// eslint-disable-next-line functional/no-expression-statement
-		execute({
-			contract,
-			method: 'authenticate',
-			mutation: true,
-			client,
-			args: [propertyAddress, ...args],
-			padEnd: 6,
-		}).catch(reject)
+export const createAuthenticateCaller: CreateAuthenticateCaller =
+	(contract: Contract, client: Web3) =>
+	async (
+		propertyAddress: string,
+		args: readonly string[],
+		{ metricsFactory }: WaitForEventOptions
+	): Promise<string> =>
+		new Promise((resolve, reject) => {
+			// eslint-disable-next-line functional/no-expression-statement
+			execute({
+				contract,
+				method: 'authenticate',
+				mutation: true,
+				client,
+				args: [propertyAddress, ...args],
+				padEnd: 6,
+			}).catch(reject)
 
-		// eslint-disable-next-line functional/no-expression-statement
-		waitForCreateMetrics(client, propertyAddress, metricsFactory)
-			.then(resolve)
-			.catch(reject)
-	})
+			// eslint-disable-next-line functional/no-expression-statement
+			waitForCreateMetrics(client, propertyAddress, metricsFactory)
+				.then(resolve)
+				.catch(reject)
+		})

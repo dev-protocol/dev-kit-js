@@ -11,22 +11,20 @@ export type CreateAllocatorContract = {
 	readonly contract: () => Contract
 }
 
-export const createAllocatorContract = (client: Web3) => (
-	address?: string,
-	options?: CustomOptions
-): CreateAllocatorContract => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...allocatorAbi],
-		address,
-		{
-			...options,
-		}
-	)
+export const createAllocatorContract =
+	(client: Web3) =>
+	(address?: string, options?: CustomOptions): CreateAllocatorContract => {
+		const contractClient: Contract = new client.eth.Contract(
+			[...allocatorAbi],
+			address,
+			{
+				...options,
+			}
+		)
 
-	return {
-		calculateMaxRewardsPerBlock: createCalculateMaxRewardsPerBlockCaller(
-			contractClient
-		),
-		contract: always(contractClient),
+		return {
+			calculateMaxRewardsPerBlock:
+				createCalculateMaxRewardsPerBlockCaller(contractClient),
+			contract: always(contractClient),
+		}
 	}
-}

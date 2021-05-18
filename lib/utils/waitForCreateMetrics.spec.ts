@@ -22,7 +22,7 @@ describe('waitForCreateMetrics.ts', () => {
 				.fn()
 				.mockImplementation(() => Promise.resolve(123))
 
-			const client = ({
+			const client = {
 				eth: {
 					...{
 						Contract: class {
@@ -34,10 +34,10 @@ describe('waitForCreateMetrics.ts', () => {
 									callback: (err: Error | null, e: Event) => void
 								) {
 									setTimeout(() => {
-										callback(null, ({
+										callback(null, {
 											event: 'Create',
 											returnValues: { _metrics: value },
-										} as unknown) as Event)
+										} as unknown as Event)
 									}, 800)
 								},
 							}
@@ -55,7 +55,7 @@ describe('waitForCreateMetrics.ts', () => {
 					},
 					...stubbedWeb3.eth,
 				},
-			} as unknown) as Web3
+			} as unknown as Web3
 
 			const expected = value
 
@@ -75,7 +75,7 @@ describe('waitForCreateMetrics.ts', () => {
 				.fn()
 				.mockImplementation(() => Promise.resolve(123))
 
-			const client = ({
+			const client = {
 				eth: {
 					...{
 						Contract: class {
@@ -105,7 +105,7 @@ describe('waitForCreateMetrics.ts', () => {
 					},
 					...stubbedWeb3.eth,
 				},
-			} as unknown) as Web3
+			} as unknown as Web3
 
 			const result = await waitForCreateMetrics(
 				client as any,
@@ -125,7 +125,7 @@ describe('waitForCreateMetrics.ts', () => {
 				.fn()
 				.mockImplementation(() => Promise.resolve(123))
 
-			const client = ({
+			const client = {
 				eth: {
 					...{
 						Contract: class {
@@ -137,10 +137,10 @@ describe('waitForCreateMetrics.ts', () => {
 									callback: (err: Error | null, e: Event) => void
 								) {
 									setTimeout(() => {
-										callback(null, ({
+										callback(null, {
 											event: 'Create',
 											returnValues: { _metrics: value },
-										} as unknown) as Event)
+										} as unknown as Event)
 									}, 800)
 								},
 							}
@@ -159,7 +159,7 @@ describe('waitForCreateMetrics.ts', () => {
 					},
 					...stubbedWeb3.eth,
 				},
-			} as unknown) as Web3
+			} as unknown as Web3
 
 			const result = await waitForCreateMetrics(
 				client as any,

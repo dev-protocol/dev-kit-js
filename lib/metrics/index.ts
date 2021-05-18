@@ -13,21 +13,20 @@ export type CreateMetricsContract = {
 }
 
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-export const createMetricsContract = (client: Web3) => (
-	address?: string,
-	options?: CustomOptions
-): CreateMetricsContract => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...metricsAbi],
-		address,
-		{
-			...options,
-		}
-	)
+export const createMetricsContract =
+	(client: Web3) =>
+	(address?: string, options?: CustomOptions): CreateMetricsContract => {
+		const contractClient: Contract = new client.eth.Contract(
+			[...metricsAbi],
+			address,
+			{
+				...options,
+			}
+		)
 
-	return {
-		property: createPropertyCaller(contractClient),
-		market: createMarketCaller(contractClient),
-		contract: always(contractClient),
+		return {
+			property: createPropertyCaller(contractClient),
+			market: createMarketCaller(contractClient),
+			contract: always(contractClient),
+		}
 	}
-}

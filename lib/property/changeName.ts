@@ -9,14 +9,12 @@ export type CreateChangeNameCaller = (
 	client: Web3
 ) => (nextAuther: string) => Promise<boolean>
 
-export const createChangeNameCaller: CreateChangeNameCaller = (
-	contract: Contract,
-	client: Web3
-) => async (nextName: string) =>
-	execute({
-		contract,
-		method: 'changeName',
-		mutation: true,
-		client,
-		args: [nextName],
-	}).then(T)
+export const createChangeNameCaller: CreateChangeNameCaller =
+	(contract: Contract, client: Web3) => async (nextName: string) =>
+		execute({
+			contract,
+			method: 'changeName',
+			mutation: true,
+			client,
+			args: [nextName],
+		}).then(T)

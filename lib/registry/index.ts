@@ -47,35 +47,35 @@ export type CreateRegistryContract = (
 	client: Web3
 ) => (address?: string, options?: CustomOptions) => RegistryContract
 
-export const createRegistryContract: CreateRegistryContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions): RegistryContract => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...addressConfigAbi],
-		address,
-		{
-			...options,
-		}
-	)
+export const createRegistryContract: CreateRegistryContract =
+	(client: Web3) =>
+	(address?: string, options?: CustomOptions): RegistryContract => {
+		const contractClient: Contract = new client.eth.Contract(
+			[...addressConfigAbi],
+			address,
+			{
+				...options,
+			}
+		)
 
-	return {
-		allocator: createAllocatorCaller(contractClient),
-		allocatorStorage: createAllocatorStorageCaller(contractClient),
-		lockup: createLockupCaller(contractClient),
-		lockupStorage: createLockupStorageCaller(contractClient),
-		marketFactory: createMarketFactoryCaller(contractClient),
-		marketGroup: createMarketGroupCaller(contractClient),
-		metricsFactory: createMetricsFactoryCaller(contractClient),
-		metricsGroup: createMetricsGroupCaller(contractClient),
-		policy: createPolicyCaller(contractClient),
-		policySet: createPolicySetCaller(contractClient),
-		policyGroup: createPolicyGroupCaller(contractClient),
-		policyFactory: createPolicyFactoryCaller(contractClient),
-		propertyFactory: createPropertyFactoryCaller(contractClient),
-		propertyGroup: createPropertyGroupCaller(contractClient),
-		token: createTokenCaller(contractClient),
-		withdraw: createWithdrawCaller(contractClient),
-		withdrawStorage: createWithdrawStorageCaller(contractClient),
-		contract: always(contractClient),
+		return {
+			allocator: createAllocatorCaller(contractClient),
+			allocatorStorage: createAllocatorStorageCaller(contractClient),
+			lockup: createLockupCaller(contractClient),
+			lockupStorage: createLockupStorageCaller(contractClient),
+			marketFactory: createMarketFactoryCaller(contractClient),
+			marketGroup: createMarketGroupCaller(contractClient),
+			metricsFactory: createMetricsFactoryCaller(contractClient),
+			metricsGroup: createMetricsGroupCaller(contractClient),
+			policy: createPolicyCaller(contractClient),
+			policySet: createPolicySetCaller(contractClient),
+			policyGroup: createPolicyGroupCaller(contractClient),
+			policyFactory: createPolicyFactoryCaller(contractClient),
+			propertyFactory: createPropertyFactoryCaller(contractClient),
+			propertyGroup: createPropertyGroupCaller(contractClient),
+			token: createTokenCaller(contractClient),
+			withdraw: createWithdrawCaller(contractClient),
+			withdrawStorage: createWithdrawStorageCaller(contractClient),
+			contract: always(contractClient),
+		}
 	}
-}

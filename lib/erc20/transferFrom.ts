@@ -9,14 +9,13 @@ export type CreateTransferFromCaller = (
 	client: Web3
 ) => (from: string, to: string, value: string) => Promise<boolean>
 
-export const createTransferFromCaller: CreateTransferFromCaller = (
-	contract: Contract,
-	client: Web3
-) => async (from: string, to: string, value: string) =>
-	execute({
-		contract,
-		method: 'transferFrom',
-		mutation: true,
-		client,
-		args: [from, to, value],
-	}).then(T)
+export const createTransferFromCaller: CreateTransferFromCaller =
+	(contract: Contract, client: Web3) =>
+	async (from: string, to: string, value: string) =>
+		execute({
+			contract,
+			method: 'transferFrom',
+			mutation: true,
+			client,
+			args: [from, to, value],
+		}).then(T)

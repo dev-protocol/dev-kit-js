@@ -7,12 +7,11 @@ export type CreateCalculateMaxRewardsPerBlockCaller = (
 	contract: Contract
 ) => () => Promise<string>
 
-export const createCalculateMaxRewardsPerBlockCaller: CreateCalculateMaxRewardsPerBlockCaller = (
-	contract: Contract
-) =>
-	always(
-		execute({
-			contract,
-			method: 'calculateMaxRewardsPerBlock',
-		})
-	)
+export const createCalculateMaxRewardsPerBlockCaller: CreateCalculateMaxRewardsPerBlockCaller =
+	(contract: Contract) =>
+		always(
+			execute({
+				contract,
+				method: 'calculateMaxRewardsPerBlock',
+			})
+		)

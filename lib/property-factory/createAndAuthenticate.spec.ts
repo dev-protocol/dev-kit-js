@@ -36,7 +36,7 @@ describe('createAndAuthenticateCaller.ts', () => {
 					}),
 				},
 			}
-			const client = ({
+			const client = {
 				eth: {
 					...{
 						Contract: class {
@@ -49,10 +49,10 @@ describe('createAndAuthenticateCaller.ts', () => {
 									callback: (err: Error | null, e: Event) => void
 								) {
 									setTimeout(() => {
-										callback(null, ({
+										callback(null, {
 											event: 'Create',
 											returnValues: { _metrics: value },
-										} as unknown) as Event)
+										} as unknown as Event)
 									}, 800)
 								},
 							}
@@ -72,7 +72,7 @@ describe('createAndAuthenticateCaller.ts', () => {
 					},
 					...stubbedWeb3.eth,
 				},
-			} as unknown) as Web3
+			} as unknown as Web3
 
 			const expected = value
 
@@ -126,7 +126,7 @@ describe('createAndAuthenticateCaller.ts', () => {
 					}),
 				},
 			}
-			const client = ({
+			const client = {
 				eth: {
 					...{
 						Contract: class {
@@ -154,7 +154,7 @@ describe('createAndAuthenticateCaller.ts', () => {
 					},
 					...stubbedWeb3.eth,
 				},
-			} as unknown) as Web3
+			} as unknown as Web3
 
 			const caller = createCreateAndAuthenticateCaller(
 				propertyFactoryContract as any,

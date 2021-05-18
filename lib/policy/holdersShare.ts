@@ -6,11 +6,11 @@ export type CreateHoldersShareCaller = (
 	contract: Contract
 ) => (amount: string, lockups: string) => Promise<string>
 
-export const createHoldersShareCaller: CreateHoldersShareCaller = (
-	contract: Contract
-) => async (amount: string, lockups: string): Promise<string> =>
-	execute({
-		contract,
-		method: 'holdersShare',
-		args: [amount, lockups],
-	})
+export const createHoldersShareCaller: CreateHoldersShareCaller =
+	(contract: Contract) =>
+	async (amount: string, lockups: string): Promise<string> =>
+		execute({
+			contract,
+			method: 'holdersShare',
+			args: [amount, lockups],
+		})

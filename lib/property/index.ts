@@ -43,31 +43,31 @@ export type CreatePropertyContract = (
 	client: Web3
 ) => (address?: string, options?: CustomOptions) => PropertyContract
 
-export const createPropertyContract: CreatePropertyContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions): PropertyContract => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...propertyAbi],
-		address,
-		{
-			...options,
-		}
-	)
+export const createPropertyContract: CreatePropertyContract =
+	(client: Web3) =>
+	(address?: string, options?: CustomOptions): PropertyContract => {
+		const contractClient: Contract = new client.eth.Contract(
+			[...propertyAbi],
+			address,
+			{
+				...options,
+			}
+		)
 
-	return {
-		totalSupply: createTotalSupplyCaller(contractClient),
-		balanceOf: createBalanceOfCaller(contractClient),
-		transfer: createTransferCaller(contractClient, client),
-		allowance: createAllowanceCaller(contractClient),
-		approve: createApproveCaller(contractClient, client),
-		transferFrom: createTransferFromCaller(contractClient, client),
-		name: createNameCaller(contractClient),
-		symbol: createSymbolCaller(contractClient),
-		decimals: createDecimalsCaller(contractClient),
-		author: createAuthorCaller(contractClient),
-		changeAuthor: createChangeAuthorCaller(contractClient, client),
-		changeName: createChangeNameCaller(contractClient, client),
-		changeSymbol: createChangeSymbolCaller(contractClient, client),
-		contract: always(contractClient),
+		return {
+			totalSupply: createTotalSupplyCaller(contractClient),
+			balanceOf: createBalanceOfCaller(contractClient),
+			transfer: createTransferCaller(contractClient, client),
+			allowance: createAllowanceCaller(contractClient),
+			approve: createApproveCaller(contractClient, client),
+			transferFrom: createTransferFromCaller(contractClient, client),
+			name: createNameCaller(contractClient),
+			symbol: createSymbolCaller(contractClient),
+			decimals: createDecimalsCaller(contractClient),
+			author: createAuthorCaller(contractClient),
+			changeAuthor: createChangeAuthorCaller(contractClient, client),
+			changeName: createChangeNameCaller(contractClient, client),
+			changeSymbol: createChangeSymbolCaller(contractClient, client),
+			contract: always(contractClient),
+		}
 	}
-}

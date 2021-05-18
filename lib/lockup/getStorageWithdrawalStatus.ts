@@ -6,11 +6,12 @@ export type CreateGetStorageWithdrawalStatusCaller = (
 	contract: Contract
 ) => (propertyAddress: string, accountAddress: string) => Promise<string>
 
-export const createGetStorageWithdrawalStatusCaller: CreateGetStorageWithdrawalStatusCaller = (
-	contract: Contract
-) => async (propertyAddress: string, accountAddress: string) =>
-	execute({
-		contract,
-		method: 'getStorageWithdrawalStatus',
-		args: [propertyAddress, accountAddress],
-	})
+export const createGetStorageWithdrawalStatusCaller: CreateGetStorageWithdrawalStatusCaller =
+
+		(contract: Contract) =>
+		async (propertyAddress: string, accountAddress: string) =>
+			execute({
+				contract,
+				method: 'getStorageWithdrawalStatus',
+				args: [propertyAddress, accountAddress],
+			})

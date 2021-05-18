@@ -9,14 +9,13 @@ export type CreateBulkWithdrawCaller = (
 	client: Web3
 ) => (propertyAddresses: readonly string[]) => Promise<TxReceipt>
 
-export const createBulkWithdrawCaller: CreateBulkWithdrawCaller = (
-	contract: Contract,
-	client: Web3
-) => async (propertyAddresses): Promise<TxReceipt> =>
-	execute({
-		contract,
-		method: 'bulkWithdraw',
-		mutation: true,
-		client,
-		args: [propertyAddresses],
-	})
+export const createBulkWithdrawCaller: CreateBulkWithdrawCaller =
+	(contract: Contract, client: Web3) =>
+	async (propertyAddresses): Promise<TxReceipt> =>
+		execute({
+			contract,
+			method: 'bulkWithdraw',
+			mutation: true,
+			client,
+			args: [propertyAddresses],
+		})

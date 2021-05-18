@@ -9,17 +9,16 @@ export type CreateVoteCaller = (
 	client: Web3
 ) => (propertyAddress: string, agree: boolean) => Promise<TxReceipt>
 
-export const createVoteCaller: CreateVoteCaller = (
-	contract: Contract,
-	client: Web3
-): ((propertyAddress: string, agree: boolean) => Promise<TxReceipt>) => async (
-	propertyAddress: string,
-	agree: boolean
-): Promise<TxReceipt> =>
-	execute({
-		contract,
-		method: 'vote',
-		mutation: true,
-		client,
-		args: [propertyAddress, agree],
-	})
+export const createVoteCaller: CreateVoteCaller =
+	(
+		contract: Contract,
+		client: Web3
+	): ((propertyAddress: string, agree: boolean) => Promise<TxReceipt>) =>
+	async (propertyAddress: string, agree: boolean): Promise<TxReceipt> =>
+		execute({
+			contract,
+			method: 'vote',
+			mutation: true,
+			client,
+			args: [propertyAddress, agree],
+		})

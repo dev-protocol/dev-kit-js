@@ -9,14 +9,12 @@ export type CreateChangeAuthorCaller = (
 	client: Web3
 ) => (nextAuther: string) => Promise<boolean>
 
-export const createChangeAuthorCaller: CreateChangeAuthorCaller = (
-	contract: Contract,
-	client: Web3
-) => async (nextAuther: string) =>
-	execute({
-		contract,
-		method: 'changeAuthor',
-		mutation: true,
-		client,
-		args: [nextAuther],
-	}).then(T)
+export const createChangeAuthorCaller: CreateChangeAuthorCaller =
+	(contract: Contract, client: Web3) => async (nextAuther: string) =>
+		execute({
+			contract,
+			method: 'changeAuthor',
+			mutation: true,
+			client,
+			args: [nextAuther],
+		}).then(T)

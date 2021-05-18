@@ -6,11 +6,11 @@ export type CreateIsGroupCaller = (
 	contract: Contract
 ) => (policyAddress: string) => Promise<boolean>
 
-export const createIsGroupCaller: CreateIsGroupCaller = (
-	contract: Contract
-) => async (policyAddress: string): Promise<boolean> =>
-	execute({
-		contract,
-		method: 'isGroup',
-		args: [policyAddress],
-	})
+export const createIsGroupCaller: CreateIsGroupCaller =
+	(contract: Contract) =>
+	async (policyAddress: string): Promise<boolean> =>
+		execute({
+			contract,
+			method: 'isGroup',
+			args: [policyAddress],
+		})

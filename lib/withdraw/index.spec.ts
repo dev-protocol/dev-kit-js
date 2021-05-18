@@ -30,9 +30,8 @@ describe('lockup/index.ts', () => {
 					withdraw: createWithdrawCaller(withdrawContract, client),
 					bulkWithdraw: createBulkWithdrawCaller(withdrawContract, client),
 					getRewardsAmount: createGetRewardsAmountCaller(withdrawContract),
-					calculateWithdrawableAmount: createCalculateWithdrawableAmountCaller(
-						withdrawContract
-					),
+					calculateWithdrawableAmount:
+						createCalculateWithdrawableAmountCaller(withdrawContract),
 					calculateRewardAmount: calculateRewardAmountCaller(withdrawContract),
 					contract: () => withdrawContract,
 				}

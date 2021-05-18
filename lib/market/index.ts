@@ -24,23 +24,22 @@ export type CreateMarketContract = {
 }
 
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
-export const createMarketContract = (client: Web3) => (
-	address?: string,
-	options?: CustomOptions
-): CreateMarketContract => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...marketAbi],
-		address,
-		{
-			...options,
-		}
-	)
+export const createMarketContract =
+	(client: Web3) =>
+	(address?: string, options?: CustomOptions): CreateMarketContract => {
+		const contractClient: Contract = new client.eth.Contract(
+			[...marketAbi],
+			address,
+			{
+				...options,
+			}
+		)
 
-	return {
-		behavior: createBehaviorCaller(contractClient),
-		schema: createSchemaCaller(contractClient),
-		vote: createVoteCaller(contractClient, client),
-		authenticate: createAuthenticateCaller(contractClient, client),
-		contract: always(contractClient),
+		return {
+			behavior: createBehaviorCaller(contractClient),
+			schema: createSchemaCaller(contractClient),
+			vote: createVoteCaller(contractClient, client),
+			authenticate: createAuthenticateCaller(contractClient, client),
+			contract: always(contractClient),
+		}
 	}
-}
