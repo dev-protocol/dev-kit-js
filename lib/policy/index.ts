@@ -13,6 +13,7 @@ import { createMarketVotingBlocksCaller } from './marketVotingBlocks'
 import { createPolicyVotingBlocksCaller } from './policyVotingBlocks'
 import { createShareOfTreasuryCaller } from './shareOfTreasury'
 import { createTreasuryCaller } from './treasury'
+import { createCapSetterCaller } from './capSetter'
 
 export type PolicyContract = {
 	readonly holdersShare: (amount: string, lockups: string) => Promise<string>
@@ -27,6 +28,7 @@ export type PolicyContract = {
 	readonly policyVotingBlocks: () => Promise<string>
 	readonly shareOfTreasury: (supply: string) => Promise<string>
 	readonly treasury: () => Promise<string>
+	readonly capSetter: () => Promise<string>
 	readonly contract: () => Contract
 }
 
@@ -56,6 +58,7 @@ export const createPolicyContract: CreatePolicyContract = (client: Web3) => (
 		policyVotingBlocks: createPolicyVotingBlocksCaller(contractClient),
 		shareOfTreasury: createShareOfTreasuryCaller(contractClient),
 		treasury: createTreasuryCaller(contractClient),
+		capSetter: createCapSetterCaller(contractClient),
 		contract: always(contractClient),
 	}
 }

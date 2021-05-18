@@ -9,6 +9,7 @@ import { createCalculateWithdrawableAmountCaller } from './calculateWithdrawable
 import { createBulkWithdrawCaller } from './bulkWithdraw'
 import { TxReceipt } from '../utils/web3-txs'
 import { always } from 'ramda'
+import { calculateRewardAmountCaller } from './calculateRewardAmount'
 
 export type WithdrawContract = {
 	readonly withdraw: (propertyAddress: string) => Promise<boolean>
@@ -17,6 +18,10 @@ export type WithdrawContract = {
 	) => Promise<TxReceipt>
 	readonly getRewardsAmount: (propertyAddress: string) => Promise<string>
 	readonly calculateWithdrawableAmount: (
+		propertyAddress: string,
+		accountAddress: string
+	) => Promise<string>
+	readonly calculateRewardAmount: (
 		propertyAddress: string,
 		accountAddress: string
 	) => Promise<string>
@@ -45,6 +50,7 @@ export const createWithdrawContract: CreateWithdrawContract = (
 		calculateWithdrawableAmount: createCalculateWithdrawableAmountCaller(
 			contractClient
 		),
+		calculateRewardAmount: calculateRewardAmountCaller(contractClient),
 		contract: always(contractClient),
 	}
 }

@@ -1,13 +1,13 @@
-import { createGetAllValueCaller } from './getAllValue'
+import { createCalculateCumulativeRewardPricesCaller } from './calculateCumulativeRewardPrices'
 
-describe('getAllValue.spec.ts', () => {
-	describe('createGetAllValueCaller', () => {
+describe('calculateCumulativeRewardPrices.spec.ts', () => {
+	describe('createCalculateCumulativeRewardPricesCaller', () => {
 		it('call success', async () => {
-			const value = 'value'
+			const value = ['value1', 'value2', 'value3', 'value4']
 
 			const lockupContract = {
 				methods: {
-					getAllValue: () => ({
+					calculateCumulativeRewardPrices: () => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.resolve(value)),
@@ -18,7 +18,9 @@ describe('getAllValue.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createGetAllValueCaller(lockupContract as any)
+			const caller = createCalculateCumulativeRewardPricesCaller(
+				lockupContract as any
+			)
 
 			const result = await caller()
 
@@ -31,7 +33,7 @@ describe('getAllValue.spec.ts', () => {
 			const lockupContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					getAllValue: () => ({
+					calculateCumulativeRewardPrices: () => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error)),
@@ -40,7 +42,9 @@ describe('getAllValue.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createGetAllValueCaller(lockupContract as any)
+			const caller = createCalculateCumulativeRewardPricesCaller(
+				lockupContract as any
+			)
 
 			const result = await caller().catch((err) => err)
 
