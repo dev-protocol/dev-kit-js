@@ -24,7 +24,7 @@ export type WithdrawContract = {
 	readonly calculateRewardAmount: (
 		propertyAddress: string,
 		accountAddress: string
-	) => Promise<string>
+	) => Promise<readonly [string, string, string, string]>
 	readonly contract: () => Contract
 }
 
@@ -32,25 +32,24 @@ export type CreateWithdrawContract = (
 	client: Web3
 ) => (address?: string, options?: CustomOptions) => WithdrawContract
 
-export const createWithdrawContract: CreateWithdrawContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions): WithdrawContract => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...withdrawAbi],
-		address,
-		{
-			...options,
-		}
-	)
+export const createWithdrawContract: CreateWithdrawContract =
+	(client: Web3) =>
+	(address?: string, options?: CustomOptions): WithdrawContract => {
+		const contractClient: Contract = new client.eth.Contract(
+			[...withdrawAbi],
+			address,
+			{
+				...options,
+			}
+		)
 
-	return {
-		withdraw: createWithdrawCaller(contractClient, client),
-		bulkWithdraw: createBulkWithdrawCaller(contractClient, client),
-		getRewardsAmount: createGetRewardsAmountCaller(contractClient),
-		calculateWithdrawableAmount: createCalculateWithdrawableAmountCaller(
-			contractClient
-		),
-		calculateRewardAmount: calculateRewardAmountCaller(contractClient),
-		contract: always(contractClient),
+		return {
+			withdraw: createWithdrawCaller(contractClient, client),
+			bulkWithdraw: createBulkWithdrawCaller(contractClient, client),
+			getRewardsAmount: createGetRewardsAmountCaller(contractClient),
+			calculateWithdrawableAmount:
+				createCalculateWithdrawableAmountCaller(contractClient),
+			calculateRewardAmount: calculateRewardAmountCaller(contractClient),
+			contract: always(contractClient),
+		}
 	}
-}

@@ -3,7 +3,7 @@ import { calculateRewardAmountCaller } from './calculateRewardAmount'
 describe('calculateRewardAmount.spec.ts', () => {
 	describe('createCalculateRewardAmountCaller', () => {
 		it('call success', async () => {
-			const value = 'value'
+			const value = ['value1', 'value2', 'value3', 'value4']
 
 			const rewardContract = {
 				methods: {

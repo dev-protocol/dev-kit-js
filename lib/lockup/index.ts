@@ -37,10 +37,12 @@ export type LockupContract = {
 		propertyAddress: string,
 		accountAddress: string
 	) => Promise<string>
-	readonly calculateCumulativeRewardPrices: () => Promise<readonly string[]>
+	readonly calculateCumulativeRewardPrices: () => Promise<
+		readonly [string, string, string, string]
+	>
 	readonly calculateRewardAmount: (
 		propertyAddress: string
-	) => Promise<readonly string[]>
+	) => Promise<readonly [string, string]>
 	readonly cap: () => Promise<string>
 	readonly contract: () => Contract
 }
@@ -49,37 +51,32 @@ export type CreateLockupContract = (
 	client: Web3
 ) => (address?: string, options?: CustomOptions) => LockupContract
 
-export const createLockupContract: CreateLockupContract = (client: Web3) => (
-	address?: string,
-	options?: CustomOptions
-): LockupContract => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...lockupAbi],
-		address,
-		{
-			...options,
-		}
-	)
+export const createLockupContract: CreateLockupContract =
+	(client: Web3) =>
+	(address?: string, options?: CustomOptions): LockupContract => {
+		const contractClient: Contract = new client.eth.Contract(
+			[...lockupAbi],
+			address,
+			{
+				...options,
+			}
+		)
 
-	return {
-		getValue: createGetValueCaller(contractClient),
-		getAllValue: createGetAllValueCaller(contractClient),
-		getPropertyValue: createGetPropertyValueCaller(contractClient),
-		withdraw: createWithdrawCaller(contractClient, client),
-		calculateWithdrawableInterestAmount: createCalculateWithdrawableInterestAmountCaller(
-			contractClient
-		),
-		calculateCumulativeHoldersRewardAmount: createCalculateCumulativeHoldersRewardAmountCaller(
-			contractClient
-		),
-		getStorageWithdrawalStatus: createGetStorageWithdrawalStatusCaller(
-			contractClient
-		),
-		calculateCumulativeRewardPrices: createCalculateCumulativeRewardPricesCaller(
-			contractClient
-		),
-		calculateRewardAmount: createCalculateRewardAmountCaller(contractClient),
-		cap: createCapCaller(contractClient),
-		contract: always(contractClient),
+		return {
+			getValue: createGetValueCaller(contractClient),
+			getAllValue: createGetAllValueCaller(contractClient),
+			getPropertyValue: createGetPropertyValueCaller(contractClient),
+			withdraw: createWithdrawCaller(contractClient, client),
+			calculateWithdrawableInterestAmount:
+				createCalculateWithdrawableInterestAmountCaller(contractClient),
+			calculateCumulativeHoldersRewardAmount:
+				createCalculateCumulativeHoldersRewardAmountCaller(contractClient),
+			getStorageWithdrawalStatus:
+				createGetStorageWithdrawalStatusCaller(contractClient),
+			calculateCumulativeRewardPrices:
+				createCalculateCumulativeRewardPricesCaller(contractClient),
+			calculateRewardAmount: createCalculateRewardAmountCaller(contractClient),
+			cap: createCapCaller(contractClient),
+			contract: always(contractClient),
+		}
 	}
-}
