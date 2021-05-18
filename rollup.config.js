@@ -28,7 +28,16 @@ export default [
 		plugins: [
 			...plugins,
 			getBabelOutputPlugin({
-				presets: ['@babel/preset-env'],
+				presets: [
+					[
+						'@babel/preset-env',
+						{
+							targets: {
+								node: '12',
+							},
+						},
+					],
+				],
 			}),
 		],
 	},

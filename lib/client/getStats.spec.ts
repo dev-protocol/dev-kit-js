@@ -45,7 +45,7 @@ describe('getStats.ts', () => {
 							calculateMaxRewardsPerBlock: () => '134196471886248864',
 						}),
 						dev: () => ({
-							balanceOf: () => '11719938330738963009635617',
+							balanceOf: () => '2343987666147792601927123',
 							totalSupply: () => '12714973254932553412724975',
 						}),
 						lockup: () => ({
@@ -64,7 +64,7 @@ describe('getStats.ts', () => {
 				}
 			)
 
-			const stats = await getStats()
+			const stats = await getStats('http://localhost')
 			const expected = {
 				devPrice: 7.412448969963391,
 				totalCap: 94249090.40663686,

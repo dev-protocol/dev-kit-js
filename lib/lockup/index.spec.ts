@@ -12,7 +12,6 @@ import { createCalculateCumulativeHoldersRewardAmountCaller } from './calculateC
 import { createCalculateCumulativeRewardPricesCaller } from './calculateCumulativeRewardPrices'
 import { createCalculateRewardAmountCaller } from './calculateRewardAmount'
 import { createCapCaller } from './cap'
-import { createUpdateCapCaller } from './updateCap'
 
 describe('lockup/index.ts', () => {
 	describe('createLockupContract', () => {
@@ -53,7 +52,6 @@ describe('lockup/index.ts', () => {
 						lockupContract
 					),
 					cap: createCapCaller(lockupContract),
-					updateCap: createUpdateCapCaller(lockupContract, client),
 					contract: () => lockupContract,
 				}
 			}

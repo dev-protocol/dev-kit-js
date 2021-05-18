@@ -6,11 +6,16 @@ import { always } from 'ramda'
 import { addresses } from '../addresses'
 import { createDevkitContract, DevkitContract } from '../contract'
 
-const DEV_OWN_HTTP_PROVIDER = 'https://devprotocolnode.net/ethereum/mainnet'
 const DEV_GRAPHQL_ENDPOINT = 'https://api.devprotocol.xyz/v1/graphql'
 const THEGRAPH_UNISWAP_ENDPOINT =
 	'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2'
-const DEV_TEAM_WALLET_ADDRESS = '0xe23fe51187a807d56189212591f5525127003bdf'
+const TEAM_WALLET_ADDRESSES = [
+	'0x33b5043442979D2226E9a6389F7201932D11e448',
+	'0xA47c73A77d358A985157034A2338fAB7742B107E',
+	'0x0dAb082C2f2CD7C6C2a9335b69d0B2aB8121178D',
+	'0x93d7A66E10b6a8a5a00313bC68F0FB234c8eB06D',
+	'0x6B18fDa007ec96E187e5CF89D1873B9F75D5293D',
+]
 
 const falsyOrZero = <T>(num?: T): T | 0 => (num ? num : 0)
 const toNaturalBasis = new BigNumber(10).pow(18)
@@ -56,7 +61,7 @@ type propertyFactoryCreateAggregate = {
 	}
 }
 
-export type GetStatsCaller = () => Promise<DevStats>
+export type GetStatsCaller = (httpProviderEndpoint: string) => Promise<DevStats>
 type GetEthPriceCaller = () => Promise<graphBundle>
 type GetDevEthPriceCaller = (devkit: DevkitContract) => Promise<graphToken>
 
@@ -122,10 +127,12 @@ const getCirculatingSupply: (
 		.registry(addresses.eth['main']?.registry)
 		['token']()
 	const totalSupply = new BigNumber(await getTotalSupply(devkit))
-	const teamAmount = await devkit
-		.dev(devContractAddress)
-		.balanceOf(DEV_TEAM_WALLET_ADDRESS)
-	const circulatingSupply = totalSupply.minus(new BigNumber(teamAmount))
+	const dev = devkit.dev(devContractAddress)
+	const teamAmounts = await Promise.all(
+		TEAM_WALLET_ADDRESSES.map(dev.balanceOf)
+	)
+	const teamAmount = BigNumber.sum(...teamAmounts)
+	const circulatingSupply = totalSupply.minus(teamAmount)
 
 	return circulatingSupply
 }
@@ -256,8 +263,10 @@ const getCreatorsRewardsDev: (
 }
 
 // eslint-disable-next-line functional/functional-parameters
-export const getStats: GetStatsCaller = async () => {
-	const web3 = new Web3(DEV_OWN_HTTP_PROVIDER)
+export const getStats: GetStatsCaller = async (
+	httpProviderEndpoint: string
+) => {
+	const web3 = new Web3(httpProviderEndpoint)
 	const devkit = createDevkitContract(web3)
 
 	const [
