@@ -5,8 +5,8 @@ import Web3 from 'web3'
 import { always } from 'ramda'
 import { addresses } from '../addresses'
 import { createDevkitContract, DevkitContract } from '../contract'
+import { DEV_GRAPHQL_ENDPOINT } from '../utils/const'
 
-const DEV_GRAPHQL_ENDPOINT = 'https://api.devprotocol.xyz/v1/graphql'
 const THEGRAPH_UNISWAP_ENDPOINT =
 	'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2'
 const TEAM_WALLET_ADDRESSES = [

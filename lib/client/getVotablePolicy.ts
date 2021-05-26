@@ -2,6 +2,7 @@ import bent from 'bent'
 import { always, not } from 'ramda'
 import { aFindIndex } from 'async-ray'
 import { PolicyGroupContract } from '../policy-group'
+import { DEV_GRAPHQL_ENDPOINT } from '../utils/const'
 
 export type CreateGetVotablePolicyCaller = (
 	policyGroup: PolicyGroupContract
@@ -12,7 +13,7 @@ export const createGetVotablePolicy: CreateGetVotablePolicyCaller = (
 ) => {
 	const fetcher = always(
 		bent(
-			'https://api.devprtcl.com/v1/graphql',
+			DEV_GRAPHQL_ENDPOINT,
 			'POST',
 			'json'
 		)('/', {
