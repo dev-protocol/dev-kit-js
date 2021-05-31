@@ -197,4 +197,19 @@ export const policyAbi = [
 		stateMutability: 'view',
 		type: 'function',
 	},
+	{
+		constant: true,
+		inputs: [],
+		name: 'capSetter',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
 ] as readonly AbiItem[]
