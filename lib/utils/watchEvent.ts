@@ -17,11 +17,9 @@ export const watchEvent = async ({
 	new Promise((resolve, reject) => {
 		const { events } = contract
 		// eslint-disable-next-line functional/no-expression-statement
-		events.allEvents(
-			{ fromBlock, toBlock: 'latest' },
-			(err: Readonly<Error> | null, e: Event) =>
-				err
-					? reject(err)
-					: resolver(e).then((res) => (res ? resolve(e) : undefined))
+		events.allEvents({ fromBlock }, (err: Readonly<Error> | null, e: Event) =>
+			err
+				? reject(err)
+				: resolver(e).then((res) => (res ? resolve(e) : undefined))
 		)
 	})

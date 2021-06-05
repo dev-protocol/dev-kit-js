@@ -49,7 +49,6 @@ describe('watchEvent.ts', () => {
 			})
 			expect(mockFn.mock.calls[0][0]).toEqual({
 				fromBlock: 123456,
-				toBlock: 'latest',
 			})
 		})
 
@@ -65,7 +64,6 @@ describe('watchEvent.ts', () => {
 			})
 			expect(mockFn.mock.calls[0][0]).toEqual({
 				fromBlock: 0,
-				toBlock: 'latest',
 			})
 		})
 
