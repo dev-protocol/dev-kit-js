@@ -61,7 +61,7 @@
 		"rollup-plugin-dts": "3.0.2",
 		"rollup-plugin-terser": "7.0.2",
 		"ts-jest": "26.5.6",
-		"typescript": "4.3.4",
+		"typescript": "4.3.5",
 		"web3": "1.4.0"
 	},
 	"lint-staged": {
