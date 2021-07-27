@@ -1,6 +1,6 @@
 import { AbiItem } from 'web3-utils'
 
-export const policyGroupAbi = [
+export const marketFactoryAbi = [
 	{
 		inputs: [
 			{
@@ -12,6 +12,25 @@ export const policyGroupAbi = [
 		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'constructor',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: true,
+				internalType: 'address',
+				name: '_from',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				internalType: 'address',
+				name: '_market',
+				type: 'address',
+			},
+		],
+		name: 'Create',
+		type: 'event',
 	},
 	{
 		anonymous: false,
@@ -33,48 +52,9 @@ export const policyGroupAbi = [
 		type: 'event',
 	},
 	{
-		constant: false,
-		inputs: [
-			{
-				internalType: 'address',
-				name: 'newOwner',
-				type: 'address',
-			},
-		],
-		name: 'changeOwner',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
 		constant: true,
 		inputs: [],
 		name: 'configAddress',
-		outputs: [
-			{
-				internalType: 'address',
-				name: '',
-				type: 'address',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [],
-		name: 'createStorage',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [],
-		name: 'getStorageAddress',
 		outputs: [
 			{
 				internalType: 'address',
@@ -130,21 +110,6 @@ export const policyGroupAbi = [
 		inputs: [
 			{
 				internalType: 'address',
-				name: '_storageAddress',
-				type: 'address',
-			},
-		],
-		name: 'setStorage',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [
-			{
-				internalType: 'address',
 				name: 'newOwner',
 				type: 'address',
 			},
@@ -164,14 +129,20 @@ export const policyGroupAbi = [
 				type: 'address',
 			},
 		],
-		name: 'addGroup',
-		outputs: [],
+		name: 'create',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
 		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
-		constant: true,
+		constant: false,
 		inputs: [
 			{
 				internalType: 'address',
@@ -179,37 +150,10 @@ export const policyGroupAbi = [
 				type: 'address',
 			},
 		],
-		name: 'isGroup',
-		outputs: [
-			{
-				internalType: 'bool',
-				name: '',
-				type: 'bool',
-			},
-		],
+		name: 'enable',
+		outputs: [],
 		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_policy',
-				type: 'address',
-			},
-		],
-		name: 'isDuringVotingPeriod',
-		outputs: [
-			{
-				internalType: 'bool',
-				name: '',
-				type: 'bool',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
+		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 ] as readonly AbiItem[]

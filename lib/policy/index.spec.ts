@@ -5,8 +5,6 @@ import { CustomOptions } from '../option'
 import { createHoldersShareCaller } from './holdersShare'
 import { createRewardsCaller } from './rewards'
 import { createAuthenticationFeeCaller } from './authenticationFee'
-import { createMarketApprovalCaller } from './marketApproval'
-import { createPolicyApprovalCaller } from './policyApproval'
 import { createMarketVotingBlocksCaller } from './marketVotingBlocks'
 import { createPolicyVotingBlocksCaller } from './policyVotingBlocks'
 import { createShareOfTreasuryCaller } from './shareOfTreasury'
@@ -36,8 +34,6 @@ describe('policy/index.ts', () => {
 					holdersShare: createHoldersShareCaller(policyContract),
 					rewards: createRewardsCaller(policyContract),
 					authenticationFee: createAuthenticationFeeCaller(policyContract),
-					marketApproval: createMarketApprovalCaller(policyContract),
-					policyApproval: createPolicyApprovalCaller(policyContract),
 					marketVotingBlocks: createMarketVotingBlocksCaller(policyContract),
 					policyVotingBlocks: createPolicyVotingBlocksCaller(policyContract),
 					shareOfTreasury: createShareOfTreasuryCaller(policyContract),

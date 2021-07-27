@@ -1,11 +1,11 @@
 import Web3 from 'web3'
-import { createPolicyGroupContract, PolicyGroupContract } from '.'
-import { createIsGroupCaller } from './isGroup'
-import { policyGroupAbi } from './abi'
+import { createMarketFactoryContract, MarketFactoryContract } from '.'
+import { marketFactoryAbi } from './abi'
 import { CustomOptions } from '../option'
+import { createCreateCaller } from './create'
 
-describe('policy-group/index.ts', () => {
-	describe('createPolicyGroupContract', () => {
+describe('market-factory/index.ts', () => {
+	describe('createMarketFactoryContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
 			const client = new Web3()
@@ -14,25 +14,24 @@ describe('policy-group/index.ts', () => {
 			const expected: (
 				address?: string,
 				options?: CustomOptions
-			) => PolicyGroupContract = (
+			) => MarketFactoryContract = (
 				address?: string,
 				options?: CustomOptions
 			) => {
-				const policyGroupContract = new client.eth.Contract(
-					[...policyGroupAbi],
+				const marketFactoryContract = new client.eth.Contract(
+					[...marketFactoryAbi],
 					address,
 					{
 						...options,
 					}
 				)
-
 				return {
-					isGroup: createIsGroupCaller(policyGroupContract),
-					contract: () => policyGroupContract,
+					create: createCreateCaller(marketFactoryContract, client),
+					contract: () => marketFactoryContract,
 				}
 			}
 
-			const result = createPolicyGroupContract(client)
+			const result = createMarketFactoryContract(client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(

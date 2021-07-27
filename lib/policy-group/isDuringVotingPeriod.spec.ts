@@ -1,14 +1,14 @@
-import { createVotingCaller } from './voting'
+import { createIsDuringVotingPeriodCaller } from './isDuringVotingPeriod'
 
-describe('voting.spec.ts', () => {
-	describe('createVotingCaller', () => {
+describe('isDuringVotingPeriod.spec.ts', () => {
+	describe('createIsDuringVotingPeriodCaller', () => {
 		it('call success', async () => {
 			const value = true
 
 			const policyGroupContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					voting: (policy: string) => ({
+					isDuringVotingPeriod: (policy: string) => ({
 						call: jest.fn().mockImplementation(async () => value),
 					}),
 				},
@@ -17,7 +17,9 @@ describe('voting.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createVotingCaller(policyGroupContract as any)
+			const caller = createIsDuringVotingPeriodCaller(
+				policyGroupContract as any
+			)
 
 			const result = await caller('0x0')
 
@@ -30,7 +32,7 @@ describe('voting.spec.ts', () => {
 			const policyGroupContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					voting: (policy: string) => ({
+					isDuringVotingPeriod: (policy: string) => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error)),
@@ -39,7 +41,9 @@ describe('voting.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createVotingCaller(policyGroupContract as any)
+			const caller = createIsDuringVotingPeriodCaller(
+				policyGroupContract as any
+			)
 
 			const result = await caller('0x0').catch((err) => err)
 

@@ -7,8 +7,6 @@ import { always } from 'ramda'
 import { createHoldersShareCaller } from './holdersShare'
 import { createRewardsCaller } from './rewards'
 import { createAuthenticationFeeCaller } from './authenticationFee'
-import { createMarketApprovalCaller } from './marketApproval'
-import { createPolicyApprovalCaller } from './policyApproval'
 import { createMarketVotingBlocksCaller } from './marketVotingBlocks'
 import { createPolicyVotingBlocksCaller } from './policyVotingBlocks'
 import { createShareOfTreasuryCaller } from './shareOfTreasury'
@@ -22,8 +20,6 @@ export type PolicyContract = {
 		assets: string,
 		propertyAssets: string
 	) => Promise<string>
-	readonly marketApproval: (agree: string, opposite: string) => Promise<boolean>
-	readonly policyApproval: (agree: string, opposite: string) => Promise<boolean>
 	readonly marketVotingBlocks: () => Promise<string>
 	readonly policyVotingBlocks: () => Promise<string>
 	readonly shareOfTreasury: (supply: string) => Promise<string>
@@ -50,8 +46,6 @@ export const createPolicyContract: CreatePolicyContract =
 			holdersShare: createHoldersShareCaller(contractClient),
 			rewards: createRewardsCaller(contractClient),
 			authenticationFee: createAuthenticationFeeCaller(contractClient),
-			marketApproval: createMarketApprovalCaller(contractClient),
-			policyApproval: createPolicyApprovalCaller(contractClient),
 			marketVotingBlocks: createMarketVotingBlocksCaller(contractClient),
 			policyVotingBlocks: createPolicyVotingBlocksCaller(contractClient),
 			shareOfTreasury: createShareOfTreasuryCaller(contractClient),

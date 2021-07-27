@@ -140,21 +140,6 @@ export const policyFactoryAbi = [
 		inputs: [
 			{
 				internalType: 'address',
-				name: '_currentPolicyAddress',
-				type: 'address',
-			},
-		],
-		name: 'convergePolicy',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [
-			{
-				internalType: 'address',
 				name: '_policy',
 				type: 'address',
 			},
