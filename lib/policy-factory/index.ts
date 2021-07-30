@@ -4,13 +4,11 @@ import { Contract } from 'web3-eth-contract/types'
 import { policyFactoryAbi } from './abi'
 import { CustomOptions } from '../option'
 import { always } from 'ramda'
-import { createConvergePolicyCaller } from './convergePolicy'
 import { createCreateCaller } from './create'
 import { createForceAttachCaller } from './forceAttach'
 
 export type PolicyFactoryContract = {
 	readonly create: (newPolicyAddress: string) => Promise<boolean>
-	readonly convergePolicy: (currentPolicyAddress: string) => Promise<boolean>
 	readonly forceAttach: (policy: string) => Promise<boolean>
 	readonly contract: () => Contract
 }
@@ -31,7 +29,6 @@ export const createPolicyFactoryContract: CreatePolicyFactoryContract =
 
 		return {
 			create: createCreateCaller(contractClient, client),
-			convergePolicy: createConvergePolicyCaller(contractClient, client),
 			forceAttach: createForceAttachCaller(contractClient, client),
 			contract: always(contractClient),
 		}

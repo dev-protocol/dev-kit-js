@@ -3,12 +3,10 @@ import Web3 from 'web3'
 import { Contract } from 'web3-eth-contract/types'
 import { policyGroupAbi } from './abi'
 import { CustomOptions } from '../option'
-import { createVotingCaller } from './voting'
 import { createIsGroupCaller } from './isGroup'
 import { always } from 'ramda'
 
 export type PolicyGroupContract = {
-	readonly voting: (policyAddress: string) => Promise<boolean>
 	readonly isGroup: (policyAddress: string) => Promise<boolean>
 	readonly contract: () => Contract
 }
@@ -28,7 +26,6 @@ export const createPolicyGroupContract: CreatePolicyGroupContract =
 		)
 
 		return {
-			voting: createVotingCaller(contractClient),
 			isGroup: createIsGroupCaller(contractClient),
 			contract: always(contractClient),
 		}

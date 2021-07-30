@@ -4,17 +4,17 @@ import Web3 from 'web3'
 import { execute } from '../utils/execute'
 import { T } from 'ramda'
 
-export type CreateConvergePolicyCaller = (
+export type CreateCreateCaller = (
 	contract: Contract,
 	client: Web3
-) => (currentPolicyAddress: string) => Promise<boolean>
+) => (marketBehaviorAddress: string) => Promise<boolean>
 
-export const createConvergePolicyCaller: CreateConvergePolicyCaller =
-	(contract: Contract, client: Web3) => async (currentPolicyAddress: string) =>
+export const createCreateCaller: CreateCreateCaller =
+	(contract: Contract, client: Web3) => async (marketBehaviorAddress: string) =>
 		execute({
 			contract,
-			method: 'convergePolicy',
+			method: 'create',
 			mutation: true,
 			client,
-			args: [currentPolicyAddress],
+			args: [marketBehaviorAddress],
 		}).then(T)

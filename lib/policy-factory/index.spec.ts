@@ -2,7 +2,6 @@ import Web3 from 'web3'
 import { createPolicyFactoryContract, PolicyFactoryContract } from '.'
 import { policyFactoryAbi } from './abi'
 import { CustomOptions } from '../option'
-import { createConvergePolicyCaller } from './convergePolicy'
 import { createCreateCaller } from './create'
 import { createForceAttachCaller } from './forceAttach'
 
@@ -30,7 +29,6 @@ describe('policy/index.ts', () => {
 
 				return {
 					create: createCreateCaller(policyContract, client),
-					convergePolicy: createConvergePolicyCaller(policyContract, client),
 					forceAttach: createForceAttachCaller(policyContract, client),
 					contract: () => policyContract,
 				}

@@ -81,58 +81,6 @@ export const policyAbi = [
 	},
 	{
 		constant: true,
-		inputs: [
-			{
-				internalType: 'uint256',
-				name: '_agree',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_opposite',
-				type: 'uint256',
-			},
-		],
-		name: 'marketApproval',
-		outputs: [
-			{
-				internalType: 'bool',
-				name: '',
-				type: 'bool',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'uint256',
-				name: '_agree',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_opposite',
-				type: 'uint256',
-			},
-		],
-		name: 'policyApproval',
-		outputs: [
-			{
-				internalType: 'bool',
-				name: '',
-				type: 'bool',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
 		inputs: [],
 		name: 'marketVotingBlocks',
 		outputs: [
