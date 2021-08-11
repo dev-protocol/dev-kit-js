@@ -39,10 +39,7 @@ export const execute: ExecuteFunction = async <
 	contract,
 	method,
 	args,
-}: O) => {
-	const m = contract[method]
-	return m(args ? [...args] : undefined)
-}
+}: O) => contract[method](args ? [...args] : undefined)
 
 // This is a sample code
 
