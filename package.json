@@ -49,7 +49,7 @@
 	},
 	"lint-staged": {
 		"./lib/**/*.ts": [
-			"yarn lint"
+			"eslint --fix -c ./.eslintrc.json"
 		]
 	},
 	"jest": {

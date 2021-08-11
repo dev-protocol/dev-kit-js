@@ -11,10 +11,14 @@ import { createVoteCaller } from './vote'
 import { createVoteEthersCaller } from './vote-ethers'
 import { createAuthenticateCaller } from './authenticate'
 import { TxReceipt } from '../utils/web3-txs'
+import { MutationReturn } from '../utils/ethers-execute'
 
 export type CreateMarketContract = {
 	readonly schema: () => Promise<readonly string[]>
-	readonly vote: (propertyAddress: string, agree: boolean) => Promise<TxReceipt>
+	readonly vote: (
+		propertyAddress: string,
+		agree: boolean
+	) => Promise<TxReceipt> | Promise<MutationReturn>
 	readonly authenticate: (
 		address: string,
 		args: readonly string[],
