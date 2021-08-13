@@ -29,13 +29,11 @@ describe('schema.ts', () => {
 			const expected = ['aaa', 'bbbb', 'cccc']
 
 			const marketContract = {
-				methods: {
-					schema: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				schema: () => ({
+					call: jest
+						.fn()
+						.mockImplementation(async () => Promise.resolve(value)),
+				}),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
