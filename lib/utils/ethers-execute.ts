@@ -1,5 +1,5 @@
 import { ethers } from 'ethers'
-import { TxReceipt } from './web3-txs'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 type Option = {
 	readonly contract: ethers.Contract
@@ -16,10 +16,6 @@ export type MutationOption = Option & {
 	readonly mutation: true
 }
 
-export type MutationReturn = {
-	readonly wait: () => Promise<TxReceipt>
-}
-
 export type ExecuteOption = QueryOption | MutationOption
 
 export type ExecuteFunction = <O extends ExecuteOption = QueryOption>(
@@ -28,7 +24,7 @@ export type ExecuteFunction = <O extends ExecuteOption = QueryOption>(
 	O extends QueryOption
 		? string
 		: O extends MutationOption
-		? MutationReturn
+		? TransactionResponse
 		: never
 >
 

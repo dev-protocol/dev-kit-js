@@ -1,23 +1,20 @@
 import { ethers } from 'ethers'
-import {
-	execute,
-	MutationReturn,
-	MutationOption,
-} from '../utils/ethers-execute'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
+import { execute, MutationOption } from '../utils/ethers-execute'
 
 export type CreateVoteEthersCaller = (
 	contract: ethers.Contract
-) => (propertyAddress: string, agree: boolean) => Promise<MutationReturn>
+) => (propertyAddress: string, agree: boolean) => Promise<TransactionResponse>
 
 export const createVoteEthersCaller: CreateVoteEthersCaller = (
 	contract: ethers.Contract
 ): ((
 	propertyAddress: string,
 	agree: boolean
-) => Promise<MutationReturn>) => async (
+) => Promise<TransactionResponse>) => async (
 	propertyAddress: string,
 	agree: boolean
-): Promise<MutationReturn> =>
+): Promise<TransactionResponse> =>
 	execute<MutationOption>({
 		contract,
 		method: 'vote',
