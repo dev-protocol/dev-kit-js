@@ -3,22 +3,20 @@ import { Contract } from 'web3-eth-contract/types'
 import { ethers } from 'ethers'
 import { AbiItem } from 'web3-utils'
 import { Provider } from '@ethersproject/abstract-provider'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { Signer } from '@ethersproject/abstract-signer'
 import { marketAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createSchemaCaller } from './schema'
 import { createVoteCaller } from './vote'
-import { createVoteEthersCaller } from './vote-ethers'
 import { createAuthenticateCaller } from './authenticate'
-import { TxReceipt } from '../utils/web3-txs'
-import { MutationReturn } from '../utils/ethers-execute'
 
 export type CreateMarketContract = {
 	readonly schema: () => Promise<readonly string[]>
 	readonly vote: (
 		propertyAddress: string,
 		agree: boolean
-	) => Promise<TxReceipt> | Promise<MutationReturn>
+	) => Promise<TransactionResponse>
 	readonly authenticate: (
 		address: string,
 		args: readonly string[],
@@ -42,9 +40,8 @@ export const createMarketContract = (client: Web3) => (
 
 	return {
 		schema: createSchemaCaller(contractClient),
-		vote: createVoteCaller(contractClient, client),
 		authenticate: createAuthenticateCaller(contractClient, client),
-	}
+	} as any
 }
 
 export const createEthersMarketContract = (provider: Provider | Signer) => (
@@ -52,6 +49,6 @@ export const createEthersMarketContract = (provider: Provider | Signer) => (
 ): CreateMarketContract => {
 	const contract = new ethers.Contract(address, [...marketAbi], provider)
 	return {
-		vote: createVoteEthersCaller(contract),
+		vote: createVoteCaller(contract),
 	}
 }
