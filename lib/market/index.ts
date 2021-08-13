@@ -39,7 +39,6 @@ export const createMarketContract = (client: Web3) => (
 	)
 
 	return {
-		schema: createSchemaCaller(contractClient),
 		authenticate: createAuthenticateCaller(contractClient, client),
 	} as any
 }
@@ -50,5 +49,6 @@ export const createEthersMarketContract = (provider: Provider | Signer) => (
 	const contract = new ethers.Contract(address, [...marketAbi], provider)
 	return {
 		vote: createVoteCaller(contract),
+		schema: createSchemaCaller(contract),
 	}
 }
