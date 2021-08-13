@@ -1,6 +1,5 @@
 import { createVoteCaller } from './vote'
-import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
-import { txPromisify } from '../utils/txPromisify'
+import { stubTransactionResposeFactory } from '../utils/for-test'
 
 describe('vote.ts', () => {
 	describe('createVoteCaller', () => {
@@ -8,42 +7,36 @@ describe('vote.ts', () => {
 			const propertyAddress = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 
 			const marketContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					vote: (propertyAddress: string, agree: boolean) => ({
-						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
-					}),
-				},
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				vote: (propertyAddress: string, agree: boolean) =>
+					jest.fn().mockResolvedValue(stubTransactionResposeFactory({})),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createVoteCaller(marketContract as any, stubbedWeb3)
+			const caller = createVoteCaller(marketContract as any)
 
 			const result = await caller(propertyAddress, true)
 
-			expect(result).toEqual(await txPromisify(stubbedSendTx()))
+			expect(result).toEqual(stubTransactionResposeFactory({}))
 		})
 
 		it('call failure', async () => {
 			const propertyAddress = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 
+			const err = new Error('error')
+
 			const marketContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					vote: (propertyAddress: string, agree: boolean) => ({
-						send: jest
-							.fn()
-							.mockImplementation(async () => stubbedSendTx(undefined, true)),
-					}),
-				},
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				vote: (propertyAddress: string, agree: boolean) =>
+					jest.fn().mockRejectedValue(err),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createVoteCaller(marketContract as any, stubbedWeb3)
+			const caller = createVoteCaller(marketContract as any)
 
-			const result = await caller(propertyAddress, true).catch((err) => err)
+			// const result = await caller(propertyAddress, true).catch((err) => err)
 
-			expect(result).toBeInstanceOf(Error)
+			expect(await caller(propertyAddress, true)).toThrowError(err)
 		})
 	})
 })
