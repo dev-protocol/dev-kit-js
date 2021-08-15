@@ -1,5 +1,5 @@
 import { createWithdrawInterestCaller } from './withdrawInterest'
-import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
+import { stubbedSendTx } from '../utils/for-test'
 
 describe('withdrawInterest.spec.ts', () => {
 	describe('createWithdrawInterestCaller', () => {
@@ -7,21 +7,16 @@ describe('withdrawInterest.spec.ts', () => {
 			const value = true
 
 			const lockupContract = {
-				methods: {
+				withdrawInterest: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					withdrawInterest: (property: string) => ({
-						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
-					}),
-				},
+					.mockImplementation(async (property: string) => stubbedSendTx()),
 			}
 
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createWithdrawInterestCaller(
-				lockupContract as any,
-				stubbedWeb3
-			)
+			const caller = createWithdrawInterestCaller(lockupContract as any)
 
 			const result = await caller('0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5')
 
@@ -29,28 +24,24 @@ describe('withdrawInterest.spec.ts', () => {
 		})
 
 		it('call failure', async () => {
+			const error = 'error'
 			const lockupContract = {
-				methods: {
+				withdrawInterest: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					withdrawInterest: (property: string) => ({
-						send: jest
-							.fn()
-							.mockImplementation(async () => stubbedSendTx(undefined, true)),
-					}),
-				},
+					.mockImplementation(async (property: string) =>
+						Promise.reject(error)
+					),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createWithdrawInterestCaller(
-				lockupContract as any,
-				stubbedWeb3
-			)
+			const caller = createWithdrawInterestCaller(lockupContract as any)
 
 			const result = await caller(
 				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5'
 			).catch((err) => err)
 
-			expect(result).toBeInstanceOf(Error)
+			expect(result).toEqual(error)
 		})
 	})
 })
