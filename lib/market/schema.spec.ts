@@ -7,13 +7,7 @@ describe('schema.ts', () => {
 			const expected = ['aaa', 'bbbb', 'cccc']
 
 			const marketContract = {
-				methods: {
-					schema: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				schema: () => Promise.resolve(value),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,11 +23,7 @@ describe('schema.ts', () => {
 			const expected = ['aaa', 'bbbb', 'cccc']
 
 			const marketContract = {
-				schema: () => ({
-					call: jest
-						.fn()
-						.mockImplementation(async () => Promise.resolve(value)),
-				}),
+				schema: () => Promise.resolve(value),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,24 +35,16 @@ describe('schema.ts', () => {
 		})
 
 		it('call failure', async () => {
-			const error = 'error'
+			const err = new Error('error')
 
 			const marketContract = {
-				methods: {
-					schema: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				schema: () => Promise.reject(err),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createSchemaCaller(marketContract as any)
 
-			const result = await caller().catch((err) => err)
-
-			expect(result).toEqual(error)
+			await expect(caller()).rejects.toThrowError(err)
 		})
 	})
 })
