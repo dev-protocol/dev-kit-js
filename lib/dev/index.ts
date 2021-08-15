@@ -1,7 +1,7 @@
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
+import { ethers } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { devAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createTransferCaller } from './transfer'
 import { createDepositCaller } from './deposit'
 import { createBalanceOfCaller } from './balanceOf'
@@ -14,26 +14,14 @@ export type DevContract = {
 	readonly deposit: (to: string, value: string) => Promise<boolean>
 }
 
-export type CreateDevContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => DevContract
-
-export const createDevContract: CreateDevContract = (client: Web3) => (
-	address?: string,
-	options?: CustomOptions
+export const createDevContract = (provider: Provider | Signer) => (
+	address: string
 ): DevContract => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...devAbi],
-		address,
-		{
-			...options,
-		}
-	)
-
+	const contractClient = new ethers.Contract(address, [...devAbi], provider)
 	return {
 		totalSupply: createTotalSupplyCaller(contractClient),
 		balanceOf: createBalanceOfCaller(contractClient),
-		transfer: createTransferCaller(contractClient, client),
-		deposit: createDepositCaller(contractClient, client),
+		transfer: createTransferCaller(contractClient),
+		deposit: createDepositCaller(contractClient),
 	}
 }
