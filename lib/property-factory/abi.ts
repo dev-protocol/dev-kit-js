@@ -33,73 +33,6 @@ export const propertyFactoryAbi = [
 		type: 'event',
 	},
 	{
-		anonymous: false,
-		inputs: [
-			{
-				indexed: false,
-				internalType: 'address',
-				name: 'account',
-				type: 'address',
-			},
-		],
-		name: 'Paused',
-		type: 'event',
-	},
-	{
-		anonymous: false,
-		inputs: [
-			{
-				indexed: true,
-				internalType: 'address',
-				name: 'account',
-				type: 'address',
-			},
-		],
-		name: 'PauserAdded',
-		type: 'event',
-	},
-	{
-		anonymous: false,
-		inputs: [
-			{
-				indexed: true,
-				internalType: 'address',
-				name: 'account',
-				type: 'address',
-			},
-		],
-		name: 'PauserRemoved',
-		type: 'event',
-	},
-	{
-		anonymous: false,
-		inputs: [
-			{
-				indexed: false,
-				internalType: 'address',
-				name: 'account',
-				type: 'address',
-			},
-		],
-		name: 'Unpaused',
-		type: 'event',
-	},
-	{
-		constant: false,
-		inputs: [
-			{
-				internalType: 'address',
-				name: 'account',
-				type: 'address',
-			},
-		],
-		name: 'addPauser',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
 		constant: true,
 		inputs: [],
 		name: 'configAddress',
@@ -112,69 +45,6 @@ export const propertyFactoryAbi = [
 		],
 		payable: false,
 		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [
-			{
-				internalType: 'address',
-				name: 'account',
-				type: 'address',
-			},
-		],
-		name: 'isPauser',
-		outputs: [
-			{
-				internalType: 'bool',
-				name: '',
-				type: 'bool',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [],
-		name: 'pause',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [],
-		name: 'paused',
-		outputs: [
-			{
-				internalType: 'bool',
-				name: '',
-				type: 'bool',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [],
-		name: 'renouncePauser',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		constant: false,
-		inputs: [],
-		name: 'unpause',
-		outputs: [],
-		payable: false,
-		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
@@ -202,6 +72,52 @@ export const propertyFactoryAbi = [
 				internalType: 'address',
 				name: '',
 				type: 'address',
+			},
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'string',
+				name: '_name',
+				type: 'string',
+			},
+			{
+				internalType: 'string',
+				name: '_symbol',
+				type: 'string',
+			},
+			{
+				internalType: 'address',
+				name: '_market',
+				type: 'address',
+			},
+			{
+				internalType: 'string',
+				name: '_args1',
+				type: 'string',
+			},
+			{
+				internalType: 'string',
+				name: '_args2',
+				type: 'string',
+			},
+			{
+				internalType: 'string',
+				name: '_args3',
+				type: 'string',
+			},
+		],
+		name: 'createAndAuthenticate',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool',
 			},
 		],
 		payable: false,

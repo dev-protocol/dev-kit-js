@@ -4,12 +4,14 @@ import { createGetValueCaller } from './getValue'
 import { lockupAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createGetPropertyValueCaller } from './getPropertyValue'
-import { createCancelCaller } from './cancel'
 import { createWithdrawCaller } from './withdraw'
-import { createWithdrawInterestCaller } from './withdrawInterest'
 import { createCalculateWithdrawableInterestAmountCaller } from './calculateWithdrawableInterestAmount'
 import { createGetAllValueCaller } from './getAllValue'
 import { createGetStorageWithdrawalStatusCaller } from './getStorageWithdrawalStatus'
+import { createCalculateCumulativeHoldersRewardAmountCaller } from './calculateCumulativeHoldersRewardAmount'
+import { createCalculateCumulativeRewardPricesCaller } from './calculateCumulativeRewardPrices'
+import { createCalculateRewardAmountCaller } from './calculateRewardAmount'
+import { createCapCaller } from './cap'
 
 describe('lockup/index.ts', () => {
 	describe('createLockupContract', () => {
@@ -33,25 +35,30 @@ describe('lockup/index.ts', () => {
 					getValue: createGetValueCaller(lockupContract),
 					getAllValue: createGetAllValueCaller(lockupContract),
 					getPropertyValue: createGetPropertyValueCaller(lockupContract),
-					cancel: createCancelCaller(lockupContract, client),
 					withdraw: createWithdrawCaller(lockupContract, client),
-					withdrawInterest: createWithdrawInterestCaller(
-						lockupContract,
-						client
-					),
-					calculateWithdrawableInterestAmount: createCalculateWithdrawableInterestAmountCaller(
-						lockupContract
-					),
-					getStorageWithdrawalStatus: createGetStorageWithdrawalStatusCaller(
-						lockupContract
-					),
+					calculateWithdrawableInterestAmount:
+						createCalculateWithdrawableInterestAmountCaller(lockupContract),
+					calculateCumulativeHoldersRewardAmount:
+						createCalculateCumulativeHoldersRewardAmountCaller(lockupContract),
+					getStorageWithdrawalStatus:
+						createGetStorageWithdrawalStatusCaller(lockupContract),
+					calculateCumulativeRewardPrices:
+						createCalculateCumulativeRewardPricesCaller(lockupContract),
+					calculateRewardAmount:
+						createCalculateRewardAmountCaller(lockupContract),
+					cap: createCapCaller(lockupContract),
+					contract: () => lockupContract,
 				}
 			}
 
 			const result = createLockupContract(client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(JSON.stringify(result())).toEqual(JSON.stringify(expected()))
+			expect(
+				JSON.stringify(result('0x0000000000000000000000000000000000000000'))
+			).toEqual(
+				JSON.stringify(expected('0x0000000000000000000000000000000000000000'))
+			)
 		})
 	})
 })

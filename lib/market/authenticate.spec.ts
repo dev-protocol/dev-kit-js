@@ -20,7 +20,7 @@ describe('authenticate.ts', () => {
 			const propertyAddress = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 			const args = ['aaa', 'bbbb', 'ccccc']
 
-			const client = ({
+			const client = {
 				eth: {
 					...{
 						Contract: class {
@@ -33,10 +33,10 @@ describe('authenticate.ts', () => {
 									callback: (err: Error | null, e: Event) => void
 								) {
 									setTimeout(() => {
-										callback(null, ({
+										callback(null, {
 											event: 'Create',
 											returnValues: { _metrics: value },
-										} as unknown) as Event)
+										} as unknown as Event)
 									}, 800)
 								},
 							}
@@ -69,10 +69,11 @@ describe('authenticate.ts', () => {
 								}
 							}
 						},
+						getBlockNumber: () => Promise.resolve(123),
 					},
 					...stubbedWeb3.eth,
 				},
-			} as unknown) as Web3
+			} as unknown as Web3
 
 			const expected = value
 
@@ -94,7 +95,7 @@ describe('authenticate.ts', () => {
 			const propertyAddress = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 			const args = ['aaa', 'bbbb', 'ccccc']
 
-			const client = ({
+			const client = {
 				eth: {
 					...{
 						Contract: class {
@@ -135,10 +136,11 @@ describe('authenticate.ts', () => {
 								}
 							}
 						},
+						getBlockNumber: () => Promise.resolve(123),
 					},
 					...stubbedWeb3.eth,
 				},
-			} as unknown) as Web3
+			} as unknown as Web3
 
 			const caller = createAuthenticateCaller(
 				new client.eth.Contract([...marketAbi], '0x...'),

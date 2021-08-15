@@ -13,7 +13,9 @@ import { createDevContract } from './dev/index'
 import { createWithdrawContract } from './withdraw/index'
 import { createRegistryContract } from './registry/index'
 import { createPolicyContract } from './policy'
-import { createPolicySetContract } from './policy-set'
+import { createPolicyGroupContract } from './policy-group'
+import { createMetricsContract } from './metrics'
+import { createPolicyFactoryContract } from './policy-factory'
 
 export type DevkitContract = {
 	readonly allocator: ReturnType<typeof createAllocatorContract>
@@ -25,7 +27,9 @@ export type DevkitContract = {
 	readonly dev: ReturnType<typeof createDevContract>
 	readonly registry: ReturnType<typeof createRegistryContract>
 	readonly policy: ReturnType<typeof createPolicyContract>
-	readonly policySet: ReturnType<typeof createPolicySetContract>
+	readonly policyGroup: ReturnType<typeof createPolicyGroupContract>
+	readonly metrics: ReturnType<typeof createMetricsContract>
+	readonly policyFactory: ReturnType<typeof createPolicyFactoryContract>
 }
 export type ContractFactory = ({
 	web3rovider,
@@ -51,7 +55,9 @@ export const createWeb3DevkitContract: CreateWeb3DevkitContract = (
 	dev: createDevContract(client),
 	registry: createRegistryContract(client),
 	policy: createPolicyContract(client),
-	policySet: createPolicySetContract(client),
+	policyGroup: createPolicyGroupContract(client),
+	metrics: createMetricsContract(client),
+	policyFactory: createPolicyFactoryContract(client),
 })
 
 // ここをethers.jsで実装した処理の関数に差し替える
