@@ -5,11 +5,11 @@ describe('vote.ts', () => {
 	describe('createVoteCaller', () => {
 		it('call success', async () => {
 			const propertyAddress = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
-
+			const stubTx = stubTransactionResposeFactory({})
 			const marketContract = {
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 				vote: (propertyAddress: string, agree: boolean) =>
-					jest.fn().mockResolvedValue(stubTransactionResposeFactory({})),
+					Promise.resolve(stubTx),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,7 +17,7 @@ describe('vote.ts', () => {
 
 			const result = await caller(propertyAddress, true)
 
-			expect(result).toEqual(stubTransactionResposeFactory({}))
+			expect(result).toEqual(stubTx)
 		})
 
 		it('call failure', async () => {
@@ -27,16 +27,13 @@ describe('vote.ts', () => {
 
 			const marketContract = {
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars
-				vote: (propertyAddress: string, agree: boolean) =>
-					jest.fn().mockRejectedValue(err),
+				vote: (propertyAddress: string, agree: boolean) => Promise.reject(err),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createVoteCaller(marketContract as any)
 
-			// const result = await caller(propertyAddress, true).catch((err) => err)
-
-			expect(await caller(propertyAddress, true)).toThrowError(err)
+			await expect(caller(propertyAddress, true)).rejects.toThrowError(err)
 		})
 	})
 })
