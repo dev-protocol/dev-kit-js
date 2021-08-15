@@ -6,14 +6,9 @@ describe('totalSupply.spec.ts', () => {
 			const value = '12345'
 
 			const devContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					totalSupply: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				totalSupply: jest
+					.fn()
+					.mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -30,14 +25,9 @@ describe('totalSupply.spec.ts', () => {
 			const error = 'error'
 
 			const devContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					totalSupply: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				totalSupply: jest
+					.fn()
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
