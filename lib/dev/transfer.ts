@@ -1,21 +1,17 @@
-import { Contract } from 'web3-eth-contract/types'
-import Web3 from 'web3'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, MutationOption } from '../utils/ethers-execute'
 import { T } from 'ramda'
 
 export type CreateTransferCaller = (
-	contract: Contract,
-	client: Web3
+	contract: ethers.Contract
 ) => (to: string, value: string) => Promise<boolean>
 
 export const createTransferCaller: CreateTransferCaller = (
-	contract: Contract,
-	client: Web3
+	contract: ethers.Contract
 ) => async (to: string, value: string) =>
-	execute({
+	execute<MutationOption>({
 		contract,
 		method: 'transfer',
-		mutation: true,
-		client,
 		args: [to, value],
+		mutation: true,
 	}).then(T)
