@@ -1,21 +1,17 @@
-import { Contract } from 'web3-eth-contract/types'
-import Web3 from 'web3'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, MutationOption } from '../utils/ethers-execute'
 import { T } from 'ramda'
 
 export type CreateCancelCaller = (
-	contract: Contract,
-	client: Web3
+	contract: ethers.Contract
 ) => (propertyAddress: string) => Promise<boolean>
 
 export const createCancelCaller: CreateCancelCaller = (
-	contract: Contract,
-	client: Web3
+	contract: ethers.Contract
 ) => async (propertyAddress: string) =>
-	execute({
+	execute<MutationOption>({
 		contract,
 		method: 'cancel',
-		mutation: true,
-		client,
 		args: [propertyAddress],
+		mutation: true,
 	}).then(T)
