@@ -6,12 +6,8 @@ describe('get.spec.ts', () => {
 			const value = '12345'
 
 			const policySetContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					get: (index: string) => ({
-						call: jest.fn().mockImplementation(async () => value),
-					}),
-				},
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				get: jest.fn().mockImplementation(async (index: string) => value),
 			}
 
 			const expected = value
@@ -28,14 +24,10 @@ describe('get.spec.ts', () => {
 			const error = 'error'
 
 			const policySetContract = {
-				methods: {
+				get: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					get: (index: string) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+					.mockImplementation(async (index: string) => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

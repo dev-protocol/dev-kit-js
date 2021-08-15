@@ -1,15 +1,16 @@
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/ethers-execute'
 
 export type CreateGetCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => (index: string) => Promise<string>
 
-export const createGetCaller: CreateGetCaller = (contract: Contract) => async (
-	index: string
-): Promise<string> =>
-	execute({
+export const createGetCaller: CreateGetCaller = (
+	contract: ethers.Contract
+) => async (index: string): Promise<string> =>
+	execute<QueryOption>({
 		contract,
 		method: 'get',
 		args: [index],
+		mutation: false,
 	})
