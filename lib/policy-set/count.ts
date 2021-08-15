@@ -1,13 +1,18 @@
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/ethers-execute'
 import { always } from 'ramda'
 
-export type CreateCountCaller = (contract: Contract) => () => Promise<string>
+export type CreateCountCaller = (
+	contract: ethers.Contract
+) => () => Promise<string>
 
-export const createCountCaller: CreateCountCaller = (contract: Contract) =>
+export const createCountCaller: CreateCountCaller = (
+	contract: ethers.Contract
+) =>
 	always(
-		execute({
+		execute<QueryOption>({
 			contract,
 			method: 'count',
+			mutation: false,
 		})
 	)

@@ -6,12 +6,8 @@ describe('count.spec.ts', () => {
 			const value = '12345'
 
 			const policySetContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					count: () => ({
-						call: jest.fn().mockImplementation(async () => value),
-					}),
-				},
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				count: jest.fn().mockImplementation(async () => value),
 			}
 
 			const expected = value
@@ -28,14 +24,8 @@ describe('count.spec.ts', () => {
 			const error = 'error'
 
 			const policySetContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					count: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				count: jest.fn().mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
