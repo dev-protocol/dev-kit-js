@@ -1,5 +1,3 @@
-import { AbiItem } from 'web3-utils'
-
 export const lockupAbi = [
 	{
 		inputs: [
@@ -820,4 +818,4 @@ export const lockupAbi = [
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
-] as readonly AbiItem[]
+]
