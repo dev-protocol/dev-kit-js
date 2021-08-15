@@ -1,7 +1,7 @@
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
+import { ethers } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { lockupAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createGetValueCaller } from './getValue'
 import { createGetPropertyValueCaller } from './getPropertyValue'
 import { createCancelCaller } from './cancel'
@@ -31,29 +31,17 @@ export type LockupContract = {
 	) => Promise<string>
 }
 
-export type CreateLockupContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => LockupContract
-
-export const createLockupContract: CreateLockupContract = (client: Web3) => (
-	address?: string,
-	options?: CustomOptions
+export const createLockupContract = (provider: Provider | Signer) => (
+	address: string
 ): LockupContract => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...lockupAbi],
-		address,
-		{
-			...options,
-		}
-	)
-
+	const contractClient = new ethers.Contract(address, [...lockupAbi], provider)
 	return {
 		getValue: createGetValueCaller(contractClient),
 		getAllValue: createGetAllValueCaller(contractClient),
 		getPropertyValue: createGetPropertyValueCaller(contractClient),
-		cancel: createCancelCaller(contractClient, client),
-		withdraw: createWithdrawCaller(contractClient, client),
-		withdrawInterest: createWithdrawInterestCaller(contractClient, client),
+		cancel: createCancelCaller(contractClient),
+		withdraw: createWithdrawCaller(contractClient),
+		withdrawInterest: createWithdrawInterestCaller(contractClient),
 		calculateWithdrawableInterestAmount: createCalculateWithdrawableInterestAmountCaller(
 			contractClient
 		),
