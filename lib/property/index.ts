@@ -1,7 +1,7 @@
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
+import { ethers } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { propertyAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createOwnerCaller } from './owner'
 import { createTransferCaller } from './transfer'
 
@@ -10,23 +10,17 @@ export type PropertyContract = {
 	readonly transfer: (to: string, value: string) => Promise<boolean>
 }
 
-export type CreatePropertyContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => PropertyContract
-
-export const createPropertyContract: CreatePropertyContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions): PropertyContract => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...propertyAbi],
+export const createPropertyContract = (provider: Provider | Signer) => (
+	address: string
+): PropertyContract => {
+	const contractClient = new ethers.Contract(
 		address,
-		{
-			...options,
-		}
+		[...propertyAbi],
+		provider
 	)
 
 	return {
 		owner: createOwnerCaller(contractClient),
-		transfer: createTransferCaller(contractClient, client),
+		transfer: createTransferCaller(contractClient),
 	}
 }
