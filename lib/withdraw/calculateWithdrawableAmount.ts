@@ -1,15 +1,16 @@
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/ethers-execute'
 
 export type CreateCalculateWithdrawableAmountCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => (propertyAddress: string, accountAddress: string) => Promise<string>
 
 export const createCalculateWithdrawableAmountCaller: CreateCalculateWithdrawableAmountCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => async (propertyAddress: string, accountAddress: string) =>
-	execute({
+	execute<QueryOption>({
 		contract,
 		method: 'calculateWithdrawableAmount',
 		args: [propertyAddress, accountAddress],
+		mutation: false,
 	})

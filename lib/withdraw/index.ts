@@ -1,7 +1,7 @@
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
+import { ethers } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { withdrawAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createWithdrawCaller } from './withdraw'
 import { createGetRewardsAmountCaller } from './getRewardsAmount'
 import { createCalculateWithdrawableAmountCaller } from './calculateWithdrawableAmount'
@@ -15,23 +15,17 @@ export type WithdrawContract = {
 	) => Promise<string>
 }
 
-export type CreateWithdrawContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => WithdrawContract
-
-export const createWithdrawContract: CreateWithdrawContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions): WithdrawContract => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...withdrawAbi],
+export const createWithdrawContract = (provider: Provider | Signer) => (
+	address: string
+): WithdrawContract => {
+	const contractClient = new ethers.Contract(
 		address,
-		{
-			...options,
-		}
+		[...withdrawAbi],
+		provider
 	)
 
 	return {
-		withdraw: createWithdrawCaller(contractClient, client),
+		withdraw: createWithdrawCaller(contractClient),
 		getRewardsAmount: createGetRewardsAmountCaller(contractClient),
 		calculateWithdrawableAmount: createCalculateWithdrawableAmountCaller(
 			contractClient

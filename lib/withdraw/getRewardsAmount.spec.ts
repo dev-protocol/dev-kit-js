@@ -6,14 +6,12 @@ describe('getRewardsAmount.spec.ts', () => {
 			const value = 'value'
 
 			const withdrawContract = {
-				methods: {
+				getRewardsAmount: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					getRewardsAmount: (address: string) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+					.mockImplementation(async (address: string) =>
+						Promise.resolve(value)
+					),
 			}
 
 			const expected = value
@@ -30,14 +28,10 @@ describe('getRewardsAmount.spec.ts', () => {
 			const error = 'error'
 
 			const withdrawContract = {
-				methods: {
+				getRewardsAmount: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					getRewardsAmount: (address: string) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+					.mockImplementation(async (address: string) => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

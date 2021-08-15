@@ -1,42 +1,54 @@
-import Web3 from 'web3'
+import { ethers } from 'ethers'
 import { createWithdrawContract, WithdrawContract } from '.'
 import { withdrawAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createWithdrawCaller } from './withdraw'
 import { createGetRewardsAmountCaller } from './getRewardsAmount'
 import { createCalculateWithdrawableAmountCaller } from './calculateWithdrawableAmount'
 
+jest.mock('./withdraw')
+jest.mock('./getRewardsAmount')
+jest.mock('./calculateWithdrawableAmount')
+
 describe('lockup/index.ts', () => {
 	describe('createLockupContract', () => {
+		;(createWithdrawCaller as jest.Mock).mockImplementation(
+			(contract) => contract
+		)
+		;(createGetRewardsAmountCaller as jest.Mock).mockImplementation(
+			(contract) => contract
+		)
+		;(createCalculateWithdrawableAmountCaller as jest.Mock).mockImplementation(
+			(contract) => contract
+		)
 		it('check return object', () => {
 			const host = 'localhost'
-			const client = new Web3()
-			client.setProvider(new Web3.providers.HttpProvider(host))
+			const address = 'address'
 
-			const expected: (
-				address?: string,
-				options?: CustomOptions
-			) => WithdrawContract = (address?: string, options?: CustomOptions) => {
-				const withdrawContract = new client.eth.Contract(
-					[...withdrawAbi],
+			const provider = new ethers.providers.JsonRpcProvider(host)
+
+			const expected: (address: string) => WithdrawContract = (
+				address: string
+			) => {
+				const contract = new ethers.Contract(
 					address,
-					{
-						...options,
-					}
+					[...withdrawAbi],
+					provider
 				)
 				return {
-					withdraw: createWithdrawCaller(withdrawContract, client),
-					getRewardsAmount: createGetRewardsAmountCaller(withdrawContract),
+					withdraw: createWithdrawCaller(contract),
+					getRewardsAmount: createGetRewardsAmountCaller(contract),
 					calculateWithdrawableAmount: createCalculateWithdrawableAmountCaller(
-						withdrawContract
+						contract
 					),
 				}
 			}
 
-			const result = createWithdrawContract(client)
+			const result = createWithdrawContract(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(JSON.stringify(result())).toEqual(JSON.stringify(expected()))
+			expect(JSON.stringify(result(address))).toEqual(
+				JSON.stringify(expected(address))
+			)
 		})
 	})
 })
