@@ -1,11 +1,16 @@
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/ethers-execute'
 
 export type CreateGetPropertyValueCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => (address: string) => Promise<string>
 
 export const createGetPropertyValueCaller: CreateGetPropertyValueCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => async (address: string) =>
-	execute({ contract, method: 'getPropertyValue', args: [address] })
+	execute<QueryOption>({
+		contract,
+		method: 'getPropertyValue',
+		args: [address],
+		mutation: false,
+	})

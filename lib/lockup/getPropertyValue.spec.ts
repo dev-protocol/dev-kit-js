@@ -6,14 +6,12 @@ describe('getPropertyValue.spec.ts', () => {
 			const value = 'value'
 
 			const lockupContract = {
-				methods: {
+				getPropertyValue: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					getPropertyValue: (address: string) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+					.mockImplementation(async (address: string) =>
+						Promise.resolve(value)
+					),
 			}
 
 			const expected = value
@@ -30,14 +28,10 @@ describe('getPropertyValue.spec.ts', () => {
 			const error = 'error'
 
 			const lockupContract = {
-				methods: {
+				getPropertyValue: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					getPropertyValue: (address: string) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+					.mockImplementation(async (address: string) => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
