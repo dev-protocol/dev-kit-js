@@ -1,38 +1,52 @@
-import Web3 from 'web3'
+import { ethers } from 'ethers'
 import { createDevContract, DevContract } from '.'
-import { createTransferCaller } from './transfer'
 import { devAbi } from './abi'
-import { CustomOptions } from '../option'
+import { createTransferCaller } from './transfer'
 import { createDepositCaller } from './deposit'
 import { createBalanceOfCaller } from './balanceOf'
 import { createTotalSupplyCaller } from './totalSupply'
 
+jest.mock('./transfer')
+jest.mock('./deposit')
+jest.mock('./balanceOf')
+jest.mock('./totalSupply')
+
 describe('property/index.ts', () => {
-	describe('createPropertyContract', () => {
+	describe('createDevContract', () => {
+		;(createTransferCaller as jest.Mock).mockImplementation(
+			(contract) => contract
+		)
+		;(createDepositCaller as jest.Mock).mockImplementation(
+			(contract) => contract
+		)
+		;(createBalanceOfCaller as jest.Mock).mockImplementation(
+			(contract) => contract
+		)
+		;(createTotalSupplyCaller as jest.Mock).mockImplementation(
+			(contract) => contract
+		)
 		it('check return object', () => {
 			const host = 'localhost'
-			const client = new Web3()
-			client.setProvider(new Web3.providers.HttpProvider(host))
+			const address = 'address'
 
-			const expected: (
-				address?: string,
-				options?: CustomOptions
-			) => DevContract = (address?: string, options?: CustomOptions) => {
-				const propertyContract = new client.eth.Contract([...devAbi], address, {
-					...options,
-				})
+			const provider = new ethers.providers.JsonRpcProvider(host)
+
+			const expected: (address: string) => DevContract = (address: string) => {
+				const contract = new ethers.Contract(address, [...devAbi], provider)
 				return {
-					totalSupply: createTotalSupplyCaller(propertyContract),
-					balanceOf: createBalanceOfCaller(propertyContract),
-					transfer: createTransferCaller(propertyContract, client),
-					deposit: createDepositCaller(propertyContract, client),
+					totalSupply: createTotalSupplyCaller(contract),
+					balanceOf: createBalanceOfCaller(contract),
+					transfer: createTransferCaller(contract),
+					deposit: createDepositCaller(contract),
 				}
 			}
 
-			const result = createDevContract(client)
+			const result = createDevContract(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(JSON.stringify(result())).toEqual(JSON.stringify(expected()))
+			expect(JSON.stringify(result(address))).toEqual(
+				JSON.stringify(expected(address))
+			)
 		})
 	})
 })
