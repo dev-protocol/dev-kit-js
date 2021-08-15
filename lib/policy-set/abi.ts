@@ -1,5 +1,3 @@
-import { AbiItem } from 'web3-utils'
-
 export const policySetAbi = [
 	{
 		inputs: [
@@ -239,4 +237,4 @@ export const policySetAbi = [
 		stateMutability: 'view',
 		type: 'function',
 	},
-] as readonly AbiItem[]
+]
