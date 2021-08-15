@@ -1,29 +1,17 @@
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
+import { ethers } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { policyAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createHoldersShareCaller } from './holdersShare'
 
 export type PolicyContract = {
 	readonly holdersShare: (amount: string, lockups: string) => Promise<string>
 }
 
-export type CreatePolicyContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => PolicyContract
-
-export const createPolicyContract: CreatePolicyContract = (client: Web3) => (
-	address?: string,
-	options?: CustomOptions
-) => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...policyAbi],
-		address,
-		{
-			...options,
-		}
-	)
-
+export const createPolicyContract = (provider: Provider | Signer) => (
+	address: string
+): PolicyContract => {
+	const contractClient = new ethers.Contract(address, [...policyAbi], provider)
 	return {
 		holdersShare: createHoldersShareCaller(contractClient),
 	}

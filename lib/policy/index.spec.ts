@@ -1,37 +1,37 @@
-import Web3 from 'web3'
+import { ethers } from 'ethers'
 import { createPolicyContract, PolicyContract } from '.'
 import { createHoldersShareCaller } from './holdersShare'
 import { policyAbi } from './abi'
-import { CustomOptions } from '../option'
+
+jest.mock('./holdersShare')
 
 describe('policy/index.ts', () => {
 	describe('createPolicyContract', () => {
+		;(createHoldersShareCaller as jest.Mock).mockImplementation(
+			(contract) => contract
+		)
 		it('check return object', () => {
 			const host = 'localhost'
-			const client = new Web3()
-			client.setProvider(new Web3.providers.HttpProvider(host))
+			const address = 'address'
 
-			const expected: (
-				address?: string,
-				options?: CustomOptions
-			) => PolicyContract = (address?: string, options?: CustomOptions) => {
-				const policyContract = new client.eth.Contract(
-					[...policyAbi],
-					address,
-					{
-						...options,
-					}
-				)
+			const provider = new ethers.providers.JsonRpcProvider(host)
+
+			const expected: (address: string) => PolicyContract = (
+				address: string
+			) => {
+				const contract = new ethers.Contract(address, [...policyAbi], provider)
 
 				return {
-					holdersShare: createHoldersShareCaller(policyContract),
+					holdersShare: createHoldersShareCaller(contract),
 				}
 			}
 
-			const result = createPolicyContract(client)
+			const result = createPolicyContract(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(JSON.stringify(result())).toEqual(JSON.stringify(expected()))
+			expect(JSON.stringify(result(address))).toEqual(
+				JSON.stringify(expected(address))
+			)
 		})
 	})
 })
