@@ -3,8 +3,8 @@ import { createDevContract, DevContract } from '.'
 import { devAbi } from './abi'
 import { createTransferCaller } from './transfer'
 import { createDepositCaller } from './deposit'
-import { createBalanceOfCaller } from './balanceOf'
-import { createTotalSupplyCaller } from './totalSupply'
+import { createBalanceOfCaller } from './../erc20/balanceOf'
+import { createTotalSupplyCaller } from './../erc20/totalSupply'
 
 jest.mock('./transfer')
 jest.mock('./deposit')

@@ -18,6 +18,7 @@ import { createWithdrawCaller } from './withdraw'
 import { createWithdrawStorageCaller } from './withdrawStorage'
 import { createPolicyFactoryCaller } from './policyFactory'
 import { createPolicySetCaller } from './policySet'
+import { createPolicyGroupCaller } from './policyGroup'
 
 describe('registry/index.ts', () => {
 	describe('createRegistryContract', () => {
@@ -48,19 +49,25 @@ describe('registry/index.ts', () => {
 					metricsGroup: createMetricsGroupCaller(registryContract),
 					policy: createPolicyCaller(registryContract),
 					policySet: createPolicySetCaller(registryContract),
+					policyGroup: createPolicyGroupCaller(registryContract),
 					policyFactory: createPolicyFactoryCaller(registryContract),
 					propertyFactory: createPropertyFactoryCaller(registryContract),
 					propertyGroup: createPropertyGroupCaller(registryContract),
 					token: createTokenCaller(registryContract),
 					withdraw: createWithdrawCaller(registryContract),
 					withdrawStorage: createWithdrawStorageCaller(registryContract),
+					contract: () => registryContract,
 				}
 			}
 
 			const result = createRegistryContract(client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(JSON.stringify(result())).toEqual(JSON.stringify(expected()))
+			expect(
+				JSON.stringify(result('0x0000000000000000000000000000000000000000'))
+			).toEqual(
+				JSON.stringify(expected('0x0000000000000000000000000000000000000000'))
+			)
 		})
 	})
 })

@@ -17,7 +17,10 @@ describe('withdraw.spec.ts', () => {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createWithdrawCaller(lockupContract as any, stubbedWeb3)
 
-			const result = await caller('0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5')
+			const result = await caller(
+				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
+				'100'
+			)
 
 			expect(result).toEqual(expected)
 		})
@@ -38,7 +41,8 @@ describe('withdraw.spec.ts', () => {
 			const caller = createWithdrawCaller(lockupContract as any, stubbedWeb3)
 
 			const result = await caller(
-				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5'
+				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
+				'100'
 			).catch((err) => err)
 
 			expect(result).toBeInstanceOf(Error)

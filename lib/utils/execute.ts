@@ -7,7 +7,7 @@ import { getAccount } from './getAccount'
 import { TxReceipt } from './web3-txs'
 import { txPromisify } from './txPromisify'
 
-type Args = ReadonlyArray<string | boolean>
+type Args = ReadonlyArray<string | boolean | readonly string[]>
 type Options = {
 	readonly contract: Contract
 	readonly method: string
@@ -45,7 +45,7 @@ type R<T, O extends ExecuteOptions> = O extends CallOptions
 
 type PadCaller = (
 	arr: Args,
-	v: string | boolean | undefined,
+	v: string | boolean | undefined | readonly string[],
 	i: number,
 	fn: PadCaller
 ) => Args
@@ -53,7 +53,7 @@ const pad = (args: Args, index: number): Args =>
 	((fn: PadCaller): Args => fn([], args[0], 0, fn))(
 		(
 			arr: Args,
-			v: string | boolean | undefined,
+			v: string | boolean | undefined | readonly string[],
 			i: number,
 			fn: PadCaller
 		): Args =>
@@ -79,5 +79,7 @@ export const execute: ExecuteFunction = async <
 		? txPromisify(x.send({ from: await getAccount(client as Web3) })).then(
 				(receipt) => receipt
 		  )
+		: client
+		? x.call({ from: await getAccount(client) })
 		: x.call()
 }

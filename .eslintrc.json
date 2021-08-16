@@ -11,8 +11,8 @@
 		"plugin:@typescript-eslint/recommended",
 		"plugin:functional/external-recommended",
 		"plugin:functional/all",
-		"prettier/@typescript-eslint",
-		"plugin:prettier/recommended"
+		"prettier",
+		"prettier/@typescript-eslint"
 	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
@@ -24,7 +24,7 @@
 		},
 		"createDefaultProgram": true
 	},
-	"plugins": ["@typescript-eslint", "functional", "prettier", "jest"],
+	"plugins": ["@typescript-eslint", "functional", "jest"],
 	"rules": {
 		"@typescript-eslint/prefer-readonly-parameter-types": "warn"
 	},
@@ -35,6 +35,7 @@
 				"@typescript-eslint/no-unsafe-return": "off",
 				"@typescript-eslint/no-explicit-any": "off",
 				"@typescript-eslint/ban-ts-comment": "off",
+				"@typescript-eslint/no-empty-function": "off",
 				"functional/no-expression-statement": "off",
 				"functional/functional-parameters": "off",
 				"functional/no-return-void": "off",

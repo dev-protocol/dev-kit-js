@@ -11,7 +11,7 @@ describe('getAccount.ts', () => {
 					getAccounts: jest.fn(async () => Promise.resolve(['0x'])),
 				},
 			}
-			const result = await getAccount((web3Stub as unknown) as Web3)
+			const result = await getAccount(web3Stub as unknown as Web3)
 
 			expect(result).toEqual(expected)
 			expect(web3Stub.eth.getAccounts.mock.calls.length).toEqual(1)
@@ -24,9 +24,9 @@ describe('getAccount.ts', () => {
 					getAccounts: jest.fn(async () => Promise.resolve(['0x'])),
 				},
 			}
-			await getAccount((web3Stub as unknown) as Web3) // First call.
-			await getAccount((web3Stub as unknown) as Web3) // Second call.
-			const result = await getAccount((web3Stub as unknown) as Web3) // Third call.
+			await getAccount(web3Stub as unknown as Web3) // First call.
+			await getAccount(web3Stub as unknown as Web3) // Second call.
+			const result = await getAccount(web3Stub as unknown as Web3) // Third call.
 
 			expect(result).toEqual(expected)
 			expect(web3Stub.eth.getAccounts.mock.calls.length).toEqual(1)
