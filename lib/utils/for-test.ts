@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable functional/no-this-expression */
 /* eslint-disable functional/no-conditional-statement */
 /* eslint-disable functional/no-return-void */
@@ -10,13 +11,13 @@
 import Web3 from 'web3'
 import { SendTx } from './web3-txs'
 
-export const stubbedWeb3 = ({
+export const stubbedWeb3 = {
 	eth: {
 		async getAccounts(): Promise<readonly string[]> {
 			return Promise.resolve(['0x'])
 		},
 	},
-} as unknown) as Web3
+} as unknown as Web3
 
 export const stubbedSendTx = (
 	confirmationEvent: {

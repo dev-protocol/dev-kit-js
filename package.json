@@ -1,51 +1,68 @@
 {
-	"name": "@devprtcl/dev-kit-js",
-	"version": "0.9.0",
+	"name": "@devprotocol/dev-kit",
+	"version": "4.5.0",
 	"description": "Dev Kit for JavaScript",
 	"author": "abyssparanoia",
 	"license": "Apache-2.0",
+	"main": "dist/index.js",
+	"exports": {
+		"import": "./dist/index.mjs",
+		"require": "./dist/index.js"
+	},
+	"types": "./dist/dev-kit.d.ts",
 	"files": [
-		"cjs",
-		"esm"
+		"dist/*.mjs",
+		"dist/*.js",
+		"dist/*.ts",
+		"lib/**/*.ts",
+		"bundled",
+		"!**/*.spec.*"
 	],
-	"main": "cjs/index.js",
-	"module": "esm/index.js",
 	"scripts": {
-		"build": "yarn clean && run-p -l build:*",
-		"build:cjs": "tsc --project . --module commonjs --outDir ./cjs",
-		"build:esm": "tsc --project . --module es2015 --outDir ./esm",
+		"build": "yarn clean && yarn build:ts && yarn build:rollup",
+		"build:ts": "tsc --target esnext",
+		"build:rollup": "rollup -c",
+		"postbuild": "node ./bundle.js",
 		"lint": "yarn lint:eslint && yarn lint:format",
-		"lint:eslint": "eslint -c ./.eslintrc.json './lib/**/*.ts' --fix",
-		"lint:format": "prettier --write '**/*.{json,md,yml}'",
+		"lint:eslint": "eslint . --ext .ts --fix",
+		"lint:format": "prettier --write '**/*.{ts,js,json,md,yml}'",
 		"test": "jest",
 		"test:coverage": "jest --coverage",
 		"prepack": "yarn test && yarn build",
-		"clean": "rimraf esm cjs"
+		"clean": "rimraf dist bundled",
+		"prepare": "husky install"
 	},
 	"devDependencies": {
-		"@types/jest": "26.0.4",
-		"@types/ramda": "0.27.11",
-		"@typescript-eslint/eslint-plugin": "3.6.1",
-		"@typescript-eslint/parser": "3.6.1",
-		"eslint": "7.4.0",
-		"eslint-config-prettier": "6.11.0",
-		"eslint-plugin-functional": "3.0.1",
-		"eslint-plugin-jest": "23.18.0",
-		"eslint-plugin-prettier": "3.1.4",
-		"husky": "4.2.5",
-		"jest": "26.1.0",
-		"lint-staged": "10.2.11",
+		"@babel/preset-env": "7.15.0",
+		"@rollup/plugin-alias": "3.1.5",
+		"@rollup/plugin-babel": "5.3.0",
+		"@rollup/plugin-commonjs": "20.0.0",
+		"@rollup/plugin-json": "4.1.0",
+		"@rollup/plugin-multi-entry": "4.1.0",
+		"@rollup/plugin-node-resolve": "13.0.4",
+		"@types/jest": "27.0.1",
+		"@types/ramda": "0.27.44",
+		"@typescript-eslint/eslint-plugin": "4.29.1",
+		"@typescript-eslint/parser": "4.29.1",
+		"eslint": "7.32.0",
+		"eslint-config-prettier": "6.15.0",
+		"eslint-plugin-functional": "3.1.0",
+		"eslint-plugin-jest": "24.4.0",
+		"globby": "11.0.4",
+		"husky": "7.0.1",
+		"jest": "27.0.6",
+		"lint-staged": "11.1.2",
 		"npm-run-all": "4.1.5",
+		"p-queue": "6.6.2",
 		"pre-commit": "1.2.2",
-		"prettier": "2.0.5",
+		"prettier": "2.3.2",
 		"rimraf": "3.0.2",
-		"ts-jest": "26.1.2",
-		"typescript": "3.9.6"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "lint-staged"
-		}
+		"rollup": "2.56.2",
+		"rollup-plugin-dts": "3.0.2",
+		"rollup-plugin-terser": "7.0.2",
+		"ts-jest": "27.0.4",
+		"typescript": "4.3.5",
+		"web3": "1.5.2"
 	},
 	"lint-staged": {
 		"./lib/**/*.ts": [
@@ -55,7 +72,7 @@
 	"jest": {
 		"globals": {
 			"ts-jest": {
-				"tsConfig": "tsconfig.json"
+				"tsconfig": "tsconfig.json"
 			}
 		},
 		"transform": {
@@ -72,11 +89,13 @@
 	},
 	"dependencies": {
 		"ethers": "^5.4.4",
-		"ramda": "^0.27.0",
-		"web3": "^1.2.5-rc.0"
+		"@types/bent": "^7.3.1",
+		"async-ray": "^3.2.0",
+		"bent": "^7.3.12",
+		"ramda": "^0.27.0"
 	},
 	"peerDependencies": {
-		"web3": "^1.2.5-rc.0"
+		"web3": "^1.2.0"
 	},
 	"directories": {
 		"lib": "lib"

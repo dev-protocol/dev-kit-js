@@ -1,15 +1,19 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import Web3 from 'web3'
 import { Contract } from 'web3-eth-contract/types'
 import { lockupAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createGetValueCaller } from './getValue'
 import { createGetPropertyValueCaller } from './getPropertyValue'
-import { createCancelCaller } from './cancel'
 import { createWithdrawCaller } from './withdraw'
-import { createWithdrawInterestCaller } from './withdrawInterest'
 import { createCalculateWithdrawableInterestAmountCaller } from './calculateWithdrawableInterestAmount'
 import { createGetAllValueCaller } from './getAllValue'
 import { createGetStorageWithdrawalStatusCaller } from './getStorageWithdrawalStatus'
+import { createCalculateCumulativeHoldersRewardAmountCaller } from './calculateCumulativeHoldersRewardAmount'
+import { createCalculateCumulativeRewardPricesCaller } from './calculateCumulativeRewardPrices'
+import { createCalculateRewardAmountCaller } from './calculateRewardAmount'
+import { createCapCaller } from './cap'
+import { always } from 'ramda'
 
 export type LockupContract = {
 	readonly getValue: (
@@ -18,47 +22,61 @@ export type LockupContract = {
 	) => Promise<string>
 	readonly getAllValue: () => Promise<string>
 	readonly getPropertyValue: (address: string) => Promise<string>
-	readonly cancel: (propertyAddress: string) => Promise<boolean>
-	readonly withdraw: (propertyAddress: string) => Promise<boolean>
-	readonly withdrawInterest: (propertyAddress: string) => Promise<boolean>
+	readonly withdraw: (
+		propertyAddress: string,
+		amount: string
+	) => Promise<boolean>
 	readonly calculateWithdrawableInterestAmount: (
 		propertyAddress: string,
 		accountAddress: string
+	) => Promise<string>
+	readonly calculateCumulativeHoldersRewardAmount: (
+		propertyAddress: string
 	) => Promise<string>
 	readonly getStorageWithdrawalStatus: (
 		propertyAddress: string,
 		accountAddress: string
 	) => Promise<string>
+	readonly calculateCumulativeRewardPrices: () => Promise<
+		readonly [string, string, string, string]
+	>
+	readonly calculateRewardAmount: (
+		propertyAddress: string
+	) => Promise<readonly [string, string]>
+	readonly cap: () => Promise<string>
+	readonly contract: () => Contract
 }
 
 export type CreateLockupContract = (
 	client: Web3
 ) => (address?: string, options?: CustomOptions) => LockupContract
 
-export const createLockupContract: CreateLockupContract = (client: Web3) => (
-	address?: string,
-	options?: CustomOptions
-): LockupContract => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...lockupAbi],
-		address,
-		{
-			...options,
-		}
-	)
+export const createLockupContract: CreateLockupContract =
+	(client: Web3) =>
+	(address?: string, options?: CustomOptions): LockupContract => {
+		const contractClient: Contract = new client.eth.Contract(
+			[...lockupAbi],
+			address,
+			{
+				...options,
+			}
+		)
 
-	return {
-		getValue: createGetValueCaller(contractClient),
-		getAllValue: createGetAllValueCaller(contractClient),
-		getPropertyValue: createGetPropertyValueCaller(contractClient),
-		cancel: createCancelCaller(contractClient, client),
-		withdraw: createWithdrawCaller(contractClient, client),
-		withdrawInterest: createWithdrawInterestCaller(contractClient, client),
-		calculateWithdrawableInterestAmount: createCalculateWithdrawableInterestAmountCaller(
-			contractClient
-		),
-		getStorageWithdrawalStatus: createGetStorageWithdrawalStatusCaller(
-			contractClient
-		),
+		return {
+			getValue: createGetValueCaller(contractClient),
+			getAllValue: createGetAllValueCaller(contractClient),
+			getPropertyValue: createGetPropertyValueCaller(contractClient),
+			withdraw: createWithdrawCaller(contractClient, client),
+			calculateWithdrawableInterestAmount:
+				createCalculateWithdrawableInterestAmountCaller(contractClient),
+			calculateCumulativeHoldersRewardAmount:
+				createCalculateCumulativeHoldersRewardAmountCaller(contractClient),
+			getStorageWithdrawalStatus:
+				createGetStorageWithdrawalStatusCaller(contractClient),
+			calculateCumulativeRewardPrices:
+				createCalculateCumulativeRewardPricesCaller(contractClient),
+			calculateRewardAmount: createCalculateRewardAmountCaller(contractClient),
+			cap: createCapCaller(contractClient),
+			contract: always(contractClient),
+		}
 	}
-}

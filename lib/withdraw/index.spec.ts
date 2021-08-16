@@ -3,8 +3,10 @@ import { createWithdrawContract, WithdrawContract } from '.'
 import { withdrawAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createWithdrawCaller } from './withdraw'
+import { createBulkWithdrawCaller } from './bulkWithdraw'
 import { createGetRewardsAmountCaller } from './getRewardsAmount'
 import { createCalculateWithdrawableAmountCaller } from './calculateWithdrawableAmount'
+import { calculateRewardAmountCaller } from './calculateRewardAmount'
 
 describe('lockup/index.ts', () => {
 	describe('createLockupContract', () => {
@@ -26,17 +28,23 @@ describe('lockup/index.ts', () => {
 				)
 				return {
 					withdraw: createWithdrawCaller(withdrawContract, client),
+					bulkWithdraw: createBulkWithdrawCaller(withdrawContract, client),
 					getRewardsAmount: createGetRewardsAmountCaller(withdrawContract),
-					calculateWithdrawableAmount: createCalculateWithdrawableAmountCaller(
-						withdrawContract
-					),
+					calculateWithdrawableAmount:
+						createCalculateWithdrawableAmountCaller(withdrawContract),
+					calculateRewardAmount: calculateRewardAmountCaller(withdrawContract),
+					contract: () => withdrawContract,
 				}
 			}
 
 			const result = createWithdrawContract(client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(JSON.stringify(result())).toEqual(JSON.stringify(expected()))
+			expect(
+				JSON.stringify(result('0x0000000000000000000000000000000000000000'))
+			).toEqual(
+				JSON.stringify(expected('0x0000000000000000000000000000000000000000'))
+			)
 		})
 	})
 })
