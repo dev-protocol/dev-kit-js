@@ -1,6 +1,6 @@
 import { AbiItem } from 'web3-utils'
 
-export const propertyAbi = ([
+export const propertyAbi = [
 	{
 		inputs: [
 			{
@@ -298,28 +298,12 @@ export const propertyAbi = ([
 		inputs: [
 			{
 				internalType: 'address',
-				name: 'sender',
+				name: '_nextAuthor',
 				type: 'address',
 			},
-			{
-				internalType: 'address',
-				name: 'recipient',
-				type: 'address',
-			},
-			{
-				internalType: 'uint256',
-				name: 'amount',
-				type: 'uint256',
-			},
 		],
-		name: 'transferFrom',
-		outputs: [
-			{
-				internalType: 'bool',
-				name: '',
-				type: 'bool',
-			},
-		],
+		name: 'changeAuthor',
+		outputs: [],
 		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
@@ -355,6 +339,37 @@ export const propertyAbi = ([
 		inputs: [
 			{
 				internalType: 'address',
+				name: '_from',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_to',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: '_value',
+				type: 'uint256',
+			},
+		],
+		name: 'transferFrom',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool',
+			},
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
 				name: '_sender',
 				type: 'address',
 			},
@@ -370,4 +385,4 @@ export const propertyAbi = ([
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
-] as unknown) as readonly AbiItem[]
+] as readonly AbiItem[]

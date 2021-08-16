@@ -31,7 +31,7 @@ describe('getAllValue.spec.ts', () => {
 			const lockupContract = {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					getAllValue: (property: string, account: string) => ({
+					getAllValue: () => ({
 						call: jest
 							.fn()
 							.mockImplementation(async () => Promise.reject(error)),

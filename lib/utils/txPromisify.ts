@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { SendTx, TxReceipt } from './web3-txs'
 
 export const txPromisify = async (tx: SendTx): Promise<TxReceipt> => {

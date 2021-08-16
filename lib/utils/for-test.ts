@@ -17,13 +17,13 @@ import {
 import { SendTx } from './web3-txs'
 import { BigNumber } from 'ethers'
 
-export const stubbedWeb3 = ({
+export const stubbedWeb3 = {
 	eth: {
 		async getAccounts(): Promise<readonly string[]> {
 			return Promise.resolve(['0x'])
 		},
 	},
-} as unknown) as Web3
+} as unknown as Web3
 
 export type StubTransactionResposeFactory = (p: {
 	readonly hash?: string

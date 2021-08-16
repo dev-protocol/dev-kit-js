@@ -1,9 +1,9 @@
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/ethers-execute'
 import { always } from 'ramda'
 
 export type CreateSchemaCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => () => Promise<readonly string[]>
 type ParsedValue = {
 	readonly v: string
@@ -11,10 +11,10 @@ type ParsedValue = {
 }
 
 export const createSchemaCaller: CreateSchemaCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ): (() => Promise<readonly string[]>) =>
 	always(
-		execute({ contract, method: 'schema' }).then(
+		execute<QueryOption>({ contract, method: 'schema', mutation: false }).then(
 			(result) =>
 				JSON.parse(
 					result

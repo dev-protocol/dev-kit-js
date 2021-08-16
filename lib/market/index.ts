@@ -9,6 +9,7 @@ import { marketAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createSchemaCaller } from './schema'
 import { createVoteCaller } from './vote'
+import { createBehaviorCaller } from './behavior'
 import { createAuthenticateCaller } from './authenticate'
 
 export type CreateMarketContract = {
@@ -24,6 +25,7 @@ export type CreateMarketContract = {
 			readonly metricsFactory: string
 		}
 	) => Promise<string>
+	readonly contract: () => Contract
 }
 
 export const createMarketContract = (client: Web3) => (
@@ -39,7 +41,6 @@ export const createMarketContract = (client: Web3) => (
 	)
 
 	return {
-		schema: createSchemaCaller(contractClient),
 		authenticate: createAuthenticateCaller(contractClient, client),
 	} as any
 }
@@ -50,5 +51,5 @@ export const createEthersMarketContract = (provider: Provider | Signer) => (
 	const contract = new ethers.Contract(address, [...marketAbi], provider)
 	return {
 		vote: createVoteCaller(contract),
-	}
-}
+		schema: createSchemaCaller(contract),
+	}}
