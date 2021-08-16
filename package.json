@@ -89,7 +89,6 @@
 	},
 	"dependencies": {
 		"ethers": "^5.4.4",
-		"web3": "^1.2.5-rc.0",
 		"@types/bent": "^7.3.1",
 		"async-ray": "^3.2.0",
 		"bent": "^7.3.12",
