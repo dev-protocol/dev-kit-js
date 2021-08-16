@@ -1,17 +1,18 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/ethers-execute'
 import { always } from 'ramda'
 
 export type CreateCalculateMaxRewardsPerBlockCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => () => Promise<string>
 
-export const createCalculateMaxRewardsPerBlockCaller: CreateCalculateMaxRewardsPerBlockCaller =
-	(contract: Contract) =>
-		always(
-			execute({
-				contract,
-				method: 'calculateMaxRewardsPerBlock',
-			})
-		)
+export const createCalculateMaxRewardsPerBlockCaller: CreateCalculateMaxRewardsPerBlockCaller = (
+	contract: ethers.Contract
+) =>
+	always(
+		execute<QueryOption>({
+			contract,
+			method: 'calculateMaxRewardsPerBlock',
+			mutation: false,
+		})
+	)
