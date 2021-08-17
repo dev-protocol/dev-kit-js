@@ -6,16 +6,12 @@ describe('calculateCumulativeHoldersRewardAmount.spec.ts', () => {
 			const value = 'value'
 
 			const lockupContract = {
-				methods: {
-					calculateCumulativeHoldersRewardAmount: (
-						// eslint-disable-next-line @typescript-eslint/no-unused-vars
-						propertyAddress: string
-					) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				calculateCumulativeHoldersRewardAmount: jest
+					.fn()
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
+					.mockImplementation(async (propertyAddress: string) =>
+						Promise.resolve(value)
+					),
 			}
 
 			const expected = value
@@ -34,16 +30,12 @@ describe('calculateCumulativeHoldersRewardAmount.spec.ts', () => {
 			const error = 'error'
 
 			const lockupContract = {
-				methods: {
-					calculateCumulativeHoldersRewardAmount: (
-						// eslint-disable-next-line @typescript-eslint/no-unused-vars
-						propertyAddress: string
-					) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				calculateCumulativeHoldersRewardAmount: jest
+					.fn()
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
+					.mockImplementation(async (propertyAddress: string) =>
+						Promise.reject(error)
+					),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
