@@ -11,6 +11,7 @@ describe('deposit.spec.ts', () => {
 			const devContract = {
 				deposit: jest
 					.fn()
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(async (to: string, value: number) =>
 						stubbedSendTx()
 					),
