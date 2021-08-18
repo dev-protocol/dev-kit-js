@@ -6,14 +6,12 @@ describe('getStorageWithdrawalStatus.spec.ts', () => {
 			const value = 'value'
 
 			const lockupContract = {
-				methods: {
+				getStorageWithdrawalStatus: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					getStorageWithdrawalStatus: (property: string, account: string) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+					.mockImplementation(async (property: string, account: string) =>
+						Promise.resolve(value)
+					),
 			}
 
 			const expected = value
@@ -35,14 +33,12 @@ describe('getStorageWithdrawalStatus.spec.ts', () => {
 			const error = 'error'
 
 			const lockupContract = {
-				methods: {
+				getStorageWithdrawalStatus: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					getStorageWithdrawalStatus: (property: string, account: string) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+					.mockImplementation(async (property: string, account: string) =>
+						Promise.reject(error)
+					),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -6,13 +6,12 @@ export type CreateCalculateMaxRewardsPerBlockCaller = (
 	contract: ethers.Contract
 ) => () => Promise<string>
 
-export const createCalculateMaxRewardsPerBlockCaller: CreateCalculateMaxRewardsPerBlockCaller = (
-	contract: ethers.Contract
-) =>
-	always(
-		execute<QueryOption>({
-			contract,
-			method: 'calculateMaxRewardsPerBlock',
-			mutation: false,
-		})
-	)
+export const createCalculateMaxRewardsPerBlockCaller: CreateCalculateMaxRewardsPerBlockCaller =
+	(contract: ethers.Contract) =>
+		always(
+			execute<QueryOption>({
+				contract,
+				method: 'calculateMaxRewardsPerBlock',
+				mutation: false,
+			})
+		)

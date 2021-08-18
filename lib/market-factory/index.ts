@@ -1,33 +1,22 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
+import { ethers } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { marketFactoryAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createCreateCaller } from './create'
-import { always } from 'ramda'
 
 export type MarketFactoryContract = {
 	readonly create: (marketBehaviorAddress: string) => Promise<boolean>
-	readonly contract: () => Contract
 }
 
-export type CreateMarketFactoryContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => MarketFactoryContract
-
-export const createMarketFactoryContract: CreateMarketFactoryContract =
-	(client: Web3) =>
-	(address?: string, options?: CustomOptions): MarketFactoryContract => {
-		const contractClient: Contract = new client.eth.Contract(
-			[...marketFactoryAbi],
+export const createMarketFactoryContract =
+	(provider: Provider | Signer) =>
+	(address: string): MarketFactoryContract => {
+		const contract = new ethers.Contract(
 			address,
-			{
-				...options,
-			}
+			[...marketFactoryAbi],
+			provider
 		)
-
 		return {
-			create: createCreateCaller(contractClient, client),
-			contract: always(contractClient),
+			create: createCreateCaller(contract),
 		}
 	}

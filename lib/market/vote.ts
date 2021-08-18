@@ -6,18 +6,20 @@ export type CreateVoteCaller = (
 	contract: ethers.Contract
 ) => (propertyAddress: string, agree: boolean) => Promise<TransactionResponse>
 
-export const createVoteCaller: CreateVoteCaller = (
-	contract: ethers.Contract
-): ((
-	propertyAddress: string,
-	agree: boolean
-) => Promise<TransactionResponse>) => async (
-	propertyAddress: string,
-	agree: boolean
-): Promise<TransactionResponse> =>
-	execute<MutationOption>({
-		contract,
-		method: 'vote',
-		args: [propertyAddress, agree],
-		mutation: true,
-	})
+export const createVoteCaller: CreateVoteCaller =
+	(
+		contract: ethers.Contract
+	): ((
+		propertyAddress: string,
+		agree: boolean
+	) => Promise<TransactionResponse>) =>
+	async (
+		propertyAddress: string,
+		agree: boolean
+	): Promise<TransactionResponse> =>
+		execute<MutationOption>({
+			contract,
+			method: 'vote',
+			args: [propertyAddress, agree],
+			mutation: true,
+		})

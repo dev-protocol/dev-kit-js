@@ -1,20 +1,16 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import Web3 from 'web3'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, MutationOption } from '../utils/ethers-execute'
 import { T } from 'ramda'
 
 export type CreateDepositCaller = (
-	contract: Contract,
-	client: Web3
+	contract: ethers.Contract
 ) => (to: string, value: string) => Promise<boolean>
 
 export const createDepositCaller: CreateDepositCaller =
-	(contract: Contract, client: Web3) => async (to: string, value: string) =>
-		execute({
+	(contract: ethers.Contract) => async (to: string, value: string) =>
+		execute<MutationOption>({
 			contract,
 			method: 'deposit',
-			mutation: true,
-			client,
 			args: [to, value],
+			mutation: true,
 		}).then(T)

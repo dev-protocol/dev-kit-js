@@ -1,16 +1,16 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/ethers-execute'
 
 export type CreateGetValueCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => (propertyAddress: string, accountAddress: string) => Promise<string>
 
 export const createGetValueCaller: CreateGetValueCaller =
-	(contract: Contract) =>
+	(contract: ethers.Contract) =>
 	async (propertyAddress: string, accountAddress: string) =>
-		execute({
+		execute<QueryOption>({
 			contract,
 			method: 'getValue',
 			args: [propertyAddress, accountAddress],
+			mutation: false,
 		})

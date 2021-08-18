@@ -28,28 +28,28 @@ export type CreateMarketContract = {
 	readonly contract: () => Contract
 }
 
-export const createMarketContract = (client: Web3) => (
-	address: string,
-	options?: CustomOptions
-): CreateMarketContract => {
-	const contractClient: Contract = new client.eth.Contract(
-		[...(marketAbi as readonly AbiItem[])],
-		address,
-		{
-			...options,
+export const createMarketContract =
+	(client: Web3) =>
+	(address: string, options?: CustomOptions): CreateMarketContract => {
+		const contractClient: Contract = new client.eth.Contract(
+			[...(marketAbi as readonly AbiItem[])],
+			address,
+			{
+				...options,
+			}
+		)
+
+		return {
+			authenticate: createAuthenticateCaller(contractClient, client),
+		} as any
+	}
+
+export const createEthersMarketContract =
+	(provider: Provider | Signer) =>
+	(address: string): CreateMarketContract => {
+		const contract = new ethers.Contract(address, [...marketAbi], provider)
+		return {
+			vote: createVoteCaller(contract),
+			schema: createSchemaCaller(contract),
 		}
-	)
-
-	return {
-		authenticate: createAuthenticateCaller(contractClient, client),
-	} as any
-}
-
-export const createEthersMarketContract = (provider: Provider | Signer) => (
-	address: string
-): CreateMarketContract => {
-	const contract = new ethers.Contract(address, [...marketAbi], provider)
-	return {
-		vote: createVoteCaller(contract),
-		schema: createSchemaCaller(contract),
-	}}
+	}
