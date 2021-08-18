@@ -6,13 +6,9 @@ describe('getAllValue.spec.ts', () => {
 			const value = 'value'
 
 			const lockupContract = {
-				methods: {
-					getAllValue: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				getAllValue: jest
+					.fn()
+					.mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -29,14 +25,9 @@ describe('getAllValue.spec.ts', () => {
 			const error = 'error'
 
 			const lockupContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					getAllValue: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				getAllValue: jest
+					.fn()
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

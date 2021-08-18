@@ -1,10 +1,18 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/ethers-execute'
 import { always } from 'ramda'
 
-export type CreateDecimalsCaller = (contract: Contract) => () => Promise<string>
+export type CreateDecimalsCaller = (
+	contract: ethers.Contract
+) => () => Promise<string>
 
 export const createDecimalsCaller: CreateDecimalsCaller = (
-	contract: Contract
-) => always(execute({ contract, method: 'decimals' }))
+	contract: ethers.Contract
+) =>
+	always(
+		execute<QueryOption>({
+			contract,
+			method: 'decimals',
+			mutation: false,
+		})
+	)

@@ -8,14 +8,12 @@ describe('allowance.spec.ts', () => {
 			const value = '12345'
 
 			const contract = {
-				methods: {
+				allowance: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					allowance: (from: string, to: string) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+					.mockImplementation(async (from: string, to: string) =>
+						Promise.resolve(value)
+					),
 			}
 
 			const expected = value
@@ -34,14 +32,12 @@ describe('allowance.spec.ts', () => {
 			const to = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 
 			const contract = {
-				methods: {
+				allowance: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					allowance: (from: string, to: string) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+					.mockImplementation(async (from: string, to: string) =>
+						Promise.reject(error)
+					),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

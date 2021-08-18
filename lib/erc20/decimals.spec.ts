@@ -6,13 +6,9 @@ describe('dcimals.spec.ts', () => {
 			const value = '18'
 
 			const contract = {
-				methods: {
-					decimals: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				decimals: jest
+					.fn()
+					.mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -29,13 +25,9 @@ describe('dcimals.spec.ts', () => {
 			const error = 'error'
 
 			const contract = {
-				methods: {
-					decimals: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				decimals: jest
+					.fn()
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
