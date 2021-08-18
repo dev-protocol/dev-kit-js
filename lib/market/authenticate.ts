@@ -74,7 +74,7 @@ export const createAuthenticateCaller: CreateAuthenticateCaller =
 				getMetricsProperty(metricsAddress, provider)
 					.then(
 						(metricsProperty) =>
-							metricsProperty === metricsAddress && resolve(metricsAddress)
+							metricsProperty === propertyAddress && resolve(metricsAddress)
 					)
 					.catch(reject)
 			)
