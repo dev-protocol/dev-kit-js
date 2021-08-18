@@ -9,7 +9,7 @@ import { Provider } from '@ethersproject/abstract-provider'
 import { ethers } from 'ethers'
 import { execute, QueryOption } from '../utils/ethers-execute'
 import { metricsAbi } from '../metrics/abi'
-import { construct } from 'ramda'
+import { metricsFactoryAbi } from '../metrics-factory/abi'
 
 const getMetricsProperty = async (
 	address: string,
@@ -23,6 +23,7 @@ const getMetricsProperty = async (
 
 export type WaitForEventOptions = {
 	readonly maxWaitngLoopCount: number
+	readonly metricsFactoryAddress: string
 }
 
 export type CreateAuthenticateCaller = (
@@ -39,7 +40,7 @@ export const createAuthenticateCaller: CreateAuthenticateCaller =
 	async (
 		propertyAddress: string,
 		args: readonly string[],
-		{ maxWaitngLoopCount }: WaitForEventOptions
+		{ maxWaitngLoopCount, metricsFactoryAddress }: WaitForEventOptions
 	): Promise<string> => {
 		await execute({
 			contract,
@@ -48,6 +49,11 @@ export const createAuthenticateCaller: CreateAuthenticateCaller =
 			args: [propertyAddress, ...args],
 			padEnd: 6,
 		})
+		const metricsFactoryContract = new ethers.Contract(
+			metricsFactoryAddress,
+			metricsFactoryAbi,
+			provider
+		)
 		// const blockNumber = await provider.getBlockNumber()
 		// // eslint-disable-next-line functional/no-let
 		// let loopCount = 0
@@ -70,13 +76,15 @@ export const createAuthenticateCaller: CreateAuthenticateCaller =
 		// }
 
 		return new Promise((resolve, reject) => {
-			contract.on('Create', async (_: string, metricsAddress: string) =>
-				getMetricsProperty(metricsAddress, provider)
-					.then(
-						(metricsProperty) =>
-							metricsProperty === propertyAddress && resolve(metricsAddress)
-					)
-					.catch(reject)
+			metricsFactoryContract.on(
+				'Create',
+				async (_: string, metricsAddress: string) =>
+					getMetricsProperty(metricsAddress, provider)
+						.then(
+							(metricsProperty) =>
+								metricsProperty === propertyAddress && resolve(metricsAddress)
+						)
+						.catch(reject)
 			)
 		})
 	}
