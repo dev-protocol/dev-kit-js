@@ -4,12 +4,10 @@ import { ethers } from 'ethers'
 import { AbiItem } from 'web3-utils'
 import { Provider } from '@ethersproject/abstract-provider'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { Signer } from '@ethersproject/abstract-signer'
 import { marketAbi } from './abi'
 import { CustomOptions } from '../option'
 import { createSchemaCaller } from './schema'
 import { createVoteCaller } from './vote'
-import { createBehaviorCaller } from './behavior'
 import { createAuthenticateCaller } from './authenticate'
 
 export type CreateMarketContract = {
@@ -22,7 +20,7 @@ export type CreateMarketContract = {
 		address: string,
 		args: readonly string[],
 		options: {
-			readonly metricsFactory: string
+			readonly metricsFactoryAddress: string
 		}
 	) => Promise<string>
 	readonly contract: () => Contract
@@ -45,11 +43,12 @@ export const createMarketContract =
 	}
 
 export const createEthersMarketContract =
-	(provider: Provider | Signer) =>
+	(provider: Provider) =>
 	(address: string): CreateMarketContract => {
 		const contract = new ethers.Contract(address, [...marketAbi], provider)
 		return {
 			vote: createVoteCaller(contract),
 			schema: createSchemaCaller(contract),
+			authenticate: createAuthenticateCaller(contract, provider),
 		}
 	}
