@@ -9,6 +9,7 @@ import { CustomOptions } from '../option'
 import { createSchemaCaller } from './schema'
 import { createVoteCaller } from './vote'
 import { createAuthenticateCaller } from './authenticate'
+import { createBehaviorCaller } from './behavior'
 
 export type CreateMarketContract = {
 	readonly schema: () => Promise<readonly string[]>
@@ -23,26 +24,11 @@ export type CreateMarketContract = {
 			readonly metricsFactoryAddress: string
 		}
 	) => Promise<string>
-	readonly contract: () => Contract
+	readonly behavior: () => Promise<string>
+	readonly contract: () => ethers.Contract
 }
 
 export const createMarketContract =
-	(client: Web3) =>
-	(address: string, options?: CustomOptions): CreateMarketContract => {
-		const contractClient: Contract = new client.eth.Contract(
-			[...(marketAbi as readonly AbiItem[])],
-			address,
-			{
-				...options,
-			}
-		)
-
-		return {
-			authenticate: createAuthenticateCaller(contractClient, client),
-		} as any
-	}
-
-export const createEthersMarketContract =
 	(provider: Provider) =>
 	(address: string): CreateMarketContract => {
 		const contract = new ethers.Contract(address, [...marketAbi], provider)
@@ -50,5 +36,8 @@ export const createEthersMarketContract =
 			vote: createVoteCaller(contract),
 			schema: createSchemaCaller(contract),
 			authenticate: createAuthenticateCaller(contract, provider),
+			behavior: createBehaviorCaller(contract),
+			// eslint-disable-next-line functional/functional-parameters
+			contract: () => contract,
 		}
 	}
