@@ -22,7 +22,6 @@ const getMetricsProperty = async (
 	})
 
 export type WaitForEventOptions = {
-	readonly maxWaitngLoopCount: number
 	readonly metricsFactoryAddress: string
 }
 
@@ -40,7 +39,7 @@ export const createAuthenticateCaller: CreateAuthenticateCaller =
 	async (
 		propertyAddress: string,
 		args: readonly string[],
-		{ maxWaitngLoopCount, metricsFactoryAddress }: WaitForEventOptions
+		{ metricsFactoryAddress }: WaitForEventOptions
 	): Promise<string> => {
 		await execute({
 			contract,
@@ -54,36 +53,18 @@ export const createAuthenticateCaller: CreateAuthenticateCaller =
 			metricsFactoryAbi,
 			provider
 		)
-		// const blockNumber = await provider.getBlockNumber()
-		// // eslint-disable-next-line functional/no-let
-		// let loopCount = 0
-		// while (true) {
-		// 	const events = await contract.queryFilter({}, blockNumber)
-		// 	for (const event of events) {
-		// 		if (event.event === 'Create') {
-		// 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		// 			const metrics = (event.args as any)._metrics
-		// 			const metricsProperty = await getMetricsProperty(metrics, provider)
-		// 			if (metricsProperty === propertyAddress) {
-		// 				return metrics
-		// 			}
-		// 		}
-		// 	}
-		// 	loopCount += 1
-		// 	if (loopCount === maxWaitngLoopCount) {
-		// 		throw new Error('Authentication failed')
-		// 	}
-		// }
 
 		return new Promise((resolve, reject) => {
-			metricsFactoryContract.on(
+			const subscriberdContract = metricsFactoryContract.on(
 				'Create',
 				async (_: string, metricsAddress: string) =>
 					getMetricsProperty(metricsAddress, provider)
-						.then(
-							(metricsProperty) =>
-								metricsProperty === propertyAddress && resolve(metricsAddress)
-						)
+						.then((metricsProperty) => {
+							if (metricsProperty === propertyAddress) {
+								subscriberdContract.removeAllListeners()
+								resolve(metricsAddress)
+							}
+						})
 						.catch(reject)
 			)
 		})
