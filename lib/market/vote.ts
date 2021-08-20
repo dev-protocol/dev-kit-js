@@ -1,24 +1,25 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import Web3 from 'web3'
-import { execute } from '../utils/execute'
-import { TxReceipt } from '../utils/web3-txs'
+import { ethers } from 'ethers'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
+import { execute, MutationOption } from '../utils/ethers-execute'
 
 export type CreateVoteCaller = (
-	contract: Contract,
-	client: Web3
-) => (propertyAddress: string, agree: boolean) => Promise<TxReceipt>
+	contract: ethers.Contract
+) => (propertyAddress: string, agree: boolean) => Promise<TransactionResponse>
 
 export const createVoteCaller: CreateVoteCaller =
 	(
-		contract: Contract,
-		client: Web3
-	): ((propertyAddress: string, agree: boolean) => Promise<TxReceipt>) =>
-	async (propertyAddress: string, agree: boolean): Promise<TxReceipt> =>
-		execute({
+		contract: ethers.Contract
+	): ((
+		propertyAddress: string,
+		agree: boolean
+	) => Promise<TransactionResponse>) =>
+	async (
+		propertyAddress: string,
+		agree: boolean
+	): Promise<TransactionResponse> =>
+		execute<MutationOption>({
 			contract,
 			method: 'vote',
-			mutation: true,
-			client,
 			args: [propertyAddress, agree],
+			mutation: true,
 		})

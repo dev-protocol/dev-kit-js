@@ -6,18 +6,14 @@ describe('calculateWithdrawableInterestAmount.spec.ts', () => {
 			const value = 'value'
 
 			const lockupContract = {
-				methods: {
-					calculateWithdrawableInterestAmount: (
+				calculateWithdrawableInterestAmount: jest.fn().mockImplementation(
+					async (
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						propertyAddress: string,
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						address: string
-					) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+					) => Promise.resolve(value)
+				),
 			}
 
 			const expected = value
@@ -39,18 +35,14 @@ describe('calculateWithdrawableInterestAmount.spec.ts', () => {
 			const error = 'error'
 
 			const lockupContract = {
-				methods: {
-					calculateWithdrawableInterestAmount: (
+				calculateWithdrawableInterestAmount: jest.fn().mockImplementation(
+					async (
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						propertyAddress: string,
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 						address: string
-					) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+					) => Promise.reject(error)
+				),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,5 +1,3 @@
-import { AbiItem } from 'web3-utils'
-
 export const marketFactoryAbi = [
 	{
 		inputs: [
@@ -156,4 +154,4 @@ export const marketFactoryAbi = [
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
-] as readonly AbiItem[]
+]

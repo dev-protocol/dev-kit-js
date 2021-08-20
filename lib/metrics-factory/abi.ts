@@ -1,5 +1,3 @@
-import { AbiItem } from 'web3-utils'
-
 export const metricsFactoryAbi = [
 	{
 		inputs: [
@@ -102,4 +100,4 @@ export const metricsFactoryAbi = [
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
-] as readonly AbiItem[]
+]

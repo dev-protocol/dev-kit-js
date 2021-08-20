@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable functional/no-this-expression */
 /* eslint-disable functional/no-conditional-statement */
 /* eslint-disable functional/no-return-void */
@@ -9,7 +10,12 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable no-extend-native */
 import Web3 from 'web3'
+import {
+	TransactionResponse,
+	TransactionReceipt,
+} from '@ethersproject/abstract-provider'
 import { SendTx } from './web3-txs'
+import { BigNumber } from 'ethers'
 
 export const stubbedWeb3 = {
 	eth: {
@@ -18,6 +24,60 @@ export const stubbedWeb3 = {
 		},
 	},
 } as unknown as Web3
+
+export type StubTransactionResposeFactory = (p: {
+	readonly hash?: string
+	readonly confirm?: (message?: string | undefined) => boolean
+	readonly confirmations?: number
+	readonly wait?: () => Promise<TransactionReceipt>
+	readonly from?: string
+	readonly nonce?: number
+	readonly gasLimit?: BigNumber
+	readonly data?: string
+	readonly value?: BigNumber
+	readonly chainId?: number
+}) => TransactionResponse
+
+export const stubTransactionResposeFactory: StubTransactionResposeFactory = ({
+	hash = 'hash',
+	confirm = (msg = 'message') => true,
+	wait = () =>
+		Promise.resolve<TransactionReceipt>({
+			to: 'to',
+			from: 'from',
+			contractAddress: 'contractAddress',
+			transactionIndex: 10,
+			gasUsed: BigNumber.from(10),
+			logsBloom: 'logsBloom',
+			blockHash: 'blockHash',
+			transactionHash: 'transactionHash',
+			logs: [],
+			blockNumber: 100,
+			confirmations: 102,
+			cumulativeGasUsed: BigNumber.from(10),
+			effectiveGasPrice: BigNumber.from(10),
+			byzantium: true,
+			type: 10,
+		}),
+	confirmations = 102,
+	from = 'from',
+	nonce = 10,
+	gasLimit = BigNumber.from(10),
+	data = 'data',
+	value = BigNumber.from(10),
+	chainId = 10,
+}) => ({
+	hash,
+	confirm,
+	confirmations,
+	wait,
+	from,
+	nonce,
+	gasLimit,
+	data,
+	value,
+	chainId,
+})
 
 export const stubbedSendTx = (
 	confirmationEvent: {

@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import Web3 from 'web3'
-import { always } from 'ramda'
-import { Contract } from 'web3-eth-contract/types'
+import { ethers } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { devAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createTransferCaller } from './../erc20/transfer'
 import { createBalanceOfCaller } from './../erc20/balanceOf'
 import { createTotalSupplyCaller } from './../erc20/totalSupply'
@@ -30,35 +28,23 @@ export type DevContract = {
 	readonly symbol: () => Promise<string>
 	readonly decimals: () => Promise<string>
 	readonly deposit: (to: string, value: string) => Promise<boolean>
-	readonly contract: () => Contract
 }
 
-export type CreateDevContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => DevContract
-
-export const createDevContract: CreateDevContract =
-	(client: Web3) =>
-	(address?: string, options?: CustomOptions): DevContract => {
-		const contractClient: Contract = new client.eth.Contract(
-			[...devAbi],
-			address,
-			{
-				...options,
-			}
-		)
+export const createDevContract =
+	(provider: Provider | Signer) =>
+	(address: string): DevContract => {
+		const contract = new ethers.Contract(address, [...devAbi], provider)
 
 		return {
-			totalSupply: createTotalSupplyCaller(contractClient),
-			balanceOf: createBalanceOfCaller(contractClient),
-			transfer: createTransferCaller(contractClient, client),
-			allowance: createAllowanceCaller(contractClient),
-			approve: createApproveCaller(contractClient, client),
-			transferFrom: createTransferFromCaller(contractClient, client),
-			name: createNameCaller(contractClient),
-			symbol: createSymbolCaller(contractClient),
-			decimals: createDecimalsCaller(contractClient),
-			deposit: createDepositCaller(contractClient, client),
-			contract: always(contractClient),
+			totalSupply: createTotalSupplyCaller(contract),
+			balanceOf: createBalanceOfCaller(contract),
+			transfer: createTransferCaller(contract),
+			allowance: createAllowanceCaller(contract),
+			approve: createApproveCaller(contract),
+			transferFrom: createTransferFromCaller(contract),
+			name: createNameCaller(contract),
+			symbol: createSymbolCaller(contract),
+			decimals: createDecimalsCaller(contract),
+			deposit: createDepositCaller(contract),
 		}
 	}

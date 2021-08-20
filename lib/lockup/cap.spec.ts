@@ -6,13 +6,7 @@ describe('cap.spec.ts', () => {
 			const value = 'value'
 
 			const lockupContract = {
-				methods: {
-					cap: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				cap: jest.fn().mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -29,14 +23,8 @@ describe('cap.spec.ts', () => {
 			const error = 'error'
 
 			const lockupContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					cap: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				cap: () =>
+					jest.fn().mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
