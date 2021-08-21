@@ -1,5 +1,3 @@
-import { AbiItem } from 'web3-utils'
-
 export const policyFactoryAbi = [
 	{
 		inputs: [
@@ -150,4 +148,4 @@ export const policyFactoryAbi = [
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
-] as readonly AbiItem[]
+]
