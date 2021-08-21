@@ -8,16 +8,14 @@ describe('changeSymbol.spec.ts', () => {
 			const nextSymbol = 'next'
 
 			const contract = {
-				methods: {
+				changeSymbol: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					changeSymbol: (nextSymbol: string) => ({
-						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
-					}),
-				},
+					.mockImplementation(async (nextSymbol: string) => stubbedSendTx()),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createChangeSymbolCaller(contract as any, stubbedWeb3)
+			const caller = createChangeSymbolCaller(contract as any)
 
 			const result = await caller(nextSymbol)
 
@@ -28,18 +26,16 @@ describe('changeSymbol.spec.ts', () => {
 			const nextSymbol = 'next'
 
 			const contract = {
-				methods: {
+				changeSymbol: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					changeSymbol: (nextSymbol: string) => ({
-						send: jest
-							.fn()
-							.mockImplementation(async () => stubbedSendTx(undefined, true)),
-					}),
-				},
+					.mockImplementation(async (nextSymbol: string) =>
+						stubbedSendTx(undefined, true)
+					),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createChangeSymbolCaller(contract as any, stubbedWeb3)
+			const caller = createChangeSymbolCaller(contract as any)
 
 			const result = await caller(nextSymbol).catch((err) => err)
 

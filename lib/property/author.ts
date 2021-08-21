@@ -1,9 +1,18 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/ethers-execute'
 import { always } from 'ramda'
 
-export type CreateAuthorCaller = (contract: Contract) => () => Promise<string>
+export type CreateAuthorCaller = (
+	contract: ethers.Contract
+) => () => Promise<string>
 
-export const createAuthorCaller: CreateAuthorCaller = (contract: Contract) =>
-	always(execute({ contract, method: 'author' }))
+export const createAuthorCaller: CreateAuthorCaller = (
+	contract: ethers.Contract
+) =>
+	always(
+		execute<QueryOption>({
+			contract,
+			method: 'author',
+			mutation: false,
+		})
+	)
