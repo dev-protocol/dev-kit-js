@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
+import { ethers } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { addressConfigAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createTokenCaller } from './token'
 import { createAllocatorCaller } from './allocator'
 import { createAllocatorStorageCaller } from './allocatorStorage'
@@ -20,7 +19,6 @@ import { createWithdrawStorageCaller } from './withdrawStorage'
 import { createPolicyFactoryCaller } from './policyFactory'
 import { createPolicySetCaller } from './policySet'
 import { createPolicyGroupCaller } from './policyGroup'
-import { always } from 'ramda'
 
 export type RegistryContract = {
 	readonly allocator: () => Promise<string>
@@ -40,42 +38,38 @@ export type RegistryContract = {
 	readonly token: () => Promise<string>
 	readonly withdraw: () => Promise<string>
 	readonly withdrawStorage: () => Promise<string>
-	readonly contract: () => Contract
 }
 
 export type CreateRegistryContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => RegistryContract
+	provider: Provider | Signer
+) => (address: string) => RegistryContract
 
 export const createRegistryContract: CreateRegistryContract =
-	(client: Web3) =>
-	(address?: string, options?: CustomOptions): RegistryContract => {
-		const contractClient: Contract = new client.eth.Contract(
-			[...addressConfigAbi],
+	(provider: Provider | Signer) =>
+	(address: string): RegistryContract => {
+		const contract = new ethers.Contract(
 			address,
-			{
-				...options,
-			}
+			[...addressConfigAbi],
+			provider
 		)
 
 		return {
-			allocator: createAllocatorCaller(contractClient),
-			allocatorStorage: createAllocatorStorageCaller(contractClient),
-			lockup: createLockupCaller(contractClient),
-			lockupStorage: createLockupStorageCaller(contractClient),
-			marketFactory: createMarketFactoryCaller(contractClient),
-			marketGroup: createMarketGroupCaller(contractClient),
-			metricsFactory: createMetricsFactoryCaller(contractClient),
-			metricsGroup: createMetricsGroupCaller(contractClient),
-			policy: createPolicyCaller(contractClient),
-			policySet: createPolicySetCaller(contractClient),
-			policyGroup: createPolicyGroupCaller(contractClient),
-			policyFactory: createPolicyFactoryCaller(contractClient),
-			propertyFactory: createPropertyFactoryCaller(contractClient),
-			propertyGroup: createPropertyGroupCaller(contractClient),
-			token: createTokenCaller(contractClient),
-			withdraw: createWithdrawCaller(contractClient),
-			withdrawStorage: createWithdrawStorageCaller(contractClient),
-			contract: always(contractClient),
+			allocator: createAllocatorCaller(contract),
+			allocatorStorage: createAllocatorStorageCaller(contract),
+			lockup: createLockupCaller(contract),
+			lockupStorage: createLockupStorageCaller(contract),
+			marketFactory: createMarketFactoryCaller(contract),
+			marketGroup: createMarketGroupCaller(contract),
+			metricsFactory: createMetricsFactoryCaller(contract),
+			metricsGroup: createMetricsGroupCaller(contract),
+			policy: createPolicyCaller(contract),
+			policySet: createPolicySetCaller(contract),
+			policyGroup: createPolicyGroupCaller(contract),
+			policyFactory: createPolicyFactoryCaller(contract),
+			propertyFactory: createPropertyFactoryCaller(contract),
+			propertyGroup: createPropertyGroupCaller(contract),
+			token: createTokenCaller(contract),
+			withdraw: createWithdrawCaller(contract),
+			withdrawStorage: createWithdrawStorageCaller(contract),
 		}
 	}

@@ -1,35 +1,29 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
+import { ethers } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { policyFactoryAbi } from './abi'
-import { CustomOptions } from '../option'
-import { always } from 'ramda'
 import { createCreateCaller } from './create'
 import { createForceAttachCaller } from './forceAttach'
 
 export type PolicyFactoryContract = {
 	readonly create: (newPolicyAddress: string) => Promise<boolean>
 	readonly forceAttach: (policy: string) => Promise<boolean>
-	readonly contract: () => Contract
 }
 
 export type CreatePolicyFactoryContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => PolicyFactoryContract
+	provider: Provider | Signer
+) => (address: string) => PolicyFactoryContract
 
 export const createPolicyFactoryContract: CreatePolicyFactoryContract =
-	(client: Web3) => (address?: string, options?: CustomOptions) => {
-		const contractClient: Contract = new client.eth.Contract(
-			[...policyFactoryAbi],
+	(provider: Provider | Signer) => (address: string) => {
+		const contract = new ethers.Contract(
 			address,
-			{
-				...options,
-			}
+			[...policyFactoryAbi],
+			provider
 		)
 
 		return {
-			create: createCreateCaller(contractClient, client),
-			forceAttach: createForceAttachCaller(contractClient, client),
-			contract: always(contractClient),
+			create: createCreateCaller(contract),
+			forceAttach: createForceAttachCaller(contract),
 		}
 	}

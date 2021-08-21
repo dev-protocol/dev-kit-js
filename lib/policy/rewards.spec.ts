@@ -6,12 +6,10 @@ describe('rewards.spec.ts', () => {
 			const value = '12345'
 
 			const policyContract = {
-				methods: {
+				rewards: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					rewards: (lockups: string, assets: string) => ({
-						call: jest.fn().mockImplementation(async () => value),
-					}),
-				},
+					.mockImplementation(async (lockups: string, assets: string) => value),
 			}
 
 			const expected = value
@@ -28,14 +26,12 @@ describe('rewards.spec.ts', () => {
 			const error = 'error'
 
 			const policyContract = {
-				methods: {
+				rewards: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					rewards: (lockups: string, assets: string) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+					.mockImplementation(async (lockups: string, assets: string) =>
+						Promise.reject(error)
+					),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

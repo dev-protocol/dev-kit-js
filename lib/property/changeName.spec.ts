@@ -8,16 +8,14 @@ describe('changeName.spec.ts', () => {
 			const nextName = 'next'
 
 			const contract = {
-				methods: {
+				changeName: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					changeName: (nextName: string) => ({
-						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
-					}),
-				},
+					.mockImplementation(async (nextName: string) => stubbedSendTx()),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createChangeNameCaller(contract as any, stubbedWeb3)
+			const caller = createChangeNameCaller(contract as any)
 
 			const result = await caller(nextName)
 
@@ -28,18 +26,16 @@ describe('changeName.spec.ts', () => {
 			const nextName = 'next'
 
 			const contract = {
-				methods: {
+				changeName: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					changeName: (nextName: string) => ({
-						send: jest
-							.fn()
-							.mockImplementation(async () => stubbedSendTx(undefined, true)),
-					}),
-				},
+					.mockImplementation(async (nextName: string) =>
+						stubbedSendTx(undefined, true)
+					),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createChangeNameCaller(contract as any, stubbedWeb3)
+			const caller = createChangeNameCaller(contract as any)
 
 			const result = await caller(nextName).catch((err) => err)
 

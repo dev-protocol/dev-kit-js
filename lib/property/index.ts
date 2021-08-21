@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
-import { always } from 'ramda'
+import { ethers } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { propertyAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createAuthorCaller } from './author'
 import { createChangeAuthorCaller } from './changeAuthor'
 import { createChangeNameCaller } from './changeName'
@@ -36,38 +34,30 @@ export type PropertyContract = {
 	readonly changeAuthor: (nextAuthor: string) => Promise<boolean>
 	readonly changeName: (nextName: string) => Promise<boolean>
 	readonly changeSymbol: (nextSymbol: string) => Promise<boolean>
-	readonly contract: () => Contract
 }
 
 export type CreatePropertyContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => PropertyContract
+	provider: Provider | Signer
+) => (address: string) => PropertyContract
 
 export const createPropertyContract: CreatePropertyContract =
-	(client: Web3) =>
-	(address?: string, options?: CustomOptions): PropertyContract => {
-		const contractClient: Contract = new client.eth.Contract(
-			[...propertyAbi],
-			address,
-			{
-				...options,
-			}
-		)
+	(provider: Provider | Signer) =>
+	(address: string): PropertyContract => {
+		const contract = new ethers.Contract(address, [...propertyAbi], provider)
 
 		return {
-			totalSupply: createTotalSupplyCaller(contractClient),
-			balanceOf: createBalanceOfCaller(contractClient),
-			transfer: createTransferCaller(contractClient, client),
-			allowance: createAllowanceCaller(contractClient),
-			approve: createApproveCaller(contractClient, client),
-			transferFrom: createTransferFromCaller(contractClient, client),
-			name: createNameCaller(contractClient),
-			symbol: createSymbolCaller(contractClient),
-			decimals: createDecimalsCaller(contractClient),
-			author: createAuthorCaller(contractClient),
-			changeAuthor: createChangeAuthorCaller(contractClient, client),
-			changeName: createChangeNameCaller(contractClient, client),
-			changeSymbol: createChangeSymbolCaller(contractClient, client),
-			contract: always(contractClient),
+			totalSupply: createTotalSupplyCaller(contract),
+			balanceOf: createBalanceOfCaller(contract),
+			transfer: createTransferCaller(contract),
+			allowance: createAllowanceCaller(contract),
+			approve: createApproveCaller(contract),
+			transferFrom: createTransferFromCaller(contract),
+			name: createNameCaller(contract),
+			symbol: createSymbolCaller(contract),
+			decimals: createDecimalsCaller(contract),
+			author: createAuthorCaller(contract),
+			changeAuthor: createChangeAuthorCaller(contract),
+			changeName: createChangeNameCaller(contract),
+			changeSymbol: createChangeSymbolCaller(contract),
 		}
 	}

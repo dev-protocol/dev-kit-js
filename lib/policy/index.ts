@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
+import { ethers } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { policyAbi } from './abi'
-import { CustomOptions } from '../option'
-import { always } from 'ramda'
 import { createHoldersShareCaller } from './holdersShare'
 import { createRewardsCaller } from './rewards'
 import { createAuthenticationFeeCaller } from './authenticationFee'
@@ -25,32 +23,21 @@ export type PolicyContract = {
 	readonly shareOfTreasury: (supply: string) => Promise<string>
 	readonly treasury: () => Promise<string>
 	readonly capSetter: () => Promise<string>
-	readonly contract: () => Contract
 }
 
-export type CreatePolicyContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => PolicyContract
-
-export const createPolicyContract: CreatePolicyContract =
-	(client: Web3) => (address?: string, options?: CustomOptions) => {
-		const contractClient: Contract = new client.eth.Contract(
-			[...policyAbi],
-			address,
-			{
-				...options,
-			}
-		)
+export const createPolicyContract =
+	(provider: Provider | Signer) =>
+	(address: string): PolicyContract => {
+		const contract = new ethers.Contract(address, [...policyAbi], provider)
 
 		return {
-			holdersShare: createHoldersShareCaller(contractClient),
-			rewards: createRewardsCaller(contractClient),
-			authenticationFee: createAuthenticationFeeCaller(contractClient),
-			marketVotingBlocks: createMarketVotingBlocksCaller(contractClient),
-			policyVotingBlocks: createPolicyVotingBlocksCaller(contractClient),
-			shareOfTreasury: createShareOfTreasuryCaller(contractClient),
-			treasury: createTreasuryCaller(contractClient),
-			capSetter: createCapSetterCaller(contractClient),
-			contract: always(contractClient),
+			holdersShare: createHoldersShareCaller(contract),
+			rewards: createRewardsCaller(contract),
+			authenticationFee: createAuthenticationFeeCaller(contract),
+			marketVotingBlocks: createMarketVotingBlocksCaller(contract),
+			policyVotingBlocks: createPolicyVotingBlocksCaller(contract),
+			shareOfTreasury: createShareOfTreasuryCaller(contract),
+			treasury: createTreasuryCaller(contract),
+			capSetter: createCapSetterCaller(contract),
 		}
 	}

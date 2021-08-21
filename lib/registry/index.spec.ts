@@ -1,7 +1,6 @@
-import Web3 from 'web3'
+import { ethers } from 'ethers'
 import { createRegistryContract, RegistryContract } from '.'
 import { addressConfigAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createTokenCaller } from './token'
 import { createAllocatorCaller } from './allocator'
 import { createAllocatorStorageCaller } from './allocatorStorage'
@@ -20,53 +19,111 @@ import { createPolicyFactoryCaller } from './policyFactory'
 import { createPolicySetCaller } from './policySet'
 import { createPolicyGroupCaller } from './policyGroup'
 
+jest.mock('./token')
+jest.mock('./allocator')
+jest.mock('./allocatorStorage')
+jest.mock('./lockup')
+jest.mock('./lockupStorage')
+jest.mock('./marketFactory')
+jest.mock('./marketGroup')
+jest.mock('./metricsFactory')
+jest.mock('./metricsGroup')
+jest.mock('./policy')
+jest.mock('./propertyFactory')
+jest.mock('./propertyGroup')
+jest.mock('./withdraw')
+jest.mock('./withdrawStorage')
+jest.mock('./policyFactory')
+jest.mock('./policySet')
+jest.mock('./policyGroup')
+
 describe('registry/index.ts', () => {
+	;(createTokenCaller as jest.Mock).mockImplementation((contract) => contract)
+	;(createAllocatorCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createAllocatorStorageCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createLockupCaller as jest.Mock).mockImplementation((contract) => contract)
+	;(createLockupStorageCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createMarketFactoryCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createMarketGroupCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createMetricsFactoryCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createMetricsGroupCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createPolicyCaller as jest.Mock).mockImplementation((contract) => contract)
+	;(createPropertyFactoryCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createPropertyGroupCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createWithdrawCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createWithdrawStorageCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createPolicyFactoryCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createPolicySetCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createPolicyGroupCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
 	describe('createRegistryContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
-			const client = new Web3()
-			client.setProvider(new Web3.providers.HttpProvider(host))
+			const address = '0x0000000000000000000000000000000000000000'
+			const provider = new ethers.providers.JsonRpcProvider(host)
 
-			const expected: (
-				address?: string,
-				options?: CustomOptions
-			) => RegistryContract = (address?: string, options?: CustomOptions) => {
-				const registryContract = new client.eth.Contract(
-					[...addressConfigAbi],
+			const expected: (address: string) => RegistryContract = (
+				address: string
+			) => {
+				const contract = new ethers.Contract(
 					address,
-					{
-						...options,
-					}
+					[...addressConfigAbi],
+					provider
 				)
+
 				return {
-					allocator: createAllocatorCaller(registryContract),
-					allocatorStorage: createAllocatorStorageCaller(registryContract),
-					lockup: createLockupCaller(registryContract),
-					lockupStorage: createLockupStorageCaller(registryContract),
-					marketFactory: createMarketFactoryCaller(registryContract),
-					marketGroup: createMarketGroupCaller(registryContract),
-					metricsFactory: createMetricsFactoryCaller(registryContract),
-					metricsGroup: createMetricsGroupCaller(registryContract),
-					policy: createPolicyCaller(registryContract),
-					policySet: createPolicySetCaller(registryContract),
-					policyGroup: createPolicyGroupCaller(registryContract),
-					policyFactory: createPolicyFactoryCaller(registryContract),
-					propertyFactory: createPropertyFactoryCaller(registryContract),
-					propertyGroup: createPropertyGroupCaller(registryContract),
-					token: createTokenCaller(registryContract),
-					withdraw: createWithdrawCaller(registryContract),
-					withdrawStorage: createWithdrawStorageCaller(registryContract),
-					contract: () => registryContract,
+					allocator: createAllocatorCaller(contract),
+					allocatorStorage: createAllocatorStorageCaller(contract),
+					lockup: createLockupCaller(contract),
+					lockupStorage: createLockupStorageCaller(contract),
+					marketFactory: createMarketFactoryCaller(contract),
+					marketGroup: createMarketGroupCaller(contract),
+					metricsFactory: createMetricsFactoryCaller(contract),
+					metricsGroup: createMetricsGroupCaller(contract),
+					policy: createPolicyCaller(contract),
+					policySet: createPolicySetCaller(contract),
+					policyGroup: createPolicyGroupCaller(contract),
+					policyFactory: createPolicyFactoryCaller(contract),
+					propertyFactory: createPropertyFactoryCaller(contract),
+					propertyGroup: createPropertyGroupCaller(contract),
+					token: createTokenCaller(contract),
+					withdraw: createWithdrawCaller(contract),
+					withdrawStorage: createWithdrawStorageCaller(contract),
 				}
 			}
 
-			const result = createRegistryContract(client)
+			const result = createRegistryContract(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(
-				JSON.stringify(result('0x0000000000000000000000000000000000000000'))
-			).toEqual(
-				JSON.stringify(expected('0x0000000000000000000000000000000000000000'))
+			expect(JSON.stringify(result(address))).toEqual(
+				JSON.stringify(expected(address))
 			)
 		})
 	})

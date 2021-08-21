@@ -6,12 +6,10 @@ describe('shareOfTreasury.spec.ts', () => {
 			const value = '12345'
 
 			const policyContract = {
-				methods: {
+				shareOfTreasury: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					shareOfTreasury: (supply: string) => ({
-						call: jest.fn().mockImplementation(async () => value),
-					}),
-				},
+					.mockImplementation(async (supply: string) => value),
 			}
 
 			const expected = value
@@ -28,14 +26,10 @@ describe('shareOfTreasury.spec.ts', () => {
 			const error = 'error'
 
 			const policyContract = {
-				methods: {
+				shareOfTreasury: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					shareOfTreasury: (supply: string) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+					.mockImplementation(async (supply: string) => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

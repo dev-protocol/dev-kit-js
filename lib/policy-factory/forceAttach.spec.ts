@@ -1,5 +1,5 @@
 import { createForceAttachCaller } from './forceAttach'
-import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
+import { stubbedSendTx } from '../utils/for-test'
 
 describe('forceAttach.spec.ts', () => {
 	describe('createForceAttachCaller', () => {
@@ -8,18 +8,16 @@ describe('forceAttach.spec.ts', () => {
 			const policy = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 
 			const devContract = {
-				methods: {
+				forceAttach: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					forceAttach: (policy: string) => ({
-						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
-					}),
-				},
+					.mockImplementation(async (policy: string) => stubbedSendTx()),
 			}
 
 			const expected = success
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createForceAttachCaller(devContract as any, stubbedWeb3)
+			const caller = createForceAttachCaller(devContract as any)
 
 			const result = await caller(policy)
 
@@ -30,18 +28,16 @@ describe('forceAttach.spec.ts', () => {
 			const policy = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 
 			const devContract = {
-				methods: {
+				forceAttach: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					forceAttach: (policy: string) => ({
-						send: jest
-							.fn()
-							.mockImplementation(async () => stubbedSendTx(undefined, true)),
-					}),
-				},
+					.mockImplementation(async (policy: string) =>
+						stubbedSendTx(undefined, true)
+					),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createForceAttachCaller(devContract as any, stubbedWeb3)
+			const caller = createForceAttachCaller(devContract as any)
 
 			const result = await caller(policy).catch((err) => err)
 

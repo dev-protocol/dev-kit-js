@@ -1,12 +1,18 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/ethers-execute'
 import { always } from 'ramda'
 
 export type CreateWithdrawStorageCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => () => Promise<string>
 
 export const createWithdrawStorageCaller: CreateWithdrawStorageCaller = (
-	contract: Contract
-) => always(execute({ contract, method: 'withdrawStorage' }))
+	contract: ethers.Contract
+) =>
+	always(
+		execute<QueryOption>({
+			contract,
+			method: 'withdrawStorage',
+			mutation: false,
+		})
+	)

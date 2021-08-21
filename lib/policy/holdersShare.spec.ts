@@ -6,12 +6,10 @@ describe('holdersShare.spec.ts', () => {
 			const value = '12345'
 
 			const policyContract = {
-				methods: {
+				holdersShare: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					holdersShare: (amount: string, lockups: string) => ({
-						call: jest.fn().mockImplementation(async () => value),
-					}),
-				},
+					.mockImplementation(async (amount: string, lockups: string) => value),
 			}
 
 			const expected = value
@@ -28,14 +26,12 @@ describe('holdersShare.spec.ts', () => {
 			const error = 'error'
 
 			const policyContract = {
-				methods: {
+				holdersShare: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					holdersShare: (amount: string, lockups: string) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+					.mockImplementation(async (amount: string, lockups: string) =>
+						Promise.reject(error)
+					),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

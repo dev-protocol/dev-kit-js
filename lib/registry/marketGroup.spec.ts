@@ -6,13 +6,9 @@ describe('createMarketGroupCaller.spec.ts', () => {
 			const value = 'value'
 
 			const addressConfigContract = {
-				methods: {
-					marketGroup: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				marketGroup: jest
+					.fn()
+					.mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -29,13 +25,9 @@ describe('createMarketGroupCaller.spec.ts', () => {
 			const error = 'error'
 
 			const addressConfigContract = {
-				methods: {
-					marketGroup: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				marketGroup: jest
+					.fn()
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

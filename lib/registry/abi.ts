@@ -1,5 +1,3 @@
-import { AbiItem } from 'web3-utils'
-
 export const addressConfigAbi = [
 	{
 		anonymous: false,
@@ -728,4 +726,4 @@ export const addressConfigAbi = [
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
-] as readonly AbiItem[]
+]

@@ -1,7 +1,6 @@
-import Web3 from 'web3'
+import { ethers } from 'ethers'
 import { createPolicyFactoryContract, PolicyFactoryContract } from '.'
 import { policyFactoryAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createCreateCaller } from './create'
 import { createForceAttachCaller } from './forceAttach'
 
@@ -9,38 +8,29 @@ describe('policy/index.ts', () => {
 	describe('createPolicyContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
-			const client = new Web3()
-			client.setProvider(new Web3.providers.HttpProvider(host))
+			const address = '0x0000000000000000000000000000000000000000'
+			const provider = new ethers.providers.JsonRpcProvider(host)
 
-			const expected: (
-				address?: string,
-				options?: CustomOptions
-			) => PolicyFactoryContract = (
-				address?: string,
-				options?: CustomOptions
+			const expected: (address: string) => PolicyFactoryContract = (
+				address: string
 			) => {
-				const policyContract = new client.eth.Contract(
-					[...policyFactoryAbi],
+				const contract = new ethers.Contract(
 					address,
-					{
-						...options,
-					}
+					[...policyFactoryAbi],
+					provider
 				)
 
 				return {
-					create: createCreateCaller(policyContract, client),
-					forceAttach: createForceAttachCaller(policyContract, client),
-					contract: () => policyContract,
+					create: createCreateCaller(contract),
+					forceAttach: createForceAttachCaller(contract),
 				}
 			}
 
-			const result = createPolicyFactoryContract(client)
+			const result = createPolicyFactoryContract(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(
-				JSON.stringify(result('0x0000000000000000000000000000000000000000'))
-			).toEqual(
-				JSON.stringify(expected('0x0000000000000000000000000000000000000000'))
+			expect(JSON.stringify(result(address))).toEqual(
+				JSON.stringify(expected(address))
 			)
 		})
 	})
