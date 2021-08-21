@@ -1,30 +1,24 @@
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
+import { ethers } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { metricsGroupAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createTotalAuthenticatedPropertiesCaller } from './totalAuthenticatedProperties'
-import { always } from 'ramda'
 
 export type CreateMetricsGroupContract = {
 	readonly totalAuthenticatedProperties: () => Promise<string>
-	readonly contract: () => Contract
 }
 
-// eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
 export const createMetricsGroupContract =
-	(client: Web3) =>
-	(address?: string, options?: CustomOptions): CreateMetricsGroupContract => {
-		const contractClient: Contract = new client.eth.Contract(
-			[...metricsGroupAbi],
+	(provider: Provider | Signer) =>
+	(address: string): CreateMetricsGroupContract => {
+		const contract = new ethers.Contract(
 			address,
-			{
-				...options,
-			}
+			[...metricsGroupAbi],
+			provider
 		)
 
 		return {
 			totalAuthenticatedProperties:
-				createTotalAuthenticatedPropertiesCaller(contractClient),
-			contract: always(contractClient),
+				createTotalAuthenticatedPropertiesCaller(contract),
 		}
 	}

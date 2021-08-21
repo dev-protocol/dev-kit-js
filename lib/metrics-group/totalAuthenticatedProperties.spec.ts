@@ -6,13 +6,9 @@ describe('totalAuthenticatedProperties.spec.ts', () => {
 			const value = 'value'
 
 			const metricsGroupContract = {
-				methods: {
-					totalAuthenticatedProperties: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				totalAuthenticatedProperties: jest
+					.fn()
+					.mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -31,14 +27,9 @@ describe('totalAuthenticatedProperties.spec.ts', () => {
 			const error = 'error'
 
 			const metricsGroupContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					totalAuthenticatedProperties: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				totalAuthenticatedProperties: jest
+					.fn()
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

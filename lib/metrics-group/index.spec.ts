@@ -1,44 +1,39 @@
-import Web3 from 'web3'
+import { ethers } from 'ethers'
 import { createMetricsGroupContract, CreateMetricsGroupContract } from '.'
-import { CustomOptions } from '../option'
 import { metricsGroupAbi } from './abi'
 import { createTotalAuthenticatedPropertiesCaller } from './totalAuthenticatedProperties'
 
+jest.mock('./totalAuthenticatedProperties')
+
 describe('metrics-group.ts', () => {
+	;(createTotalAuthenticatedPropertiesCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
 	describe('createMetricsGroupContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
-			const client = new Web3()
-			client.setProvider(new Web3.providers.HttpProvider(host))
+			const address = '0x0000000000000000000000000000000000000000'
+			const provider = new ethers.providers.JsonRpcProvider(host)
 
-			const expected: (
-				address?: string,
-				options?: CustomOptions
-			) => CreateMetricsGroupContract = (
-				address?: string,
-				options?: CustomOptions
+			const expected: (address: string) => CreateMetricsGroupContract = (
+				address: string
 			) => {
-				const metricsGroupContract = new client.eth.Contract(
-					[...metricsGroupAbi],
+				const contract = new ethers.Contract(
 					address,
-					{
-						...options,
-					}
+					[...metricsGroupAbi],
+					provider
 				)
 				return {
 					totalAuthenticatedProperties:
-						createTotalAuthenticatedPropertiesCaller(metricsGroupContract),
-					contract: () => metricsGroupContract,
+						createTotalAuthenticatedPropertiesCaller(contract),
 				}
 			}
 
-			const result = createMetricsGroupContract(client)
+			const result = createMetricsGroupContract(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(
-				JSON.stringify(result('0x0000000000000000000000000000000000000000'))
-			).toEqual(
-				JSON.stringify(expected('0x0000000000000000000000000000000000000000'))
+			expect(JSON.stringify(result(address))).toEqual(
+				JSON.stringify(expected(address))
 			)
 		})
 	})
