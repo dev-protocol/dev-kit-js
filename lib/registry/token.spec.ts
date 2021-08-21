@@ -6,13 +6,7 @@ describe('createTokenCaller.spec.ts', () => {
 			const value = 'value'
 
 			const addressConfigContract = {
-				methods: {
-					token: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				token: jest.fn().mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -29,13 +23,7 @@ describe('createTokenCaller.spec.ts', () => {
 			const error = 'error'
 
 			const addressConfigContract = {
-				methods: {
-					token: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				token: jest.fn().mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

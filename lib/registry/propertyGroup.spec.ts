@@ -6,13 +6,9 @@ describe('createPropertyGroupCaller.spec.ts', () => {
 			const value = 'value'
 
 			const addressConfigContract = {
-				methods: {
-					propertyGroup: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				propertyGroup: jest
+					.fn()
+					.mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -29,13 +25,9 @@ describe('createPropertyGroupCaller.spec.ts', () => {
 			const error = 'error'
 
 			const addressConfigContract = {
-				methods: {
-					propertyGroup: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				propertyGroup: jest
+					.fn()
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
