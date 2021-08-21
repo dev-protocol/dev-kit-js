@@ -6,13 +6,8 @@ describe('marketVotingBlocks.spec.ts', () => {
 			const value = '1111'
 
 			const contract = {
-				methods: {
-					marketVotingBlocks: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				marketVotingBlocks: () =>
+					jest.fn().mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -29,13 +24,9 @@ describe('marketVotingBlocks.spec.ts', () => {
 			const error = 'error'
 
 			const contract = {
-				methods: {
-					marketVotingBlocks: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				marketVotingBlocks: jest
+					.fn()
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

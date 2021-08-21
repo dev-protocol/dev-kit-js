@@ -6,13 +6,9 @@ describe('capSetter.spec.ts', () => {
 			const value = '1111'
 
 			const contract = {
-				methods: {
-					capSetter: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				capSetter: jest
+					.fn()
+					.mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -29,13 +25,9 @@ describe('capSetter.spec.ts', () => {
 			const error = 'error'
 
 			const contract = {
-				methods: {
-					capSetter: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				capSetter: jest
+					.fn()
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
