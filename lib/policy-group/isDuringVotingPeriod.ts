@@ -1,17 +1,18 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, MutationOption, QueryOption } from '../utils/ethers-execute'
+import { T } from 'ramda'
 
 export type CreateIsDuringVotingPeriodCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => (policyAddress: string) => Promise<boolean>
 
 export const createIsDuringVotingPeriodCaller: CreateIsDuringVotingPeriodCaller =
 
-		(contract: Contract) =>
+		(contract: ethers.Contract) =>
 		async (policyAddress: string): Promise<boolean> =>
-			execute({
+			execute<QueryOption>({
 				contract,
 				method: 'isDuringVotingPeriod',
 				args: [policyAddress],
-			})
+				mutation: false,
+			}).then(T)

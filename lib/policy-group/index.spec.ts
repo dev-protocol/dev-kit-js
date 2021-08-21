@@ -1,44 +1,44 @@
-import Web3 from 'web3'
+import { ethers } from 'ethers'
 import { createPolicyGroupContract, PolicyGroupContract } from '.'
 import { createIsGroupCaller } from './isGroup'
+import { createIsDuringVotingPeriodCaller } from './isDuringVotingPeriod'
 import { policyGroupAbi } from './abi'
-import { CustomOptions } from '../option'
+
+jest.mock('./isGroup')
+jest.mock('./isDuringVotingPeriod')
 
 describe('policy-group/index.ts', () => {
+	;(createIsGroupCaller as jest.Mock).mockImplementation((contract) => contract)
+	;(createIsDuringVotingPeriodCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+
 	describe('createPolicyGroupContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
-			const client = new Web3()
-			client.setProvider(new Web3.providers.HttpProvider(host))
+			const address = '0x0000000000000000000000000000000000000000'
+			const provider = new ethers.providers.JsonRpcProvider(host)
 
-			const expected: (
-				address?: string,
-				options?: CustomOptions
-			) => PolicyGroupContract = (
-				address?: string,
-				options?: CustomOptions
+			const expected: (address: string) => PolicyGroupContract = (
+				address: string
 			) => {
-				const policyGroupContract = new client.eth.Contract(
-					[...policyGroupAbi],
+				const contract = new ethers.Contract(
 					address,
-					{
-						...options,
-					}
+					[...policyGroupAbi],
+					provider
 				)
 
 				return {
-					isGroup: createIsGroupCaller(policyGroupContract),
-					contract: () => policyGroupContract,
+					isGroup: createIsGroupCaller(contract),
+					isDuringVotingPeriod: createIsDuringVotingPeriodCaller(contract),
 				}
 			}
 
-			const result = createPolicyGroupContract(client)
+			const result = createPolicyGroupContract(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(
-				JSON.stringify(result('0x0000000000000000000000000000000000000000'))
-			).toEqual(
-				JSON.stringify(expected('0x0000000000000000000000000000000000000000'))
+			expect(JSON.stringify(result(address))).toEqual(
+				JSON.stringify(expected(address))
 			)
 		})
 	})

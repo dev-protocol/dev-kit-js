@@ -6,12 +6,8 @@ describe('isGroup.spec.ts', () => {
 			const value = true
 
 			const policyGroupContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					isGroup: (policy: string) => ({
-						call: jest.fn().mockImplementation(async () => value),
-					}),
-				},
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				isGroup: jest.fn().mockImplementation(async (policy: string) => value),
 			}
 
 			const expected = value
@@ -28,14 +24,10 @@ describe('isGroup.spec.ts', () => {
 			const error = 'error'
 
 			const policyGroupContract = {
-				methods: {
+				isGroup: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					isGroup: (policy: string) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+					.mockImplementation(async (policy: string) => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

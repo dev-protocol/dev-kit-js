@@ -1,32 +1,23 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
+import { ethers } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { policyGroupAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createIsGroupCaller } from './isGroup'
-import { always } from 'ramda'
 
 export type PolicyGroupContract = {
 	readonly isGroup: (policyAddress: string) => Promise<boolean>
-	readonly contract: () => Contract
+	readonly isDuringVotingPeriod: (policyAddress: string) => Promise<boolean>
 }
 
 export type CreatePolicyGroupContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => PolicyGroupContract
+	provider: Provider | Signer
+) => (address: string) => PolicyGroupContract
 
 export const createPolicyGroupContract: CreatePolicyGroupContract =
-	(client: Web3) => (address?: string, options?: CustomOptions) => {
-		const contractClient: Contract = new client.eth.Contract(
-			[...policyGroupAbi],
-			address,
-			{
-				...options,
-			}
-		)
-
+	(provider: Provider | Signer) => (address: string) => {
+		const contract = new ethers.Contract(address, [...policyGroupAbi], provider)
 		return {
-			isGroup: createIsGroupCaller(contractClient),
-			contract: always(contractClient),
+			isGroup: createIsGroupCaller(contract),
+			isDuringVotingPeriod: createIsGroupCaller(contract),
 		}
 	}
