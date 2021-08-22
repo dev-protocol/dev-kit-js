@@ -1,5 +1,5 @@
 import { ethers } from 'ethers'
-import { execute, QueryOption } from '../utils/ethers-execute'
+import { execute, QueryOption } from '../utils/execute'
 
 export type CreateCalculateWithdrawableInterestAmountCaller = (
 	contract: ethers.Contract

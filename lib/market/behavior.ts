@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { execute, QueryOption } from '../utils/ethers-execute'
+import { execute, QueryOption } from '../utils/execute'
 import { always } from 'ramda'
 import { ethers } from 'ethers'
 

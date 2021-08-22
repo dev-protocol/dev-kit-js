@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { execute, MutationOption } from '../utils/ethers-execute'
+import { execute, MutationOption } from '../utils/execute'
 
 export type CreateVoteCaller = (
 	contract: ethers.Contract
