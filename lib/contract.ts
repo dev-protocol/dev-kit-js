@@ -1,7 +1,5 @@
 /* eslint-disable functional/no-throw-statement */
 /* eslint-disable functional/no-conditional-statement */
-import Web3 from 'web3'
-import { provider as Web3Provider } from 'web3-core'
 import { Provider } from '@ethersproject/abstract-provider'
 import { Signer } from '@ethersproject/abstract-signer'
 import { createMarketContract } from './market/index'
@@ -31,66 +29,33 @@ export type DevkitContract = {
 	readonly metrics: ReturnType<typeof createMetricsContract>
 	readonly policyFactory: ReturnType<typeof createPolicyFactoryContract>
 }
-export type ContractFactory = ({
-	web3rovider,
-	ethersProvider,
-}: {
-	readonly web3rovider?: Web3Provider
-	readonly ethersProvider?: Provider | Signer
-}) => DevkitContract
-export type CreateWeb3DevkitContract = (client: Web3) => DevkitContract
-export type CreateEthers3DevkitContract = (
+export type ContractFactory = (
+	ethersProvider: Provider | Signer
+) => DevkitContract
+export type CreateDevkitContract = (
 	provider: Provider | Signer
 ) => DevkitContract
 
-export const createWeb3DevkitContract: CreateWeb3DevkitContract = (
-	client: Web3
-): DevkitContract => ({
-	allocator: createAllocatorContract(client),
-	market: createMarketContract(client),
-	property: createPropertyContract(client),
-	propertyFactory: createPropertyFactoryContract(client),
-	lockup: createLockupContract(client),
-	withdraw: createWithdrawContract(client),
-	dev: createDevContract(client),
-	registry: createRegistryContract(client),
-	policy: createPolicyContract(client),
-	policyGroup: createPolicyGroupContract(client),
-	metrics: createMetricsContract(client),
-	policyFactory: createPolicyFactoryContract(client),
-})
-
 // ここをethers.jsで実装した処理の関数に差し替える
-export const createEthersDevkitContract: CreateEthers3DevkitContract = (
+export const createDevkitContract: CreateDevkitContract = (
 	provider: Provider | Signer
 ): DevkitContract => ({
-	allocator: createAllocatorContract(client),
-	market: createMarketContract(client),
-	property: createPropertyContract(client),
-	propertyFactory: createPropertyFactoryContract(client),
-	lockup: createLockupContract(client),
-	withdraw: createWithdrawContract(client),
-	dev: createDevContract(client),
-	registry: createRegistryContract(client),
-	policy: createPolicyContract(client),
-	policySet: createPolicySetContract(client),
+	allocator: createAllocatorContract(provider),
+	market: createMarketContract(provider),
+	property: createPropertyContract(provider),
+	propertyFactory: createPropertyFactoryContract(provider),
+	lockup: createLockupContract(provider),
+	withdraw: createWithdrawContract(provider),
+	dev: createDevContract(provider),
+	registry: createRegistryContract(provider),
+	policy: createPolicyContract(provider),
+	policyGroup: createPolicyGroupContract(provider),
+	metrics: createMetricsContract(provider),
+	policyFactory: createPolicyFactoryContract(provider),
 })
 
-export const contractFactory: ContractFactory = ({
-	web3rovider,
-	ethersProvider,
-}: {
-	readonly web3rovider?: Web3Provider
-	readonly ethersProvider?: Provider | Signer
-}): DevkitContract => {
-	if ((!web3rovider && !ethersProvider) || (web3rovider && ethersProvider)) {
-		throw new Error('You should set web3 provider or ethers provider')
-	}
-	if (web3rovider) {
-		return createWeb3DevkitContract(new Web3(web3rovider))
-	}
-	if (ethersProvider) {
-		return createEthersDevkitContract(ethersProvider)
-	}
-	throw new Error('You should set web3 provider or ethers provider')
+export const contractFactory: ContractFactory = (
+	provider: Provider | Signer
+): DevkitContract => {
+	return createDevkitContract(provider)
 }

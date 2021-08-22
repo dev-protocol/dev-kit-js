@@ -1,85 +1,58 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { Contract } from 'web3-eth-contract/types'
-import Web3 from 'web3'
-import { getAccount } from './getAccount'
-import { TxReceipt } from './web3-txs'
-import { txPromisify } from './txPromisify'
+import { ethers } from 'ethers'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
-type Args = ReadonlyArray<string | boolean | readonly string[]>
-type Options = {
-	readonly contract: Contract
+type Option = {
+	readonly contract: ethers.Contract
 	readonly method: string
-	readonly args?: Args
+	readonly args?: ReadonlyArray<string | boolean>
 	readonly mutation?: boolean
-	readonly client?: Web3
-	readonly padEnd?: number
 }
 
-export type SendOptions = Options & {
+export type QueryOption = Option & {
+	readonly mutation: false
+}
+
+export type MutationOption = Option & {
 	readonly mutation: true
-	readonly client: Web3
 }
 
-export type CallOptions = Options & {
-	readonly mutation?: false
-}
+export type ExecuteOption = QueryOption | MutationOption
 
-export type ExecuteOptions = CallOptions | SendOptions
-
-export type ExecuteFunction = <
-	T = string,
-	O extends ExecuteOptions = CallOptions
->(
+export type ExecuteFunction = <O extends ExecuteOption = QueryOption>(
 	opts: O
 ) => Promise<
-	O extends CallOptions ? T : O extends SendOptions ? TxReceipt : never
+	O extends QueryOption
+		? string
+		: O extends MutationOption
+		? TransactionResponse
+		: never
 >
-
-type R<T, O extends ExecuteOptions> = O extends CallOptions
-	? T
-	: O extends SendOptions
-	? TxReceipt
-	: never
-
-type PadCaller = (
-	arr: Args,
-	v: string | boolean | undefined | readonly string[],
-	i: number,
-	fn: PadCaller
-) => Args
-const pad = (args: Args, index: number): Args =>
-	((fn: PadCaller): Args => fn([], args[0], 0, fn))(
-		(
-			arr: Args,
-			v: string | boolean | undefined | readonly string[],
-			i: number,
-			fn: PadCaller
-		): Args =>
-			i < index ? fn(arr.concat(v ?? ''), args[i + 1], i + 1, fn) : arr
-	)
 
 export const execute: ExecuteFunction = async <
 	T = string,
-	O extends ExecuteOptions = CallOptions
+	O extends ExecuteOption = QueryOption
 >({
 	contract,
 	method,
 	args,
-	mutation,
-	client,
-	padEnd,
-}: O): Promise<R<T, O>> => {
-	const m = contract.methods[method]
-	const a =
-		args !== undefined && padEnd !== undefined ? pad(args, padEnd) : args
-	const x = a ? m(...a) : m()
-	return mutation === true
-		? txPromisify(x.send({ from: await getAccount(client as Web3) })).then(
-				(receipt) => receipt
-		  )
-		: client
-		? x.call({ from: await getAccount(client) })
-		: x.call()
-}
+}: O) => contract[method](args ? [...args] : undefined)
+
+// This is a sample code
+
+// const sample = async (dwa: string) => {
+// 	const res = await execute<MutationOption>({
+// 		contract: {} as any,
+// 		method: 'vote',
+// 		args: ['dwadwa', true],
+// 		mutation: true,
+// 	})
+
+// 	const receipt = await res.wait()
+
+// 	const res2 = await execute<QueryOption>({
+// 		contract: {} as any,
+// 		method: 'vote',
+// 		args: ['dwadwa', true],
+// 		mutation: false,
+// 	})
+// }

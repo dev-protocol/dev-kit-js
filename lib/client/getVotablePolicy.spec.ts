@@ -42,7 +42,7 @@ describe('getVotablePolicy.ts', () => {
 					},
 				},
 			}
-			const policyGroup = createPolicyGroupContract(client as any)()
+			const policyGroup = createPolicyGroupContract(client as any)('')
 			const result = await createGetVotablePolicy(policyGroup)()
 			const expected = isGroup
 

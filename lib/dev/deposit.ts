@@ -1,5 +1,5 @@
 import { ethers } from 'ethers'
-import { execute, MutationOption } from '../utils/ethers-execute'
+import { execute, MutationOption } from '../utils/execute'
 import { T } from 'ramda'
 
 export type CreateDepositCaller = (
