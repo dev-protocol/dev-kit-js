@@ -1,13 +1,10 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
+import { ethers } from 'ethers'
+import { Provider, TransactionResponse } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { propertyFactoryAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createCreatePropertyCaller } from './create'
 import { WaitForEventOptions } from '../market/authenticate'
 import { createCreateAndAuthenticateCaller } from './createAndAuthenticate'
-import { always } from 'ramda'
-import { TxReceipt } from '../utils/web3-txs'
 
 export type PropertyFactoryContract = {
 	readonly create: (
@@ -23,32 +20,22 @@ export type PropertyFactoryContract = {
 		options: WaitForEventOptions
 	) => Promise<{
 		readonly property: string
-		readonly transaction: TxReceipt
-		readonly waitForAuthentication: () => Promise<string>
+		readonly transaction: TransactionResponse
+		// readonly waitForAuthentication: () => Promise<string>
 	}>
-	readonly contract: () => Contract
 }
 
-export type CreatePropertyFactoryContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => PropertyFactoryContract
-
-export const createPropertyFactoryContract: CreatePropertyFactoryContract =
-	(client: Web3) => (address?: string, options?: CustomOptions) => {
-		const contractClient: Contract = new client.eth.Contract(
-			[...propertyFactoryAbi],
+export const createPropertyFactoryContract =
+	(provider: Provider | Signer) =>
+	(address: string): PropertyFactoryContract => {
+		const contract = new ethers.Contract(
 			address,
-			{
-				...options,
-			}
+			[...propertyFactoryAbi],
+			provider
 		)
 
 		return {
-			create: createCreatePropertyCaller(contractClient, client),
-			createAndAuthenticate: createCreateAndAuthenticateCaller(
-				contractClient,
-				client
-			),
-			contract: always(contractClient),
+			create: createCreatePropertyCaller(contract),
+			createAndAuthenticate: createCreateAndAuthenticateCaller(contract),
 		}
 	}

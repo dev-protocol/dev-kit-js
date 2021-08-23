@@ -1,5 +1,3 @@
-import { AbiItem } from 'web3-utils'
-
 export const propertyFactoryAbi = [
 	{
 		inputs: [
@@ -124,4 +122,4 @@ export const propertyFactoryAbi = [
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
-] as readonly AbiItem[]
+]

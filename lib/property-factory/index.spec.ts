@@ -1,49 +1,44 @@
-import Web3 from 'web3'
+import { ethers } from 'ethers'
 import { createPropertyFactoryContract, PropertyFactoryContract } from '.'
-import { createCreatePropertyCaller } from './create'
 import { propertyFactoryAbi } from './abi'
-import { CustomOptions } from '../option'
+import { createCreatePropertyCaller } from './create'
 import { createCreateAndAuthenticateCaller } from './createAndAuthenticate'
 
+jest.mock('./create')
+jest.mock('./createAndAuthenticate')
+
 describe('property/index.ts', () => {
+	;(createCreatePropertyCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createCreateAndAuthenticateCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
 	describe('createPropertyFactoryContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
-			const client = new Web3()
-			client.setProvider(new Web3.providers.HttpProvider(host))
+			const address = '0x0000000000000000000000000000000000000000'
+			const provider = new ethers.providers.JsonRpcProvider(host)
 
-			const expected: (
-				address?: string,
-				options?: CustomOptions
-			) => PropertyFactoryContract = (
-				address?: string,
-				options?: CustomOptions
+			const expected: (address: string) => PropertyFactoryContract = (
+				address: string
 			) => {
-				const propertyFactoryContract = new client.eth.Contract(
-					[...propertyFactoryAbi],
+				const contract = new ethers.Contract(
 					address,
-					{
-						...options,
-					}
+					[...propertyFactoryAbi],
+					provider
 				)
-
 				return {
-					create: createCreatePropertyCaller(propertyFactoryContract, client),
-					createAndAuthenticate: createCreateAndAuthenticateCaller(
-						propertyFactoryContract,
-						client
-					),
-					contract: () => propertyFactoryContract,
+					create: createCreatePropertyCaller(contract),
+					createAndAuthenticate: createCreateAndAuthenticateCaller(contract),
 				}
 			}
 
-			const result = createPropertyFactoryContract(client)
+			const result = createPropertyFactoryContract(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(
-				JSON.stringify(result('0x0000000000000000000000000000000000000000'))
-			).toEqual(
-				JSON.stringify(expected('0x0000000000000000000000000000000000000000'))
+			expect(JSON.stringify(result(address))).toEqual(
+				JSON.stringify(expected(address))
 			)
 		})
 	})
