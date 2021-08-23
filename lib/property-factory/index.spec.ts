@@ -30,7 +30,10 @@ describe('property/index.ts', () => {
 				)
 				return {
 					create: createCreatePropertyCaller(contract),
-					createAndAuthenticate: createCreateAndAuthenticateCaller(contract),
+					createAndAuthenticate: createCreateAndAuthenticateCaller(
+						contract,
+						provider
+					),
 				}
 			}
 

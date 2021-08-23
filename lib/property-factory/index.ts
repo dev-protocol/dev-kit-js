@@ -21,7 +21,7 @@ export type PropertyFactoryContract = {
 	) => Promise<{
 		readonly property: string
 		readonly transaction: TransactionResponse
-		// readonly waitForAuthentication: () => Promise<string>
+		readonly waitForAuthentication: () => Promise<string>
 	}>
 }
 
@@ -36,6 +36,9 @@ export const createPropertyFactoryContract =
 
 		return {
 			create: createCreatePropertyCaller(contract),
-			createAndAuthenticate: createCreateAndAuthenticateCaller(contract),
+			createAndAuthenticate: createCreateAndAuthenticateCaller(
+				contract,
+				provider as Provider
+			),
 		}
 	}
