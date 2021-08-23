@@ -1,54 +1,43 @@
 import { createBulkWithdrawCaller } from './bulkWithdraw'
-import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
-import { txPromisify } from '../utils/txPromisify'
+import { stubTransactionResposeFactory } from '../utils/for-test'
 
 describe('bulkWithdraw.spec.ts', () => {
 	describe('createBulkWithdrawCaller', () => {
 		it('call success', async () => {
+			const address = '0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5'
+			const stubTx = stubTransactionResposeFactory({})
 			const withdrawContract = {
-				methods: {
+				bulkWithdraw: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					bulkWithdraw: (properties: readonly string[]) => ({
-						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
-					}),
-				},
+					.mockImplementation(async (properties: readonly string[]) =>
+						Promise.resolve(stubTx)
+					),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createBulkWithdrawCaller(
-				withdrawContract as any,
-				stubbedWeb3
-			)
+			const caller = createBulkWithdrawCaller(withdrawContract as any)
 
-			const result = await caller([
-				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
-			])
+			const result = await caller([address])
 
-			expect(result).toEqual(await txPromisify(stubbedSendTx()))
+			expect(result).toEqual(stubTx)
 		})
 
 		it('call failure', async () => {
+			const propertyAddress = '0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5'
+			const err = new Error('error')
 			const withdrawContract = {
-				methods: {
+				bulkWithdraw: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					bulkWithdraw: (properties: readonly string[]) => ({
-						send: jest
-							.fn()
-							.mockImplementation(async () => stubbedSendTx(undefined, true)),
-					}),
-				},
+					.mockImplementation(async (properties: readonly string[]) =>
+						Promise.reject(err)
+					),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createBulkWithdrawCaller(
-				withdrawContract as any,
-				stubbedWeb3
-			)
-
-			const result = await caller([
-				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
-			]).catch((err) => err)
-			expect(result).toBeInstanceOf(Error)
+			const caller = createBulkWithdrawCaller(withdrawContract as any)
+			await expect(caller([propertyAddress])).rejects.toThrowError(err)
 		})
 	})
 })

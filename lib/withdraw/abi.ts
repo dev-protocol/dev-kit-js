@@ -1,5 +1,3 @@
-import { AbiItem } from 'web3-utils'
-
 export const withdrawAbi = [
 	{
 		inputs: [
@@ -453,4 +451,4 @@ export const withdrawAbi = [
 		stateMutability: 'view',
 		type: 'function',
 	},
-] as readonly AbiItem[]
+]

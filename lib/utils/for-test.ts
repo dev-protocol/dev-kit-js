@@ -14,7 +14,6 @@ import {
 	TransactionResponse,
 	TransactionReceipt,
 } from '@ethersproject/abstract-provider'
-import { SendTx } from './web3-txs'
 import { BigNumber } from 'ethers'
 
 export const stubbedWeb3 = {
@@ -91,7 +90,7 @@ export const stubbedSendTx = (
 	},
 	reject = false,
 	rejectOnConfirmation = false
-): SendTx => {
+) => {
 	const result = {
 		status: true,
 		events: {

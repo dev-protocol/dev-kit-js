@@ -1,21 +1,17 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import Web3 from 'web3'
-import { execute } from '../utils/execute'
-import { TxReceipt } from '../utils/web3-txs'
+import { ethers } from 'ethers'
+import { execute, MutationOption } from '../utils/execute'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateBulkWithdrawCaller = (
-	contract: Contract,
-	client: Web3
-) => (propertyAddresses: readonly string[]) => Promise<TxReceipt>
+	contract: ethers.Contract
+) => (propertyAddresses: readonly string[]) => Promise<TransactionResponse>
 
 export const createBulkWithdrawCaller: CreateBulkWithdrawCaller =
-	(contract: Contract, client: Web3) =>
-	async (propertyAddresses): Promise<TxReceipt> =>
-		execute({
+	(contract: ethers.Contract) =>
+	async (propertyAddresses): Promise<TransactionResponse> =>
+		execute<MutationOption>({
 			contract,
 			method: 'bulkWithdraw',
 			mutation: true,
-			client,
-			args: [propertyAddresses],
+			args: propertyAddresses,
 		})
