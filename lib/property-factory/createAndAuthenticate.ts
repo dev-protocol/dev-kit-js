@@ -69,12 +69,16 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 				})
 
 			return new Promise((resolve) => {
-				contract.on('Create', async (_: string, propertyAddress: string) => {
-					resolve({
-						property: propertyAddress,
-						transaction,
-						waitForAuthentication,
-					})
-				})
+				const subscribedContract = contract.on(
+					'Create',
+					async (_: string, propertyAddress: string) => {
+						subscribedContract.removeAllListeners()
+						resolve({
+							property: propertyAddress,
+							transaction,
+							waitForAuthentication,
+						})
+					}
+				)
 			})
 		}

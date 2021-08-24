@@ -18,8 +18,12 @@ export const createCreatePropertyCaller: CreateCreatePropertyCaller =
 		})
 
 		return new Promise((resolve) => {
-			contract.on('Create', async (_: string, propertyAddress: string) => {
-				resolve(propertyAddress)
-			})
+			const subscribedContract = contract.on(
+				'Create',
+				async (_: string, propertyAddress: string) => {
+					subscribedContract.removeAllListeners()
+					resolve(propertyAddress)
+				}
+			)
 		})
 	}
