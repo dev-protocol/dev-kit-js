@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 /* eslint-disable functional/no-expression-statement */
-/* eslint-disable functional/no-conditional-statement */
 import { ethers } from 'ethers'
-import { reject } from 'ramda'
 import { execute, MutationOption } from '../utils/execute'
 
 export type CreateCreatePropertyCaller = (
@@ -19,17 +17,9 @@ export const createCreatePropertyCaller: CreateCreatePropertyCaller =
 			mutation: true,
 		})
 
-		return new Promise((resolve, reject) => {
-			const subscriberdContract = contract.on(
-				'Create',
-				async (contractAddress: string, propertyAddress: string) => {
-					if (contract.address === contractAddress) {
-						subscriberdContract.removeAllListeners()
-						resolve(propertyAddress)
-					} else {
-						reject('Invalid contract address.')
-					}
-				}
-			)
+		return new Promise((resolve) => {
+			contract.on('Create', async (_: string, propertyAddress: string) => {
+				resolve(propertyAddress)
+			})
 		})
 	}
