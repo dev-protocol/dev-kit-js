@@ -68,13 +68,21 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 					)
 				})
 
-			return new Promise((resolve) => {
-				contract.on('Create', async (_: string, propertyAddress: string) => {
-					resolve({
-						property: propertyAddress,
-						transaction,
-						waitForAuthentication,
-					})
-				})
+			return new Promise((resolve, reject) => {
+				const subscriberdContract = contract.on(
+					'Create',
+					async (contractAddress: string, propertyAddress: string) => {
+						if (contract.address === contractAddress) {
+							subscriberdContract.removeAllListeners()
+							resolve({
+								property: propertyAddress,
+								transaction,
+								waitForAuthentication,
+							})
+						} else {
+							reject('Invalid contract address.')
+						}
+					}
+				)
 			})
 		}
