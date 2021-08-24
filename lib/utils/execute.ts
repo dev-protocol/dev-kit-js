@@ -18,11 +18,14 @@ export type MutationOption = Option & {
 
 export type ExecuteOption = QueryOption | MutationOption
 
-export type ExecuteFunction = <O extends ExecuteOption = QueryOption>(
+export type ExecuteFunction = <
+	O extends ExecuteOption = QueryOption,
+	R = string
+>(
 	opts: O
 ) => Promise<
 	O extends QueryOption
-		? string
+		? R
 		: O extends MutationOption
 		? TransactionResponse
 		: never
