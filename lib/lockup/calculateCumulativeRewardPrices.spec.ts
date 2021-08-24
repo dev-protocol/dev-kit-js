@@ -6,13 +6,9 @@ describe('calculateCumulativeRewardPrices.spec.ts', () => {
 			const value = ['value1', 'value2', 'value3', 'value4']
 
 			const lockupContract = {
-				methods: {
-					calculateCumulativeRewardPrices: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				calculateCumulativeRewardPrices: jest
+					.fn()
+					.mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -31,14 +27,10 @@ describe('calculateCumulativeRewardPrices.spec.ts', () => {
 			const error = 'error'
 
 			const lockupContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					calculateCumulativeRewardPrices: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				calculateCumulativeRewardPrices: jest
+					.fn()
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
