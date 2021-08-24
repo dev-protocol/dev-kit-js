@@ -1,15 +1,17 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import Web3 from 'web3'
+/* eslint-disable functional/no-expression-statement */
+/* eslint-disable functional/no-conditional-statement */
+/* eslint-disable functional/functional-parameters */
+import { Provider } from '@ethersproject/abstract-provider'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { execute } from '../utils/execute'
-import { WaitForEventOptions } from '../market/authenticate'
-import { waitForCreateMetrics } from '../utils/waitForCreateMetrics'
-import { TxReceipt } from '../utils/web3-txs'
-import { always } from 'ramda'
+import { ethers } from 'ethers'
+import { getMetricsProperty, WaitForEventOptions } from '../market/authenticate'
+import { metricsFactoryAbi } from '../metrics-factory/abi'
 
 export type CreateCreateAndAuthenticateCaller = (
-	contract: Contract,
-	client: Web3
+	contract: ethers.Contract,
+	provider: Provider
 ) => (
 	name: string,
 	symbol: string,
@@ -18,22 +20,22 @@ export type CreateCreateAndAuthenticateCaller = (
 	options: WaitForEventOptions
 ) => Promise<{
 	readonly property: string
-	readonly transaction: TxReceipt
+	readonly transaction: TransactionResponse
 	readonly waitForAuthentication: () => Promise<string>
 }>
 
 export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCaller =
 
-		(contract: Contract, client: Web3) =>
+		(contract: ethers.Contract, provider: Provider) =>
 		async (
 			name: string,
 			symbol: string,
 			marketAddress: string,
 			args: readonly string[],
-			{ metricsFactory }: WaitForEventOptions
+			{ metricsFactoryAddress }: WaitForEventOptions
 		): Promise<{
 			readonly property: string
-			readonly transaction: TxReceipt
+			readonly transaction: TransactionResponse
 			readonly waitForAuthentication: () => Promise<string>
 		}> => {
 			const transaction = await execute({
@@ -42,15 +44,41 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 				args: [name, symbol, marketAddress, ...args],
 				mutation: true,
 				padEnd: 6,
-				client,
 			})
-			const property = transaction.events.Create.returnValues
-				._property as string
-			return {
-				property,
-				transaction,
-				waitForAuthentication: always(
-					waitForCreateMetrics(client, property, metricsFactory)
-				),
-			}
+
+			const metricsFactoryContract = new ethers.Contract(
+				metricsFactoryAddress,
+				metricsFactoryAbi,
+				provider
+			)
+
+			const waitForAuthentication = (): Promise<string> =>
+				new Promise((resolve, reject) => {
+					const subscriberdContract = metricsFactoryContract.on(
+						'Create',
+						async (_: string, metricsAddress: string) =>
+							getMetricsProperty(metricsAddress, provider)
+								.then((metricsProperty) => {
+									if (metricsProperty === marketAddress) {
+										subscriberdContract.removeAllListeners()
+										resolve(metricsAddress)
+									}
+								})
+								.catch(reject)
+					)
+				})
+
+			return new Promise((resolve) => {
+				const subscribedContract = contract.on(
+					'Create',
+					async (_: string, propertyAddress: string) => {
+						subscribedContract.removeAllListeners()
+						resolve({
+							property: propertyAddress,
+							transaction,
+							waitForAuthentication,
+						})
+					}
+				)
+			})
 		}

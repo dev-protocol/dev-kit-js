@@ -11,7 +11,7 @@ import { execute, QueryOption } from '../utils/execute'
 import { metricsAbi } from '../metrics/abi'
 import { metricsFactoryAbi } from '../metrics-factory/abi'
 
-const getMetricsProperty = async (
+export const getMetricsProperty = async (
 	address: string,
 	provider: Provider | Signer
 ): Promise<string> =>
