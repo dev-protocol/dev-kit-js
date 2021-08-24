@@ -6,16 +6,10 @@ describe('calculateRewardAmount.spec.ts', () => {
 			const value = ['value', 'value2']
 
 			const lockupContract = {
-				methods: {
-					calculateRewardAmount: (
-						// eslint-disable-next-line @typescript-eslint/no-unused-vars
-						propertyAddress: string
-					) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				calculateRewardAmount: (
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
+					propertyAddress: string
+				) => jest.fn().mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -32,16 +26,10 @@ describe('calculateRewardAmount.spec.ts', () => {
 			const error = 'error'
 
 			const lockupContract = {
-				methods: {
-					calculateRewardAmount: (
-						// eslint-disable-next-line @typescript-eslint/no-unused-vars
-						propertyAddress: string
-					) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				calculateRewardAmount: (
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
+					propertyAddress: string
+				) => jest.fn().mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
