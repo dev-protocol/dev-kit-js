@@ -54,13 +54,13 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 
 			const waitForAuthentication = (): Promise<string> =>
 				new Promise((resolve, reject) => {
-					const subscriberdContract = metricsFactoryContract.on(
+					const subscribedContract = metricsFactoryContract.on(
 						'Create',
 						async (_: string, metricsAddress: string) =>
 							getMetricsProperty(metricsAddress, provider)
 								.then((metricsProperty) => {
 									if (metricsProperty === marketAddress) {
-										subscriberdContract.removeAllListeners()
+										subscribedContract.removeAllListeners()
 										resolve(metricsAddress)
 									}
 								})
@@ -69,11 +69,11 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 				})
 
 			return new Promise((resolve, reject) => {
-				const subscriberdContract = contract.on(
+				const subscribedContract = contract.on(
 					'Create',
 					async (contractAddress: string, propertyAddress: string) => {
 						if (contract.address === contractAddress) {
-							subscriberdContract.removeAllListeners()
+							subscribedContract.removeAllListeners()
 							resolve({
 								property: propertyAddress,
 								transaction,
