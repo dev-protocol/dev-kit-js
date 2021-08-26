@@ -46,7 +46,7 @@ describe('transfer.spec.ts', () => {
 
 			const result = await caller(to, value).catch((err) => err)
 
-			expect(result).toBeInstanceOf(error)
+			expect(result).toEqual(error)
 		})
 	})
 })
