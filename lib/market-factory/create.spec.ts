@@ -23,23 +23,19 @@ describe('create.spec.ts', () => {
 		})
 
 		it('call failure', async () => {
+			const error = 'error'
+
 			const marketFactoryContract = {
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars
-				create: jest
-					.fn()
-					.mockImplementation(async (marketBehaviorAddress: string) =>
-						stubbedSendTx(undefined, true)
-					),
+				create: jest.fn().mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createCreateCaller(marketFactoryContract as any)
-
 			const result = await caller(
 				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5'
 			).catch((err) => err)
-
-			expect(result).toBeInstanceOf(Error)
+			expect(result).toEqual(error)
 		})
 	})
 })
