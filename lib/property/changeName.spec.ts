@@ -1,5 +1,5 @@
 import { createChangeNameCaller } from './changeName'
-import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
+import { stubbedSendTx } from '../utils/for-test'
 
 describe('changeName.spec.ts', () => {
 	describe('createChangeNameCaller', () => {
@@ -24,14 +24,13 @@ describe('changeName.spec.ts', () => {
 
 		it('call failure', async () => {
 			const nextName = 'next'
+			const error = 'error'
 
 			const contract = {
 				changeName: jest
 					.fn()
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (nextName: string) =>
-						stubbedSendTx(undefined, true)
-					),
+
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,7 +38,7 @@ describe('changeName.spec.ts', () => {
 
 			const result = await caller(nextName).catch((err) => err)
 
-			expect(result).toBeInstanceOf(Error)
+			expect(result).toEqual(error)
 		})
 	})
 })
