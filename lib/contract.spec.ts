@@ -1,4 +1,4 @@
-import Web3 from 'web3'
+import { ethers } from 'ethers'
 import {
 	createDevkitContract,
 	contractFactory,
@@ -21,27 +21,24 @@ describe('contract.ts', () => {
 	describe('createDevkitContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
-
-			const client = new Web3()
-
-			client.setProvider(new Web3.providers.HttpProvider(host))
+			const provider = new ethers.providers.JsonRpcProvider(host)
 
 			const expected: DevkitContract = {
-				allocator: createAllocatorContract(client),
-				market: createMarketContract(client),
-				property: createPropertyContract(client),
-				propertyFactory: createPropertyFactoryContract(client),
-				lockup: createLockupContract(client),
-				withdraw: createWithdrawContract(client),
-				dev: createDevContract(client),
-				registry: createRegistryContract(client),
-				policy: createPolicyContract(client),
-				policyGroup: createPolicyGroupContract(client),
-				metrics: createMetricsContract(client),
-				policyFactory: createPolicyFactoryContract(client),
+				allocator: createAllocatorContract(provider),
+				market: createMarketContract(provider),
+				property: createPropertyContract(provider),
+				propertyFactory: createPropertyFactoryContract(provider),
+				lockup: createLockupContract(provider),
+				withdraw: createWithdrawContract(provider),
+				dev: createDevContract(provider),
+				registry: createRegistryContract(provider),
+				policy: createPolicyContract(provider),
+				policyGroup: createPolicyGroupContract(provider),
+				metrics: createMetricsContract(provider),
+				policyFactory: createPolicyFactoryContract(provider),
 			}
 
-			const result = createDevkitContract(client)
+			const result = createDevkitContract(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
@@ -49,13 +46,11 @@ describe('contract.ts', () => {
 
 	describe('contractFactory', () => {
 		it('check return object', () => {
-			const client = new Web3()
+			const host = 'localhost'
+			const provider = new ethers.providers.JsonRpcProvider(host)
 
-			client.setProvider(new Web3.providers.HttpProvider('localhost'))
-
-			const expected = createDevkitContract(client)
-
-			const result = contractFactory(client.currentProvider)
+			const expected = createDevkitContract(provider)
+			const result = contractFactory(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})

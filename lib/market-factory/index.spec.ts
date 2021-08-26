@@ -1,7 +1,6 @@
 import { ethers } from 'ethers'
 import { createMarketFactoryContract, MarketFactoryContract } from '.'
 import { marketFactoryAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createCreateCaller } from './create'
 
 describe('market-factory/index.ts', () => {
