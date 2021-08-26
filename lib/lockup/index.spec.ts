@@ -1,8 +1,7 @@
-import Web3 from 'web3'
+import { ethers } from 'ethers'
 import { createLockupContract, LockupContract } from '.'
 import { createGetValueCaller } from './getValue'
 import { lockupAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createGetPropertyValueCaller } from './getPropertyValue'
 import { createWithdrawCaller } from './withdraw'
 import { createCalculateWithdrawableInterestAmountCaller } from './calculateWithdrawableInterestAmount'
@@ -13,51 +12,76 @@ import { createCalculateCumulativeRewardPricesCaller } from './calculateCumulati
 import { createCalculateRewardAmountCaller } from './calculateRewardAmount'
 import { createCapCaller } from './cap'
 
+jest.mock('./getPropertyValue')
+jest.mock('./withdraw')
+jest.mock('./calculateWithdrawableInterestAmount')
+jest.mock('./getAllValue')
+jest.mock('./getStorageWithdrawalStatus')
+jest.mock('./calculateCumulativeHoldersRewardAmount')
+jest.mock('./calculateCumulativeRewardPrices')
+jest.mock('./calculateRewardAmount')
+jest.mock('./cap')
+
 describe('lockup/index.ts', () => {
+	;(createGetPropertyValueCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createWithdrawCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(
+		createCalculateWithdrawableInterestAmountCaller as jest.Mock
+	).mockImplementation((contract) => contract)
+	;(createGetAllValueCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createGetStorageWithdrawalStatusCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(
+		createCalculateCumulativeHoldersRewardAmountCaller as jest.Mock
+	).mockImplementation((contract) => contract)
+	;(
+		createCalculateCumulativeRewardPricesCaller as jest.Mock
+	).mockImplementation((contract) => contract)
+	;(createCalculateRewardAmountCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createCapCaller as jest.Mock).mockImplementation((contract) => contract)
+
 	describe('createLockupContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
-			const client = new Web3()
-			client.setProvider(new Web3.providers.HttpProvider(host))
+			const address = '0x0000000000000000000000000000000000000000'
+			const provider = new ethers.providers.JsonRpcProvider(host)
 
-			const expected: (
-				address?: string,
-				options?: CustomOptions
-			) => LockupContract = (address?: string, options?: CustomOptions) => {
-				const lockupContract = new client.eth.Contract(
-					[...lockupAbi],
-					address,
-					{
-						...options,
-					}
-				)
+			const expected: (address: string) => LockupContract = (
+				address: string
+			) => {
+				const contract = new ethers.Contract(address, [...lockupAbi], provider)
 				return {
-					getValue: createGetValueCaller(lockupContract),
-					getAllValue: createGetAllValueCaller(lockupContract),
-					getPropertyValue: createGetPropertyValueCaller(lockupContract),
-					withdraw: createWithdrawCaller(lockupContract, client),
+					getValue: createGetValueCaller(contract),
+					getAllValue: createGetAllValueCaller(contract),
+					getPropertyValue: createGetPropertyValueCaller(contract),
+					withdraw: createWithdrawCaller(contract),
 					calculateWithdrawableInterestAmount:
-						createCalculateWithdrawableInterestAmountCaller(lockupContract),
+						createCalculateWithdrawableInterestAmountCaller(contract),
 					calculateCumulativeHoldersRewardAmount:
-						createCalculateCumulativeHoldersRewardAmountCaller(lockupContract),
+						createCalculateCumulativeHoldersRewardAmountCaller(contract),
 					getStorageWithdrawalStatus:
-						createGetStorageWithdrawalStatusCaller(lockupContract),
+						createGetStorageWithdrawalStatusCaller(contract),
 					calculateCumulativeRewardPrices:
-						createCalculateCumulativeRewardPricesCaller(lockupContract),
-					calculateRewardAmount:
-						createCalculateRewardAmountCaller(lockupContract),
-					cap: createCapCaller(lockupContract),
-					contract: () => lockupContract,
+						createCalculateCumulativeRewardPricesCaller(contract),
+					calculateRewardAmount: createCalculateRewardAmountCaller(contract),
+					cap: createCapCaller(contract),
 				}
 			}
 
-			const result = createLockupContract(client)
+			const result = createLockupContract(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(
-				JSON.stringify(result('0x0000000000000000000000000000000000000000'))
-			).toEqual(
-				JSON.stringify(expected('0x0000000000000000000000000000000000000000'))
+			expect(JSON.stringify(result(address))).toEqual(
+				JSON.stringify(expected(address))
 			)
 		})
 	})
