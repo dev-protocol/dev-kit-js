@@ -24,14 +24,13 @@ describe('changeAuthor.spec.ts', () => {
 
 		it('call failure', async () => {
 			const nextAuther = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
+			const error = 'error'
 
 			const contract = {
 				changeAuthor: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (nextAuther: string) =>
-						stubbedSendTx(undefined, true)
-					),
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,7 +38,7 @@ describe('changeAuthor.spec.ts', () => {
 
 			const result = await caller(nextAuther).catch((err) => err)
 
-			expect(result).toBeInstanceOf(Error)
+			expect(result).toEqual(error)
 		})
 	})
 })
