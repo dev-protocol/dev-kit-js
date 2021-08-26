@@ -6,8 +6,9 @@ describe('marketVotingBlocks.spec.ts', () => {
 			const value = '1111'
 
 			const contract = {
-				marketVotingBlocks: () =>
-					jest.fn().mockImplementation(async () => Promise.resolve(value)),
+				marketVotingBlocks: jest
+					.fn()
+					.mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
