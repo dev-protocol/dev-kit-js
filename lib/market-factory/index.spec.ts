@@ -3,6 +3,8 @@ import { createMarketFactoryContract, MarketFactoryContract } from '.'
 import { marketFactoryAbi } from './abi'
 import { createCreateCaller } from './create'
 
+jest.mock('./create')
+
 describe('market-factory/index.ts', () => {
 	;(createCreateCaller as jest.Mock).mockImplementation((contract) => contract)
 	describe('createMarketFactoryContract', () => {
