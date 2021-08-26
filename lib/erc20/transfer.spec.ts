@@ -1,5 +1,5 @@
 import { createTransferCaller } from './transfer'
-import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
+import { stubbedSendTx } from '../utils/for-test'
 
 describe('transfer.spec.ts', () => {
 	describe('createTransferCaller', () => {
@@ -46,7 +46,7 @@ describe('transfer.spec.ts', () => {
 
 			const result = await caller(to, value).catch((err) => err)
 
-			expect(result).toBeInstanceOf(error)
+			expect(result).toEqual(error)
 		})
 	})
 })

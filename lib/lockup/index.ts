@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
+import { ethers } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { lockupAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createGetValueCaller } from './getValue'
 import { createGetPropertyValueCaller } from './getPropertyValue'
 import { createWithdrawCaller } from './withdraw'
@@ -13,7 +12,6 @@ import { createCalculateCumulativeHoldersRewardAmountCaller } from './calculateC
 import { createCalculateCumulativeRewardPricesCaller } from './calculateCumulativeRewardPrices'
 import { createCalculateRewardAmountCaller } from './calculateRewardAmount'
 import { createCapCaller } from './cap'
-import { always } from 'ramda'
 
 export type LockupContract = {
 	readonly getValue: (
@@ -44,39 +42,27 @@ export type LockupContract = {
 		propertyAddress: string
 	) => Promise<readonly [string, string]>
 	readonly cap: () => Promise<string>
-	readonly contract: () => Contract
 }
 
-export type CreateLockupContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => LockupContract
-
-export const createLockupContract: CreateLockupContract =
-	(client: Web3) =>
-	(address?: string, options?: CustomOptions): LockupContract => {
-		const contractClient: Contract = new client.eth.Contract(
-			[...lockupAbi],
-			address,
-			{
-				...options,
-			}
-		)
+export const createLockupContract =
+	(provider: Provider | Signer) =>
+	(address: string): LockupContract => {
+		const contract = new ethers.Contract(address, [...lockupAbi], provider)
 
 		return {
-			getValue: createGetValueCaller(contractClient),
-			getAllValue: createGetAllValueCaller(contractClient),
-			getPropertyValue: createGetPropertyValueCaller(contractClient),
-			withdraw: createWithdrawCaller(contractClient, client),
+			getValue: createGetValueCaller(contract),
+			getAllValue: createGetAllValueCaller(contract),
+			getPropertyValue: createGetPropertyValueCaller(contract),
+			withdraw: createWithdrawCaller(contract),
 			calculateWithdrawableInterestAmount:
-				createCalculateWithdrawableInterestAmountCaller(contractClient),
+				createCalculateWithdrawableInterestAmountCaller(contract),
 			calculateCumulativeHoldersRewardAmount:
-				createCalculateCumulativeHoldersRewardAmountCaller(contractClient),
+				createCalculateCumulativeHoldersRewardAmountCaller(contract),
 			getStorageWithdrawalStatus:
-				createGetStorageWithdrawalStatusCaller(contractClient),
+				createGetStorageWithdrawalStatusCaller(contract),
 			calculateCumulativeRewardPrices:
-				createCalculateCumulativeRewardPricesCaller(contractClient),
-			calculateRewardAmount: createCalculateRewardAmountCaller(contractClient),
-			cap: createCapCaller(contractClient),
-			contract: always(contractClient),
+				createCalculateCumulativeRewardPricesCaller(contract),
+			calculateRewardAmount: createCalculateRewardAmountCaller(contract),
+			cap: createCapCaller(contract),
 		}
 	}

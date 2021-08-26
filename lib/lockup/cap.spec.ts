@@ -23,8 +23,7 @@ describe('cap.spec.ts', () => {
 			const error = 'error'
 
 			const lockupContract = {
-				cap: () =>
-					jest.fn().mockImplementation(async () => Promise.reject(error)),
+				cap: jest.fn().mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

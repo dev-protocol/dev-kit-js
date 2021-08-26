@@ -27,7 +27,7 @@ export type WaitForEventOptions = {
 
 export type CreateAuthenticateCaller = (
 	contract: ethers.Contract,
-	provider: Provider
+	provider: Provider | Signer
 ) => (
 	propertyAddress: string,
 	args: readonly string[],
@@ -35,7 +35,7 @@ export type CreateAuthenticateCaller = (
 ) => Promise<string>
 
 export const createAuthenticateCaller: CreateAuthenticateCaller =
-	(contract: ethers.Contract, provider: Provider) =>
+	(contract: ethers.Contract, provider: Provider | Signer) =>
 	async (
 		propertyAddress: string,
 		args: readonly string[],

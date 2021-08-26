@@ -24,12 +24,13 @@ describe('withdraw.spec.ts', () => {
 		})
 
 		it('call failure', async () => {
+			const error = 'error'
 			const lockupContract = {
 				withdraw: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(async (property: string) =>
-						stubbedSendTx(undefined, true)
+						Promise.reject(error)
 					),
 			}
 
@@ -41,7 +42,7 @@ describe('withdraw.spec.ts', () => {
 				'100'
 			).catch((err) => err)
 
-			expect(result).toBeInstanceOf(Error)
+			expect(result).toEqual(error)
 		})
 	})
 })

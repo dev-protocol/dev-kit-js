@@ -1,11 +1,8 @@
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
 import { ethers } from 'ethers'
-import { AbiItem } from 'web3-utils'
 import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { marketAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createSchemaCaller } from './schema'
 import { createVoteCaller } from './vote'
 import { createAuthenticateCaller } from './authenticate'
@@ -29,7 +26,7 @@ export type CreateMarketContract = {
 }
 
 export const createMarketContract =
-	(provider: Provider) =>
+	(provider: Provider | Signer) =>
 	(address: string): CreateMarketContract => {
 		const contract = new ethers.Contract(address, [...marketAbi], provider)
 		return {

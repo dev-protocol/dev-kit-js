@@ -28,14 +28,13 @@ describe('deposit.spec.ts', () => {
 
 		it('call failure', async () => {
 			const policy = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
+			const error = 'error'
 
 			const devContract = {
 				create: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (newPolicyAddress: string) =>
-						stubbedSendTx(undefined, true)
-					),
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -43,7 +42,7 @@ describe('deposit.spec.ts', () => {
 
 			const result = await caller(policy).catch((err) => err)
 
-			expect(result).toBeInstanceOf(Error)
+			expect(result).toEqual(error)
 		})
 	})
 })

@@ -24,22 +24,20 @@ describe('changeSymbol.spec.ts', () => {
 
 		it('call failure', async () => {
 			const nextSymbol = 'next'
+			const error = 'error'
 
 			const contract = {
 				changeSymbol: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (nextSymbol: string) =>
-						stubbedSendTx(undefined, true)
-					),
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createChangeSymbolCaller(contract as any)
 
 			const result = await caller(nextSymbol).catch((err) => err)
-
-			expect(result).toBeInstanceOf(Error)
+			expect(result).toEqual(error)
 		})
 	})
 })
