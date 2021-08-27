@@ -1,24 +1,21 @@
 import { createCreateCaller } from './create'
-import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
+import { stubbedSendTx } from '../utils/for-test'
 
 describe('create.spec.ts', () => {
 	describe('createCreateCaller', () => {
 		it('call success', async () => {
 			const expected = true
 			const marketFactoryContract = {
-				methods: {
+				create: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					create: (marketBehaviorAddress: string) => ({
-						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
-					}),
-				},
+					.mockImplementation(async (marketBehaviorAddress: string) =>
+						stubbedSendTx()
+					),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createCreateCaller(
-				marketFactoryContract as any,
-				stubbedWeb3
-			)
+			const caller = createCreateCaller(marketFactoryContract as any)
 
 			const result = await caller('0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5')
 
@@ -26,28 +23,19 @@ describe('create.spec.ts', () => {
 		})
 
 		it('call failure', async () => {
+			const error = 'error'
+
 			const marketFactoryContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					create: (marketBehaviorAddress: string) => ({
-						send: jest
-							.fn()
-							.mockImplementation(async () => stubbedSendTx(undefined, true)),
-					}),
-				},
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				create: jest.fn().mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createCreateCaller(
-				marketFactoryContract as any,
-				stubbedWeb3
-			)
-
+			const caller = createCreateCaller(marketFactoryContract as any)
 			const result = await caller(
 				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5'
 			).catch((err) => err)
-
-			expect(result).toBeInstanceOf(Error)
+			expect(result).toEqual(error)
 		})
 	})
 })

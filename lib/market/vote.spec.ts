@@ -1,49 +1,39 @@
 import { createVoteCaller } from './vote'
-import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
-import { txPromisify } from '../utils/txPromisify'
+import { stubTransactionResposeFactory } from '../utils/for-test'
 
 describe('vote.ts', () => {
 	describe('createVoteCaller', () => {
 		it('call success', async () => {
 			const propertyAddress = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
-
+			const stubTx = stubTransactionResposeFactory({})
 			const marketContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					vote: (propertyAddress: string, agree: boolean) => ({
-						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
-					}),
-				},
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				vote: (propertyAddress: string, agree: boolean) =>
+					Promise.resolve(stubTx),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createVoteCaller(marketContract as any, stubbedWeb3)
+			const caller = createVoteCaller(marketContract as any)
 
 			const result = await caller(propertyAddress, true)
 
-			expect(result).toEqual(await txPromisify(stubbedSendTx()))
+			expect(result).toEqual(stubTx)
 		})
 
 		it('call failure', async () => {
 			const propertyAddress = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 
+			const err = new Error('error')
+
 			const marketContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					vote: (propertyAddress: string, agree: boolean) => ({
-						send: jest
-							.fn()
-							.mockImplementation(async () => stubbedSendTx(undefined, true)),
-					}),
-				},
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				vote: (propertyAddress: string, agree: boolean) => Promise.reject(err),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createVoteCaller(marketContract as any, stubbedWeb3)
+			const caller = createVoteCaller(marketContract as any)
 
-			const result = await caller(propertyAddress, true).catch((err) => err)
-
-			expect(result).toBeInstanceOf(Error)
+			await expect(caller(propertyAddress, true)).rejects.toThrowError(err)
 		})
 	})
 })

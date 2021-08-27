@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import bent from 'bent'
 import BigNumber from 'bignumber.js'
-import Web3 from 'web3'
+import { ethers } from 'ethers'
 import { always } from 'ramda'
 import { addresses } from '../addresses'
 import { createDevkitContract, DevkitContract } from '../contract'
@@ -262,8 +262,8 @@ const getCreatorsRewardsDev: (
 export const getStats: GetStatsCaller = async (
 	httpProviderEndpoint: string
 ) => {
-	const web3 = new Web3(httpProviderEndpoint)
-	const devkit = createDevkitContract(web3)
+	const provider = new ethers.providers.JsonRpcProvider(httpProviderEndpoint)
+	const devkit = createDevkitContract(provider)
 
 	const [
 		devPrice,

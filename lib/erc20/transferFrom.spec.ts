@@ -1,5 +1,5 @@
 import { createTransferFromCaller } from './transferFrom'
-import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
+import { stubbedSendTx } from '../utils/for-test'
 
 describe('transferFrom.spec.ts', () => {
 	describe('createTransferFromCaller', () => {
@@ -10,18 +10,18 @@ describe('transferFrom.spec.ts', () => {
 			const value = '12345'
 
 			const contract = {
-				methods: {
+				transferFrom: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					transferFrom: (from: string, to: string, value: number) => ({
-						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
-					}),
-				},
+					.mockImplementation(async (from: string, to: string, value: number) =>
+						stubbedSendTx()
+					),
 			}
 
 			const expected = success
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createTransferFromCaller(contract as any, stubbedWeb3)
+			const caller = createTransferFromCaller(contract as any)
 
 			const result = await caller(from, to, value)
 
@@ -29,27 +29,26 @@ describe('transferFrom.spec.ts', () => {
 		})
 
 		it('call failure', async () => {
+			const error = 'error'
 			const from = '0x1E9342827907CD370CB8Ba2F768d7D50b2f457F9'
 			const to = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 			const value = '12345'
 
 			const contract = {
-				methods: {
+				transferFrom: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					transferFrom: (from: string, to: string, value: number) => ({
-						send: jest
-							.fn()
-							.mockImplementation(async () => stubbedSendTx(undefined, true)),
-					}),
-				},
+					.mockImplementation(async (from: string, to: string, value: number) =>
+						Promise.reject(error)
+					),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createTransferFromCaller(contract as any, stubbedWeb3)
+			const caller = createTransferFromCaller(contract as any)
 
 			const result = await caller(from, to, value).catch((err) => err)
 
-			expect(result).toBeInstanceOf(Error)
+			expect(result).toEqual(error)
 		})
 	})
 })

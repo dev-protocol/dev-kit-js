@@ -6,13 +6,9 @@ describe('createPolicySetCaller.spec.ts', () => {
 			const value = 'value'
 
 			const addressConfigContract = {
-				methods: {
-					policySet: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				policySet: jest
+					.fn()
+					.mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -29,13 +25,9 @@ describe('createPolicySetCaller.spec.ts', () => {
 			const error = 'error'
 
 			const addressConfigContract = {
-				methods: {
-					policySet: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				policySet: jest
+					.fn()
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

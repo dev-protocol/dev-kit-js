@@ -1,11 +1,15 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/execute'
 
 export type CreateBalanceOfCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => (address: string) => Promise<string>
 
 export const createBalanceOfCaller: CreateBalanceOfCaller =
-	(contract: Contract) => async (address: string) =>
-		execute({ contract, method: 'balanceOf', args: [address] })
+	(contract: ethers.Contract) => async (address: string) =>
+		execute<QueryOption>({
+			contract,
+			method: 'balanceOf',
+			args: [address],
+			mutation: false,
+		})

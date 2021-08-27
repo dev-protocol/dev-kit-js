@@ -1,15 +1,15 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/execute'
 
 export type CreateCalculateCumulativeHoldersRewardAmountCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => (propertyAddress: string) => Promise<string>
 
 export const createCalculateCumulativeHoldersRewardAmountCaller: CreateCalculateCumulativeHoldersRewardAmountCaller =
-	(contract: Contract) => async (propertyAddress: string) =>
-		execute({
+	(contract: ethers.Contract) => async (propertyAddress: string) =>
+		execute<QueryOption>({
 			contract,
 			method: 'calculateCumulativeHoldersRewardAmount',
 			args: [propertyAddress],
+			mutation: false,
 		})

@@ -6,13 +6,9 @@ describe('property.spec.ts', () => {
 			const value = '0x0000.........'
 
 			const contract = {
-				methods: {
-					property: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				property: jest
+					.fn()
+					.mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -29,13 +25,9 @@ describe('property.spec.ts', () => {
 			const error = 'error'
 
 			const contract = {
-				methods: {
-					property: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				property: jest
+					.fn()
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

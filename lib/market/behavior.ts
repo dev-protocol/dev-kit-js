@@ -1,16 +1,19 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { execute, QueryOption } from '../utils/execute'
 import { always } from 'ramda'
+import { ethers } from 'ethers'
 
-export type CreateBehaviorCaller = (contract: Contract) => () => Promise<string>
+export type CreateBehaviorCaller = (
+	contract: ethers.Contract
+) => () => Promise<string>
 
 export const createBehaviorCaller: CreateBehaviorCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) =>
 	always(
-		execute({
+		execute<QueryOption>({
 			contract,
 			method: 'behavior',
+			mutation: false,
 		})
 	)

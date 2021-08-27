@@ -66,7 +66,7 @@
 	},
 	"lint-staged": {
 		"./lib/**/*.ts": [
-			"yarn lint"
+			"eslint --fix -c ./.eslintrc.json"
 		]
 	},
 	"jest": {
@@ -88,6 +88,7 @@
 		]
 	},
 	"dependencies": {
+		"ethers": "^5.4.4",
 		"@types/bent": "^7.3.1",
 		"async-ray": "^3.2.0",
 		"bent": "^7.3.12",

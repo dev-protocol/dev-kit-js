@@ -6,12 +6,10 @@ describe('authenticationFee.spec.ts', () => {
 			const value = '12345'
 
 			const policyContract = {
-				methods: {
+				authenticationFee: jest.fn().mockImplementation(
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					authenticationFee: (assets: string, propertyAssets: string) => ({
-						call: jest.fn().mockImplementation(async () => value),
-					}),
-				},
+					async (assets: string, propertyAssets: string) => value
+				),
 			}
 
 			const expected = value
@@ -28,14 +26,12 @@ describe('authenticationFee.spec.ts', () => {
 			const error = 'error'
 
 			const policyContract = {
-				methods: {
+				authenticationFee: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					authenticationFee: (assets: string, propertyAssets: string) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+					.mockImplementation(async (assets: string, propertyAssets: string) =>
+						Promise.reject(error)
+					),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

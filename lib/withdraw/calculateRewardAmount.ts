@@ -1,20 +1,20 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract'
-import { arrayify } from '../utils/arrayify'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/execute'
+
 
 export type calculateRewardAmountCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => (
 	propertyAddress: string,
 	accountAddress: string
-) => Promise<readonly [string, string, string, string]>
+) => Promise<string>
 
 export const calculateRewardAmountCaller: calculateRewardAmountCaller =
-	(contract: Contract) =>
+	(contract: ethers.Contract) =>
 	async (propertyAddress: string, accountAddress: string) =>
-		execute<Record<string, string>>({
+		execute<QueryOption>({
 			contract,
 			method: 'calculateRewardAmount',
 			args: [propertyAddress, accountAddress],
-		}).then((r) => arrayify(r) as readonly [string, string, string, string])
+			mutation: false
+		})

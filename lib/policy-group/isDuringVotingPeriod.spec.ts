@@ -6,12 +6,10 @@ describe('isDuringVotingPeriod.spec.ts', () => {
 			const value = true
 
 			const policyGroupContract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					isDuringVotingPeriod: (policy: string) => ({
-						call: jest.fn().mockImplementation(async () => value),
-					}),
-				},
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				isDuringVotingPeriod: jest
+					.fn()
+					.mockImplementation(async (policy: string) => value),
 			}
 
 			const expected = value
@@ -30,14 +28,10 @@ describe('isDuringVotingPeriod.spec.ts', () => {
 			const error = 'error'
 
 			const policyGroupContract = {
-				methods: {
+				isDuringVotingPeriod: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					isDuringVotingPeriod: (policy: string) => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+					.mockImplementation(async (policy: string) => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

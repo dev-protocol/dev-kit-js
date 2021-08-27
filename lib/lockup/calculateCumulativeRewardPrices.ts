@@ -1,18 +1,18 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/execute'
 import { always } from 'ramda'
 import { arrayify } from '../utils/arrayify'
 
 export type CreateCalculateCumulativeRewardPricesCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => () => Promise<readonly [string, string, string, string]>
 
 export const createCalculateCumulativeRewardPricesCaller: CreateCalculateCumulativeRewardPricesCaller =
-	(contract: Contract) =>
+	(contract: ethers.Contract) =>
 		always(
-			execute<Record<string, string>>({
+			execute<QueryOption, Record<string, string>>({
 				contract,
 				method: 'calculateCumulativeRewardPrices',
+				mutation: false,
 			}).then((r) => arrayify(r) as readonly [string, string, string, string])
 		)

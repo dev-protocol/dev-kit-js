@@ -6,13 +6,9 @@ describe('market.spec.ts', () => {
 			const value = '0x0000.........'
 
 			const contract = {
-				methods: {
-					market: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				market: jest
+					.fn()
+					.mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -29,13 +25,7 @@ describe('market.spec.ts', () => {
 			const error = 'error'
 
 			const contract = {
-				methods: {
-					market: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				market: jest.fn().mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

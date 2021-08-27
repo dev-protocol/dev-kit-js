@@ -1,20 +1,29 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import Web3 from 'web3'
-import { execute } from '../utils/execute'
+/* eslint-disable functional/no-expression-statement */
+import { ethers } from 'ethers'
+import { execute, MutationOption } from '../utils/execute'
 
 export type CreateCreatePropertyCaller = (
-	contract: Contract,
-	client: Web3
+	contract: ethers.Contract
 ) => (name: string, symbol: string, author: string) => Promise<string>
 
 export const createCreatePropertyCaller: CreateCreatePropertyCaller =
-	(contract: Contract, client: Web3) =>
-	async (name: string, symbol: string, author: string): Promise<string> =>
-		execute({
+	(contract) =>
+	async (name: string, symbol: string, author: string): Promise<string> => {
+		await execute<MutationOption>({
 			contract,
 			method: 'create',
 			args: [name, symbol, author],
 			mutation: true,
-			client,
-		}).then(({ events }) => events.Create.returnValues._property as string)
+		})
+
+		return new Promise((resolve) => {
+			const subscribedContract = contract.on(
+				'Create',
+				async (_: string, propertyAddress: string) => {
+					subscribedContract.removeAllListeners()
+					resolve(propertyAddress)
+				}
+			)
+		})
+	}

@@ -6,13 +6,9 @@ describe('treasury.spec.ts', () => {
 			const value = '1111'
 
 			const contract = {
-				methods: {
-					treasury: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.resolve(value)),
-					}),
-				},
+				treasury: jest
+					.fn()
+					.mockImplementation(async () => Promise.resolve(value)),
 			}
 
 			const expected = value
@@ -29,13 +25,9 @@ describe('treasury.spec.ts', () => {
 			const error = 'error'
 
 			const contract = {
-				methods: {
-					treasury: () => ({
-						call: jest
-							.fn()
-							.mockImplementation(async () => Promise.reject(error)),
-					}),
-				},
+				treasury: jest
+					.fn()
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

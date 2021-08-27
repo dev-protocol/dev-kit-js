@@ -1,21 +1,19 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import Web3 from 'web3'
-import { Contract } from 'web3-eth-contract/types'
+import { ethers } from 'ethers'
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { withdrawAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createWithdrawCaller } from './withdraw'
 import { createGetRewardsAmountCaller } from './getRewardsAmount'
 import { createCalculateWithdrawableAmountCaller } from './calculateWithdrawableAmount'
 import { createBulkWithdrawCaller } from './bulkWithdraw'
-import { TxReceipt } from '../utils/web3-txs'
-import { always } from 'ramda'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { calculateRewardAmountCaller } from './calculateRewardAmount'
 
 export type WithdrawContract = {
 	readonly withdraw: (propertyAddress: string) => Promise<boolean>
 	readonly bulkWithdraw: (
 		propertyAddresses: readonly string[]
-	) => Promise<TxReceipt>
+	) => Promise<TransactionResponse>
 	readonly getRewardsAmount: (propertyAddress: string) => Promise<string>
 	readonly calculateWithdrawableAmount: (
 		propertyAddress: string,
@@ -24,32 +22,20 @@ export type WithdrawContract = {
 	readonly calculateRewardAmount: (
 		propertyAddress: string,
 		accountAddress: string
-	) => Promise<readonly [string, string, string, string]>
-	readonly contract: () => Contract
+	) => Promise<string>
 }
 
-export type CreateWithdrawContract = (
-	client: Web3
-) => (address?: string, options?: CustomOptions) => WithdrawContract
-
-export const createWithdrawContract: CreateWithdrawContract =
-	(client: Web3) =>
-	(address?: string, options?: CustomOptions): WithdrawContract => {
-		const contractClient: Contract = new client.eth.Contract(
-			[...withdrawAbi],
-			address,
-			{
-				...options,
-			}
-		)
+export const createWithdrawContract =
+	(provider: Provider | Signer) =>
+	(address: string): WithdrawContract => {
+		const contract = new ethers.Contract(address, [...withdrawAbi], provider)
 
 		return {
-			withdraw: createWithdrawCaller(contractClient, client),
-			bulkWithdraw: createBulkWithdrawCaller(contractClient, client),
-			getRewardsAmount: createGetRewardsAmountCaller(contractClient),
+			withdraw: createWithdrawCaller(contract),
+			bulkWithdraw: createBulkWithdrawCaller(contract),
+			getRewardsAmount: createGetRewardsAmountCaller(contract),
 			calculateWithdrawableAmount:
-				createCalculateWithdrawableAmountCaller(contractClient),
-			calculateRewardAmount: calculateRewardAmountCaller(contractClient),
-			contract: always(contractClient),
+				createCalculateWithdrawableAmountCaller(contract),
+			calculateRewardAmount: calculateRewardAmountCaller(contract),
 		}
 	}

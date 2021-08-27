@@ -1,16 +1,16 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/execute'
 
 export type CreateRewardsCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => (lockups: string, assets: string) => Promise<string>
 
 export const createRewardsCaller: CreateRewardsCaller =
-	(contract: Contract) =>
+	(contract: ethers.Contract) =>
 	async (lockups: string, assets: string): Promise<string> =>
 		execute({
 			contract,
 			method: 'rewards',
 			args: [lockups, assets],
+			mutation: false,
 		})

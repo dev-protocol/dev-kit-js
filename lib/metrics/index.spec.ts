@@ -1,45 +1,38 @@
-import Web3 from 'web3'
-import { CustomOptions } from '../option'
+import { ethers } from 'ethers'
 import { createMetricsContract, CreateMetricsContract } from '.'
 import { createPropertyCaller } from './property'
 import { createMarketCaller } from './market'
 import { metricsAbi } from './abi'
 
-describe('allocator/index.ts', () => {
-	describe('createAllocatorContract', () => {
+jest.mock('./property')
+jest.mock('./market')
+
+describe('metrics/index.ts', () => {
+	;(createPropertyCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createMarketCaller as jest.Mock).mockImplementation((contract) => contract)
+	describe('createMetricsContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
-			const client = new Web3()
-			client.setProvider(new Web3.providers.HttpProvider(host))
+			const address = '0x0000000000000000000000000000000000000000'
+			const provider = new ethers.providers.JsonRpcProvider(host)
 
-			const expected: (
-				address?: string,
-				options?: CustomOptions
-			) => CreateMetricsContract = (
-				address?: string,
-				options?: CustomOptions
+			const expected: (address: string) => CreateMetricsContract = (
+				address: string
 			) => {
-				const metricsContract = new client.eth.Contract(
-					[...metricsAbi],
-					address,
-					{
-						...options,
-					}
-				)
+				const contract = new ethers.Contract(address, [...metricsAbi], provider)
 				return {
-					property: createPropertyCaller(metricsContract),
-					market: createMarketCaller(metricsContract),
-					contract: () => metricsContract,
+					property: createPropertyCaller(contract),
+					market: createMarketCaller(contract),
 				}
 			}
 
-			const result = createMetricsContract(client)
+			const result = createMetricsContract(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(
-				JSON.stringify(result('0x0000000000000000000000000000000000000000'))
-			).toEqual(
-				JSON.stringify(expected('0x0000000000000000000000000000000000000000'))
+			expect(JSON.stringify(result(address))).toEqual(
+				JSON.stringify(expected(address))
 			)
 		})
 	})

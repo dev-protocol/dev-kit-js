@@ -1,43 +1,36 @@
-import Web3 from 'web3'
+import { ethers } from 'ethers'
 import { createMarketFactoryContract, MarketFactoryContract } from '.'
 import { marketFactoryAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createCreateCaller } from './create'
 
+jest.mock('./create')
+
 describe('market-factory/index.ts', () => {
+	;(createCreateCaller as jest.Mock).mockImplementation((contract) => contract)
 	describe('createMarketFactoryContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
-			const client = new Web3()
-			client.setProvider(new Web3.providers.HttpProvider(host))
+			const address = '0x0000000000000000000000000000000000000000'
+			const provider = new ethers.providers.JsonRpcProvider(host)
 
-			const expected: (
-				address?: string,
-				options?: CustomOptions
-			) => MarketFactoryContract = (
-				address?: string,
-				options?: CustomOptions
+			const expected: (address: string) => MarketFactoryContract = (
+				address: string
 			) => {
-				const marketFactoryContract = new client.eth.Contract(
-					[...marketFactoryAbi],
+				const contract = new ethers.Contract(
 					address,
-					{
-						...options,
-					}
+					[...marketFactoryAbi],
+					provider
 				)
 				return {
-					create: createCreateCaller(marketFactoryContract, client),
-					contract: () => marketFactoryContract,
+					create: createCreateCaller(contract),
 				}
 			}
 
-			const result = createMarketFactoryContract(client)
+			const result = createMarketFactoryContract(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(
-				JSON.stringify(result('0x0000000000000000000000000000000000000000'))
-			).toEqual(
-				JSON.stringify(expected('0x0000000000000000000000000000000000000000'))
+			expect(JSON.stringify(result(address))).toEqual(
+				JSON.stringify(expected(address))
 			)
 		})
 	})

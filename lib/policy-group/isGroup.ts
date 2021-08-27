@@ -1,16 +1,17 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/execute'
+import { T } from 'ramda'
 
 export type CreateIsGroupCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => (policyAddress: string) => Promise<boolean>
 
 export const createIsGroupCaller: CreateIsGroupCaller =
-	(contract: Contract) =>
+	(contract: ethers.Contract) =>
 	async (policyAddress: string): Promise<boolean> =>
-		execute({
+		execute<QueryOption>({
 			contract,
 			method: 'isGroup',
 			args: [policyAddress],
-		})
+			mutation: false,
+		}).then(T)

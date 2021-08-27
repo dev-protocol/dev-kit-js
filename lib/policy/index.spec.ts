@@ -1,7 +1,6 @@
-import Web3 from 'web3'
+import { ethers } from 'ethers'
 import { createPolicyContract, PolicyContract } from '.'
 import { policyAbi } from './abi'
-import { CustomOptions } from '../option'
 import { createHoldersShareCaller } from './holdersShare'
 import { createRewardsCaller } from './rewards'
 import { createAuthenticationFeeCaller } from './authenticationFee'
@@ -11,45 +10,66 @@ import { createShareOfTreasuryCaller } from './shareOfTreasury'
 import { createTreasuryCaller } from './treasury'
 import { createCapSetterCaller } from './capSetter'
 
+jest.mock('./holdersShare')
+jest.mock('./rewards')
+jest.mock('./authenticationFee')
+jest.mock('./marketVotingBlocks')
+jest.mock('./policyVotingBlocks')
+jest.mock('./shareOfTreasury')
+jest.mock('./treasury')
+jest.mock('./capSetter')
+
 describe('policy/index.ts', () => {
+	;(createHoldersShareCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createRewardsCaller as jest.Mock).mockImplementation((contract) => contract)
+	;(createAuthenticationFeeCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createMarketVotingBlocksCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createPolicyVotingBlocksCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createShareOfTreasuryCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createTreasuryCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createCapSetterCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
 	describe('createPolicyContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
-			const client = new Web3()
-			client.setProvider(new Web3.providers.HttpProvider(host))
+			const address = '0x0000000000000000000000000000000000000000'
+			const provider = new ethers.providers.JsonRpcProvider(host)
 
-			const expected: (
-				address?: string,
-				options?: CustomOptions
-			) => PolicyContract = (address?: string, options?: CustomOptions) => {
-				const policyContract = new client.eth.Contract(
-					[...policyAbi],
-					address,
-					{
-						...options,
-					}
-				)
+			const expected: (address: string) => PolicyContract = (
+				address: string
+			) => {
+				const contract = new ethers.Contract(address, [...policyAbi], provider)
 
 				return {
-					holdersShare: createHoldersShareCaller(policyContract),
-					rewards: createRewardsCaller(policyContract),
-					authenticationFee: createAuthenticationFeeCaller(policyContract),
-					marketVotingBlocks: createMarketVotingBlocksCaller(policyContract),
-					policyVotingBlocks: createPolicyVotingBlocksCaller(policyContract),
-					shareOfTreasury: createShareOfTreasuryCaller(policyContract),
-					treasury: createTreasuryCaller(policyContract),
-					capSetter: createCapSetterCaller(policyContract),
-					contract: () => policyContract,
+					holdersShare: createHoldersShareCaller(contract),
+					rewards: createRewardsCaller(contract),
+					authenticationFee: createAuthenticationFeeCaller(contract),
+					marketVotingBlocks: createMarketVotingBlocksCaller(contract),
+					policyVotingBlocks: createPolicyVotingBlocksCaller(contract),
+					shareOfTreasury: createShareOfTreasuryCaller(contract),
+					treasury: createTreasuryCaller(contract),
+					capSetter: createCapSetterCaller(contract),
 				}
 			}
 
-			const result = createPolicyContract(client)
+			const result = createPolicyContract(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(
-				JSON.stringify(result('0x0000000000000000000000000000000000000000'))
-			).toEqual(
-				JSON.stringify(expected('0x0000000000000000000000000000000000000000'))
+			expect(JSON.stringify(result(address))).toEqual(
+				JSON.stringify(expected(address))
 			)
 		})
 	})

@@ -1,5 +1,5 @@
 import { createChangeNameCaller } from './changeName'
-import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
+import { stubbedSendTx } from '../utils/for-test'
 
 describe('changeName.spec.ts', () => {
 	describe('createChangeNameCaller', () => {
@@ -8,16 +8,14 @@ describe('changeName.spec.ts', () => {
 			const nextName = 'next'
 
 			const contract = {
-				methods: {
+				changeName: jest
+					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					changeName: (nextName: string) => ({
-						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
-					}),
-				},
+					.mockImplementation(async (nextName: string) => stubbedSendTx()),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createChangeNameCaller(contract as any, stubbedWeb3)
+			const caller = createChangeNameCaller(contract as any)
 
 			const result = await caller(nextName)
 
@@ -26,24 +24,21 @@ describe('changeName.spec.ts', () => {
 
 		it('call failure', async () => {
 			const nextName = 'next'
+			const error = 'error'
 
 			const contract = {
-				methods: {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					changeName: (nextName: string) => ({
-						send: jest
-							.fn()
-							.mockImplementation(async () => stubbedSendTx(undefined, true)),
-					}),
-				},
+				changeName: jest
+					.fn()
+
+					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createChangeNameCaller(contract as any, stubbedWeb3)
+			const caller = createChangeNameCaller(contract as any)
 
 			const result = await caller(nextName).catch((err) => err)
 
-			expect(result).toBeInstanceOf(Error)
+			expect(result).toEqual(error)
 		})
 	})
 })

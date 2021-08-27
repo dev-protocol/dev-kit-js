@@ -1,12 +1,18 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Contract } from 'web3-eth-contract/types'
-import { execute } from '../utils/execute'
+import { ethers } from 'ethers'
+import { execute, QueryOption } from '../utils/execute'
 import { always } from 'ramda'
 
 export type CreatePropertyGroupCaller = (
-	contract: Contract
+	contract: ethers.Contract
 ) => () => Promise<string>
 
 export const createPropertyGroupCaller: CreatePropertyGroupCaller = (
-	contract: Contract
-) => always(execute({ contract, method: 'propertyGroup' }))
+	contract: ethers.Contract
+) =>
+	always(
+		execute<QueryOption>({
+			contract,
+			method: 'propertyGroup',
+			mutation: false,
+		})
+	)

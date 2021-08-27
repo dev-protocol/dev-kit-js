@@ -1,6 +1,7 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import Web3 from 'web3'
-import { provider } from 'web3-core'
+/* eslint-disable functional/no-throw-statement */
+/* eslint-disable functional/no-conditional-statement */
+import { Provider } from '@ethersproject/abstract-provider'
+import { Signer } from '@ethersproject/abstract-signer'
 import { createMarketContract } from './market/index'
 import { createPropertyContract } from './property/index'
 import { createPropertyFactoryContract } from './property-factory/index'
@@ -28,30 +29,33 @@ export type DevkitContract = {
 	readonly metrics: ReturnType<typeof createMetricsContract>
 	readonly policyFactory: ReturnType<typeof createPolicyFactoryContract>
 }
-export type ContractFactory = (provider: provider) => DevkitContract
-export type CreateDevkitContract = (client: Web3) => DevkitContract
+export type ContractFactory = (
+	ethersProvider: Provider | Signer
+) => DevkitContract
+export type CreateDevkitContract = (
+	provider: Provider | Signer
+) => DevkitContract
 
+// ここをethers.jsで実装した処理の関数に差し替える
 export const createDevkitContract: CreateDevkitContract = (
-	client: Web3
+	provider: Provider | Signer
 ): DevkitContract => ({
-	allocator: createAllocatorContract(client),
-	market: createMarketContract(client),
-	property: createPropertyContract(client),
-	propertyFactory: createPropertyFactoryContract(client),
-	lockup: createLockupContract(client),
-	withdraw: createWithdrawContract(client),
-	dev: createDevContract(client),
-	registry: createRegistryContract(client),
-	policy: createPolicyContract(client),
-	policyGroup: createPolicyGroupContract(client),
-	metrics: createMetricsContract(client),
-	policyFactory: createPolicyFactoryContract(client),
+	allocator: createAllocatorContract(provider),
+	market: createMarketContract(provider),
+	property: createPropertyContract(provider),
+	propertyFactory: createPropertyFactoryContract(provider),
+	lockup: createLockupContract(provider),
+	withdraw: createWithdrawContract(provider),
+	dev: createDevContract(provider),
+	registry: createRegistryContract(provider),
+	policy: createPolicyContract(provider),
+	policyGroup: createPolicyGroupContract(provider),
+	metrics: createMetricsContract(provider),
+	policyFactory: createPolicyFactoryContract(provider),
 })
 
 export const contractFactory: ContractFactory = (
-	provider: provider
+	provider: Provider | Signer
 ): DevkitContract => {
-	const client = new Web3(provider)
-
-	return createDevkitContract(client)
+	return createDevkitContract(provider)
 }
