@@ -11,7 +11,7 @@ describe('changeName.spec.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					changeName: (nextName: string) => ({
-						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
+						send: jest.fn().mockImplementation(stubbedSendTx),
 					}),
 				},
 			}

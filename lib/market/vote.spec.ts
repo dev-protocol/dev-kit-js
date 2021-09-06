@@ -11,7 +11,9 @@ describe('vote.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					vote: (propertyAddress: string, agree: boolean) => ({
+						/* eslint-disable */
 						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
+						/* eslint-enable */
 					}),
 				},
 			}

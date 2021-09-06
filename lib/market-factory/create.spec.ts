@@ -9,7 +9,7 @@ describe('create.spec.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					create: (marketBehaviorAddress: string) => ({
-						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
+						send: jest.fn().mockImplementation(stubbedSendTx),
 					}),
 				},
 			}

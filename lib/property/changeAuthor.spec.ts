@@ -11,7 +11,7 @@ describe('changeAuthor.spec.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					changeAuthor: (nextAuther: string) => ({
-						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
+						send: jest.fn().mockImplementation(stubbedSendTx),
 					}),
 				},
 			}

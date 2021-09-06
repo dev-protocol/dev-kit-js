@@ -9,7 +9,9 @@ describe('bulkWithdraw.spec.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					bulkWithdraw: (properties: readonly string[]) => ({
+						/* eslint-disable */
 						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
+						/* eslint-enable */
 					}),
 				},
 			}

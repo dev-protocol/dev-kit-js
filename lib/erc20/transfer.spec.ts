@@ -12,7 +12,7 @@ describe('transfer.spec.ts', () => {
 				methods: {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					transfer: (to: string, value: number) => ({
-						send: jest.fn().mockImplementation(async () => stubbedSendTx()),
+						send: jest.fn().mockImplementation(stubbedSendTx),
 					}),
 				},
 			}
