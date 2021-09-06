@@ -13,5 +13,5 @@ export const createCalculateWithdrawableAmountCaller: CreateCalculateWithdrawabl
 				contract,
 				method: 'calculateWithdrawableAmount',
 				args: [propertyAddress, accountAddress],
-				mutation: false
+				mutation: false,
 			})

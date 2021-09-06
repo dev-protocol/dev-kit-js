@@ -54,8 +54,4 @@ export const createDevkitContract: CreateDevkitContract = (
 	policyFactory: createPolicyFactoryContract(provider),
 })
 
-export const contractFactory: ContractFactory = (
-	provider: Provider | Signer
-): DevkitContract => {
-	return createDevkitContract(provider)
-}
+export const contractFactory: ContractFactory = createDevkitContract
