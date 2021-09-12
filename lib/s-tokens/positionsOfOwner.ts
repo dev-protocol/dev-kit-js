@@ -7,9 +7,11 @@ export type CreatePositionsOfOwnerCaller = (
 ) => (accountAddress: string) => Promise<readonly number[]>
 
 export const createPositionsOfOwnerCaller: CreatePositionsOfOwnerCaller =
-	(contract: Contract) => async (accountAddress: string) =>
-		execute({
+	(contract: Contract) => async (accountAddress: string) => {
+		const res = await execute<readonly string[]>({
 			contract,
 			method: 'positionsOfOwner',
 			args: [accountAddress],
 		})
+		return res.map(Number)
+	}

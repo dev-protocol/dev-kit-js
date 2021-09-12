@@ -3,7 +3,7 @@ import { createPositionsOfPropertyCaller } from './positionsOfProperty'
 describe('positionsOfProperty.spec.ts', () => {
 	describe('createPositionsOfPropertyCaller', () => {
 		it('call success', async () => {
-			const value = [1, 2, 3, 4, 5, 6]
+			const value = ['1', '2', '3', '4', '5', '6']
 
 			const contract = {
 				methods: {
@@ -20,7 +20,7 @@ describe('positionsOfProperty.spec.ts', () => {
 
 			const result = await caller('0xAddress')
 
-			expect(result).toEqual(value)
+			expect(result).toEqual([1, 2, 3, 4, 5, 6])
 		})
 
 		it('call failure', async () => {

@@ -7,9 +7,11 @@ export type CreatePositionsOfPropertyCaller = (
 ) => (propertyAddress: string) => Promise<readonly number[]>
 
 export const createPositionsOfPropertyCaller: CreatePositionsOfPropertyCaller =
-	(contract: Contract) => async (propertyAddress: string) =>
-		execute({
+	(contract: Contract) => async (propertyAddress: string) => {
+		const res = await execute<readonly string[]>({
 			contract,
 			method: 'positionsOfProperty',
 			args: [propertyAddress],
 		})
+		return res.map(Number)
+	}
