@@ -19,13 +19,15 @@ First, install this repository as an npm package.
 
 You can use the Dev Protocol by importing it from a JavaScript(TypeScript) file.
 
-```
+```js
 import { contractFactory } from '@devprotocol/dev-kit'
+import { providers } from 'ethers'
 
-const provider = new Web3.providers.HttpProvider('http://localhost:8545')
+const provider = new providers.Web3Provider(window.ethereum)
 const factory = contractFactory(provider)
-cosnt balance ＝ await factory.dev().balanceOf('0xB204f0Bb68De735b98abBA5ccAE7459837c2f084')
-
+const balance = await factory
+	.dev()
+	.balanceOf('0xB204f0Bb68De735b98abBA5ccAE7459837c2f084')
 ```
 
 This is an example of retrieving the balance of the DEV token held by 0xB204f0Bb68De735b98abBA5ccAE7459837c2f084
