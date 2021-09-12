@@ -1,6 +1,6 @@
 import Web3 from 'web3'
 import { CustomOptions } from '../option'
-import { createSTokensContract, CreateSTokensContract } from '.'
+import { createSTokensContract, STokensContract } from '.'
 import { createPositionsCaller } from './positions'
 import { createRewardsCaller } from './rewards'
 import { createTokenURICaller } from './tokenURI'
@@ -18,7 +18,7 @@ describe('s-tokens/index.ts', () => {
 			const expected: (
 				address?: string,
 				options?: CustomOptions
-			) => CreateSTokensContract = (
+			) => STokensContract = (
 				address?: string,
 				options?: CustomOptions
 			) => {

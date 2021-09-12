@@ -9,7 +9,7 @@ import { createTokenURICaller, TokenURI } from './tokenURI'
 import { createPositionsOfPropertyCaller } from './positionsOfProperty'
 import { createPositionsOfOwnerCaller } from './positionsOfOwner'
 
-export type CreateSTokensContract = {
+export type STokensContract = {
 	readonly positions: (tokenId: number) => Promise<Positions>
 	readonly rewards: (tokenId: number) => Promise<Rewards>
 	readonly tokenURI: (tokenId: number) => Promise<TokenURI>
@@ -25,7 +25,7 @@ export type CreateSTokensContract = {
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
 export const createSTokensContract =
 	(client: Web3) =>
-	(address?: string, options?: CustomOptions): CreateSTokensContract => {
+	(address?: string, options?: CustomOptions): STokensContract => {
 		const contractClient: Contract = new client.eth.Contract(
 			[...sTokensAbi],
 			address,
