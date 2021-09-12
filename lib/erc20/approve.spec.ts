@@ -1,5 +1,5 @@
 import { createApproveCaller } from './approve'
-import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
+import { stubbedSendTx } from '../utils/for-test'
 
 describe('approve.spec.ts', () => {
 	describe('createApproveCaller', () => {

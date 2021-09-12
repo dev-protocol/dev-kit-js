@@ -9,20 +9,11 @@
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable no-extend-native */
-import Web3 from 'web3'
 import {
 	TransactionResponse,
 	TransactionReceipt,
 } from '@ethersproject/abstract-provider'
 import { BigNumber } from 'ethers'
-
-export const stubbedWeb3 = {
-	eth: {
-		async getAccounts(): Promise<readonly string[]> {
-			return Promise.resolve(['0x'])
-		},
-	},
-} as unknown as Web3
 
 export type StubTransactionResposeFactory = (p: {
 	readonly hash?: string

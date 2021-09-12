@@ -1,5 +1,5 @@
 import { createChangeSymbolCaller } from './changeSymbol'
-import { stubbedWeb3, stubbedSendTx } from '../utils/for-test'
+import { stubbedSendTx } from '../utils/for-test'
 
 describe('changeSymbol.spec.ts', () => {
 	describe('createChangeSymbolCaller', () => {
