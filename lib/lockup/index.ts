@@ -14,6 +14,11 @@ import { createCalculateCumulativeRewardPricesCaller } from './calculateCumulati
 import { createCalculateRewardAmountCaller } from './calculateRewardAmount'
 import { createCapCaller } from './cap'
 import { always } from 'ramda'
+import { createDepositToPropertyCaller } from './depositToProperty'
+import { createDepositToPositionCaller } from './depositToPosition'
+import { createWithdrawByPositionCaller } from './withdrawByPosition'
+import { createMigrateToSTokensCaller } from './migrateToSTokens'
+import { createcalculateWithdrawableInterestAmountByPositionCaller } from './calculateWithdrawableInterestAmountByPosition'
 
 export type LockupContract = {
 	readonly getValue: (
@@ -22,10 +27,17 @@ export type LockupContract = {
 	) => Promise<string>
 	readonly getAllValue: () => Promise<string>
 	readonly getPropertyValue: (address: string) => Promise<string>
+	readonly withdrawByPosition: (
+		positionTokenId: string,
+		amount: string
+	) => Promise<boolean>
 	readonly withdraw: (
 		propertyAddress: string,
 		amount: string
 	) => Promise<boolean>
+	readonly calculateWithdrawableInterestAmountByPosition: (
+		positionTokenId: string
+	) => Promise<string>
 	readonly calculateWithdrawableInterestAmount: (
 		propertyAddress: string,
 		accountAddress: string
@@ -44,6 +56,15 @@ export type LockupContract = {
 		propertyAddress: string
 	) => Promise<readonly [string, string]>
 	readonly cap: () => Promise<string>
+	readonly depositToProperty: (
+		propertyAddress: string,
+		amount: string
+	) => Promise<boolean>
+	readonly depositToPosition: (
+		positionTokenId: string,
+		amount: string
+	) => Promise<boolean>
+	readonly migrateToSTokens: (positionTokenId: string) => Promise<boolean>
 	readonly contract: () => Contract
 }
 
@@ -66,7 +87,15 @@ export const createLockupContract: CreateLockupContract =
 			getValue: createGetValueCaller(contractClient),
 			getAllValue: createGetAllValueCaller(contractClient),
 			getPropertyValue: createGetPropertyValueCaller(contractClient),
+			withdrawByPosition: createWithdrawByPositionCaller(
+				contractClient,
+				client
+			),
 			withdraw: createWithdrawCaller(contractClient, client),
+			calculateWithdrawableInterestAmountByPosition:
+				createcalculateWithdrawableInterestAmountByPositionCaller(
+					contractClient
+				),
 			calculateWithdrawableInterestAmount:
 				createCalculateWithdrawableInterestAmountCaller(contractClient),
 			calculateCumulativeHoldersRewardAmount:
@@ -77,6 +106,9 @@ export const createLockupContract: CreateLockupContract =
 				createCalculateCumulativeRewardPricesCaller(contractClient),
 			calculateRewardAmount: createCalculateRewardAmountCaller(contractClient),
 			cap: createCapCaller(contractClient),
+			depositToProperty: createDepositToPropertyCaller(contractClient, client),
+			depositToPosition: createDepositToPositionCaller(contractClient, client),
+			migrateToSTokens: createMigrateToSTokensCaller(contractClient, client),
 			contract: always(contractClient),
 		}
 	}

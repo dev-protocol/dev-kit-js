@@ -12,6 +12,11 @@ import { createCalculateCumulativeHoldersRewardAmountCaller } from './calculateC
 import { createCalculateCumulativeRewardPricesCaller } from './calculateCumulativeRewardPrices'
 import { createCalculateRewardAmountCaller } from './calculateRewardAmount'
 import { createCapCaller } from './cap'
+import { createDepositToPropertyCaller } from './depositToProperty'
+import { createDepositToPositionCaller } from './depositToPosition'
+import { createWithdrawByPositionCaller } from './withdrawByPosition'
+import { createMigrateToSTokensCaller } from './migrateToSTokens'
+import { createcalculateWithdrawableInterestAmountByPositionCaller } from './calculateWithdrawableInterestAmountByPosition'
 
 describe('lockup/index.ts', () => {
 	describe('createLockupContract', () => {
@@ -35,7 +40,15 @@ describe('lockup/index.ts', () => {
 					getValue: createGetValueCaller(lockupContract),
 					getAllValue: createGetAllValueCaller(lockupContract),
 					getPropertyValue: createGetPropertyValueCaller(lockupContract),
+					withdrawByPosition: createWithdrawByPositionCaller(
+						lockupContract,
+						client
+					),
 					withdraw: createWithdrawCaller(lockupContract, client),
+					calculateWithdrawableInterestAmountByPosition:
+						createcalculateWithdrawableInterestAmountByPositionCaller(
+							lockupContract
+						),
 					calculateWithdrawableInterestAmount:
 						createCalculateWithdrawableInterestAmountCaller(lockupContract),
 					calculateCumulativeHoldersRewardAmount:
@@ -47,6 +60,18 @@ describe('lockup/index.ts', () => {
 					calculateRewardAmount:
 						createCalculateRewardAmountCaller(lockupContract),
 					cap: createCapCaller(lockupContract),
+					depositToProperty: createDepositToPropertyCaller(
+						lockupContract,
+						client
+					),
+					depositToPosition: createDepositToPositionCaller(
+						lockupContract,
+						client
+					),
+					migrateToSTokens: createMigrateToSTokensCaller(
+						lockupContract,
+						client
+					),
 					contract: () => lockupContract,
 				}
 			}
