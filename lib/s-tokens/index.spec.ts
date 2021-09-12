@@ -5,6 +5,8 @@ import { createPositionsCaller } from './positions'
 import { createRewardsCaller } from './rewards'
 import { createTokenURICaller } from './tokenURI'
 import { sTokensAbi } from './abi'
+import { createPositionsOfPropertyCaller } from './positionsOfProperty'
+import { createPositionsOfOwnerCaller } from './positionsOfOwner'
 
 describe('s-tokens/index.ts', () => {
 	describe('createSTokensContract', () => {
@@ -31,6 +33,8 @@ describe('s-tokens/index.ts', () => {
 					positions: createPositionsCaller(sTokensContract),
 					rewards: createRewardsCaller(sTokensContract),
 					tokenURI: createTokenURICaller(sTokensContract),
+					positionsOfProperty: createPositionsOfPropertyCaller(sTokensContract),
+					positionsOfOwner: createPositionsOfOwnerCaller(sTokensContract),
 					contract: () => sTokensContract,
 				}
 			}
