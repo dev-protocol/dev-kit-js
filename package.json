@@ -48,6 +48,7 @@
 		"eslint-config-prettier": "6.15.0",
 		"eslint-plugin-functional": "3.7.0",
 		"eslint-plugin-jest": "24.4.0",
+		"ethers": "5.4.6",
 		"globby": "11.0.4",
 		"husky": "7.0.2",
 		"jest": "27.1.1",
@@ -61,8 +62,7 @@
 		"rollup-plugin-dts": "4.0.0",
 		"rollup-plugin-terser": "7.0.2",
 		"ts-jest": "27.0.5",
-		"typescript": "4.4.3",
-		"web3": "1.5.2"
+		"typescript": "4.4.3"
 	},
 	"lint-staged": {
 		"./lib/**/*.ts": [
@@ -88,14 +88,14 @@
 		]
 	},
 	"dependencies": {
-		"ethers": "^5.4.4",
 		"@types/bent": "^7.3.1",
 		"async-ray": "^3.2.0",
 		"bent": "^7.3.12",
+		"bignumber.js": "9.0.1",
 		"ramda": "^0.27.0"
 	},
 	"peerDependencies": {
-		"web3": "^1.2.0"
+		"ethers": "^5.0.0"
 	},
 	"directories": {
 		"lib": "lib"

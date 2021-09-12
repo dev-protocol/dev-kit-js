@@ -32,7 +32,7 @@ jest.mock('bent')
 import { getStats } from './getStats'
 import { createDevkitContract } from '../contract'
 
-jest.mock('web3')
+jest.mock('ethers')
 jest.mock('../contract')
 
 describe('getStats.ts', () => {
