@@ -13,6 +13,11 @@ export const lockupAbi = [
 				name: '_devMinter',
 				type: 'address',
 			},
+			{
+				internalType: 'address',
+				name: '_sTokensManager',
+				type: 'address',
+			},
 		],
 		payable: false,
 		stateMutability: 'nonpayable',
@@ -60,6 +65,19 @@ export const lockupAbi = [
 			},
 		],
 		name: 'OwnershipTransferred',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: '_cap',
+				type: 'uint256',
+			},
+		],
+		name: 'UpdateCap',
 		type: 'event',
 	},
 	{
@@ -550,6 +568,21 @@ export const lockupAbi = [
 		type: 'function',
 	},
 	{
+		constant: true,
+		inputs: [],
+		name: 'sTokensManager',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
 		constant: false,
 		inputs: [
 			{
@@ -584,6 +617,58 @@ export const lockupAbi = [
 		inputs: [
 			{
 				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: '_amount',
+				type: 'uint256',
+			},
+		],
+		name: 'depositToProperty',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '_tokenId',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: '_amount',
+				type: 'uint256',
+			},
+		],
+		name: 'depositToPosition',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool',
+			},
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
 				name: '_from',
 				type: 'address',
 			},
@@ -600,6 +685,32 @@ export const lockupAbi = [
 		],
 		name: 'lockup',
 		outputs: [],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '_tokenId',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: '_amount',
+				type: 'uint256',
+			},
+		],
+		name: 'withdrawByPosition',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool',
+			},
+		],
 		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
@@ -768,6 +879,27 @@ export const lockupAbi = [
 	},
 	{
 		constant: true,
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '_tokenId',
+				type: 'uint256',
+			},
+		],
+		name: 'calculateWithdrawableInterestAmountByPosition',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		constant: true,
 		inputs: [],
 		name: 'getAllValue',
 		outputs: [
@@ -839,6 +971,27 @@ export const lockupAbi = [
 		],
 		name: '___setFallbackInitialCumulativeHoldersRewardCap',
 		outputs: [],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+		],
+		name: 'migrateToSTokens',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: 'tokenId_',
+				type: 'uint256',
+			},
+		],
 		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
