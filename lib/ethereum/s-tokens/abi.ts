@@ -119,7 +119,7 @@ export const sTokensAbi = [
 			{
 				indexed: false,
 				internalType: 'uint256',
-				name: 'tikenId',
+				name: 'tokenId',
 				type: 'uint256',
 			},
 			{
@@ -283,7 +283,7 @@ export const sTokensAbi = [
 		outputs: [
 			{
 				internalType: 'uint256',
-				name: 'tikenId_',
+				name: 'tokenId_',
 				type: 'uint256',
 			},
 		],
@@ -356,6 +356,44 @@ export const sTokensAbi = [
 				internalType: 'uint256',
 				name: 'pendingReward_',
 				type: 'uint256',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_owner',
+				type: 'address',
+			},
+		],
+		name: 'positionsOfOwner',
+		outputs: [
+			{
+				internalType: 'uint256[]',
+				name: '',
+				type: 'uint256[]',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+		],
+		name: 'positionsOfProperty',
+		outputs: [
+			{
+				internalType: 'uint256[]',
+				name: '',
+				type: 'uint256[]',
 			},
 		],
 		stateMutability: 'view',
@@ -495,49 +533,6 @@ export const sTokensAbi = [
 		inputs: [
 			{
 				internalType: 'uint256',
-				name: 'index',
-				type: 'uint256',
-			},
-		],
-		name: 'tokenByIndex',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: 'owner',
-				type: 'address',
-			},
-			{
-				internalType: 'uint256',
-				name: 'index',
-				type: 'uint256',
-			},
-		],
-		name: 'tokenOfOwnerByIndex',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'uint256',
 				name: '_tokenId',
 				type: 'uint256',
 			},
@@ -548,19 +543,6 @@ export const sTokensAbi = [
 				internalType: 'string',
 				name: '',
 				type: 'string',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [],
-		name: 'totalSupply',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
 			},
 		],
 		stateMutability: 'view',
@@ -593,7 +575,7 @@ export const sTokensAbi = [
 		inputs: [
 			{
 				internalType: 'uint256',
-				name: '_tikenId',
+				name: '_tokenId',
 				type: 'uint256',
 			},
 			{

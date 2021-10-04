@@ -188,6 +188,19 @@ export const sTokensAbi = [
 		type: 'function',
 	},
 	{
+		inputs: [],
+		name: 'config',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
 		inputs: [
 			{
 				internalType: 'uint256',
@@ -204,6 +217,19 @@ export const sTokensAbi = [
 			},
 		],
 		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_config',
+				type: 'address',
+			},
+		],
+		name: 'initialize',
+		outputs: [],
+		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
@@ -228,6 +254,40 @@ export const sTokensAbi = [
 			},
 		],
 		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_owner',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: '_amount',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: '_price',
+				type: 'uint256',
+			},
+		],
+		name: 'mint',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: 'tokenId_',
+				type: 'uint256',
+			},
+		],
+		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
@@ -263,13 +323,106 @@ export const sTokensAbi = [
 		type: 'function',
 	},
 	{
-		inputs: [],
-		name: 'registryAddress',
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '_tokenId',
+				type: 'uint256',
+			},
+		],
+		name: 'positions',
 		outputs: [
 			{
 				internalType: 'address',
-				name: '',
+				name: 'property_',
 				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: 'amount_',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: 'price_',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: 'cumulativeReward_',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: 'pendingReward_',
+				type: 'uint256',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_owner',
+				type: 'address',
+			},
+		],
+		name: 'positionsOfOwner',
+		outputs: [
+			{
+				internalType: 'uint256[]',
+				name: '',
+				type: 'uint256[]',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+		],
+		name: 'positionsOfProperty',
+		outputs: [
+			{
+				internalType: 'uint256[]',
+				name: '',
+				type: 'uint256[]',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '_tokenId',
+				type: 'uint256',
+			},
+		],
+		name: 'rewards',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: 'entireReward_',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: 'cumulativeReward_',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: 'withdrawableReward_',
+				type: 'uint256',
 			},
 		],
 		stateMutability: 'view',
@@ -377,13 +530,19 @@ export const sTokensAbi = [
 		type: 'function',
 	},
 	{
-		inputs: [],
-		name: 'tokenIdCounter',
-		outputs: [
+		inputs: [
 			{
 				internalType: 'uint256',
-				name: '',
+				name: '_tokenId',
 				type: 'uint256',
+			},
+		],
+		name: 'tokenURI',
+		outputs: [
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string',
 			},
 		],
 		stateMutability: 'view',
@@ -409,72 +568,6 @@ export const sTokensAbi = [
 		],
 		name: 'transferFrom',
 		outputs: [],
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_registry',
-				type: 'address',
-			},
-		],
-		name: 'initialize',
-		outputs: [],
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'uint256',
-				name: '_tokenId',
-				type: 'uint256',
-			},
-		],
-		name: 'tokenURI',
-		outputs: [
-			{
-				internalType: 'string',
-				name: '',
-				type: 'string',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_owner',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-			{
-				internalType: 'uint256',
-				name: '_amount',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_price',
-				type: 'uint256',
-			},
-		],
-		name: 'mint',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: 'tokenId_',
-				type: 'uint256',
-			},
-		],
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
@@ -515,126 +608,6 @@ export const sTokensAbi = [
 			},
 		],
 		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'uint256',
-				name: '_tokenId',
-				type: 'uint256',
-			},
-		],
-		name: 'positions',
-		outputs: [
-			{
-				components: [
-					{
-						internalType: 'address',
-						name: 'property',
-						type: 'address',
-					},
-					{
-						internalType: 'uint256',
-						name: 'amount',
-						type: 'uint256',
-					},
-					{
-						internalType: 'uint256',
-						name: 'price',
-						type: 'uint256',
-					},
-					{
-						internalType: 'uint256',
-						name: 'cumulativeReward',
-						type: 'uint256',
-					},
-					{
-						internalType: 'uint256',
-						name: 'pendingReward',
-						type: 'uint256',
-					},
-				],
-				internalType: 'struct ISTokensManager.StakingPositions',
-				name: '',
-				type: 'tuple',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'uint256',
-				name: '_tokenId',
-				type: 'uint256',
-			},
-		],
-		name: 'rewards',
-		outputs: [
-			{
-				components: [
-					{
-						internalType: 'uint256',
-						name: 'entireReward',
-						type: 'uint256',
-					},
-					{
-						internalType: 'uint256',
-						name: 'cumulativeReward',
-						type: 'uint256',
-					},
-					{
-						internalType: 'uint256',
-						name: 'withdrawableReward',
-						type: 'uint256',
-					},
-				],
-				internalType: 'struct ISTokensManager.Rewards',
-				name: '',
-				type: 'tuple',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-		],
-		name: 'positionsOfProperty',
-		outputs: [
-			{
-				internalType: 'uint256[]',
-				name: '',
-				type: 'uint256[]',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_owner',
-				type: 'address',
-			},
-		],
-		name: 'positionsOfOwner',
-		outputs: [
-			{
-				internalType: 'uint256[]',
-				name: '',
-				type: 'uint256[]',
-			},
-		],
-		stateMutability: 'view',
 		type: 'function',
 	},
 ] as readonly AbiItem[]
