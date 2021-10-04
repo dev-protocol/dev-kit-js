@@ -1,5 +1,6 @@
-import { ethers } from 'ethers'
+import { ethers, BigNumber } from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
+import { mergeAll } from 'ramda'
 
 type Args = ReadonlyArray<string | boolean | readonly string[]>
 type Option = {
@@ -49,6 +50,36 @@ const pad = (args: Args, index: number): Args =>
 			i < index ? fn(arr.concat(v ?? ''), args[i + 1], i + 1, fn) : arr
 	)
 
+type Value = boolean | string | number
+type ValueWithBigNumber = Value | BigNumber
+const isBigNumber = (data: unknown): data is BigNumber =>
+	BigNumber.isBigNumber(data)
+const toString = (data: Readonly<BigNumber>): string => data.toString()
+const stringify = (
+	data:
+		| ValueWithBigNumber
+		| readonly ValueWithBigNumber[]
+		| Record<string, ValueWithBigNumber>
+): Value | readonly Value[] | Record<string, Value> => {
+	return isBigNumber(data)
+		? toString(data)
+		: typeof data === 'string' ||
+		  typeof data === 'number' ||
+		  typeof data === 'boolean'
+		? data
+		: data instanceof Array
+		? data.map((d) => (isBigNumber(d) ? toString(d) : d))
+		: ((datax: Readonly<Record<string, ValueWithBigNumber>>) => {
+				const keys = Object.keys(datax)
+				const valueSet = keys.map((key) => ({
+					[key]: ((value) => (isBigNumber(value) ? toString(value) : value))(
+						datax[key]
+					),
+				}))
+				return mergeAll(valueSet)
+		  })(data)
+}
+
 export const execute: ExecuteFunction = async <
 	T = string,
 	O extends ExecuteOption = QueryOption
@@ -57,14 +88,18 @@ export const execute: ExecuteFunction = async <
 	method,
 	args,
 	padEnd,
-}: O) =>
-	contract[method](
+	mutation,
+}: O) => {
+	const res = await contract[method](
 		args !== undefined && padEnd !== undefined
 			? pad(args, padEnd)
 			: args !== undefined
 			? [...args]
 			: undefined
 	)
+	const data = mutation ? res : stringify(res)
+	return data
+}
 
 // This is a sample code
 
