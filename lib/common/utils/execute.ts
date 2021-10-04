@@ -1,11 +1,13 @@
 import { ethers } from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
+type Args = ReadonlyArray<string | boolean | readonly string[]>
 type Option = {
 	readonly contract: ethers.Contract
 	readonly method: string
-	readonly args?: ReadonlyArray<string | boolean>
+	readonly args?: Args
 	readonly mutation?: boolean
+	readonly padEnd?: number
 }
 
 export type QueryOption = Option & {
@@ -30,6 +32,22 @@ export type ExecuteFunction = <
 		? TransactionResponse
 		: never
 >
+type PadCaller = (
+	arr: Args,
+	v: string | boolean | undefined | readonly string[],
+	i: number,
+	fn: PadCaller
+) => Args
+const pad = (args: Args, index: number): Args =>
+	((fn: PadCaller): Args => fn([], args[0], 0, fn))(
+		(
+			arr: Args,
+			v: string | boolean | undefined | readonly string[],
+			i: number,
+			fn: PadCaller
+		): Args =>
+			i < index ? fn(arr.concat(v ?? ''), args[i + 1], i + 1, fn) : arr
+	)
 
 export const execute: ExecuteFunction = async <
 	T = string,
@@ -38,7 +56,15 @@ export const execute: ExecuteFunction = async <
 	contract,
 	method,
 	args,
-}: O) => contract[method](args ? [...args] : undefined)
+	padEnd,
+}: O) =>
+	contract[method](
+		args !== undefined && padEnd !== undefined
+			? pad(args, padEnd)
+			: args !== undefined
+			? [...args]
+			: undefined
+	)
 
 // This is a sample code
 
