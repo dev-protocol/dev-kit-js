@@ -58,7 +58,7 @@ export default [
 			'!**/*.spec.*',
 			'!dist/lib/l2/**/*',
 		],
-		output: [{ file: 'dist/index.d.ts', format: 'es' }],
+		output: [{ file: 'dist/dev-kit.d.ts', format: 'es' }],
 		plugins: [multi(), dts()],
 	},
 	{
