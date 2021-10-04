@@ -11,6 +11,11 @@ import { createCalculateCumulativeHoldersRewardAmountCaller } from './calculateC
 import { createCalculateCumulativeRewardPricesCaller } from './calculateCumulativeRewardPrices'
 import { createCalculateRewardAmountCaller } from './calculateRewardAmount'
 import { createCapCaller } from './cap'
+import { createDepositToPropertyCaller } from './depositToProperty'
+import { createDepositToPositionCaller } from './depositToPosition'
+import { createWithdrawByPositionCaller } from './withdrawByPosition'
+import { createMigrateToSTokensCaller } from './migrateToSTokens'
+import { createcalculateWithdrawableInterestAmountByPositionCaller } from './calculateWithdrawableInterestAmountByPosition'
 
 jest.mock('./getPropertyValue')
 jest.mock('./withdraw')
@@ -21,6 +26,11 @@ jest.mock('./calculateCumulativeHoldersRewardAmount')
 jest.mock('./calculateCumulativeRewardPrices')
 jest.mock('./calculateRewardAmount')
 jest.mock('./cap')
+jest.mock('./depositToProperty')
+jest.mock('./depositToPosition')
+jest.mock('./withdrawByPosition')
+jest.mock('./migrateToSTokens')
+jest.mock('./calculateWithdrawableInterestAmountByPosition')
 
 describe('lockup/index.ts', () => {
 	;(createGetPropertyValueCaller as jest.Mock).mockImplementation(
@@ -47,7 +57,21 @@ describe('lockup/index.ts', () => {
 	;(createCalculateRewardAmountCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
-	;(createCapCaller as jest.Mock).mockImplementation((contract) => contract)
+	;(createDepositToPropertyCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createDepositToPositionCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createWithdrawByPositionCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createMigrateToSTokensCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(
+		createcalculateWithdrawableInterestAmountByPositionCaller as jest.Mock
+	).mockImplementation((contract) => contract)
 
 	describe('createLockupContract', () => {
 		it('check return object', () => {
@@ -63,7 +87,10 @@ describe('lockup/index.ts', () => {
 					getValue: createGetValueCaller(contract),
 					getAllValue: createGetAllValueCaller(contract),
 					getPropertyValue: createGetPropertyValueCaller(contract),
+					withdrawByPosition: createWithdrawByPositionCaller(contract),
 					withdraw: createWithdrawCaller(contract),
+					calculateWithdrawableInterestAmountByPosition:
+						createcalculateWithdrawableInterestAmountByPositionCaller(contract),
 					calculateWithdrawableInterestAmount:
 						createCalculateWithdrawableInterestAmountCaller(contract),
 					calculateCumulativeHoldersRewardAmount:
@@ -74,6 +101,9 @@ describe('lockup/index.ts', () => {
 						createCalculateCumulativeRewardPricesCaller(contract),
 					calculateRewardAmount: createCalculateRewardAmountCaller(contract),
 					cap: createCapCaller(contract),
+					depositToProperty: createDepositToPropertyCaller(contract),
+					depositToPosition: createDepositToPositionCaller(contract),
+					migrateToSTokens: createMigrateToSTokensCaller(contract),
 				}
 			}
 

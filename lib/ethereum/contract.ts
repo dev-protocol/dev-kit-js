@@ -14,6 +14,7 @@ import { createPolicyContract } from './policy'
 import { createPolicyGroupContract } from './policy-group'
 import { createMetricsContract } from './metrics'
 import { createPolicyFactoryContract } from './policy-factory'
+import { createSTokensContract } from './s-tokens'
 
 export type DevkitContract = {
 	readonly allocator: ReturnType<typeof createAllocatorContract>
@@ -28,6 +29,7 @@ export type DevkitContract = {
 	readonly policyGroup: ReturnType<typeof createPolicyGroupContract>
 	readonly metrics: ReturnType<typeof createMetricsContract>
 	readonly policyFactory: ReturnType<typeof createPolicyFactoryContract>
+	readonly sTokens: ReturnType<typeof createSTokensContract>
 }
 export type ContractFactory = (
 	ethersProvider: Provider | Signer
@@ -36,7 +38,6 @@ export type CreateDevkitContract = (
 	provider: Provider | Signer
 ) => DevkitContract
 
-// ここをethers.jsで実装した処理の関数に差し替える
 export const createDevkitContract: CreateDevkitContract = (
 	provider: Provider | Signer
 ): DevkitContract => ({
@@ -52,6 +53,7 @@ export const createDevkitContract: CreateDevkitContract = (
 	policyGroup: createPolicyGroupContract(provider),
 	metrics: createMetricsContract(provider),
 	policyFactory: createPolicyFactoryContract(provider),
+	sTokens: createSTokensContract(provider),
 })
 
 export const contractFactory: ContractFactory = createDevkitContract
