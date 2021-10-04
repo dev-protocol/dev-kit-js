@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
+import { decode } from 'js-base64'
 import { Contract } from 'web3-eth-contract/types'
 import { execute } from '../../common/utils/execute'
 
@@ -19,5 +20,8 @@ export const createTokenURICaller: CreateTokenURICaller =
 			method: 'tokenURI',
 			args: [String(tokenId)],
 		})
-		return JSON.parse(res)
+		const decoded = decode(
+			res.replace(/^data:application\/json;base64,(.*)/, '$1')
+		)
+		return JSON.parse(decoded)
 	}

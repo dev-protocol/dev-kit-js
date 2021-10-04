@@ -4,11 +4,11 @@ describe('tokenURI.spec.ts', () => {
 	describe('createTokenURICaller', () => {
 		it('call success', async () => {
 			const data = {
-				name: 'test-name',
-				description: 'test-description',
-				image: 'test-image',
+				name: 'NAME',
+				description: 'DESCRIPTION',
+				image: 'data:image/svg+xml;base64,<svg></svg>',
 			}
-			const value = JSON.stringify(data)
+			const value = `data:application/json;base64,eyJuYW1lIjoiTkFNRSIsICJkZXNjcmlwdGlvbiI6IkRFU0NSSVBUSU9OIiwgImltYWdlIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsPHN2Zz48L3N2Zz4ifQ==`
 
 			const contract = {
 				methods: {
