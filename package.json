@@ -15,6 +15,7 @@
 		"dist/*.js",
 		"dist/*.ts",
 		"lib/**/*.ts",
+		"l2",
 		"bundled",
 		"!**/*.spec.*"
 	],
@@ -29,7 +30,7 @@
 		"test": "jest",
 		"test:coverage": "jest --coverage",
 		"prepack": "yarn test && yarn build",
-		"clean": "rimraf dist bundled",
+		"clean": "rimraf dist bundled l2",
 		"prepare": "husky install"
 	},
 	"devDependencies": {
