@@ -1,5 +1,6 @@
 import { DevkitClient, client } from './index'
 import { createGetVotablePolicy } from './getVotablePolicy'
+import { createDetectSTokens } from './createDetectSTokens'
 import { getStats } from './getStats'
 
 describe('index.ts', () => {
@@ -8,6 +9,7 @@ describe('index.ts', () => {
 			const expected: DevkitClient = {
 				createGetVotablePolicy,
 				getStats,
+				createDetectSTokens,
 			}
 
 			const result = client
