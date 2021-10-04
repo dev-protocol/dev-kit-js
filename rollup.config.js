@@ -54,7 +54,9 @@ export default [
 	{
 		input: [
 			'dist/lib/*.d.ts',
+			'dist/lib/ethereum/*.d.ts',
 			'dist/lib/**/index.d.ts',
+			'!dist/lib/index.d.ts',
 			'!**/*.spec.*',
 			'!dist/lib/l2/**/*',
 		],
