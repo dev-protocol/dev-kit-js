@@ -15,6 +15,7 @@
 		"dist/*.js",
 		"dist/*.ts",
 		"lib/**/*.ts",
+		"l2",
 		"bundled",
 		"!**/*.spec.*"
 	],
@@ -22,14 +23,14 @@
 		"build": "yarn clean && yarn build:ts && yarn build:rollup",
 		"build:ts": "tsc --target esnext",
 		"build:rollup": "rollup -c",
-		"postbuild": "node ./bundle.js",
+		"bundle": "node ./bundle.js",
 		"lint": "yarn lint:eslint && yarn lint:format",
 		"lint:eslint": "eslint . --ext .ts --fix",
 		"lint:format": "prettier --write '**/*.{ts,js,json,md,yml}'",
 		"test": "jest",
 		"test:coverage": "jest --coverage",
-		"prepack": "yarn test && yarn build",
-		"clean": "rimraf dist bundled",
+		"prepack": "yarn test && yarn build && yarn bundle",
+		"clean": "rimraf dist bundled l2",
 		"prepare": "husky install"
 	},
 	"devDependencies": {
@@ -92,6 +93,7 @@
 		"async-ray": "^3.2.0",
 		"bent": "^7.3.12",
 		"bignumber.js": "9.0.1",
+		"js-base64": "^3.7.2",
 		"ramda": "^0.27.0"
 	},
 	"peerDependencies": {
