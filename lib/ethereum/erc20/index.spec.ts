@@ -1,29 +1,26 @@
 import { ethers } from 'ethers'
-import { createDevContract, DevContract } from '.'
-import { createTransferCaller } from './../erc20/transfer'
-import { devAbi } from './abi'
-import { createDepositCaller } from './deposit'
-import { createBalanceOfCaller } from './../erc20/balanceOf'
-import { createTotalSupplyCaller } from './../erc20/totalSupply'
-import { createApproveCaller } from './../erc20/approve'
-import { createTransferFromCaller } from '../erc20/transferFrom'
-import { createNameCaller } from './../erc20/name'
-import { createSymbolCaller } from './../erc20/symbol'
-import { createDecimalsCaller } from './../erc20/decimals'
-import { createAllowanceCaller } from './../erc20/allowance'
+import { createErc20Contract, Erc20Contract } from '.'
+import { createTransferCaller } from './transfer'
+import { erc20Abi } from './abi'
+import { createBalanceOfCaller } from './balanceOf'
+import { createTotalSupplyCaller } from './totalSupply'
+import { createApproveCaller } from './approve'
+import { createTransferFromCaller } from './transferFrom'
+import { createNameCaller } from './name'
+import { createSymbolCaller } from './symbol'
+import { createDecimalsCaller } from './decimals'
+import { createAllowanceCaller } from './allowance'
 
-jest.mock('./deposit')
-jest.mock('./../erc20/balanceOf')
-jest.mock('./../erc20/totalSupply')
-jest.mock('./../erc20/approve')
-jest.mock('../erc20/transferFrom')
-jest.mock('./../erc20/name')
-jest.mock('./../erc20/symbol')
-jest.mock('./../erc20/decimals')
-jest.mock('./../erc20/allowance')
+jest.mock('./balanceOf')
+jest.mock('./totalSupply')
+jest.mock('./approve')
+jest.mock('./transferFrom')
+jest.mock('./name')
+jest.mock('./symbol')
+jest.mock('./decimals')
+jest.mock('./allowance')
 
-describe('dev/index.ts', () => {
-	;(createDepositCaller as jest.Mock).mockImplementation((contract) => contract)
+describe('erc20/index.ts', () => {
 	;(createBalanceOfCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
@@ -43,13 +40,15 @@ describe('dev/index.ts', () => {
 		(contract) => contract
 	)
 
-	describe('createDevContract', () => {
+	describe('createErc20Contract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
 			const address = '0x0000000000000000000000000000000000000000'
 			const provider = new ethers.providers.JsonRpcProvider(host)
-			const expected: (address: string) => DevContract = (address: string) => {
-				const contract = new ethers.Contract(address, [...devAbi], provider)
+			const expected: (address: string) => Erc20Contract = (
+				address: string
+			) => {
+				const contract = new ethers.Contract(address, [...erc20Abi], provider)
 				return {
 					totalSupply: createTotalSupplyCaller(contract),
 					balanceOf: createBalanceOfCaller(contract),
@@ -60,12 +59,10 @@ describe('dev/index.ts', () => {
 					name: createNameCaller(contract),
 					symbol: createSymbolCaller(contract),
 					decimals: createDecimalsCaller(contract),
-					deposit: createDepositCaller(contract),
-					contract: () => contract,
 				}
 			}
 
-			const result = createDevContract(provider)
+			const result = createErc20Contract(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result(address))).toEqual(

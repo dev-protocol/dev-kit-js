@@ -1,25 +1,25 @@
 import { ethers } from 'ethers'
 import { createLockupContract, LockupContract } from '.'
+import { createCalculateCumulativeHoldersRewardAmountCaller } from '../../ethereum/lockup/calculateCumulativeHoldersRewardAmount'
+import { createCalculateCumulativeRewardPricesCaller } from '../../ethereum/lockup/calculateCumulativeRewardPrices'
+import { createCalculateRewardAmountCaller } from '../../ethereum/lockup/calculateRewardAmount'
+import { createcalculateWithdrawableInterestAmountByPositionCaller } from '../../ethereum/lockup/calculateWithdrawableInterestAmountByPosition'
+import { createCapCaller } from '../../ethereum/lockup/cap'
+import { createDepositToPositionCaller } from '../../ethereum/lockup/depositToPosition'
+import { createDepositToPropertyCaller } from '../../ethereum/lockup/depositToProperty'
+import { createWithdrawByPositionCaller } from '../../ethereum/lockup/withdrawByPosition'
 import { lockupAbi } from './abi'
-import { createCalculateCumulativeHoldersRewardAmountCaller } from './calculateCumulativeHoldersRewardAmount'
-import { createCalculateCumulativeRewardPricesCaller } from './calculateCumulativeRewardPrices'
-import { createCalculateRewardAmountCaller } from './calculateRewardAmount'
-import { createCapCaller } from './cap'
-import { createDepositToPropertyCaller } from './depositToProperty'
-import { createDepositToPositionCaller } from './depositToPosition'
-import { createWithdrawByPositionCaller } from './withdrawByPosition'
-import { createcalculateWithdrawableInterestAmountByPositionCaller } from './calculateWithdrawableInterestAmountByPosition'
 import { createTotalLockedCaller } from './totalLocked'
 import { createTotalLockedForPropertyCaller } from './totalLockedForProperty'
 
-jest.mock('./calculateCumulativeHoldersRewardAmount')
-jest.mock('./calculateCumulativeRewardPrices')
-jest.mock('./calculateRewardAmount')
-jest.mock('./cap')
-jest.mock('./depositToProperty')
-jest.mock('./depositToPosition')
-jest.mock('./withdrawByPosition')
-jest.mock('./calculateWithdrawableInterestAmountByPosition')
+jest.mock('../../ethereum/lockup/calculateCumulativeHoldersRewardAmount')
+jest.mock('../../ethereum/lockup/calculateCumulativeRewardPrices')
+jest.mock('../../ethereum/lockup/calculateRewardAmount')
+jest.mock('../../ethereum/lockup/cap')
+jest.mock('../../ethereum/lockup/depositToProperty')
+jest.mock('../../ethereum/lockup/depositToPosition')
+jest.mock('../../ethereum/lockup/withdrawByPosition')
+jest.mock('../../ethereum/lockup/calculateWithdrawableInterestAmountByPosition')
 jest.mock('./totalLocked')
 jest.mock('./totalLockedForProperty')
 
