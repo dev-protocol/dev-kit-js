@@ -11,8 +11,7 @@
 		"plugin:@typescript-eslint/recommended",
 		"plugin:functional/external-recommended",
 		"plugin:functional/all",
-		"prettier",
-		"prettier/@typescript-eslint"
+		"prettier"
 	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
