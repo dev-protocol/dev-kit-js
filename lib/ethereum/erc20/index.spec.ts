@@ -1,19 +1,19 @@
 import Web3 from 'web3'
-import { createDevContract, DevContract } from '.'
-import { createTransferCaller } from '../erc20/transfer'
-import { devAbi } from './abi'
+import { createErc20Contract, Erc20Contract } from '.'
+import { createTransferCaller } from './../erc20/transfer'
+import { erc20Abi } from './abi'
 import { CustomOptions } from '../../common/option'
-import { createBalanceOfCaller } from '../erc20/balanceOf'
-import { createTotalSupplyCaller } from '../erc20/totalSupply'
-import { createApproveCaller } from '../erc20/approve'
-import { createTransferFromCaller } from '../erc20/transferFrom'
-import { createNameCaller } from '../erc20/name'
-import { createSymbolCaller } from '../erc20/symbol'
-import { createDecimalsCaller } from '../erc20/decimals'
-import { createAllowanceCaller } from '../erc20/allowance'
+import { createBalanceOfCaller } from './balanceOf'
+import { createTotalSupplyCaller } from './totalSupply'
+import { createApproveCaller } from './approve'
+import { createTransferFromCaller } from './transferFrom'
+import { createNameCaller } from './name'
+import { createSymbolCaller } from './symbol'
+import { createDecimalsCaller } from './decimals'
+import { createAllowanceCaller } from './allowance'
 
-describe('dev/index.ts', () => {
-	describe('createDevContract', () => {
+describe('erc20/index.ts', () => {
+	describe('createErc20Contract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
 			const client = new Web3()
@@ -22,8 +22,8 @@ describe('dev/index.ts', () => {
 			const expected: (
 				address?: string,
 				options?: CustomOptions
-			) => DevContract = (address?: string, options?: CustomOptions) => {
-				const devContract = new client.eth.Contract([...devAbi], address, {
+			) => Erc20Contract = (address?: string, options?: CustomOptions) => {
+				const devContract = new client.eth.Contract([...erc20Abi], address, {
 					...options,
 				})
 				return {
@@ -40,7 +40,7 @@ describe('dev/index.ts', () => {
 				}
 			}
 
-			const result = createDevContract(client)
+			const result = createErc20Contract(client)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(

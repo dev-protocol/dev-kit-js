@@ -1,4 +1,4 @@
-import { createDetectSTokens } from './createDetectSTokens'
+import { createDetectSTokens } from '../../ethereum/client/createDetectSTokens'
 
 export type DevkitClient = {
 	readonly createDetectSTokens: typeof createDetectSTokens
