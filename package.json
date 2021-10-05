@@ -1,6 +1,6 @@
 {
 	"name": "@devprotocol/dev-kit",
-	"version": "5.0.0-alpha.2",
+	"version": "5.0.0",
 	"description": "Dev Kit for JavaScript",
 	"author": "abyssparanoia",
 	"license": "Apache-2.0",
