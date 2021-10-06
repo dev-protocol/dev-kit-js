@@ -34,7 +34,7 @@ describe('execute.ts', () => {
 			})
 			expect(result).toEqual('value')
 			expect(fooStub.mock.calls.length).toEqual(1)
-			expect(fooStub.mock.calls[0]).toEqual([undefined])
+			expect(fooStub.mock.calls[0]).toEqual([])
 		})
 		it("Execute the contract instance's `[passed method]([...passed args])` when the mutation is true.", async () => {
 			const fooStub = jest.fn(async (arg1: string, arg2: string) =>
@@ -66,7 +66,7 @@ describe('execute.ts', () => {
 			})
 			expect(result).toEqual(true)
 			expect(fooStub.mock.calls.length).toEqual(1)
-			expect(fooStub.mock.calls[0]).toEqual([undefined])
+			expect(fooStub.mock.calls[0]).toEqual([])
 		})
 		it('empty-padding to an arguments array if `padEnd` is specified', async () => {
 			const fooStub = jest.fn(

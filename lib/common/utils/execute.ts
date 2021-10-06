@@ -90,13 +90,9 @@ export const execute: ExecuteFunction = async <
 	padEnd,
 	mutation,
 }: O) => {
-	const res = await contract[method](
-		args !== undefined && padEnd !== undefined
-			? pad(args, padEnd)
-			: args !== undefined
-			? [...args]
-			: undefined
-	)
+	const res = await (args === undefined
+		? contract[method]()
+		: contract[method](padEnd !== undefined ? pad(args, padEnd) : [...args]))
 	const data = mutation ? res : stringify(res)
 	return data
 }
