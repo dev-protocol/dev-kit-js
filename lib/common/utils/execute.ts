@@ -80,6 +80,8 @@ const stringify = (
 		  })(data)
 }
 
+const N = null
+
 export const execute: ExecuteFunction = async <
 	T = string,
 	O extends ExecuteOption = QueryOption
@@ -92,7 +94,10 @@ export const execute: ExecuteFunction = async <
 }: O) => {
 	const res = await (args === undefined
 		? contract[method]()
-		: contract[method](padEnd !== undefined ? pad(args, padEnd) : [...args]))
+		: contract[method].apply(
+				N,
+				padEnd !== undefined ? [...pad(args, padEnd)] : [...args]
+		  ))
 	const data = mutation ? res : stringify(res)
 	return data
 }
