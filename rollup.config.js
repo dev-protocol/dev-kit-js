@@ -55,6 +55,7 @@ export default [
 		input: [
 			'dist/lib/*.d.ts',
 			'dist/lib/ethereum/*.d.ts',
+			'dist/lib/ethereum/**/abi.d.ts',
 			'dist/lib/**/index.d.ts',
 			'!dist/lib/index.d.ts',
 			'!**/*.spec.*',
@@ -98,7 +99,12 @@ export default [
 		],
 	},
 	{
-		input: ['dist/lib/l2/*.d.ts', 'dist/lib/l2/**/index.d.ts', '!**/*.spec.*'],
+		input: [
+			'dist/lib/l2/*.d.ts',
+			'dist/lib/l2/**/index.d.ts',
+			'dist/lib/l2/**/abi.d.ts',
+			'!**/*.spec.*',
+		],
 		output: [{ file: './l2/index.d.ts', format: 'es' }],
 		plugins: [multi(), dts()],
 	},
