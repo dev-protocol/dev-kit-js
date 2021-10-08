@@ -55,29 +55,38 @@ type ValueWithBigNumber = Value | BigNumber
 const isBigNumber = (data: unknown): data is BigNumber =>
 	BigNumber.isBigNumber(data)
 const toString = (data: Readonly<BigNumber>): string => data.toString()
-const stringify = (
-	data:
-		| ValueWithBigNumber
-		| readonly ValueWithBigNumber[]
-		| Record<string, ValueWithBigNumber>
-): Value | readonly Value[] | Record<string, Value> => {
+const toStringObj = (
+	data: Readonly<Record<string, ValueWithBigNumber>>
+): Record<string, Value> => {
+	const keys = Object.keys(data)
+	const valueSet = keys.map((key) => ({
+		[key]: ((value) => (isBigNumber(value) ? toString(value) : value))(
+			data[key]
+		),
+	}))
+	return mergeAll(valueSet)
+}
+const stringifyItem = (
+	data: ValueWithBigNumber | Record<string, ValueWithBigNumber>
+): Value | Readonly<Record<string, Value>> => {
 	return isBigNumber(data)
 		? toString(data)
 		: typeof data === 'string' ||
 		  typeof data === 'number' ||
 		  typeof data === 'boolean'
 		? data
-		: data instanceof Array
-		? data.map((d) => (isBigNumber(d) ? toString(d) : d))
-		: ((datax: Readonly<Record<string, ValueWithBigNumber>>) => {
-				const keys = Object.keys(datax)
-				const valueSet = keys.map((key) => ({
-					[key]: ((value) => (isBigNumber(value) ? toString(value) : value))(
-						datax[key]
-					),
-				}))
-				return mergeAll(valueSet)
-		  })(data)
+		: toStringObj(data)
+}
+const stringify = (
+	data:
+		| ValueWithBigNumber
+		| Record<string, ValueWithBigNumber>
+		| readonly (ValueWithBigNumber | Record<string, ValueWithBigNumber>)[]
+):
+	| Value
+	| Readonly<Record<string, Value>>
+	| readonly (Value | Readonly<Record<string, Value>>)[] => {
+	return data instanceof Array ? data.map(stringifyItem) : stringifyItem(data)
 }
 
 const N = null

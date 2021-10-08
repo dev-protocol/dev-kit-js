@@ -9,6 +9,7 @@ import { createDepositToPositionCaller } from '../../ethereum/lockup/depositToPo
 import { createDepositToPropertyCaller } from '../../ethereum/lockup/depositToProperty'
 import { createWithdrawByPositionCaller } from '../../ethereum/lockup/withdrawByPosition'
 import { lockupAbi } from './abi'
+import { createGetLockedupPropertiesCaller } from './getLockedupProperties'
 import { createTotalLockedCaller } from './totalLocked'
 import { createTotalLockedForPropertyCaller } from './totalLockedForProperty'
 
@@ -22,6 +23,7 @@ jest.mock('../../ethereum/lockup/withdrawByPosition')
 jest.mock('../../ethereum/lockup/calculateWithdrawableInterestAmountByPosition')
 jest.mock('./totalLocked')
 jest.mock('./totalLockedForProperty')
+jest.mock('./getLockedupProperties')
 
 describe('lockup/index.ts', () => {
 	;(
@@ -51,6 +53,9 @@ describe('lockup/index.ts', () => {
 	;(createTotalLockedForPropertyCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
+	;(createGetLockedupPropertiesCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
 
 	describe('createLockupContract', () => {
 		it('check return object', () => {
@@ -76,6 +81,7 @@ describe('lockup/index.ts', () => {
 					depositToPosition: createDepositToPositionCaller(contract),
 					totalLocked: createTotalLockedCaller(contract),
 					totalLockedForProperty: createTotalLockedForPropertyCaller(contract),
+					getLockedupProperties: createGetLockedupPropertiesCaller(contract),
 				}
 			}
 

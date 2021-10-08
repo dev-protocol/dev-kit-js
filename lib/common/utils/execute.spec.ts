@@ -180,6 +180,61 @@ describe('execute.ts', () => {
 			})
 			expect(result).toEqual(['value', 123456789, false, '123456789'])
 		})
+		it('Returns array of object with stringified values when the response included array of object', async () => {
+			const contract = {
+				foo: jest.fn(async () =>
+					Promise.resolve([
+						{
+							0: 'value1',
+							1: 123456789,
+							2: false,
+							3: BigNumber.from(123456789),
+							a: 'value',
+							b: 123456789,
+							c: false,
+							d: BigNumber.from(123456789),
+						},
+						{
+							0: 'value2',
+							1: 1234567891,
+							2: true,
+							3: BigNumber.from(1234567891),
+							a: 'value2',
+							b: 1234567891,
+							c: true,
+							d: BigNumber.from(1234567891),
+						},
+					])
+				),
+			} as unknown as ethers.Contract
+			const result = await execute({
+				contract,
+				method: 'foo',
+				mutation: false,
+			})
+			expect(result).toEqual([
+				{
+					0: 'value1',
+					1: 123456789,
+					2: false,
+					3: '123456789',
+					a: 'value',
+					b: 123456789,
+					c: false,
+					d: '123456789',
+				},
+				{
+					0: 'value2',
+					1: 1234567891,
+					2: true,
+					3: '1234567891',
+					a: 'value2',
+					b: 1234567891,
+					c: true,
+					d: '1234567891',
+				},
+			])
+		})
 		it('Returns object of string, number, boolean when the response included BigNumber', async () => {
 			const contract = {
 				foo: jest.fn(async () =>

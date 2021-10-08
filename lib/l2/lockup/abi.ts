@@ -385,6 +385,31 @@ export const lockupAbi = [
 		type: 'function',
 	},
 	{
+		inputs: [],
+		name: 'getLockedupProperties',
+		outputs: [
+			{
+				components: [
+					{
+						internalType: 'address',
+						name: 'property',
+						type: 'address',
+					},
+					{
+						internalType: 'uint256',
+						name: 'value',
+						type: 'uint256',
+					},
+				],
+				internalType: 'struct ILockup.LockedupProperty[]',
+				name: '',
+				type: 'tuple[]',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
 		inputs: [
 			{
 				internalType: 'uint256',

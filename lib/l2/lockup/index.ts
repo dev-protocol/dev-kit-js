@@ -12,6 +12,10 @@ import { createCalculateRewardAmountCaller } from '../../ethereum/lockup/calcula
 import { createCapCaller } from '../../ethereum/lockup/cap'
 import { createDepositToPropertyCaller } from '../../ethereum/lockup/depositToProperty'
 import { createDepositToPositionCaller } from '../../ethereum/lockup/depositToPosition'
+import {
+	createGetLockedupPropertiesCaller,
+	LockedupProperty,
+} from './getLockedupProperties'
 
 export type LockupContract = {
 	readonly withdrawByPosition: (
@@ -41,6 +45,7 @@ export type LockupContract = {
 	) => Promise<boolean>
 	readonly totalLocked: () => Promise<string>
 	readonly totalLockedForProperty: (address: string) => Promise<string>
+	readonly getLockedupProperties: () => Promise<readonly LockedupProperty[]>
 }
 
 export const createLockupContract =
@@ -62,5 +67,6 @@ export const createLockupContract =
 			depositToPosition: createDepositToPositionCaller(contract),
 			totalLocked: createTotalLockedCaller(contract),
 			totalLockedForProperty: createTotalLockedForPropertyCaller(contract),
+			getLockedupProperties: createGetLockedupPropertiesCaller(contract),
 		}
 	}
