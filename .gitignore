@@ -66,4 +66,4 @@ dist
 *.mjs
 *.d.ts
 *.ts.map
-!rollup.config.js
+!rollup.config.*

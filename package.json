@@ -21,7 +21,7 @@
 	"scripts": {
 		"build": "yarn clean && yarn build:ts && yarn build:rollup",
 		"build:ts": "tsc --target esnext",
-		"build:rollup": "rollup -c",
+		"build:rollup": "rollup -c && rollup -c rollup.config.d.js",
 		"lint": "yarn lint:eslint && yarn lint:format",
 		"lint:eslint": "eslint . --ext .ts --fix",
 		"lint:format": "prettier --write '**/*.{ts,js,json,md,yml}'",
