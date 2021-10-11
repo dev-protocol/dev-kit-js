@@ -6,8 +6,14 @@
 	"license": "Apache-2.0",
 	"main": "dist/index.js",
 	"exports": {
-		"import": "./dist/index.mjs",
-		"require": "./dist/index.js"
+		".": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.js"
+		},
+		"./l2": {
+			"import": "./l2/index.mjs",
+			"require": "./l2/index.js"
+		}
 	},
 	"types": "./dist/dev-kit.d.ts",
 	"files": [
