@@ -1,1 +1,4 @@
-export { createRegistryContract } from '../../ethereum/registry'
+export {
+	createRegistryContract,
+	RegistryContract,
+} from '../../ethereum/registry'

@@ -1,1 +1,4 @@
-export { createPropertyFactoryContract } from '../../ethereum/property-factory'
+export {
+	createPropertyFactoryContract,
+	PropertyFactoryContract,
+} from '../../ethereum/property-factory'

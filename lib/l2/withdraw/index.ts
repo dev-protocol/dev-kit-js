@@ -1,1 +1,4 @@
-export { createWithdrawContract } from '../../ethereum/withdraw'
+export {
+	createWithdrawContract,
+	WithdrawContract,
+} from '../../ethereum/withdraw'

@@ -1,1 +1,4 @@
-export { createPropertyContract } from '../../ethereum/property'
+export {
+	createPropertyContract,
+	PropertyContract,
+} from '../../ethereum/property'

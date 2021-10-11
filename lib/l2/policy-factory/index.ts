@@ -1,1 +1,4 @@
-export { createPolicyFactoryContract } from '../../ethereum/policy-factory'
+export {
+	createPolicyFactoryContract,
+	PolicyFactoryContract,
+} from '../../ethereum/policy-factory'

@@ -1,1 +1,1 @@
-export { createPolicyContract } from '../../ethereum/policy'
+export { createPolicyContract, PolicyContract } from '../../ethereum/policy'
