@@ -13,9 +13,11 @@ import { createPolicyContract } from './policy'
 import { createMetricsContract } from './metrics'
 import { createPolicyFactoryContract } from './policy-factory'
 import { createSTokensContract } from './s-tokens'
+import { createMarketFactoryContract } from './market-factory'
 
 export type DevkitContract = {
 	readonly market: ReturnType<typeof createMarketContract>
+	readonly marketFactory: ReturnType<typeof createMarketFactoryContract>
 	readonly property: ReturnType<typeof createPropertyContract>
 	readonly propertyFactory: ReturnType<typeof createPropertyFactoryContract>
 	readonly lockup: ReturnType<typeof createLockupContract>
@@ -38,6 +40,7 @@ export const createDevkitContract: CreateDevkitContract = (
 	provider: Provider | Signer
 ): DevkitContract => ({
 	market: createMarketContract(provider),
+	marketFactory: createMarketFactoryContract(provider),
 	property: createPropertyContract(provider),
 	propertyFactory: createPropertyFactoryContract(provider),
 	lockup: createLockupContract(provider),
