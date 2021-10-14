@@ -2,11 +2,16 @@ import { ethers } from 'ethers'
 import { createMetricsFactoryContract, CreateMetricsFactoryContract } from '.'
 import { metricsFactoryAbi } from './abi'
 import { createAuthenticatedPropertiesCountCaller } from './authenticatedPropertiesCount'
+import { createMetricsOfPropertyCaller } from './metricsOfProperty'
 
 jest.mock('./authenticatedPropertiesCount')
+jest.mock('./metricsOfProperty')
 
 describe('metrics-factory.ts', () => {
 	;(createAuthenticatedPropertiesCountCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createMetricsOfPropertyCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
 	describe('createMetricsFactoryContract', () => {
@@ -26,6 +31,7 @@ describe('metrics-factory.ts', () => {
 				return {
 					authenticatedPropertiesCount:
 						createAuthenticatedPropertiesCountCaller(contract),
+					metricsOfProperty: createMetricsOfPropertyCaller(contract),
 				}
 			}
 

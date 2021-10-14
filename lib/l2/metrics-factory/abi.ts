@@ -1,23 +1,17 @@
 export const metricsFactoryAbi = [
 	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_config',
-				type: 'address',
-			},
-		],
-		payable: false,
-		stateMutability: 'nonpayable',
-		type: 'constructor',
-	},
-	{
 		anonymous: false,
 		inputs: [
 			{
 				indexed: true,
 				internalType: 'address',
-				name: '_from',
+				name: '_market',
+				type: 'address',
+			},
+			{
+				indexed: true,
+				internalType: 'address',
+				name: '_property',
 				type: 'address',
 			},
 			{
@@ -36,7 +30,13 @@ export const metricsFactoryAbi = [
 			{
 				indexed: true,
 				internalType: 'address',
-				name: '_from',
+				name: '_market',
+				type: 'address',
+			},
+			{
+				indexed: true,
+				internalType: 'address',
+				name: '_property',
 				type: 'address',
 			},
 			{
@@ -50,9 +50,53 @@ export const metricsFactoryAbi = [
 		type: 'event',
 	},
 	{
-		constant: true,
 		inputs: [],
-		name: 'configAddress',
+		name: 'authenticatedPropertiesCount',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		name: 'isMetrics',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [],
+		name: 'metricsCount',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [],
+		name: 'registryAddress',
 		outputs: [
 			{
 				internalType: 'address',
@@ -60,12 +104,23 @@ export const metricsFactoryAbi = [
 				type: 'address',
 			},
 		],
-		payable: false,
 		stateMutability: 'view',
 		type: 'function',
 	},
 	{
-		constant: false,
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_registry',
+				type: 'address',
+			},
+		],
+		name: 'initialize',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
 		inputs: [
 			{
 				internalType: 'address',
@@ -81,12 +136,10 @@ export const metricsFactoryAbi = [
 				type: 'address',
 			},
 		],
-		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
-		constant: false,
 		inputs: [
 			{
 				internalType: 'address',
@@ -96,8 +149,64 @@ export const metricsFactoryAbi = [
 		],
 		name: 'destroy',
 		outputs: [],
-		payable: false,
 		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+		],
+		name: 'metricsCountPerProperty',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+		],
+		name: 'metricsOfProperty',
+		outputs: [
+			{
+				internalType: 'address[]',
+				name: '',
+				type: 'address[]',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+		],
+		name: 'hasAssets',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool',
+			},
+		],
+		stateMutability: 'view',
 		type: 'function',
 	},
 ]
