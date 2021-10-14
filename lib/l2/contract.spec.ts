@@ -5,6 +5,7 @@ import {
 	DevkitContract,
 } from './contract'
 import { createMarketContract } from './market'
+import { createMarketBehaviorContract } from './market-behavior'
 import { createMarketFactoryContract } from './market-factory'
 import { createPropertyContract } from './property/index'
 import { createPropertyFactoryContract } from './property-factory/index'
@@ -26,6 +27,7 @@ describe('contract.ts', () => {
 
 			const expected: DevkitContract = {
 				market: createMarketContract(provider),
+				marketBehavior: createMarketBehaviorContract(provider),
 				marketFactory: createMarketFactoryContract(provider),
 				property: createPropertyContract(provider),
 				propertyFactory: createPropertyFactoryContract(provider),

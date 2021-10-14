@@ -6,6 +6,7 @@ import {
 } from './contract'
 import { createAllocatorContract } from './allocator/index'
 import { createMarketContract } from './market'
+import { createMarketBehaviorContract } from './market-behavior'
 import { createPropertyContract } from './property/index'
 import { createPropertyFactoryContract } from './property-factory/index'
 import { createLockupContract } from './lockup/index'
@@ -27,6 +28,7 @@ describe('contract.ts', () => {
 			const expected: DevkitContract = {
 				allocator: createAllocatorContract(provider),
 				market: createMarketContract(provider),
+				marketBehavior: createMarketBehaviorContract(provider),
 				property: createPropertyContract(provider),
 				propertyFactory: createPropertyFactoryContract(provider),
 				lockup: createLockupContract(provider),

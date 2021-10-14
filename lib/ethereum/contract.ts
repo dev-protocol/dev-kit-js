@@ -3,6 +3,7 @@
 import { Provider } from '@ethersproject/abstract-provider'
 import { Signer } from '@ethersproject/abstract-signer'
 import { createMarketContract } from './market/index'
+import { createMarketBehaviorContract } from './market-behavior/index'
 import { createPropertyContract } from './property/index'
 import { createPropertyFactoryContract } from './property-factory/index'
 import { createAllocatorContract } from './allocator/index'
@@ -19,6 +20,7 @@ import { createSTokensContract } from './s-tokens'
 export type DevkitContract = {
 	readonly allocator: ReturnType<typeof createAllocatorContract>
 	readonly market: ReturnType<typeof createMarketContract>
+	readonly marketBehavior: ReturnType<typeof createMarketBehaviorContract>
 	readonly property: ReturnType<typeof createPropertyContract>
 	readonly propertyFactory: ReturnType<typeof createPropertyFactoryContract>
 	readonly lockup: ReturnType<typeof createLockupContract>
@@ -43,6 +45,7 @@ export const createDevkitContract: CreateDevkitContract = (
 ): DevkitContract => ({
 	allocator: createAllocatorContract(provider),
 	market: createMarketContract(provider),
+	marketBehavior: createMarketBehaviorContract(provider),
 	property: createPropertyContract(provider),
 	propertyFactory: createPropertyFactoryContract(provider),
 	lockup: createLockupContract(provider),

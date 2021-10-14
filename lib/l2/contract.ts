@@ -3,6 +3,7 @@
 import { Provider } from '@ethersproject/abstract-provider'
 import { Signer } from '@ethersproject/abstract-signer'
 import { createMarketContract } from './market/index'
+import { createMarketBehaviorContract } from './market-behavior/index'
 import { createPropertyContract } from './property/index'
 import { createPropertyFactoryContract } from './property-factory/index'
 import { createLockupContract } from './lockup/index'
@@ -18,6 +19,7 @@ import { createMetricsFactoryContract } from './metrics-factory'
 
 export type DevkitContract = {
 	readonly market: ReturnType<typeof createMarketContract>
+	readonly marketBehavior: ReturnType<typeof createMarketBehaviorContract>
 	readonly marketFactory: ReturnType<typeof createMarketFactoryContract>
 	readonly property: ReturnType<typeof createPropertyContract>
 	readonly propertyFactory: ReturnType<typeof createPropertyFactoryContract>
@@ -42,6 +44,7 @@ export const createDevkitContract: CreateDevkitContract = (
 	provider: Provider | Signer
 ): DevkitContract => ({
 	market: createMarketContract(provider),
+	marketBehavior: createMarketBehaviorContract(provider),
 	marketFactory: createMarketFactoryContract(provider),
 	property: createPropertyContract(provider),
 	propertyFactory: createPropertyFactoryContract(provider),
