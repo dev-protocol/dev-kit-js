@@ -14,6 +14,7 @@ import { createWithdrawContract } from './withdraw'
 import { createRegistryContract } from './registry'
 import { createPolicyContract } from './policy'
 import { createMetricsContract } from './metrics'
+import { createMetricsFactoryContract } from './metrics-factory'
 import { createPolicyFactoryContract } from './policy-factory'
 import { createSTokensContract } from './s-tokens'
 
@@ -34,6 +35,7 @@ describe('contract.ts', () => {
 				registry: createRegistryContract(provider),
 				policy: createPolicyContract(provider),
 				metrics: createMetricsContract(provider),
+				metricsFactory: createMetricsFactoryContract(provider),
 				policyFactory: createPolicyFactoryContract(provider),
 				sTokens: createSTokensContract(provider),
 			}
