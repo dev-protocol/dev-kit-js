@@ -9,8 +9,8 @@ export const addresses = {
 			sTokens: '0x7224e918923984b430eA4B96C4C523Da6e8d7F9D',
 		},
 	},
-	arbitrumOne: {
-		main: {
+	arbitrum: {
+		one: {
 			token: '0x0000000000000000000000000000000000000000',
 			lockup: '0x0000000000000000000000000000000000000000',
 			marketFactory: '0x0000000000000000000000000000000000000000',
@@ -27,7 +27,7 @@ export const addresses = {
 			marketFactory: '0x84b6712Ec4174536daBf019fa6549A2e2125DEae',
 			metricsFactory: '0x650663aD898A018cca44Ac224Be2286D14B7421d',
 			policyFactory: '0x485085f157dD7Ba451f0AB6Fa2ca42421CBA1d3c',
-			propertyFactory: '0x0000000000000000000000000000000000000000',
+			propertyFactory: '0x66446E01c5a2fdA8FC5Af640a12E66c078903487',
 			registry: '0x519d5e729fbE6B3e4607260413Fb684759612465',
 			sTokens: '0xe45d65c6d6aA3e2a4c8aAcc0C8153778663fe794',
 			withdraw: '0xFBfB9aD095f906d7E354F7ee31d88F0ca517A9C0',
