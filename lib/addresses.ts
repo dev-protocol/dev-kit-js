@@ -6,7 +6,7 @@ export const addresses = {
 		},
 		ropsten: {
 			registry: '0xD6D07f1c048bDF2B3d5d9B6c25eD1FC5348D0A70',
-			sTokens: '0x0000000000000000000000000000000000000000',
+			sTokens: '0x7224e918923984b430eA4B96C4C523Da6e8d7F9D',
 		},
 	},
 	arbitrumOne: {
