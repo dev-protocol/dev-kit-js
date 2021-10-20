@@ -1,8 +1,11 @@
-import { ethers, BigNumber } from 'ethers'
+import { ethers, BigNumber, providers } from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { mergeAll } from 'ramda'
 
 type Args = ReadonlyArray<string | boolean | readonly string[]>
+type Overrides = {
+	readonly gasLimit?: number
+}
 type Option = {
 	readonly contract: ethers.Contract
 	readonly method: string
@@ -17,6 +20,8 @@ export type QueryOption = Option & {
 
 export type MutationOption = Option & {
 	readonly mutation: true
+	readonly overrides?: Overrides
+	readonly fallbackOverrides?: Overrides
 }
 
 export type ExecuteOption = QueryOption | MutationOption
@@ -94,20 +99,35 @@ const N = null
 export const execute: ExecuteFunction = async <
 	T = string,
 	O extends ExecuteOption = QueryOption
->({
-	contract,
-	method,
-	args,
-	padEnd,
-	mutation,
-}: O) => {
-	const res = await (args === undefined
-		? contract[method]()
-		: contract[method].apply(
-				N,
-				padEnd !== undefined ? [...pad(args, padEnd)] : [...args]
-		  ))
-	const data = mutation ? res : stringify(res)
+>(
+	opts: O
+) => {
+	const signer = (opts.contract?.provider as providers.JsonRpcProvider)
+		?.getSigner
+	const contract =
+		opts.mutation && signer ? opts.contract.connect(signer()) : opts.contract
+	const args =
+		opts.args === undefined
+			? undefined
+			: opts.padEnd
+			? [...pad(opts.args, opts.padEnd)]
+			: [...opts.args]
+	const argsOverrided =
+		opts.mutation && opts.overrides ? [...(args || []), opts.overrides] : args
+	const method = contract[opts.method]
+	const res = await (argsOverrided === undefined
+		? method()
+		: method.apply(N, argsOverrided)
+	)
+		// eslint-disable-next-line functional/functional-parameters
+		.catch(() => {
+			const retryArgs =
+				opts.mutation && opts.fallbackOverrides
+					? [...(args || []), opts.fallbackOverrides]
+					: args
+			return retryArgs === undefined ? method() : method.apply(N, retryArgs)
+		})
+	const data = opts.mutation ? res : stringify(res)
 	return data
 }
 

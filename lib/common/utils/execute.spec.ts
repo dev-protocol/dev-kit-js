@@ -106,6 +106,9 @@ describe('execute.ts', () => {
 			expect(fooStub.mock.calls[0][8]).toEqual(undefined)
 		})
 	})
+	describe.skip('execute: overrides and fallbackOverrider', () => {
+		// TODO: Write tests
+	})
 	describe('execute: stringify', () => {
 		it('Returns string', async () => {
 			const contract = {
