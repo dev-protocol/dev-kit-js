@@ -5,6 +5,7 @@ import { mergeAll } from 'ramda'
 type Args = ReadonlyArray<string | boolean | readonly string[]>
 type Overrides = {
 	readonly gasLimit?: number
+	readonly from?: string
 }
 export type FallbackableOverrides = {
 	readonly overrides?: Overrides
