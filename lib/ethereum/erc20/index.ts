@@ -11,17 +11,27 @@ import { createNameCaller } from './name'
 import { createSymbolCaller } from './symbol'
 import { createDecimalsCaller } from './decimals'
 import { createAllowanceCaller } from './allowance'
+import { FallbackableOverrides } from '../../common/utils/execute'
 
 export type Erc20Contract = {
 	readonly totalSupply: () => Promise<string>
 	readonly balanceOf: (address: string) => Promise<string>
-	readonly transfer: (to: string, value: string) => Promise<boolean>
+	readonly transfer: (
+		to: string,
+		value: string,
+		overrides?: FallbackableOverrides
+	) => Promise<boolean>
 	readonly allowance: (from: string, to: string) => Promise<string>
-	readonly approve: (to: string, value: string) => Promise<boolean>
+	readonly approve: (
+		to: string,
+		value: string,
+		overrides?: FallbackableOverrides
+	) => Promise<boolean>
 	readonly transferFrom: (
 		from: string,
 		to: string,
-		value: string
+		value: string,
+		overrides?: FallbackableOverrides
 	) => Promise<boolean>
 	readonly name: () => Promise<string>
 	readonly symbol: () => Promise<string>

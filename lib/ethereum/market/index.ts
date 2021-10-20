@@ -7,19 +7,22 @@ import { createSchemaCaller } from './schema'
 import { createVoteCaller } from './vote'
 import { createAuthenticateCaller } from './authenticate'
 import { createBehaviorCaller } from './behavior'
+import { FallbackableOverrides } from '../../common/utils/execute'
 
 export type CreateMarketContract = {
 	readonly schema: () => Promise<readonly string[]>
 	readonly vote: (
 		propertyAddress: string,
-		agree: boolean
+		agree: boolean,
+		overrides?: FallbackableOverrides
 	) => Promise<TransactionResponse>
 	readonly authenticate: (
 		address: string,
 		args: readonly string[],
 		options: {
 			readonly metricsFactoryAddress: string
-		}
+		},
+		overrides?: FallbackableOverrides
 	) => Promise<string>
 	readonly behavior: () => Promise<string>
 	readonly contract: () => ethers.Contract

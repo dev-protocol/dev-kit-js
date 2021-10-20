@@ -2,14 +2,14 @@ import { ethers } from 'ethers'
 import { createMarketContract, MarketContract } from '.'
 import { createSchemaCaller } from '../../ethereum/market/schema'
 import { createVoteCaller } from '../../ethereum/market/vote'
-import { createAuthenticateCaller } from '../../ethereum/market/authenticate'
+import { createAuthenticateCaller } from './authenticate'
 import { createBehaviorCaller } from '../../ethereum/market/behavior'
 import { createGetAuthenticatedPropertiesCaller } from './getAuthenticatedProperties'
 import { marketAbi } from './abi'
 
 jest.mock('../../ethereum/market/schema')
 jest.mock('../../ethereum/market/vote')
-jest.mock('../../ethereum/market/authenticate')
+jest.mock('./authenticate')
 jest.mock('../../ethereum/market/behavior')
 jest.mock('./getAuthenticatedProperties')
 

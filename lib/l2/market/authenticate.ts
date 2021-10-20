@@ -12,7 +12,7 @@ import {
 	FallbackableOverrides,
 	QueryOption,
 } from '../../common/utils/execute'
-import { metricsAbi } from '../metrics/abi'
+import { metricsAbi } from '../../ethereum/metrics/abi'
 import { metricsFactoryAbi } from '../metrics-factory/abi'
 
 export const getMetricsProperty = async (
@@ -51,8 +51,7 @@ export const createAuthenticateCaller: CreateAuthenticateCaller =
 			contract,
 			method: 'authenticate',
 			mutation: true,
-			args: [propertyAddress, ...args],
-			padEnd: 6,
+			args: [propertyAddress, args],
 			overrides,
 		})
 		const metricsFactoryContract = new ethers.Contract(

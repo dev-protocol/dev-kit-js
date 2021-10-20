@@ -5,19 +5,22 @@ import { propertyFactoryAbi } from './abi'
 import { createCreatePropertyCaller } from './create'
 import { WaitForEventOptions } from '../market/authenticate'
 import { createCreateAndAuthenticateCaller } from './createAndAuthenticate'
+import { FallbackableOverrides } from '../../common/utils/execute'
 
 export type PropertyFactoryContract = {
 	readonly create: (
 		name: string,
 		symbol: string,
-		author: string
+		author: string,
+		overrides?: FallbackableOverrides
 	) => Promise<string>
 	readonly createAndAuthenticate: (
 		name: string,
 		symbol: string,
 		marketAddress: string,
 		args: readonly string[],
-		options: WaitForEventOptions
+		options: WaitForEventOptions,
+		overrides?: FallbackableOverrides
 	) => Promise<{
 		readonly property: string
 		readonly transaction: TransactionResponse

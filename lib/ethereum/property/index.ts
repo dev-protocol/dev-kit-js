@@ -15,25 +15,44 @@ import { createTransferFromCaller } from '../erc20/transferFrom'
 import { createBalanceOfCaller } from './../erc20/balanceOf'
 import { createApproveCaller } from './../erc20/approve'
 import { createAllowanceCaller } from './../erc20/allowance'
+import { FallbackableOverrides } from '../../common/utils/execute'
 
 export type PropertyContract = {
 	readonly totalSupply: () => Promise<string>
 	readonly balanceOf: (address: string) => Promise<string>
-	readonly transfer: (to: string, value: string) => Promise<boolean>
+	readonly transfer: (
+		to: string,
+		value: string,
+		overrides?: FallbackableOverrides
+	) => Promise<boolean>
 	readonly allowance: (from: string, to: string) => Promise<string>
-	readonly approve: (to: string, value: string) => Promise<boolean>
+	readonly approve: (
+		to: string,
+		value: string,
+		overrides?: FallbackableOverrides
+	) => Promise<boolean>
 	readonly transferFrom: (
 		from: string,
 		to: string,
-		value: string
+		value: string,
+		overrides?: FallbackableOverrides
 	) => Promise<boolean>
 	readonly name: () => Promise<string>
 	readonly symbol: () => Promise<string>
 	readonly decimals: () => Promise<string>
 	readonly author: () => Promise<string>
-	readonly changeAuthor: (nextAuthor: string) => Promise<boolean>
-	readonly changeName: (nextName: string) => Promise<boolean>
-	readonly changeSymbol: (nextSymbol: string) => Promise<boolean>
+	readonly changeAuthor: (
+		nextAuthor: string,
+		overrides?: FallbackableOverrides
+	) => Promise<boolean>
+	readonly changeName: (
+		nextName: string,
+		overrides?: FallbackableOverrides
+	) => Promise<boolean>
+	readonly changeSymbol: (
+		nextSymbol: string,
+		overrides?: FallbackableOverrides
+	) => Promise<boolean>
 }
 
 export type CreatePropertyContract = (

@@ -1,17 +1,32 @@
 import { ethers } from 'ethers'
-import { execute, MutationOption } from '../../common/utils/execute'
+import {
+	execute,
+	FallbackableOverrides,
+	MutationOption,
+} from '../../common/utils/execute'
 import { T } from 'ramda'
 
 export type CreateTransferFromCaller = (
 	contract: ethers.Contract
-) => (from: string, to: string, value: string) => Promise<boolean>
+) => (
+	from: string,
+	to: string,
+	value: string,
+	overrides?: FallbackableOverrides
+) => Promise<boolean>
 
 export const createTransferFromCaller: CreateTransferFromCaller =
 	(contract: ethers.Contract) =>
-	async (from: string, to: string, value: string) =>
+	async (
+		from: string,
+		to: string,
+		value: string,
+		overrides?: FallbackableOverrides
+	) =>
 		execute<MutationOption>({
 			contract,
 			method: 'transferFrom',
 			mutation: true,
 			args: [from, to, value],
+			overrides,
 		}).then(T)

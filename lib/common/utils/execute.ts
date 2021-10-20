@@ -6,6 +6,10 @@ type Args = ReadonlyArray<string | boolean | readonly string[]>
 type Overrides = {
 	readonly gasLimit?: number
 }
+export type FallbackableOverrides = {
+	readonly overrides?: Overrides
+	readonly fallback?: Overrides
+}
 type Option = {
 	readonly contract: ethers.Contract
 	readonly method: string
@@ -20,8 +24,7 @@ export type QueryOption = Option & {
 
 export type MutationOption = Option & {
 	readonly mutation: true
-	readonly overrides?: Overrides
-	readonly fallbackOverrides?: Overrides
+	readonly overrides?: FallbackableOverrides
 }
 
 export type ExecuteOption = QueryOption | MutationOption
@@ -113,7 +116,9 @@ export const execute: ExecuteFunction = async <
 			? [...pad(opts.args, opts.padEnd)]
 			: [...opts.args]
 	const argsOverrided =
-		opts.mutation && opts.overrides ? [...(args || []), opts.overrides] : args
+		opts.mutation && opts.overrides
+			? [...(args || []), opts.overrides.overrides]
+			: args
 	const method = contract[opts.method]
 	const res = await (argsOverrided === undefined
 		? method()
@@ -122,8 +127,8 @@ export const execute: ExecuteFunction = async <
 		// eslint-disable-next-line functional/functional-parameters
 		.catch(() => {
 			const retryArgs =
-				opts.mutation && opts.fallbackOverrides
-					? [...(args || []), opts.fallbackOverrides]
+				opts.mutation && opts.overrides?.fallback
+					? [...(args || []), opts.overrides.fallback]
 					: args
 			return retryArgs === undefined ? method() : method.apply(N, retryArgs)
 		})

@@ -4,10 +4,17 @@ import { Signer } from '@ethersproject/abstract-signer'
 import { policyFactoryAbi } from './abi'
 import { createCreateCaller } from './create'
 import { createForceAttachCaller } from './forceAttach'
+import { FallbackableOverrides } from '../../common/utils/execute'
 
 export type PolicyFactoryContract = {
-	readonly create: (newPolicyAddress: string) => Promise<boolean>
-	readonly forceAttach: (policy: string) => Promise<boolean>
+	readonly create: (
+		newPolicyAddress: string,
+		overrides?: FallbackableOverrides
+	) => Promise<boolean>
+	readonly forceAttach: (
+		policy: string,
+		overrides?: FallbackableOverrides
+	) => Promise<boolean>
 }
 
 export type CreatePolicyFactoryContract = (

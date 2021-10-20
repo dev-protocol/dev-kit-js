@@ -17,6 +17,7 @@ import { createcalculateWithdrawableInterestAmountByPositionCaller } from './cal
 import { createDepositToPropertyCaller } from './depositToProperty'
 import { createDepositToPositionCaller } from './depositToPosition'
 import { createMigrateToSTokensCaller } from './migrateToSTokens'
+import { FallbackableOverrides } from '../../common/utils/execute'
 
 export type LockupContract = {
 	readonly getValue: (
@@ -27,11 +28,13 @@ export type LockupContract = {
 	readonly getPropertyValue: (address: string) => Promise<string>
 	readonly withdrawByPosition: (
 		positionTokenId: string,
-		amount: string
+		amount: string,
+		overrides?: FallbackableOverrides
 	) => Promise<boolean>
 	readonly withdraw: (
 		propertyAddress: string,
-		amount: string
+		amount: string,
+		overrides?: FallbackableOverrides
 	) => Promise<boolean>
 	readonly calculateWithdrawableInterestAmountByPosition: (
 		positionTokenId: string
@@ -56,13 +59,18 @@ export type LockupContract = {
 	readonly cap: () => Promise<string>
 	readonly depositToProperty: (
 		propertyAddress: string,
-		amount: string
+		amount: string,
+		overrides?: FallbackableOverrides
 	) => Promise<boolean>
 	readonly depositToPosition: (
 		positionTokenId: string,
-		amount: string
+		amount: string,
+		overrides?: FallbackableOverrides
 	) => Promise<boolean>
-	readonly migrateToSTokens: (positionTokenId: string) => Promise<boolean>
+	readonly migrateToSTokens: (
+		positionTokenId: string,
+		overrides?: FallbackableOverrides
+	) => Promise<boolean>
 }
 
 export const createLockupContract =

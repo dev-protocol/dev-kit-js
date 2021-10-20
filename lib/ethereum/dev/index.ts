@@ -12,6 +12,7 @@ import { createSymbolCaller } from './../erc20/symbol'
 import { createDecimalsCaller } from './../erc20/decimals'
 import { createAllowanceCaller } from './../erc20/allowance'
 import { createDepositCaller } from './deposit'
+import { FallbackableOverrides } from '../../common/utils/execute'
 
 export type DevContract = {
 	readonly totalSupply: () => Promise<string>
@@ -27,7 +28,11 @@ export type DevContract = {
 	readonly name: () => Promise<string>
 	readonly symbol: () => Promise<string>
 	readonly decimals: () => Promise<string>
-	readonly deposit: (to: string, value: string) => Promise<boolean>
+	readonly deposit: (
+		to: string,
+		value: string,
+		overrides?: FallbackableOverrides
+	) => Promise<boolean>
 }
 
 export const createDevContract =

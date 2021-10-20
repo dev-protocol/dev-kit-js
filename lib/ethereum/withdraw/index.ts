@@ -8,9 +8,13 @@ import { createCalculateWithdrawableAmountCaller } from './calculateWithdrawable
 import { createBulkWithdrawCaller } from './bulkWithdraw'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { calculateRewardAmountCaller } from './calculateRewardAmount'
+import { FallbackableOverrides } from '../../common/utils/execute'
 
 export type WithdrawContract = {
-	readonly withdraw: (propertyAddress: string) => Promise<boolean>
+	readonly withdraw: (
+		propertyAddress: string,
+		overrides?: FallbackableOverrides
+	) => Promise<boolean>
 	readonly bulkWithdraw: (
 		propertyAddresses: readonly string[]
 	) => Promise<TransactionResponse>
