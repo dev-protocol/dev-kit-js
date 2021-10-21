@@ -28,9 +28,6 @@ describe('getEnabledMarkets.spec.ts', () => {
 				getEnabledMarkets: jest
 					.fn()
 					.mockImplementation(async () => Promise.reject(error)),
-				enableMarketList: jest
-					.fn()
-					.mockImplementation(async () => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

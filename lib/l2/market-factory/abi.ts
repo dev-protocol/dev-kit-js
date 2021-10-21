@@ -200,7 +200,7 @@ export const marketFactoryAbi = [
 	},
 	{
 		inputs: [],
-		name: 'enableMarketList',
+		name: 'getEnabledMarkets',
 		outputs: [
 			{
 				internalType: 'address[]',

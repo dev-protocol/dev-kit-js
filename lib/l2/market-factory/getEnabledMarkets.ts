@@ -14,14 +14,5 @@ export const createGetEnabledMarketsCaller: CreateGetEnabledMarketsCaller = (
 			contract,
 			method: 'getEnabledMarkets',
 			mutation: false,
-		}).catch(
-			// TODO: This fallback should be removed once the naming change is complete.
-			always(
-				execute<QueryOption, readonly string[]>({
-					contract,
-					method: 'enableMarketList',
-					mutation: false,
-				})
-			)
-		)
+		})
 	)
