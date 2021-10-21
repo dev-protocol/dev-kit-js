@@ -3,11 +3,11 @@ import { Provider } from '@ethersproject/abstract-provider'
 import { Signer } from '@ethersproject/abstract-signer'
 import { marketFactoryAbi } from './abi'
 import { createCreateCaller } from '../../ethereum/market-factory/create'
-import { createListEnabledMarketsCaller } from './listEnabledMarkets'
+import { createGetEnabledMarketsCaller } from './getEnabledMarkets'
 
 export type MarketFactoryContract = {
 	readonly create: (marketBehaviorAddress: string) => Promise<boolean>
-	readonly listEnabledMarkets: () => Promise<readonly string[]>
+	readonly getEnabledMarkets: () => Promise<readonly string[]>
 }
 
 export const createMarketFactoryContract =
@@ -20,6 +20,6 @@ export const createMarketFactoryContract =
 		)
 		return {
 			create: createCreateCaller(contract),
-			listEnabledMarkets: createListEnabledMarketsCaller(contract),
+			getEnabledMarkets: createGetEnabledMarketsCaller(contract),
 		}
 	}

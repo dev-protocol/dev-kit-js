@@ -1,12 +1,12 @@
-import { createListEnabledMarketsCaller } from './listEnabledMarkets'
+import { createGetEnabledMarketsCaller } from './getEnabledMarkets'
 
-describe('listEnabledMarkets.spec.ts', () => {
-	describe('createListEnabledMarketsCaller', () => {
+describe('getEnabledMarkets.spec.ts', () => {
+	describe('createGetEnabledMarketsCaller', () => {
 		it('call success', async () => {
 			const value = ['0x0', '0x1', '0x2']
 
 			const marketFactoryContract = {
-				listEnabledMarkets: jest
+				getEnabledMarkets: jest
 					.fn()
 					.mockImplementation(async () => Promise.resolve(value)),
 			}
@@ -14,9 +14,7 @@ describe('listEnabledMarkets.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createListEnabledMarketsCaller(
-				marketFactoryContract as any
-			)
+			const caller = createGetEnabledMarketsCaller(marketFactoryContract as any)
 
 			const result = await caller()
 
@@ -27,7 +25,7 @@ describe('listEnabledMarkets.spec.ts', () => {
 			const error = 'error'
 
 			const marketFactoryContract = {
-				listEnabledMarkets: jest
+				getEnabledMarkets: jest
 					.fn()
 					.mockImplementation(async () => Promise.reject(error)),
 				enableMarketList: jest
@@ -36,9 +34,7 @@ describe('listEnabledMarkets.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createListEnabledMarketsCaller(
-				marketFactoryContract as any
-			)
+			const caller = createGetEnabledMarketsCaller(marketFactoryContract as any)
 
 			const result = await caller().catch((err) => err)
 
