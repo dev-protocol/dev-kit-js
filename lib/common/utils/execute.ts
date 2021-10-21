@@ -110,27 +110,38 @@ export const execute: ExecuteFunction = async <
 		?.getSigner
 	const contract =
 		opts.mutation && signer ? opts.contract.connect(signer()) : opts.contract
+	const from = signer ? await signer().getAddress() : undefined
+	// eslint-disable-next-line functional/no-expression-statement
+	console.log({ signer, from })
 	const args =
 		opts.args === undefined
 			? undefined
 			: opts.padEnd
 			? [...pad(opts.args, opts.padEnd)]
 			: [...opts.args]
-	const argsOverrided =
+	const overrides =
 		opts.mutation && opts.overrides
-			? [...(args || []), opts.overrides.overrides]
-			: args
+			? { from, ...opts.overrides.overrides }
+			: { from }
+	const argsOverrided = opts.mutation ? [...(args || []), overrides] : args
 	const method = contract[opts.method]
+	// eslint-disable-next-line functional/no-expression-statement
+	console.log({ argsOverrided })
 	const res = await (argsOverrided === undefined
 		? method()
 		: method.apply(N, argsOverrided)
 	)
 		// eslint-disable-next-line functional/functional-parameters
 		.catch(() => {
-			const retryArgs =
+			const fallbackOverrides =
 				opts.mutation && opts.overrides?.fallback
-					? [...(args || []), opts.overrides.fallback]
-					: args
+					? { from, ...opts.overrides.fallback }
+					: { from }
+			const retryArgs = opts.mutation
+				? [...(args || []), fallbackOverrides]
+				: args
+			// eslint-disable-next-line functional/no-expression-statement
+			console.log({ retryArgs })
 			return retryArgs === undefined ? method() : method.apply(N, retryArgs)
 		})
 	const data = opts.mutation ? res : stringify(res)
