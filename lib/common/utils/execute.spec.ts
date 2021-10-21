@@ -54,7 +54,7 @@ describe('execute.ts', () => {
 			expect(fooStub.mock.calls[0][0]).toEqual('abc')
 			expect(fooStub.mock.calls[0][1]).toEqual('xyz')
 		})
-		it("Execute the contract instance's `[passed method]({from})` when the mutation is true not include args property.", async () => {
+		it("Execute the contract instance's `[passed method]()` when the mutation is true not include args property.", async () => {
 			const fooStub = jest.fn(async () => Promise.resolve(true))
 			const contract = {
 				foo: fooStub,
@@ -66,7 +66,7 @@ describe('execute.ts', () => {
 			})
 			expect(result).toEqual(true)
 			expect(fooStub.mock.calls.length).toEqual(1)
-			expect(fooStub.mock.calls[0]).toEqual([{ from: undefined }])
+			expect(fooStub.mock.calls[0]).toEqual([])
 		})
 		it('empty-padding to an arguments array if `padEnd` is specified', async () => {
 			const fooStub = jest.fn(
@@ -103,9 +103,7 @@ describe('execute.ts', () => {
 			expect(fooStub.mock.calls[0][6]).toEqual('')
 			expect(fooStub.mock.calls[0][7]).toEqual('')
 			// @ts-expect-error
-			expect(fooStub.mock.calls[0][8]).toEqual({ from: undefined })
-			// @ts-expect-error
-			expect(fooStub.mock.calls[0][9]).toEqual(undefined)
+			expect(fooStub.mock.calls[0][8]).toEqual(undefined)
 		})
 	})
 	describe.skip('execute: overrides and fallbackOverrider', () => {

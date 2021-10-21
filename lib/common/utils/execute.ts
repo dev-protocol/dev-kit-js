@@ -100,48 +100,42 @@ const stringify = (
 
 const N = null
 
+type SignableProvider = providers.JsonRpcProvider | providers.Web3Provider
+
 export const execute: ExecuteFunction = async <
 	T = string,
 	O extends ExecuteOption = QueryOption
 >(
 	opts: O
 ) => {
-	const signer = (opts.contract?.provider as providers.JsonRpcProvider)
-		?.getSigner
+	const signer =
+		typeof (opts.contract?.provider as SignableProvider)?.getSigner ===
+		'function'
+			? (opts.contract.provider as SignableProvider).getSigner()
+			: undefined
 	const contract =
-		opts.mutation && signer ? opts.contract.connect(signer()) : opts.contract
-	const from = signer ? await signer().getAddress() : undefined
-	// eslint-disable-next-line functional/no-expression-statement
-	console.log({ signer, from })
+		opts.mutation && signer ? opts.contract.connect(signer) : opts.contract
 	const args =
 		opts.args === undefined
 			? undefined
 			: opts.padEnd
 			? [...pad(opts.args, opts.padEnd)]
 			: [...opts.args]
-	const overrides =
-		opts.mutation && opts.overrides
-			? { from, ...opts.overrides.overrides }
-			: { from }
-	const argsOverrided = opts.mutation ? [...(args || []), overrides] : args
+	const argsOverrided =
+		opts.mutation && opts.overrides?.overrides
+			? [...(args || []), opts.overrides.overrides]
+			: args
 	const method = contract[opts.method]
-	// eslint-disable-next-line functional/no-expression-statement
-	console.log({ argsOverrided })
 	const res = await (argsOverrided === undefined
 		? method()
 		: method.apply(N, argsOverrided)
 	)
 		// eslint-disable-next-line functional/functional-parameters
 		.catch(() => {
-			const fallbackOverrides =
+			const retryArgs =
 				opts.mutation && opts.overrides?.fallback
-					? { from, ...opts.overrides.fallback }
-					: { from }
-			const retryArgs = opts.mutation
-				? [...(args || []), fallbackOverrides]
-				: args
-			// eslint-disable-next-line functional/no-expression-statement
-			console.log({ retryArgs })
+					? [...(args || []), opts.overrides.fallback]
+					: args
 			return retryArgs === undefined ? method() : method.apply(N, retryArgs)
 		})
 	const data = opts.mutation ? res : stringify(res)
