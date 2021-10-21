@@ -14,10 +14,12 @@ const inputL2 = [
 	'!**/*.spec.*',
 ]
 const plugins = [multi(), nodeResolve({ modulesOnly: true })]
+const external = ['ethers']
 
 export default [
 	{
 		input,
+		external,
 		output: [
 			{
 				file: 'dist/index.mjs',
@@ -28,6 +30,7 @@ export default [
 	},
 	{
 		input,
+		external,
 		output: [
 			{
 				file: 'dist/index.js',
@@ -51,6 +54,7 @@ export default [
 		],
 	},
 	{
+		external,
 		input: inputL2,
 		output: [
 			{
@@ -61,6 +65,7 @@ export default [
 		plugins,
 	},
 	{
+		external,
 		input: inputL2,
 		output: [
 			{
