@@ -3,15 +3,20 @@ import { createMetricsFactoryContract, CreateMetricsFactoryContract } from '.'
 import { metricsFactoryAbi } from './abi'
 import { createAuthenticatedPropertiesCountCaller } from './authenticatedPropertiesCount'
 import { createMetricsOfPropertyCaller } from './metricsOfProperty'
+import { createMetricsCountCaller } from './metricsCount'
 
 jest.mock('./authenticatedPropertiesCount')
 jest.mock('./metricsOfProperty')
+jest.mock('./metricsCount')
 
 describe('metrics-factory.ts', () => {
 	;(createAuthenticatedPropertiesCountCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
 	;(createMetricsOfPropertyCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createMetricsCountCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
 	describe('createMetricsFactoryContract', () => {
@@ -31,6 +36,7 @@ describe('metrics-factory.ts', () => {
 				return {
 					authenticatedPropertiesCount:
 						createAuthenticatedPropertiesCountCaller(contract),
+					metricsCount:createMetricsCountCaller(contract),
 					metricsOfProperty: createMetricsOfPropertyCaller(contract),
 				}
 			}

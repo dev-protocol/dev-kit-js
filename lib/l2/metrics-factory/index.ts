@@ -4,9 +4,11 @@ import { Signer } from '@ethersproject/abstract-signer'
 import { metricsFactoryAbi } from './abi'
 import { createAuthenticatedPropertiesCountCaller } from './authenticatedPropertiesCount'
 import { createMetricsOfPropertyCaller } from './metricsOfProperty'
+import { createMetricsCountCaller } from './metricsCount'
 
 export type CreateMetricsFactoryContract = {
 	readonly authenticatedPropertiesCount: () => Promise<string>
+	readonly metricsCount: () => Promise<number>
 	readonly metricsOfProperty: (
 		propertyAddress: string
 	) => Promise<readonly string[]>
@@ -25,6 +27,7 @@ export const createMetricsFactoryContract =
 		return {
 			authenticatedPropertiesCount:
 				createAuthenticatedPropertiesCountCaller(contract),
+			metricsCount: createMetricsCountCaller(contract),
 			metricsOfProperty: createMetricsOfPropertyCaller(contract),
 		}
 	}
