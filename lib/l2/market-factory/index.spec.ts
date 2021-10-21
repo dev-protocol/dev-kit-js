@@ -2,10 +2,10 @@ import { ethers } from 'ethers'
 import { createMarketFactoryContract, MarketFactoryContract } from '.'
 import { marketFactoryAbi } from './abi'
 import { createCreateCaller } from '../../ethereum/market-factory/create'
-import { createEnabledMarketsCaller } from './enabledMarkets'
+import { createListEnabledMarketsCaller } from './listEnabledMarkets'
 
 jest.mock('../../ethereum/market-factory/create')
-jest.mock('./enabledMarkets')
+jest.mock('./listEnabledMarkets')
 
 describe('market-factory/index.ts', () => {
 	;(createCreateCaller as jest.Mock).mockImplementation((contract) => contract)
@@ -25,7 +25,7 @@ describe('market-factory/index.ts', () => {
 				)
 				return {
 					create: createCreateCaller(contract),
-					enabledMarkets: createEnabledMarketsCaller(contract),
+					listEnabledMarkets: createListEnabledMarketsCaller(contract),
 				}
 			}
 
