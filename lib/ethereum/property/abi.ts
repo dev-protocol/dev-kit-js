@@ -3,7 +3,7 @@ export const propertyAbi = [
 		inputs: [
 			{
 				internalType: 'address',
-				name: '_config',
+				name: '_registry',
 				type: 'address',
 			},
 			{
@@ -22,7 +22,6 @@ export const propertyAbi = [
 				type: 'string',
 			},
 		],
-		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'constructor',
 	},
@@ -55,6 +54,63 @@ export const propertyAbi = [
 		anonymous: false,
 		inputs: [
 			{
+				indexed: false,
+				internalType: 'address',
+				name: '_old',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				internalType: 'address',
+				name: '_new',
+				type: 'address',
+			},
+		],
+		name: 'ChangeAuthor',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: false,
+				internalType: 'string',
+				name: '_old',
+				type: 'string',
+			},
+			{
+				indexed: false,
+				internalType: 'string',
+				name: '_new',
+				type: 'string',
+			},
+		],
+		name: 'ChangeName',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: false,
+				internalType: 'string',
+				name: '_old',
+				type: 'string',
+			},
+			{
+				indexed: false,
+				internalType: 'string',
+				name: '_new',
+				type: 'string',
+			},
+		],
+		name: 'ChangeSymbol',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
 				indexed: true,
 				internalType: 'address',
 				name: 'from',
@@ -77,7 +133,6 @@ export const propertyAbi = [
 		type: 'event',
 	},
 	{
-		constant: true,
 		inputs: [
 			{
 				internalType: 'address',
@@ -98,12 +153,10 @@ export const propertyAbi = [
 				type: 'uint256',
 			},
 		],
-		payable: false,
 		stateMutability: 'view',
 		type: 'function',
 	},
 	{
-		constant: false,
 		inputs: [
 			{
 				internalType: 'address',
@@ -124,27 +177,10 @@ export const propertyAbi = [
 				type: 'bool',
 			},
 		],
-		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
-		constant: true,
-		inputs: [],
-		name: 'author',
-		outputs: [
-			{
-				internalType: 'address',
-				name: '',
-				type: 'address',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
 		inputs: [
 			{
 				internalType: 'address',
@@ -160,42 +196,10 @@ export const propertyAbi = [
 				type: 'uint256',
 			},
 		],
-		payable: false,
 		stateMutability: 'view',
 		type: 'function',
 	},
 	{
-		constant: true,
-		inputs: [],
-		name: 'configAddress',
-		outputs: [
-			{
-				internalType: 'address',
-				name: '',
-				type: 'address',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
-		inputs: [],
-		name: 'decimals',
-		outputs: [
-			{
-				internalType: 'uint8',
-				name: '',
-				type: 'uint8',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: false,
 		inputs: [
 			{
 				internalType: 'address',
@@ -216,12 +220,10 @@ export const propertyAbi = [
 				type: 'bool',
 			},
 		],
-		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
-		constant: false,
 		inputs: [
 			{
 				internalType: 'address',
@@ -242,42 +244,23 @@ export const propertyAbi = [
 				type: 'bool',
 			},
 		],
-		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
-		constant: true,
 		inputs: [],
-		name: 'name',
+		name: 'registryAddress',
 		outputs: [
 			{
-				internalType: 'string',
+				internalType: 'address',
 				name: '',
-				type: 'string',
+				type: 'address',
 			},
 		],
-		payable: false,
 		stateMutability: 'view',
 		type: 'function',
 	},
 	{
-		constant: true,
-		inputs: [],
-		name: 'symbol',
-		outputs: [
-			{
-				internalType: 'string',
-				name: '',
-				type: 'string',
-			},
-		],
-		payable: false,
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		constant: true,
 		inputs: [],
 		name: 'totalSupply',
 		outputs: [
@@ -287,12 +270,62 @@ export const propertyAbi = [
 				type: 'uint256',
 			},
 		],
-		payable: false,
 		stateMutability: 'view',
 		type: 'function',
 	},
 	{
-		constant: false,
+		inputs: [],
+		name: 'author',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [],
+		name: 'name',
+		outputs: [
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [],
+		name: 'symbol',
+		outputs: [
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [],
+		name: 'decimals',
+		outputs: [
+			{
+				internalType: 'uint8',
+				name: '',
+				type: 'uint8',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
 		inputs: [
 			{
 				internalType: 'address',
@@ -302,12 +335,36 @@ export const propertyAbi = [
 		],
 		name: 'changeAuthor',
 		outputs: [],
-		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
-		constant: false,
+		inputs: [
+			{
+				internalType: 'string',
+				name: '_name',
+				type: 'string',
+			},
+		],
+		name: 'changeName',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'string',
+				name: '_symbol',
+				type: 'string',
+			},
+		],
+		name: 'changeSymbol',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
 		inputs: [
 			{
 				internalType: 'address',
@@ -328,12 +385,10 @@ export const propertyAbi = [
 				type: 'bool',
 			},
 		],
-		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
-		constant: false,
 		inputs: [
 			{
 				internalType: 'address',
@@ -359,12 +414,10 @@ export const propertyAbi = [
 				type: 'bool',
 			},
 		],
-		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
-		constant: false,
 		inputs: [
 			{
 				internalType: 'address',
@@ -379,7 +432,6 @@ export const propertyAbi = [
 		],
 		name: 'withdraw',
 		outputs: [],
-		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
