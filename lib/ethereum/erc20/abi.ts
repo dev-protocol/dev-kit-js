@@ -1,5 +1,21 @@
 export const erc20Abi = [
 	{
+		inputs: [
+			{
+				internalType: 'string',
+				name: 'name_',
+				type: 'string',
+			},
+			{
+				internalType: 'string',
+				name: 'symbol_',
+				type: 'string',
+			},
+		],
+		stateMutability: 'nonpayable',
+		type: 'constructor',
+	},
+	{
 		anonymous: false,
 		inputs: [
 			{
@@ -50,7 +66,45 @@ export const erc20Abi = [
 		type: 'event',
 	},
 	{
-		constant: true,
+		inputs: [],
+		name: 'name',
+		outputs: [
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [],
+		name: 'symbol',
+		outputs: [
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [],
+		name: 'decimals',
+		outputs: [
+			{
+				internalType: 'uint8',
+				name: '',
+				type: 'uint8',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
 		inputs: [],
 		name: 'totalSupply',
 		outputs: [
@@ -60,12 +114,10 @@ export const erc20Abi = [
 				type: 'uint256',
 			},
 		],
-		payable: false,
 		stateMutability: 'view',
 		type: 'function',
 	},
 	{
-		constant: true,
 		inputs: [
 			{
 				internalType: 'address',
@@ -81,12 +133,10 @@ export const erc20Abi = [
 				type: 'uint256',
 			},
 		],
-		payable: false,
 		stateMutability: 'view',
 		type: 'function',
 	},
 	{
-		constant: false,
 		inputs: [
 			{
 				internalType: 'address',
@@ -107,12 +157,10 @@ export const erc20Abi = [
 				type: 'bool',
 			},
 		],
-		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
-		constant: true,
 		inputs: [
 			{
 				internalType: 'address',
@@ -133,12 +181,10 @@ export const erc20Abi = [
 				type: 'uint256',
 			},
 		],
-		payable: false,
 		stateMutability: 'view',
 		type: 'function',
 	},
 	{
-		constant: false,
 		inputs: [
 			{
 				internalType: 'address',
@@ -159,12 +205,10 @@ export const erc20Abi = [
 				type: 'bool',
 			},
 		],
-		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
-		constant: false,
 		inputs: [
 			{
 				internalType: 'address',
@@ -190,12 +234,10 @@ export const erc20Abi = [
 				type: 'bool',
 			},
 		],
-		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
-		constant: false,
 		inputs: [
 			{
 				internalType: 'address',
@@ -216,12 +258,10 @@ export const erc20Abi = [
 				type: 'bool',
 			},
 		],
-		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
-		constant: false,
 		inputs: [
 			{
 				internalType: 'address',
@@ -242,7 +282,6 @@ export const erc20Abi = [
 				type: 'bool',
 			},
 		],
-		payable: false,
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
