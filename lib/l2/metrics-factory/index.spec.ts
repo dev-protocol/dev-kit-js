@@ -36,7 +36,7 @@ describe('metrics-factory.ts', () => {
 				return {
 					authenticatedPropertiesCount:
 						createAuthenticatedPropertiesCountCaller(contract),
-					metricsCount:createMetricsCountCaller(contract),
+					metricsCount: createMetricsCountCaller(contract),
 					metricsOfProperty: createMetricsOfPropertyCaller(contract),
 				}
 			}
