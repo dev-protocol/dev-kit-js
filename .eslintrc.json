@@ -25,7 +25,8 @@
 	},
 	"plugins": ["@typescript-eslint", "functional", "jest"],
 	"rules": {
-		"@typescript-eslint/prefer-readonly-parameter-types": "warn"
+		"@typescript-eslint/prefer-readonly-parameter-types": "warn",
+		"functional/no-return-void": "off"
 	},
 	"overrides": [
 		{
@@ -37,8 +38,8 @@
 				"@typescript-eslint/no-empty-function": "off",
 				"functional/no-expression-statement": "off",
 				"functional/functional-parameters": "off",
-				"functional/no-return-void": "off",
-				"functional/no-promise-reject": "off"
+				"functional/no-promise-reject": "off",
+				"@typescript-eslint/no-loss-of-precision": "off"
 			}
 		}
 	]
