@@ -3,7 +3,7 @@ import { Provider } from '@ethersproject/abstract-provider'
 import { Signer } from '@ethersproject/abstract-signer'
 import { sTokensAbi } from './abi'
 import { createPositionsCaller, Positions } from './positions'
-import { createOwnerOfCaller, PositionsOwner } from './ownerOf'
+import { createOwnerOfCaller } from './ownerOf'
 import { createRewardsCaller, Rewards } from './rewards'
 import { createTokenURICaller, TokenURI } from './tokenURI'
 import { createPositionsOfPropertyCaller } from './positionsOfProperty'
@@ -11,7 +11,7 @@ import { createPositionsOfOwnerCaller } from './positionsOfOwner'
 
 export type STokensContract = {
 	readonly positions: (tokenId: number) => Promise<Positions>
-	readonly ownerOf: (tokenId: number) => Promise<PositionsOwner>
+	readonly ownerOf: (tokenId: number) => Promise<string>
 	readonly rewards: (tokenId: number) => Promise<Rewards>
 	readonly tokenURI: (tokenId: number) => Promise<TokenURI>
 	readonly positionsOfProperty: (
