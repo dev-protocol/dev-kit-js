@@ -3,6 +3,7 @@ import { Provider } from '@ethersproject/abstract-provider'
 import { Signer } from '@ethersproject/abstract-signer'
 import { sTokensAbi } from './abi'
 import { createPositionsCaller, Positions } from './positions'
+import { createOwnerOfCaller, PositionsOwner } from './ownerOf'
 import { createRewardsCaller, Rewards } from './rewards'
 import { createTokenURICaller, TokenURI } from './tokenURI'
 import { createPositionsOfPropertyCaller } from './positionsOfProperty'
@@ -10,6 +11,7 @@ import { createPositionsOfOwnerCaller } from './positionsOfOwner'
 
 export type STokensContract = {
 	readonly positions: (tokenId: number) => Promise<Positions>
+	readonly ownerOf: (tokenId: number) => Promise<PositionsOwner>
 	readonly rewards: (tokenId: number) => Promise<Rewards>
 	readonly tokenURI: (tokenId: number) => Promise<TokenURI>
 	readonly positionsOfProperty: (
@@ -32,6 +34,7 @@ export const createSTokensContract =
 
 		return {
 			positions: createPositionsCaller(contractClient),
+			ownerOf: createOwnerOfCaller(contractClient),
 			rewards: createRewardsCaller(contractClient),
 			tokenURI: createTokenURICaller(contractClient),
 			positionsOfProperty: createPositionsOfPropertyCaller(contractClient),
