@@ -2,12 +2,14 @@ import { ethers } from 'ethers'
 import { createSTokensContract, STokensContract } from '.'
 import { sTokensAbi } from './abi'
 import { createPositionsCaller } from './positions'
+import { createOwnerOfCaller } from './ownerOf'
 import { createRewardsCaller } from './rewards'
 import { createTokenURICaller } from './tokenURI'
 import { createPositionsOfPropertyCaller } from './positionsOfProperty'
 import { createPositionsOfOwnerCaller } from './positionsOfOwner'
 
 jest.mock('./positions')
+jest.mock('./ownerOf')
 jest.mock('./rewards')
 jest.mock('./tokenURI')
 jest.mock('./positionsOfProperty')
@@ -39,6 +41,7 @@ describe('s-tokens/index.ts', () => {
 				const contract = new ethers.Contract(address, [...sTokensAbi], provider)
 				return {
 					positions: createPositionsCaller(contract),
+					ownerOf: createOwnerOfCaller(contract),
 					rewards: createRewardsCaller(contract),
 					tokenURI: createTokenURICaller(contract),
 					positionsOfProperty: createPositionsOfPropertyCaller(contract),
