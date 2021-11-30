@@ -13,7 +13,7 @@ export const addresses = {
 		one: {
 			token: '0x91F5dC90979b058eBA3be6B7B7e523df7e84e137',
 			lockup: '0x1A2B49e10013C40AAC9b6f9e785837bfd329e5e0',
-			marketFactory: '0xa2d49EF868b3F8C9501fF9bC836f0679A45E121c',
+			marketFactory: '0xaF490bA3EaFf9495f01407EC22027bD90eaFABb1',
 			metricsFactory: '0xEdCF7765B7Be6415D02173e4645604bB1A377929',
 			policyFactory: '0x2ef61A14284A0f45813e492b3696F4BD2cc51B6f',
 			propertyFactory: '0xa4C8A1E3012E8fBE21f2936DEab6dD50A0A05774',
@@ -24,7 +24,7 @@ export const addresses = {
 		rinkeby: {
 			token: '0xc28BBE3B5ec1b06FDe258864f12c1577DaDFadDC',
 			lockup: '0x4944CA0423f42DF7c77ad8Cd53F30f31A097F4fa',
-			marketFactory: '0x84b6712Ec4174536daBf019fa6549A2e2125DEae',
+			marketFactory: '0x6EA7a231dc747fBEf931639B15908625f31287bf',
 			metricsFactory: '0x650663aD898A018cca44Ac224Be2286D14B7421d',
 			policyFactory: '0x485085f157dD7Ba451f0AB6Fa2ca42421CBA1d3c',
 			propertyFactory: '0x66446E01c5a2fdA8FC5Af640a12E66c078903487',
