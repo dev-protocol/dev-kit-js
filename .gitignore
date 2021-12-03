@@ -63,6 +63,7 @@ typings/
 # build
 dist
 *.js
+!examples/*.js
 *.mjs
 *.d.ts
 *.ts.map
