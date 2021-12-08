@@ -1,12 +1,13 @@
 import { createDepositToPropertyCaller } from './depositToProperty'
-import { stubbedSendTx } from '../../common/utils/for-test'
+import { stubbedSendTx, stubTransactionResposeFactory } from '../../common/utils/for-test'
 
 describe('depositToProperty.spec.ts', () => {
 	describe('createDepositToPropertyCaller', () => {
 		it('call success', async () => {
-			const expected = true
+			const stubTx = stubTransactionResposeFactory({})
+
 			const lockupContract = {
-				depositToProperty: jest.fn().mockImplementation(stubbedSendTx),
+				depositToProperty: jest.fn().mockImplementation(async (propertyAddress: string, amount: number) => Promise.resolve(stubTx)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -16,8 +17,8 @@ describe('depositToProperty.spec.ts', () => {
 				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
 				'100'
 			)
-
-			expect(result).toEqual(expected)
+			
+			expect(result).toEqual(stubTx)
 		})
 
 		it('call failure', async () => {
