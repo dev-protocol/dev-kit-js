@@ -2,7 +2,7 @@ import { Contract, ethers } from 'ethers'
 import { Provider } from '@ethersproject/abstract-provider'
 import { Signer } from '@ethersproject/abstract-signer'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { executePositionCreate, FallbackableOverrides } from './../common/utils/execute'
+import { FallbackableOverrides } from './../common/utils/execute'
 import { createLockupContract, LockupContract } from './../ethereum/lockup/index'
 import { createDepositToPropertyCaller } from './../ethereum/lockup/depositToProperty'
 
