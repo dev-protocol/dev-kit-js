@@ -5,10 +5,10 @@ import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { FallbackableOverrides } from './../common/utils/execute'
 import { createLockupContract, LockupContract } from './../ethereum/lockup/index'
 import { createDepositToPropertyCaller } from './../ethereum/lockup/depositToProperty'
+import { addresses } from './../addresses'
 
 export type Options = {
     readonly provider: Provider,
-    // readonly provider: Provider,
     readonly propertyAddress: string,
     readonly amount: string,
     readonly overrides?: FallbackableOverrides
@@ -16,9 +16,16 @@ export type Options = {
 
 export type PositionsCreate = (options: Options) => Promise<TransactionResponse>
 
-export const getCreateLockupContract = async (chainId: number, provider: Provider): Promise<(address: string) => LockupContract> => {
+const getLockupAddress = (chainId: number): string => {
+
+	const lockupAddress = chainId === 1 ? "": chainId === 3 ? "": chainId === 42161 ? addresses.arbitrum.one.lockup : addresses.arbitrum.rinkeby.lockup
+
+	return lockupAddress
+}
+
+export const getCreateLockupContract = async (chainId: number, provider: Provider): Promise<LockupContract> => {
 	const cache = new WeakMap();
-    const contract = {contract: "Lockup"}
+    const contract = {}
 
 	// eslint-disable-next-line functional/no-conditional-statement
 	if (cache.has(contract)) {
@@ -27,20 +34,20 @@ export const getCreateLockupContract = async (chainId: number, provider: Provide
         const lockupContract = chainId === 1 || chainId === 3 ?
 	        createLockupContract(provider) : createLockupContract(provider) // we do not have function for L2.
 
-		// eslint-disable-next-line
-		cache.set(contract, lockupContract)
-		return lockupContract
+        const lockupAddress = getLockupAddress(chainId)
+		const contract = await lockupContract(lockupAddress)
+
+		// eslint-disable-next-line functional/no-expression-statement
+		cache.set(contract, contract)
+		return contract
 	}
 }
 
 export const positionsCreate: PositionsCreate = async (options: Options): Promise<TransactionResponse> => {
     const chainId = (await options.provider.getNetwork()).chainId
 
-	const createLockupContract= await getCreateLockupContract(chainId, options.provider)
-	const lockupAddress = "0x0"
-
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const lockupContract = await createLockupContract(lockupAddress) as any
+	const lockupContract = await getCreateLockupContract(chainId, options.provider) as any
 
 	const caller = createDepositToPropertyCaller(lockupContract)
 	const transactionResponse = await caller(options.propertyAddress, options.amount)
