@@ -8,7 +8,8 @@ describe('depositToProperty.spec.ts', () => {
 
 			const lockupContract = {
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars
-				depositToProperty: (propertyAddress: string, amount: number) => Promise.resolve(stubTx),
+				depositToProperty: (propertyAddress: string, amount: number) =>
+					Promise.resolve(stubTx),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -22,8 +22,7 @@ import { getLockupAddress, getLockupContract } from './common'
 import { addresses } from '../../addresses'
 import { createDevkitContract } from '../../ethereum/contract'
 
-
-describe("common.ts", () => {
+describe('common.ts', () => {
 	const host = 'localhost'
 	const address = '0x0000000000000000000000000000000000000000'
 	const provider = new ethers.providers.JsonRpcProvider(host)
@@ -35,19 +34,19 @@ describe("common.ts", () => {
 	const arbitrumRinkebyLockup = addresses.arbitrum.rinkeby.lockup
 
 	describe('getLockupAddress', () => {
-		it("chainId is 1", async () => {
-		    const result = await getLockupAddress(1, homestead)
+		it('chainId is 1', async () => {
+			const result = await getLockupAddress(1, homestead)
 			const expected = await createDevkitContract(homestead)
-			    .registry(addresses.eth['main'].registry)
-			    ['lockup']()
+				.registry(addresses.eth['main'].registry)
+				['lockup']()
 
 			expect(result).toEqual(expected)
 		})
-		it("chainId is 3", async () => {
-		    const result = await getLockupAddress(3, ropsten)
+		it('chainId is 3', async () => {
+			const result = await getLockupAddress(3, ropsten)
 			const expected = await createDevkitContract(ropsten)
-			    .registry(addresses.eth['ropsten'].registry)
-			    ['lockup']()
+				.registry(addresses.eth['ropsten'].registry)
+				['lockup']()
 
 			expect(result).toEqual(expected)
 		})
@@ -71,7 +70,7 @@ describe("common.ts", () => {
 		// 	const result = await getLockupContract(homestead)
 		// 	expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		// })
-		it("provider is ropsten", async () => {
+		it('provider is ropsten', async () => {
 			const expectedLockup = await createLockupContract(ropsten)
 			const lockupAddress = await createDevkitContract(ropsten)
 				.registry(addresses.eth['ropsten'].registry)
@@ -81,11 +80,11 @@ describe("common.ts", () => {
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
 		// it('provider is arbitrum one', async () => {
-			// const provider =
-			// const expectedLockup = await createLockupContract()
-			// const expected = await expectedLockup(arbitrumOneLockup)
-			// const result = await getLockupContract()
-			// expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
+		// const provider =
+		// const expectedLockup = await createLockupContract()
+		// const expected = await expectedLockup(arbitrumOneLockup)
+		// const result = await getLockupContract()
+		// expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		// })
 		// it('provider is arbitrum rinkeby', async () => {
 		// 	const provider =

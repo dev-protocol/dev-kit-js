@@ -29,8 +29,6 @@ import { addresses } from '../../addresses'
 // 	const arbitrumOneLockup = addresses.arbitrum.one.lockup
 // 	const arbitrumRinkebyLockup = addresses.arbitrum.rinkeby.lockup
 
-
-
 // 	// describe("positionsCreate", () => {
 // 	// 	const stubTx = stubTransactionResposeFactory({})
 
