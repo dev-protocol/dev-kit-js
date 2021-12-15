@@ -3,6 +3,10 @@ import { Provider } from '@ethersproject/abstract-provider'
 import { Signer } from '@ethersproject/abstract-signer'
 import { sTokensAbi } from './abi'
 import { createPositionsCaller, Positions } from './positions'
+import { createDescriptorsCaller, Descriptors } from './descriptors'
+import { createFreezeTokenURICaller } from './freezeTokenURI'
+import { createMeltTokenURICaller } from './meltTokenURI'
+import { createSetTokenURIImageCaller } from './setTokenURIImage'
 import { createOwnerOfCaller } from './ownerOf'
 import { createRewardsCaller, Rewards } from './rewards'
 import { createTokenURICaller, TokenURI } from './tokenURI'
@@ -11,6 +15,10 @@ import { createPositionsOfOwnerCaller } from './positionsOfOwner'
 
 export type STokensContract = {
 	readonly positions: (tokenId: number) => Promise<Positions>
+	readonly descriptors: (tokenId: number) => Promise<Descriptors>
+	readonly freezeTokenURI: (tokenId: number) => Promise<boolean>
+	readonly meltTokenURI: (tokenId: number) => Promise<boolean>
+	readonly setTokenURIImage: (tokenId: number, data: string) => Promise<boolean>
 	readonly ownerOf: (tokenId: number) => Promise<string>
 	readonly rewards: (tokenId: number) => Promise<Rewards>
 	readonly tokenURI: (tokenId: number) => Promise<TokenURI>
@@ -34,6 +42,10 @@ export const createSTokensContract =
 
 		return {
 			positions: createPositionsCaller(contractClient),
+			descriptors: createDescriptorsCaller(contractClient),
+			freezeTokenURI: createFreezeTokenURICaller(contractClient),
+			meltTokenURI: createMeltTokenURICaller(contractClient),
+			setTokenURIImage: createSetTokenURIImageCaller(contractClient),
 			ownerOf: createOwnerOfCaller(contractClient),
 			rewards: createRewardsCaller(contractClient),
 			tokenURI: createTokenURICaller(contractClient),

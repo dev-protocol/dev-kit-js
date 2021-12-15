@@ -41,6 +41,7 @@ $ yarn start
 ```
 
 run example script (with infura)
+
 ```
 $ WEB3_PROVIDER_URL=https://mainnet.infura.io/v3/xxxx yarn start
 ```
