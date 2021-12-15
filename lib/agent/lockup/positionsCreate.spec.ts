@@ -28,17 +28,15 @@ describe('positionsCreate.ts', () => {
 
 	const stubTx = stubTransactionResposeFactory({})
 
-    const options: Options = {
+	const options: Options = {
 		provider: provider,
-		propertyAddress: "0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5",
-		amount: "100",
+		propertyAddress: '0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
+		amount: '100',
 		overrides: {
 			overrides: undefined,
-			fallback: undefined
-		}
+			fallback: undefined,
+		},
 	}
 
-	it("", async () => {
-
-	})
+	it('', async () => {})
 })
