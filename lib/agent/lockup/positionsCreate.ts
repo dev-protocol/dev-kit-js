@@ -1,6 +1,4 @@
-import { Contract, ethers } from 'ethers'
 import { Provider } from '@ethersproject/abstract-provider'
-import { Signer } from '@ethersproject/abstract-signer'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { createDepositToPropertyCaller } from '../../ethereum/lockup/depositToProperty'
