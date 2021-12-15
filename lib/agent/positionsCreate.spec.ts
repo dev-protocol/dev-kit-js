@@ -18,12 +18,36 @@ import { createWithdrawByPositionCaller } from './../ethereum/lockup/withdrawByP
 import { createMigrateToSTokensCaller } from './../ethereum/lockup/migrateToSTokens'
 import { createcalculateWithdrawableInterestAmountByPositionCaller } from './../ethereum/lockup/calculateWithdrawableInterestAmountByPosition'
 import { stubTransactionResposeFactory } from './../common/utils/for-test'
-import { Options, positionsCreate } from './positionsCreate'
+import { Options, getLockupAddress, positionsCreate } from './positionsCreate'
+import { addresses } from './../addresses'
+import { assert } from 'console'
 
 describe("agent", () => {
 	const host = 'localhost'
 	const address = '0x0000000000000000000000000000000000000000'
 	const provider = new ethers.providers.JsonRpcProvider(host)
+
+	const arbitrumOneLockup = addresses.arbitrum.one.lockup
+	const arbitrumRinkebyLockup = addresses.arbitrum.rinkeby.lockup
+
+	describe("getLockupAddress", () => {
+		// it("chainId is 1", async () => {
+        //     const result = await getLockupAddress(1, provider)
+		// 	const expected =
+		// 	expect(result).toEqual(expected)
+		// })
+		// it("chainId is 3", async () => {
+
+		// })
+		it("chainId is 42161", async () => {
+            const result = await getLockupAddress(42161, provider)
+			expect(result).toEqual(arbitrumOneLockup)
+		})
+		it("chainId is 421611", async () => {
+            const result = await getLockupAddress(421611, provider)
+			expect(result).toEqual(arbitrumRinkebyLockup)
+		})
+	})
 
     describe("getCreateLockupContract", () => {
 		const expected: (address: string) => LockupContract = (
@@ -53,25 +77,16 @@ describe("agent", () => {
 				migrateToSTokens: createMigrateToSTokensCaller(contract),
 			}
 		}
-        it("chainId is 1", async () => {
-            console.log(expected)
-			const result = await getCreateLockupContract(1, provider).then()
+        // it("chainId is 1", async () => {
+        //     console.log(expected)
+		// 	const result = await getCreateLockupContract(1, provider).then()
 
-			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(JSON.stringify(result(address))).toEqual(
-				JSON.stringify(expected(address))
-			)
-		})
-        it("chainId is 3", async () => {
-            console.log(expected)
-			const result = await getCreateLockupContract(3, provider).then()
-
-			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-			expect(JSON.stringify(result(address))).toEqual(
-				JSON.stringify(expected(address))
-			)
-		})
-        // it("chainId is 42161", async () => {
+		// 	expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
+		// 	expect(JSON.stringify(result(address))).toEqual(
+		// 		JSON.stringify(expected(address))
+		// 	)
+		// })
+        // it("chainId is 3", async () => {
         //     console.log(expected)
 		// 	const result = await getCreateLockupContract(3, provider).then()
 
@@ -80,15 +95,22 @@ describe("agent", () => {
 		// 		JSON.stringify(expected(address))
 		// 	)
 		// })
-        // it("chainId is 421611", async () => {
-        //     console.log(expected)
-		// 	const result = await getCreateLockupContract(3, provider).then()
+        it("chainId is 42161", async () => {
+            const expectedLockup = await createLockupContract(provider)
 
-		// 	expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
-		// 	expect(JSON.stringify(result(address))).toEqual(
-		// 		JSON.stringify(expected(address))
-		// 	)
-		// })
+			const expected = await expectedLockup(arbitrumOneLockup)
+			const result = await getCreateLockupContract(42161, provider)
+
+			expect(result.toString()).toEqual(expected.toString())
+		})
+        it("chainId is 421611", async () => {
+            const expectedLockup = await createLockupContract(provider)
+
+			const expected = await expectedLockup(arbitrumRinkebyLockup)
+			const result = await getCreateLockupContract(421611, provider)
+
+			expect(result.toString()).toEqual(expected.toString())
+		})
 	})
 
 	// describe("positionsCreate", () => {
