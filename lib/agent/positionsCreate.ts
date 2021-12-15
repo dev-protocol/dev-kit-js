@@ -6,6 +6,7 @@ import { FallbackableOverrides } from './../common/utils/execute'
 import { createLockupContract, LockupContract } from './../ethereum/lockup/index'
 import { createDepositToPropertyCaller } from './../ethereum/lockup/depositToProperty'
 import { addresses } from './../addresses'
+import { addressConfigAbi } from '../ethereum/registry/abi'
 
 export type Options = {
     readonly provider: Provider,
@@ -16,9 +17,12 @@ export type Options = {
 
 export type PositionsCreate = (options: Options) => Promise<TransactionResponse>
 
-const getLockupAddress = (chainId: number): string => {
-
-	const lockupAddress = chainId === 1 ? "": chainId === 3 ? "": chainId === 42161 ? addresses.arbitrum.one.lockup : addresses.arbitrum.rinkeby.lockup
+export const getLockupAddress = async (chainId: number, provider: Provider): Promise<string> => {
+	const lockupAddress = chainId === 1 ?
+	    (await new ethers.Contract(addresses.eth.main.registry, [...addressConfigAbi], provider)).lockup(): chainId === 3 ?
+		(await new ethers.Contract(addresses.eth.ropsten.registry, [...addressConfigAbi], provider)).lockup(): chainId === 42161 ?
+		addresses.arbitrum.one.lockup :
+		addresses.arbitrum.rinkeby.lockup
 
 	return lockupAddress
 }
@@ -34,12 +38,12 @@ export const getCreateLockupContract = async (chainId: number, provider: Provide
         const lockupContract = chainId === 1 || chainId === 3 ?
 	        createLockupContract(provider) : createLockupContract(provider) // we do not have function for L2.
 
-        const lockupAddress = getLockupAddress(chainId)
-		const contract = await lockupContract(lockupAddress)
+        const lockupAddress = await getLockupAddress(chainId, provider)
+		const deployedLockupContract = await lockupContract(lockupAddress)
 
 		// eslint-disable-next-line functional/no-expression-statement
-		cache.set(contract, contract)
-		return contract
+		cache.set(contract, deployedLockupContract)
+		return deployedLockupContract
 	}
 }
 
