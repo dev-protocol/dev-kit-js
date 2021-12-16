@@ -26,18 +26,18 @@ export const getLockupAddress = async (
 	return lockupAddress
 }
 
-const cache = new WeakMap()
+const cacheLockupContract = new WeakMap()
 
 export const getLockupContract = async (
 	provider: Provider
 ): Promise<LockupContract> => {
-	const contract = {}
+	const network = await provider.getNetwork()
 
 	// eslint-disable-next-line functional/no-conditional-statement
-	if (cache.has(contract)) {
-		return cache.get(contract)
+	if (cacheLockupContract.has(network)) {
+		return cacheLockupContract.get(network)
 	} else {
-		const chainId = (await provider.getNetwork()).chainId
+		const chainId = network.chainId
 		const lockupContract =
 			chainId === 1 || chainId === 3
 				? createLockupContract(provider)
@@ -47,7 +47,7 @@ export const getLockupContract = async (
 		const deployedLockupContract = await lockupContract(lockupAddress)
 
 		// eslint-disable-next-line functional/no-expression-statement
-		cache.set(contract, deployedLockupContract)
+		cacheLockupContract.set(network, deployedLockupContract)
 		return deployedLockupContract
 	}
 }
