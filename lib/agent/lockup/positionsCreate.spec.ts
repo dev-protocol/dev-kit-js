@@ -26,17 +26,25 @@ describe('positionsCreate.ts', () => {
 	const address = '0x0000000000000000000000000000000000000000'
 	const provider = new ethers.providers.JsonRpcProvider(host)
 
-	const stubTx = stubTransactionResposeFactory({})
-
-	const options: Options = {
-		provider: provider,
-		propertyAddress: '0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
-		amount: '100',
-		overrides: {
-			overrides: undefined,
-			fallback: undefined,
-		},
+	const propertyAddress = '0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5'
+	const amount = '100'
+	const overrides = {
+		overrides: undefined,
+		fallback: undefined,
 	}
 
-	it('', async () => {})
+	const stubTx = stubTransactionResposeFactory({})
+    it("", async () => {
+		
+	})
+	// it('', async () => {
+	// 	const options: Options = {
+	// 		propertyAddress,
+	// 		amount,
+	// 		overrides,
+	// 		provider: ethers.getDefaultProvider('ropsten'),
+	// 	}
+	// 	const result = await positionsCreate(options)
+	// 	expect(result).toEqual(stubTx)
+	// })
 })
