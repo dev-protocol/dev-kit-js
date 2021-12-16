@@ -34,9 +34,7 @@ describe('positionsCreate.ts', () => {
 	}
 
 	const stubTx = stubTransactionResposeFactory({})
-    it("", async () => {
-		
-	})
+	it('', async () => {})
 	// it('', async () => {
 	// 	const options: Options = {
 	// 		propertyAddress,
