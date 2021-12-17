@@ -1,14 +1,17 @@
 import { addresses } from '../../addresses'
+import { getContractAddress } from '../common/getContractAddress'
 import {
 	createLockupContract,
 	LockupContract,
 } from '../../ethereum/lockup/index'
-import { createLockupContract as createLockupContractL2, LockupContract as LockupContractL2 } from '../../l2/lockup/index'
-// import { createDevkitContract } from '../../ethereum/contract'
+import {
+	createLockupContract as createLockupContractL2,
+	LockupContract as LockupContractL2,
+} from '../../l2/lockup/index'
 import { createRegistryContract } from '../../ethereum/registry/index'
 import { Provider } from '@ethersproject/abstract-provider'
 
-const getLockupAddress = async (provider: Provider): Promise<string> => {
+export const getLockupAddress = async (provider: Provider): Promise<string> => {
 	const chainId = (await provider.getNetwork()).chainId
 	const registry = await createRegistryContract(provider)
 	const lockupAddress =
@@ -40,7 +43,7 @@ export const getLockupContract = async (
 				? createLockupContract(provider)
 				: createLockupContractL2(provider)
 
-		const lockupAddress = await getLockupAddress(provider)
+		const lockupAddress = await getContractAddress(provider, 'lockup')
 		const deployedLockupContract = await lockupContract(lockupAddress)
 
 		// eslint-disable-next-line functional/no-expression-statement
