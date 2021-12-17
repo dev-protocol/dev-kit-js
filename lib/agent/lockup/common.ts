@@ -4,20 +4,18 @@ import {
 	LockupContract,
 } from '../../ethereum/lockup/index'
 import { createLockupContract as createLockupContractL2, LockupContract as LockupContractL2 } from '../../l2/lockup/index'
-import { createDevkitContract } from '../../ethereum/contract'
+// import { createDevkitContract } from '../../ethereum/contract'
+import { createRegistryContract } from '../../ethereum/registry/index'
 import { Provider } from '@ethersproject/abstract-provider'
 
 const getLockupAddress = async (provider: Provider): Promise<string> => {
 	const chainId = (await provider.getNetwork()).chainId
+	const registry = await createRegistryContract(provider)
 	const lockupAddress =
 		chainId === 1
-			? await createDevkitContract(provider)
-					.registry(addresses.eth['main'].registry)
-					['lockup']()
+			? registry(addresses.eth['ropsten'].registry).lockup()
 			: chainId === 3
-			? await createDevkitContract(provider)
-					.registry(addresses.eth['ropsten'].registry)
-					['lockup']()
+			? registry(addresses.eth['ropsten'].registry).lockup()
 			: chainId === 42161
 			? addresses.arbitrum.one.lockup
 			: addresses.arbitrum.rinkeby.lockup
