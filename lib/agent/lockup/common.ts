@@ -13,7 +13,7 @@ const getLockupAddress = async (provider: Provider): Promise<string> => {
 	const registry = await createRegistryContract(provider)
 	const lockupAddress =
 		chainId === 1
-			? registry(addresses.eth['ropsten'].registry).lockup()
+			? registry(addresses.eth['main'].registry).lockup()
 			: chainId === 3
 			? registry(addresses.eth['ropsten'].registry).lockup()
 			: chainId === 42161
