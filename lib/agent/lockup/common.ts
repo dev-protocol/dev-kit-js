@@ -3,13 +3,12 @@ import {
 	createLockupContract,
 	LockupContract,
 } from '../../ethereum/lockup/index'
+import { createLockupContract as createLockupContractL2, LockupContract as LockupContractL2 } from '../../l2/lockup/index'
 import { createDevkitContract } from '../../ethereum/contract'
 import { Provider } from '@ethersproject/abstract-provider'
 
-export const getLockupAddress = async (
-	chainId: number,
-	provider: Provider
-): Promise<string> => {
+const getLockupAddress = async (provider: Provider): Promise<string> => {
+	const chainId = (await provider.getNetwork()).chainId
 	const lockupAddress =
 		chainId === 1
 			? await createDevkitContract(provider)
@@ -30,7 +29,7 @@ const cacheLockupContract = new WeakMap()
 
 export const getLockupContract = async (
 	provider: Provider
-): Promise<LockupContract> => {
+): Promise<LockupContract | LockupContractL2> => {
 	const network = await provider.getNetwork()
 
 	// eslint-disable-next-line functional/no-conditional-statement
@@ -41,9 +40,9 @@ export const getLockupContract = async (
 		const lockupContract =
 			chainId === 1 || chainId === 3
 				? createLockupContract(provider)
-				: createLockupContract(provider) // we do not have function for L2.
+				: createLockupContractL2(provider)
 
-		const lockupAddress = await getLockupAddress(chainId, provider)
+		const lockupAddress = await getLockupAddress(provider)
 		const deployedLockupContract = await lockupContract(lockupAddress)
 
 		// eslint-disable-next-line functional/no-expression-statement
