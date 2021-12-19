@@ -1,5 +1,6 @@
 import { addresses } from '../../addresses'
 import { getContractAddress } from '../common/getContractAddress'
+import { networks } from '../common/const'
 import {
 	createLockupContract,
 	LockupContract,
@@ -11,15 +12,16 @@ import {
 import { createRegistryContract } from '../../ethereum/registry/index'
 import { Provider } from '@ethersproject/abstract-provider'
 
+
 export const getLockupAddress = async (provider: Provider): Promise<string> => {
 	const chainId = (await provider.getNetwork()).chainId
 	const registry = await createRegistryContract(provider)
 	const lockupAddress =
-		chainId === 1
+		chainId === networks.ethereum.main
 			? registry(addresses.eth['main'].registry).lockup()
-			: chainId === 3
+			: chainId === networks.ethereum.ropsten
 			? registry(addresses.eth['ropsten'].registry).lockup()
-			: chainId === 42161
+			: chainId === networks.arbitrum.one
 			? addresses.arbitrum.one.lockup
 			: addresses.arbitrum.rinkeby.lockup
 
@@ -39,7 +41,7 @@ export const getLockupContract = async (
 	} else {
 		const chainId = network.chainId
 		const lockupContract =
-			chainId === 1 || chainId === 3
+			chainId === networks.ethereum.main || chainId === networks.ethereum.ropsten
 				? createLockupContract(provider)
 				: createLockupContractL2(provider)
 
