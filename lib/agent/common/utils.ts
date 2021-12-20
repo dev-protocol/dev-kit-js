@@ -6,17 +6,11 @@ import {
 } from '../../ethereum/registry/index'
 import { Provider } from '@ethersproject/abstract-provider'
 
-export const isMainNet = async (provider: Provider): Promise<boolean> => {
-	const chainId = (await provider.getNetwork()).chainId
-
-	// eslint-disable-next-line functional/no-conditional-statement
-	if (
-		chainId === networks.ethereum.main ||
+export const isMainNet = async (chainId: number): Promise<boolean> => {
+	return chainId === networks.ethereum.main ||
 		chainId === networks.ethereum.ropsten
-	) {
-		return true
-	}
-	return false
+		? true
+		: false
 }
 
 export const getL1ContractAddress = async (
