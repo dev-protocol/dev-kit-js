@@ -5,7 +5,7 @@ import { createDepositToPropertyCaller } from '../../ethereum/lockup/depositToPr
 import { getLockupContract } from './common'
 
 export type Options = {
-	readonly provider: Provider,
+	readonly provider: Provider
 	readonly propertyAddress: string
 	readonly amount: string
 	readonly overrides?: FallbackableOverrides
@@ -19,6 +19,9 @@ export const positionsCreate: PositionsCreate = async (
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const lockupContract = await getLockupContract(options.provider)
 
-	const transactionResponse = await lockupContract.depositToProperty(options.propertyAddress, options.amount)
+	const transactionResponse = await lockupContract.depositToProperty(
+		options.propertyAddress,
+		options.amount
+	)
 	return transactionResponse
 }
