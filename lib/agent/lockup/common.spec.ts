@@ -9,28 +9,6 @@ describe('common.ts', () => {
 	const arbitrumOneLockup = addresses.arbitrum.one.lockup
 	const arbitrumRinkebyLockup = addresses.arbitrum.rinkeby.lockup
 
-	// describe('getLockupAddress', () => {
-	// 	it('chainId is 1', async () => {
-	// 		const result = await getLockupAddress(homestead)
-	// 		const expected = await createRegistryContract(homestead)(addresses.eth['main'].registry).lockup()
-
-	// 		expect(result).toEqual(expected)
-	// 	})
-	// 	it('chainId is 3', async () => {
-	// 		const result = await getLockupAddress(ropsten)
-	// 		const expected = await createRegistryContract(ropsten)(addresses.eth['ropsten'].registry).lockup()
-	// 		expect(result).toEqual(expected)
-	// 	})
-	// 	it('chainId is 42161', async () => {
-	// 		const result = await getLockupAddress(arbOne)
-	// 		expect(result).toEqual(arbitrumOneLockup)
-	// 	})
-	// 	it('chainId is 421611', async () => {
-	// 		const result = await getLockupAddress(arbRinkeby)
-	// 		expect(result).toEqual(arbitrumRinkebyLockup)
-	// 	})
-	// })
-
 	describe('getLockupContract', () => {
 		it('provider is homestead', async () => {
 			const expectedLockup = await createLockupContract(homestead)

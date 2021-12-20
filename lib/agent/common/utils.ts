@@ -46,26 +46,3 @@ export const getL2ContractAddress = async (
 
 	return lockupAddress
 }
-
-// export const getContractAddress = async (
-// 	provider: Provider,
-// 	contract: any
-// ): Promise<string> => {
-// 	const chainId = (await provider.getNetwork()).chainId
-// 	const registry = await createRegistryContract(provider)
-
-// 	const key: keyof RegistryContract = contract
-// 	const arbOneKey: keyof typeof addresses.arbitrum.one = contract
-// 	const arbRinkebyKey: keyof typeof addresses.arbitrum.rinkeby = contract
-
-// 	const lockupAddress =
-// 		chainId === networks.ethereum.main
-// 			? registry(addresses.eth['main'].registry)[key]()
-// 			: chainId === networks.ethereum.ropsten
-// 			? registry(addresses.eth['ropsten'].registry)[key]()
-// 			: chainId === networks.arbitrum.one
-// 			? addresses.arbitrum.one[arbOneKey]
-// 			: addresses.arbitrum.rinkeby[arbRinkebyKey]
-
-// 	return lockupAddress
-// }

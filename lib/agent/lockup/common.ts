@@ -1,4 +1,3 @@
-import { addresses } from '../../addresses'
 import {
 	isMainNet,
 	getL1ContractAddress,
@@ -13,23 +12,7 @@ import {
 	createLockupContract as createLockupContractL2,
 	LockupContract as LockupContractL2,
 } from '../../l2/lockup/index'
-import { createRegistryContract } from '../../ethereum/registry/index'
 import { Provider } from '@ethersproject/abstract-provider'
-
-// export const getLockupAddress = async (provider: Provider): Promise<string> => {
-// 	const chainId = (await provider.getNetwork()).chainId
-// 	const registry = await createRegistryContract(provider)
-// 	const lockupAddress =
-// 		chainId === networks.ethereum.main
-// 			? registry(addresses.eth['main'].registry).lockup()
-// 			: chainId === networks.ethereum.ropsten
-// 			? registry(addresses.eth['ropsten'].registry).lockup()
-// 			: chainId === networks.arbitrum.one
-// 			? addresses.arbitrum.one.lockup
-// 			: addresses.arbitrum.rinkeby.lockup
-
-// 	return lockupAddress
-// }
 
 const cacheLockupContract = new WeakMap()
 
