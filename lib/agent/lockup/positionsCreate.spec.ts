@@ -18,8 +18,7 @@ import { ethers } from 'ethers'
 // import { createcalculateWithdrawableInterestAmountByPositionCaller } from '../../ethereum/lockup/calculateWithdrawableInterestAmountByPosition'
 import { stubTransactionResposeFactory } from '../../common/utils/for-test'
 import { Options, positionsCreate } from './positionsCreate'
-// import { getLockupAddress, getLockupContract } from './common'
-// import { addresses } from '../../addresses'
+import { arbRinkeby, ropsten } from '../common/const'
 
 describe('positionsCreate.ts', () => {
 	const host = 'localhost'
@@ -37,10 +36,10 @@ describe('positionsCreate.ts', () => {
 	it('', async () => {})
 	// it('', async () => {
 	// 	const options: Options = {
+	// 		provider: ropsten,
 	// 		propertyAddress,
 	// 		amount,
-	// 		overrides,
-	// 		provider: ethers.getDefaultProvider('ropsten'),
+	// 		overrides
 	// 	}
 	// 	const result = await positionsCreate(options)
 	// 	expect(result).toEqual(stubTx)
