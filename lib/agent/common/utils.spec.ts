@@ -6,19 +6,19 @@ import { homestead, ropsten, arbOne, arbRinkeby } from './const'
 describe('getContractAddress.ts', () => {
 	describe('isMainNet', () => {
 		it('return true if chainId is 1', async () => {
-			const resutl = await isMainNet(homestead)
+			const resutl = await isMainNet(1)
 			expect(resutl).toEqual(true)
 		})
 		it('return true if chainId is 3', async () => {
-			const resutl = await isMainNet(ropsten)
+			const resutl = await isMainNet(3)
 			expect(resutl).toEqual(true)
 		})
 		it('return false if chainId is 42161', async () => {
-			const resutl = await isMainNet(arbOne)
+			const resutl = await isMainNet(42161)
 			expect(resutl).toEqual(false)
 		})
-		it('return false if chainId is 42161', async () => {
-			const resutl = await isMainNet(arbRinkeby)
+		it('return false if chainId is 421611', async () => {
+			const resutl = await isMainNet(421611)
 			expect(resutl).toEqual(false)
 		})
 	})
