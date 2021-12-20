@@ -49,7 +49,7 @@ export const getLockupContract = async (
 				? createLockupContract(provider)
 				: createLockupContractL2(provider)
 
-		const lockupAddress = (await isMainNet(provider))
+		const lockupAddress = (await isMainNet(chainId))
 			? await getL1ContractAddress(provider, 'lockup')
 			: await getL2ContractAddress(provider, 'lockup')
 
