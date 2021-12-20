@@ -1,5 +1,9 @@
 import { addresses } from '../../addresses'
-import { getContractAddress } from '../common/getContractAddress'
+import {
+	isMainNet,
+	getL1ContractAddress,
+	getL2ContractAddress,
+} from '../common/utils'
 import { networks } from '../common/const'
 import {
 	createLockupContract,
@@ -12,20 +16,20 @@ import {
 import { createRegistryContract } from '../../ethereum/registry/index'
 import { Provider } from '@ethersproject/abstract-provider'
 
-export const getLockupAddress = async (provider: Provider): Promise<string> => {
-	const chainId = (await provider.getNetwork()).chainId
-	const registry = await createRegistryContract(provider)
-	const lockupAddress =
-		chainId === networks.ethereum.main
-			? registry(addresses.eth['main'].registry).lockup()
-			: chainId === networks.ethereum.ropsten
-			? registry(addresses.eth['ropsten'].registry).lockup()
-			: chainId === networks.arbitrum.one
-			? addresses.arbitrum.one.lockup
-			: addresses.arbitrum.rinkeby.lockup
+// export const getLockupAddress = async (provider: Provider): Promise<string> => {
+// 	const chainId = (await provider.getNetwork()).chainId
+// 	const registry = await createRegistryContract(provider)
+// 	const lockupAddress =
+// 		chainId === networks.ethereum.main
+// 			? registry(addresses.eth['main'].registry).lockup()
+// 			: chainId === networks.ethereum.ropsten
+// 			? registry(addresses.eth['ropsten'].registry).lockup()
+// 			: chainId === networks.arbitrum.one
+// 			? addresses.arbitrum.one.lockup
+// 			: addresses.arbitrum.rinkeby.lockup
 
-	return lockupAddress
-}
+// 	return lockupAddress
+// }
 
 const cacheLockupContract = new WeakMap()
 
@@ -45,7 +49,10 @@ export const getLockupContract = async (
 				? createLockupContract(provider)
 				: createLockupContractL2(provider)
 
-		const lockupAddress = await getContractAddress(provider, 'lockup')
+		const lockupAddress = (await isMainNet(provider))
+			? await getL1ContractAddress(provider, 'lockup')
+			: await getL2ContractAddress(provider, 'lockup')
+
 		const deployedLockupContract = await lockupContract(lockupAddress)
 
 		// eslint-disable-next-line functional/no-expression-statement
