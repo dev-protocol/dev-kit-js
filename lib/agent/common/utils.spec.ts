@@ -1,24 +1,24 @@
-import { getL1ContractAddress, getL2ContractAddress, isMainNet } from './utils'
+import { getL1ContractAddress, getL2ContractAddress, isL1 } from './utils'
 import { addresses } from '../../addresses'
 import { createRegistryContract } from '../../ethereum/registry/index'
 import { homestead, ropsten, arbOne, arbRinkeby } from './const'
 
 describe('getContractAddress.ts', () => {
-	describe('isMainNet', () => {
+	describe('isL1', () => {
 		it('return true if chainId is 1', async () => {
-			const resutl = await isMainNet(1)
+			const resutl = await isL1(1)
 			expect(resutl).toEqual(true)
 		})
 		it('return true if chainId is 3', async () => {
-			const resutl = await isMainNet(3)
+			const resutl = await isL1(3)
 			expect(resutl).toEqual(true)
 		})
 		it('return false if chainId is 42161', async () => {
-			const resutl = await isMainNet(42161)
+			const resutl = await isL1(42161)
 			expect(resutl).toEqual(false)
 		})
 		it('return false if chainId is 421611', async () => {
-			const resutl = await isMainNet(421611)
+			const resutl = await isL1(421611)
 			expect(resutl).toEqual(false)
 		})
 	})
