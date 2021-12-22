@@ -1,7 +1,7 @@
 import {
-	isMainNet,
 	getL1ContractAddress,
 	getL2ContractAddress,
+	isL1,
 } from '../common/utils'
 import { networks } from '../common/const'
 import {
@@ -26,13 +26,11 @@ export const getLockupContract = async (
 		return cacheLockupContract.get(network)
 	} else {
 		const chainId = network.chainId
-		const lockupContract =
-			chainId === networks.ethereum.main ||
-			chainId === networks.ethereum.ropsten
-				? createLockupContract(provider)
-				: createLockupContractL2(provider)
+		const lockupContract = (await isL1(chainId))
+			? createLockupContract(provider)
+			: createLockupContractL2(provider)
 
-		const lockupAddress = (await isMainNet(chainId))
+		const lockupAddress = (await isL1(chainId))
 			? await getL1ContractAddress(provider, 'lockup')
 			: await getL2ContractAddress(provider, 'lockup')
 
