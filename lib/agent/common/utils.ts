@@ -25,7 +25,7 @@ export const getL1ContractAddress = async (
 	const lockupAddress =
 		chainId === networks.ethereum.main
 			? await registry(addresses.eth['main'].registry)[contract]()
-			: networks.ethereum.ropsten
+			: chainId === networks.ethereum.ropsten
 			? await registry(addresses.eth['ropsten'].registry)[contract]()
 			: null
 
