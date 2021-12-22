@@ -3,7 +3,6 @@ import {
 	getL2ContractAddress,
 	isL1,
 } from '../common/utils'
-import { networks } from '../common/const'
 import {
 	createLockupContract,
 	LockupContract,
