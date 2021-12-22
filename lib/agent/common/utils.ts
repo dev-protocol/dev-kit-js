@@ -24,8 +24,8 @@ export const getL1ContractAddress = async (
 
 	const lockupAddress =
 		chainId === networks.ethereum.main
-			? registry(addresses.eth['main'].registry)[key]()
-			: registry(addresses.eth['ropsten'].registry)[key]()
+			? await registry(addresses.eth['main'].registry)[key]()
+			: await registry(addresses.eth['ropsten'].registry)[key]()
 
 	return lockupAddress
 }
