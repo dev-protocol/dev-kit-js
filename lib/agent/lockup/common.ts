@@ -1,3 +1,4 @@
+/* eslint-disable functional/no-conditional-statement */
 import {
 	getL1ContractAddress,
 	getL2ContractAddress,
@@ -17,10 +18,10 @@ const cacheLockupContract = new WeakMap()
 
 export const getLockupContract = async (
 	provider: Provider
-): Promise<LockupContract | LockupContractL2> => {
+): Promise<LockupContract | LockupContractL2 | null> => {
 	const network = await provider.getNetwork()
 
-	// eslint-disable-next-line functional/no-conditional-statement
+	// eslint-disable functional/no-conditional-statement
 	if (cacheLockupContract.has(network)) {
 		return cacheLockupContract.get(network)
 	} else {
@@ -33,8 +34,11 @@ export const getLockupContract = async (
 			? await getL1ContractAddress(provider, 'lockup')
 			: await getL2ContractAddress(provider, 'lockup')
 
-		const deployedLockupContract = await lockupContract(lockupAddress)
+		if (!lockupAddress) {
+			return null
+		}
 
+		const deployedLockupContract = await lockupContract(lockupAddress)
 		// eslint-disable-next-line functional/no-expression-statement
 		cacheLockupContract.set(network, deployedLockupContract)
 		return deployedLockupContract
