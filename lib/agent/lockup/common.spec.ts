@@ -1,4 +1,4 @@
-import { homestead, ropsten, arbOne, arbRinkeby } from '../common/const'
+import { testProviders } from '../common/const'
 import { createLockupContract } from '../../ethereum/lockup'
 import { getLockupContract } from './common'
 import { addresses } from '../../addresses'
@@ -11,43 +11,45 @@ describe('common.ts', () => {
 
 	describe('getLockupContract', () => {
 		it('provider is homestead', async () => {
-			const expectedLockup = await createLockupContract(homestead)
-			const lockupAddress = await createRegistryContract(homestead)(
-				addresses.eth['main'].registry
-			).lockup()
+			const expectedLockup = await createLockupContract(testProviders.homestead)
+			const lockupAddress = await createRegistryContract(
+				testProviders.homestead
+			)(addresses.eth['main'].registry).lockup()
 			const expected = await expectedLockup(lockupAddress)
-			const result = await getLockupContract(homestead)
+			const result = await getLockupContract(testProviders.homestead)
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
 		it('provider is ropsten', async () => {
-			const expectedLockup = await createLockupContract(ropsten)
-			const lockupAddress = await createRegistryContract(ropsten)(
+			const expectedLockup = await createLockupContract(testProviders.ropsten)
+			const lockupAddress = await createRegistryContract(testProviders.ropsten)(
 				addresses.eth['ropsten'].registry
 			).lockup()
 			const expected = await expectedLockup(lockupAddress)
-			const result = await getLockupContract(ropsten)
+			const result = await getLockupContract(testProviders.ropsten)
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
 		it('provider is arbitrum one', async () => {
-			const expectedLockup = await createLockupContractL2(arbOne)
+			const expectedLockup = await createLockupContractL2(testProviders.arbOne)
 			const expected = await expectedLockup(arbitrumOneLockup)
-			const result = await getLockupContract(arbOne)
+			const result = await getLockupContract(testProviders.arbOne)
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
 		it('provider is arbitrum rinkeby', async () => {
-			const expectedLockup = await createLockupContractL2(arbRinkeby)
+			const expectedLockup = await createLockupContractL2(
+				testProviders.arbRinkeby
+			)
 			const expected = await expectedLockup(arbitrumRinkebyLockup)
-			const result = await getLockupContract(arbRinkeby)
+			const result = await getLockupContract(testProviders.arbRinkeby)
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
 		it('use cache', async () => {
-			const expectedLockup = await createLockupContract(ropsten)
-			const lockupAddress = await createRegistryContract(ropsten)(
+			const expectedLockup = await createLockupContract(testProviders.ropsten)
+			const lockupAddress = await createRegistryContract(testProviders.ropsten)(
 				addresses.eth['ropsten'].registry
 			).lockup()
 			const expected = await expectedLockup(lockupAddress)
-			const result1 = await getLockupContract(ropsten)
-			const result2 = await getLockupContract(ropsten)
+			const result1 = await getLockupContract(testProviders.ropsten)
+			const result2 = await getLockupContract(testProviders.ropsten)
 			expect(JSON.stringify(result1)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result2)).toEqual(JSON.stringify(expected))
 		})
