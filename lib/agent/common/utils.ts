@@ -13,36 +13,41 @@ export const isL1 = (chainId: number): boolean => {
 		: false
 }
 
+type RegistryContractKeys = keyof RegistryContract
+
 export const getL1ContractAddress = async (
 	provider: Provider,
-	contract: any
+	contract: RegistryContractKeys
 ): Promise<string> => {
 	const chainId = (await provider.getNetwork()).chainId
 	const registry = await createRegistryContract(provider)
 
-	const key: keyof RegistryContract = contract
+	// const key: keyof RegistryContract = contract
 
 	const lockupAddress =
 		chainId === networks.ethereum.main
-			? await registry(addresses.eth['main'].registry)[key]()
-			: await registry(addresses.eth['ropsten'].registry)[key]()
+			? await registry(addresses.eth['main'].registry)[contract]()
+			: await registry(addresses.eth['ropsten'].registry)[contract]()
 
 	return lockupAddress
 }
 
+type ArbOneKey = keyof typeof addresses.arbitrum.one
+type ArbRinkebyKey = keyof typeof addresses.arbitrum.rinkeby
+
 export const getL2ContractAddress = async (
 	provider: Provider,
-	contract: any
+	contract: ArbOneKey | ArbRinkebyKey
 ): Promise<string> => {
 	const chainId = (await provider.getNetwork()).chainId
 
-	const arbOneKey: keyof typeof addresses.arbitrum.one = contract
-	const arbRinkebyKey: keyof typeof addresses.arbitrum.rinkeby = contract
+	// const arbOneKey: keyof typeof addresses.arbitrum.one = contract
+	// const arbRinkebyKey: keyof typeof addresses.arbitrum.rinkeby = contract
 
 	const lockupAddress =
 		chainId === networks.arbitrum.one
-			? addresses.arbitrum.one[arbOneKey]
-			: addresses.arbitrum.rinkeby[arbRinkebyKey]
+			? addresses.arbitrum.one[contract]
+			: addresses.arbitrum.rinkeby[contract]
 
 	return lockupAddress
 }
