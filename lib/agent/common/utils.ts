@@ -18,14 +18,16 @@ type RegistryContractKeys = keyof RegistryContract
 export const getL1ContractAddress = async (
 	provider: Provider,
 	contract: RegistryContractKeys
-): Promise<string> => {
+): Promise<string | null> => {
 	const chainId = (await provider.getNetwork()).chainId
 	const registry = await createRegistryContract(provider)
 
 	const lockupAddress =
 		chainId === networks.ethereum.main
 			? await registry(addresses.eth['main'].registry)[contract]()
-			: await registry(addresses.eth['ropsten'].registry)[contract]()
+			: networks.ethereum.ropsten
+			? await registry(addresses.eth['ropsten'].registry)[contract]()
+			: null
 
 	return lockupAddress
 }
@@ -36,13 +38,15 @@ type ArbRinkebyKey = keyof typeof addresses.arbitrum.rinkeby
 export const getL2ContractAddress = async (
 	provider: Provider,
 	contract: ArbOneKey | ArbRinkebyKey
-): Promise<string> => {
+): Promise<string | null> => {
 	const chainId = (await provider.getNetwork()).chainId
 
 	const lockupAddress =
 		chainId === networks.arbitrum.one
 			? addresses.arbitrum.one[contract]
-			: addresses.arbitrum.rinkeby[contract]
+			: chainId === networks.arbitrum.rinkeby
+			? addresses.arbitrum.rinkeby[contract]
+			: null
 
 	return lockupAddress
 }
