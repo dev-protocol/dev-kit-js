@@ -1,23 +1,22 @@
-import { createMeltTokenURICaller } from './meltTokenURI'
-import { stubbedSendTx } from '../../common/utils/for-test'
+import { createIsFreezedCaller } from './isFreezed'
 
-describe('meltTokenURI.spec.ts', () => {
-	describe('createMeltTokenURICaller', () => {
+describe('isFreezed.spec.ts', () => {
+	describe('createIsFreezedCaller', () => {
 		it('call success', async () => {
-			const success = true
+			const value = true
 			const tokenId = 1
 
 			const devContract = {
-				meltTokenURI: jest
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
+				isFreezed: jest
 					.fn()
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (tokenId: string) => stubbedSendTx()),
+					.mockImplementation(async (tokenId: string) => value),
 			}
 
-			const expected = success
+			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createMeltTokenURICaller(devContract as any)
+			const caller = createIsFreezedCaller(devContract as any)
 
 			const result = await caller(tokenId)
 
@@ -29,14 +28,14 @@ describe('meltTokenURI.spec.ts', () => {
 			const error = 'error'
 
 			const devContract = {
-				meltTokenURI: jest
+				isFreezed: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(async (tokenId: string) => Promise.reject(error)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createMeltTokenURICaller(devContract as any)
+			const caller = createIsFreezedCaller(devContract as any)
 
 			const result = await caller(tokenId).catch((err) => err)
 
