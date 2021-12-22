@@ -3,7 +3,7 @@ import { addresses } from '../../addresses'
 import { createRegistryContract } from '../../ethereum/registry/index'
 import { testProviders } from './const'
 
-describe('getContractAddress.ts', () => {
+describe('utils.ts', () => {
 	describe('isL1', () => {
 		it('return true if chainId is 1', async () => {
 			const resutl = await isL1(1)
@@ -69,12 +69,12 @@ describe('getContractAddress.ts', () => {
 	})
 
 	describe('getL2ContractAddress', () => {
-		it('chainId is 42161 with lockup', async () => {
+		it('return arbitrum one lockup contract address', async () => {
 			const result = await getL2ContractAddress(testProviders.arbOne, 'lockup')
 			const expected = addresses.arbitrum.one.lockup
 			expect(result).toEqual(expected)
 		})
-		it('chainId is 42161 with policyFactroy', async () => {
+		it('return arbitrum one policyFactroy contract address', async () => {
 			const result = await getL2ContractAddress(
 				testProviders.arbOne,
 				'policyFactory'
@@ -82,7 +82,7 @@ describe('getContractAddress.ts', () => {
 			const expected = addresses.arbitrum.one.policyFactory
 			expect(result).toEqual(expected)
 		})
-		it('chainId is 421611', async () => {
+		it('return arbitrum rinkeby lockup contract address', async () => {
 			const result = await getL2ContractAddress(
 				testProviders.arbRinkeby,
 				'lockup'
@@ -90,7 +90,7 @@ describe('getContractAddress.ts', () => {
 			const expected = addresses.arbitrum.rinkeby.lockup
 			expect(result).toEqual(expected)
 		})
-		it('chainId is 421611 with sTokens', async () => {
+		it('return arbitrum rinkeby sTokens contract address', async () => {
 			const result = await getL2ContractAddress(
 				testProviders.arbRinkeby,
 				'sTokens'
@@ -98,7 +98,7 @@ describe('getContractAddress.ts', () => {
 			const expected = addresses.arbitrum.rinkeby.sTokens
 			expect(result).toEqual(expected)
 		})
-		it('return null if network neither mainnet nor ropsten', async () => {
+		it('return null if network neither arbitrum one nor arbitrum rinkeby', async () => {
 			const result = await getL2ContractAddress(
 				testProviders.polyMumbai,
 				'lockup'
