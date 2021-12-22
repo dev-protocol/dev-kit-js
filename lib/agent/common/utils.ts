@@ -6,7 +6,7 @@ import {
 } from '../../ethereum/registry/index'
 import { Provider } from '@ethersproject/abstract-provider'
 
-export const isMainNet = (chainId: number): boolean => {
+export const isL1 = (chainId: number): boolean => {
 	return chainId === networks.ethereum.main ||
 		chainId === networks.ethereum.ropsten
 		? true
