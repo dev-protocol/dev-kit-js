@@ -13,11 +13,11 @@ export const networks = {
 
 // set alchemy, infura and so on.
 // only for test, I will move them to somewhere
-export const homestead = ethers.getDefaultProvider('homestead')
-export const ropsten = ethers.getDefaultProvider('ropsten')
-export const arbOne = ethers.getDefaultProvider(
-	'https://arb-mainnet.g.alchemy.com/v2/rG0SkEsWLq0QPJKSxyZKpz047ThiR4GT'
-)
-export const arbRinkeby = ethers.getDefaultProvider(
-	'https://arb-rinkeby.g.alchemy.com/v2/eELUbmXl4PRZxsGljpjzwS6hGqtAZ82w'
-)
+
+export const testProviders = {
+    homestead: ethers.getDefaultProvider('homestead'),
+	ropsten: ethers.getDefaultProvider('ropsten'),
+	arbOne: ethers.getDefaultProvider(),
+	arbRinkeby: ethers.getDefaultProvider(),
+	polyMumbai: ethers.getDefaultProvider()
+}
