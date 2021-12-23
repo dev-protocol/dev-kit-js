@@ -15,9 +15,9 @@ export const networks = {
 // only for test, I will move them to somewhere
 
 export const testProviders = {
-    homestead: ethers.getDefaultProvider('homestead'),
+	homestead: ethers.getDefaultProvider('homestead'),
 	ropsten: ethers.getDefaultProvider('ropsten'),
 	arbOne: ethers.getDefaultProvider(),
 	arbRinkeby: ethers.getDefaultProvider(),
-	polyMumbai: ethers.getDefaultProvider()
+	polyMumbai: ethers.getDefaultProvider(),
 }
