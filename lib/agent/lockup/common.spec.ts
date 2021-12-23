@@ -53,5 +53,10 @@ describe('common.ts', () => {
 			expect(JSON.stringify(result1)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result2)).toEqual(JSON.stringify(expected))
 		})
+		it('provider is unknown', async () => {
+			const expected = undefined
+			const result = await getLockupContract(testProviders.polyMumbai)
+			expect(result).toEqual(expected)
+		})
 	})
 })
