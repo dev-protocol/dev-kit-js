@@ -63,7 +63,7 @@ describe('utils.ts', () => {
 				testProviders.polyMumbai,
 				'lockup'
 			)
-			const expected = null
+			const expected = undefined
 			expect(result).toEqual(expected)
 		})
 	})
@@ -103,7 +103,7 @@ describe('utils.ts', () => {
 				testProviders.polyMumbai,
 				'lockup'
 			)
-			const expected = null
+			const expected = undefined
 			expect(result).toEqual(expected)
 		})
 	})
