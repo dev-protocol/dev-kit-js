@@ -10,7 +10,7 @@ export type Options = {
 	readonly overrides?: FallbackableOverrides
 }
 
-export type PositionsCreate = (
+type PositionsCreate = (
 	options: Options
 ) => Promise<TransactionResponse | Error>
 
