@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-conditional-statement */
 import {
 	getL1ContractAddress,
 	getL2ContractAddress,
@@ -18,29 +17,33 @@ const cacheLockupContract = new WeakMap()
 
 export const getLockupContract = async (
 	provider: Provider
-): Promise<LockupContract | LockupContractL2 | null> => {
+): Promise<LockupContract | LockupContractL2 | undefined> => {
 	const network = await provider.getNetwork()
+	return cacheLockupContract.has(network)
+		? cacheLockupContract.get(network)
+		: generateLockupContract(provider)
+}
 
-	// eslint-disable functional/no-conditional-statement
-	if (cacheLockupContract.has(network)) {
-		return cacheLockupContract.get(network)
-	} else {
-		const chainId = network.chainId
-		const lockupContract = (await isL1(chainId))
-			? createLockupContract(provider)
-			: createLockupContractL2(provider)
+const generateLockupContract = async (
+	provider: Provider
+): Promise<LockupContract | LockupContractL2 | undefined> => {
+	const network = await provider.getNetwork()
+	const chainId = network.chainId
+	const lockupContract = (await isL1(chainId))
+		? createLockupContract(provider)
+		: createLockupContractL2(provider)
 
-		const lockupAddress = (await isL1(chainId))
-			? await getL1ContractAddress(provider, 'lockup')
-			: await getL2ContractAddress(provider, 'lockup')
+	const lockupAddress = (await isL1(chainId))
+		? await getL1ContractAddress(provider, 'lockup')
+		: await getL2ContractAddress(provider, 'lockup')
 
-		if (!lockupAddress) {
-			return null
-		}
-
-		const deployedLockupContract = await lockupContract(lockupAddress)
-		// eslint-disable-next-line functional/no-expression-statement
-		cacheLockupContract.set(network, deployedLockupContract)
-		return deployedLockupContract
+	// eslint-disable-next-line functional/no-conditional-statement
+	if (!lockupAddress) {
+		return undefined
 	}
+
+	const deployedLockupContract = await lockupContract(lockupAddress)
+	// eslint-disable-next-line functional/no-expression-statement
+	cacheLockupContract.set(network, deployedLockupContract)
+	return deployedLockupContract
 }
