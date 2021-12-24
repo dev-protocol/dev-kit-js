@@ -18,7 +18,7 @@ import { ethers } from 'ethers'
 // import { createcalculateWithdrawableInterestAmountByPositionCaller } from '../../ethereum/lockup/calculateWithdrawableInterestAmountByPosition'
 import { stubTransactionResposeFactory } from '../../common/utils/for-test'
 import { Options, positionsCreate } from './positionsCreate'
-import { arbRinkeby, ropsten } from '../common/const'
+import { testProviders } from '../common/const'
 
 describe('positionsCreate.ts', () => {
 	const host = 'localhost'
@@ -33,15 +33,16 @@ describe('positionsCreate.ts', () => {
 	}
 
 	const stubTx = stubTransactionResposeFactory({})
-	it('', async () => {})
-	// it('', async () => {
-	// 	const options: Options = {
-	// 		provider: ropsten,
-	// 		propertyAddress,
-	// 		amount,
-	// 		overrides
-	// 	}
-	// 	const result = await positionsCreate(options)
-	// 	expect(result).toEqual(stubTx)
-	// })
+	it('return Error if network is not valid', async () => {
+		const options: Options = {
+			provider: testProviders.polyMumbai,
+			propertyAddress,
+			amount,
+			overrides,
+		}
+		const result = async () => {
+			await positionsCreate(options)
+		}
+		expect(result).rejects.toThrow('network is not valid')
+	})
 })
