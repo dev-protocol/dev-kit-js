@@ -38,13 +38,13 @@ const generateLockupContract = async (
 		? await getL1ContractAddress(provider, 'lockup')
 		: await getL2ContractAddress(provider, 'lockup')
 
-	return lockupAddress ? setCacheLockup(lockupContract, lockupAddress, network) : undefined
+	return lockupAddress ? setCacheLockupContract(lockupContract, lockupAddress, network) : undefined
 }
 
 type LockupL1 = (address: string) => LockupContract
 type LockupL2 =  (address: string) => LockupContractL2
 
-const setCacheLockup = async (
+const setCacheLockupContract = async (
 	lockupContract: LockupL1 | LockupL2,
     lockupAddress: string,
 	network: Network
