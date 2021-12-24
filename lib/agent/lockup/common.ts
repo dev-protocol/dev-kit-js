@@ -12,6 +12,7 @@ import {
 	LockupContract as LockupContractL2,
 } from '../../l2/lockup/index'
 import { Provider } from '@ethersproject/abstract-provider'
+import { Network } from '@ethersproject/networks'
 
 const cacheLockupContract = new WeakMap()
 
@@ -37,11 +38,17 @@ const generateLockupContract = async (
 		? await getL1ContractAddress(provider, 'lockup')
 		: await getL2ContractAddress(provider, 'lockup')
 
-	// eslint-disable-next-line functional/no-conditional-statement
-	if (!lockupAddress) {
-		return undefined
-	}
+	return lockupAddress ? setCacheLockup(lockupContract, lockupAddress, network) : undefined
+}
 
+type LockupL1 = (address: string) => LockupContract
+type LockupL2 =  (address: string) => LockupContractL2
+
+const setCacheLockup = async (
+	lockupContract: LockupL1 | LockupL2,
+    lockupAddress: string,
+	network: Network
+) => {
 	const deployedLockupContract = await lockupContract(lockupAddress)
 	// eslint-disable-next-line functional/no-expression-statement
 	cacheLockupContract.set(network, deployedLockupContract)
