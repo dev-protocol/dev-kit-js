@@ -2,7 +2,6 @@ import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { getLockupContract } from './common'
 import { Options } from '../common/const'
 
-
 type PositionsCreate = (
 	options: Options
 ) => Promise<TransactionResponse | Error>
