@@ -1,6 +1,4 @@
 import { ethers } from 'ethers'
-import { Provider } from '@ethersproject/abstract-provider'
-import { FallbackableOverrides } from '../../common/utils/execute'
 
 export const networks = {
 	ethereum: {
@@ -13,13 +11,6 @@ export const networks = {
 	},
 }
 
-export type Options = {
-	readonly provider: Provider
-	readonly propertyAddress: string
-	readonly amount: string
-	readonly overrides?: FallbackableOverrides
-}
-
 // set alchemy, infura and so on.
 // only for test, I will move them to somewhere
 
@@ -30,3 +21,4 @@ export const testProviders = {
 	arbRinkeby: ethers.getDefaultProvider(),
 	polyMumbai: ethers.getDefaultProvider(),
 }
+
