@@ -1,5 +1,9 @@
 import { getLockupContract } from './common'
-import { Options } from '../common/const'
+import { Provider } from '@ethersproject/abstract-provider'
+
+type Options = {
+	readonly provider: Provider
+}
 
 type GetCap = (Options: Options) => Promise<string | Error>
 
