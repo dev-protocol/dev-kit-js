@@ -1,6 +1,14 @@
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { getLockupContract } from './common'
-import { Options } from '../common/const'
+import { Provider } from '@ethersproject/abstract-provider'
+import { FallbackableOverrides } from '../../common/utils/execute'
+
+export type Options = {
+	readonly provider: Provider
+	readonly propertyAddress: string
+	readonly amount: string
+	readonly overrides?: FallbackableOverrides
+}
 
 type PositionsCreate = (
 	options: Options
