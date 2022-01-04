@@ -1,4 +1,5 @@
 import { ethers } from 'ethers'
+import { env } from './env'
 
 export const networks = {
 	ethereum: {
@@ -15,10 +16,10 @@ export const networks = {
 // only for test, I will move them to somewhere
 
 export const testProviders = {
-	homestead: ethers.getDefaultProvider('homestead'),
-	ropsten: ethers.getDefaultProvider('ropsten'),
-	arbOne: ethers.getDefaultProvider(),
-	arbRinkeby: ethers.getDefaultProvider(),
-	polyMumbai: ethers.getDefaultProvider(),
+	homestead: ethers.getDefaultProvider(env.homestead),
+	ropsten: ethers.getDefaultProvider(env.ropsten),
+	arbOne: ethers.getDefaultProvider(env.arbMainnet),
+	arbRinkeby: ethers.getDefaultProvider(env.arbRinkeby),
+	polyMumbai: ethers.getDefaultProvider(env.polygonMumbai),
 }
 
