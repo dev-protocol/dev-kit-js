@@ -11,28 +11,29 @@ import {
 	createLockupContract as createLockupContractL2,
 	LockupContract as LockupContractL2,
 } from '../../l2/lockup/index'
-import { Provider } from '@ethersproject/abstract-provider'
 import { Network } from '@ethersproject/networks'
+import { Wallet } from 'ethers'
 
 const cacheLockupContract = new WeakMap()
 
 export const getLockupContract = async (
-	provider: Provider
+	wallet: Wallet
 ): Promise<LockupContract | LockupContractL2 | undefined> => {
-	const network = await provider.getNetwork()
+	const network = await wallet.provider.getNetwork()
 	return cacheLockupContract.has(network)
 		? cacheLockupContract.get(network)
-		: generateLockupContract(provider)
+		: generateLockupContract(wallet)
 }
 
 const generateLockupContract = async (
-	provider: Provider
+	wallet: Wallet
 ): Promise<LockupContract | LockupContractL2 | undefined> => {
+	const provider = wallet.provider
 	const network = await provider.getNetwork()
 	const chainId = network.chainId
 	const lockupContract = (await isL1(chainId))
-		? createLockupContract(provider)
-		: createLockupContractL2(provider)
+		? createLockupContract(wallet)
+		: createLockupContractL2(wallet)
 
 	const lockupAddress = (await isL1(chainId))
 		? await getL1ContractAddress(provider, 'lockup')
