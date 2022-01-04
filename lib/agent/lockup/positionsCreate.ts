@@ -4,7 +4,6 @@ import { Provider } from '@ethersproject/abstract-provider'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { Wallet } from 'ethers'
 
-
 export type Options = {
 	readonly wallet: Wallet
 	readonly propertyAddress: string

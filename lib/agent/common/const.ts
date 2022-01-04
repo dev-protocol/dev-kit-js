@@ -19,4 +19,3 @@ export const testProviders = {
 	arbRinkeby: ethers.getDefaultProvider(env.arbRinkeby),
 	polyMumbai: ethers.getDefaultProvider(env.polygonMumbai),
 }
-

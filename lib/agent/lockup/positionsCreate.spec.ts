@@ -11,17 +11,17 @@ describe('positionsCreate.ts', () => {
 		fallback: undefined,
 	}
 
-	it("", async () => {
+	it('', async () => {
 		// await window.ethereum.enable()
-        const wallet = new ethers.Wallet(env.mnemonic, testProviders.ropsten)
-        console.log(wallet)
-        const options: Options = {
+		const wallet = new ethers.Wallet(env.mnemonic, testProviders.ropsten)
+		console.log(wallet)
+		const options: Options = {
 			wallet,
 			propertyAddress,
 			amount,
 			overrides,
 		}
-		const tx = await positionsCreate(options).then(result => result)
+		const tx = await positionsCreate(options).then((result) => result)
 		console.log(tx)
 	})
 	it('return undefined if network is not valid', async () => {
@@ -32,7 +32,7 @@ describe('positionsCreate.ts', () => {
 			amount,
 			overrides,
 		}
-        const tx = await positionsCreate(options).then(result => result)
+		const tx = await positionsCreate(options).then((result) => result)
 		expect(tx).toEqual(undefined)
 	})
 })

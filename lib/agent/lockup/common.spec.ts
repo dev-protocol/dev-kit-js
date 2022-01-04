@@ -18,7 +18,7 @@ describe('common.ts', () => {
 				testProviders.homestead
 			)(addresses.eth['main'].registry).lockup()
 			const expected = await expectedLockup(lockupAddress)
-	        const wallet = new ethers.Wallet(env.mnemonic, testProviders.homestead)
+			const wallet = new ethers.Wallet(env.mnemonic, testProviders.homestead)
 			const result = await getLockupContract(wallet)
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 		})
