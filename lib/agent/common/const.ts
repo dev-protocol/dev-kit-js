@@ -12,9 +12,6 @@ export const networks = {
 	},
 }
 
-// set alchemy, infura and so on.
-// only for test, I will move them to somewhere
-
 export const testProviders = {
 	homestead: ethers.getDefaultProvider(env.homestead),
 	ropsten: ethers.getDefaultProvider(env.ropsten),
