@@ -84,7 +84,8 @@
 		],
 		"transformIgnorePatterns": [
 			"<rootDir>/node_modules/"
-		]
+		],
+		"testTimeout": 500000
 	},
 	"dependencies": {
 		"@types/bent": "^7.3.1",
