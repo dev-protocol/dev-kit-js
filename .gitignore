@@ -56,7 +56,8 @@ typings/
 
 # dotenv environment variables file
 .env
-lib/agent/common/env
+
+lib/agent/common/env.ts
 # next.js build output
 .next
 
