@@ -3,12 +3,6 @@ import { Options, positionsCreate } from './positionsCreate'
 import { testProviders } from '../common/const'
 import { stubTransactionResposeFactory } from '../../common/utils/for-test'
 
-// jest.mock('./common', () => {
-// 	return {
-// 		getLockupContract: jest.fn().mockReturnValue({depositToProperty: (propertyAddress: string, amount: number) => stubTransactionResposeFactory})
-// 	};
-// });
-
 jest.mock('./common', () => {
 	return {
 		getLockupContract: jest.fn(),
