@@ -8,14 +8,14 @@ export type Options = {
 
 type CalculateRewardAmount = (
 	options: Options
-) => Promise<readonly [string, string] | Error>
+) => Promise<readonly [string, string] | undefined>
 
 export const calculateRewardAmount: CalculateRewardAmount = async (
 	options: Options
-): Promise<readonly [string, string] | Error> => {
+): Promise<readonly [string, string] | undefined> => {
 	const lockupContract = await getLockupContract(options.provider)
 
 	return lockupContract
 		? await lockupContract.calculateRewardAmount(options.propertyAddress)
-		: new Error('network is not valid')
+		: undefined
 }
