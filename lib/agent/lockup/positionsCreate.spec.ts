@@ -18,9 +18,10 @@ describe('positionsCreate.ts', () => {
 	}
 
 	it('success', async () => {
+		const stubTx = stubTransactionResposeFactory({})
 		;(getLockupContract as jest.Mock).mockReturnValueOnce({
 			depositToProperty: (propertyAddress: string, amount: number) =>
-				stubTransactionResposeFactory,
+				stubTx,
 		})
 		const options: Options = {
 			provider: testProviders.ropsten,
@@ -30,7 +31,7 @@ describe('positionsCreate.ts', () => {
 		}
 		const result = await positionsCreate(options)
 		expect(getLockupContract).toHaveBeenCalledTimes(1)
-		expect(result).toEqual(stubTransactionResposeFactory)
+		expect(result).toEqual(stubTx)
 	})
 	it('return undefined if network is not valid', async () => {
 		;(getLockupContract as jest.Mock).mockReturnValueOnce(undefined)
