@@ -20,8 +20,7 @@ describe('positionsCreate.ts', () => {
 	it('success', async () => {
 		const stubTx = stubTransactionResposeFactory({})
 		;(getLockupContract as jest.Mock).mockReturnValue({
-			depositToProperty: (propertyAddress: string, amount: number) =>
-				stubTx,
+			depositToProperty: (propertyAddress: string, amount: number) => stubTx,
 		})
 		const options: Options = {
 			provider: testProviders.ropsten,
