@@ -3,9 +3,8 @@ import { getLockupContract } from './common'
 import { Provider } from '@ethersproject/abstract-provider'
 import { FallbackableOverrides } from '../../common/utils/execute'
 
-
 export type Options = {
-	readonly provider: Provider,
+	readonly provider: Provider
 	readonly propertyAddress: string
 	readonly amount: string
 	readonly overrides?: FallbackableOverrides
