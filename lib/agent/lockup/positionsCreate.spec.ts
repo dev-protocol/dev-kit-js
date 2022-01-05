@@ -12,11 +12,8 @@ describe('positionsCreate.ts', () => {
 	}
 
 	it('', async () => {
-		// await window.ethereum.enable()
-		const wallet = new ethers.Wallet(env.mnemonic, testProviders.ropsten)
-		console.log(wallet)
 		const options: Options = {
-			wallet,
+			provider: testProviders.ropsten,
 			propertyAddress,
 			amount,
 			overrides,
@@ -27,7 +24,7 @@ describe('positionsCreate.ts', () => {
 	it('return undefined if network is not valid', async () => {
 		const wallet = new ethers.Wallet(env.mnemonic, testProviders.polyMumbai)
 		const options: Options = {
-			wallet,
+			provider: testProviders.polyMumbai,
 			propertyAddress,
 			amount,
 			overrides,
@@ -36,9 +33,3 @@ describe('positionsCreate.ts', () => {
 		expect(tx).toEqual(undefined)
 	})
 })
-
-// declare global {
-//     interface Window {
-//         ethereum: any;
-//     }
-// }

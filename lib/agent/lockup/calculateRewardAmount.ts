@@ -1,9 +1,8 @@
 import { getLockupContract } from './common'
 import { Provider } from '@ethersproject/abstract-provider'
-import { Wallet } from 'ethers'
 
 export type Options = {
-	readonly wallet: Wallet
+	readonly provider: Provider
 	readonly propertyAddress: string
 }
 
@@ -14,7 +13,7 @@ type CalculateRewardAmount = (
 export const calculateRewardAmount: CalculateRewardAmount = async (
 	options: Options
 ): Promise<readonly [string, string] | Error> => {
-	const lockupContract = await getLockupContract(options.wallet)
+	const lockupContract = await getLockupContract(options.provider)
 
 	return lockupContract
 		? await lockupContract.calculateRewardAmount(options.propertyAddress)
