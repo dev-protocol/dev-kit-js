@@ -1,5 +1,3 @@
-import { ethers } from 'ethers'
-import { env } from '../common/env'
 import { testProviders } from '../common/const'
 import { createLockupContract } from '../../ethereum/lockup'
 import { getLockupContract } from './common'

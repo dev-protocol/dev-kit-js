@@ -13,7 +13,6 @@ import {
 } from '../../l2/lockup/index'
 import { Network } from '@ethersproject/networks'
 import { Provider } from '@ethersproject/abstract-provider'
-import { Signer } from '@ethersproject/abstract-signer'
 
 const cacheLockupContract = new WeakMap()
 
