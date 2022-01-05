@@ -11,7 +11,7 @@ import { stubTransactionResposeFactory } from '../../common/utils/for-test'
 
 jest.mock('./common', () => {
 	return {
-        getLockupContract: jest.fn()
+		getLockupContract: jest.fn(),
 	}
 })
 
@@ -24,7 +24,10 @@ describe('positionsCreate.ts', () => {
 	}
 
 	it('success', async () => {
-		(getLockupContract as jest.Mock).mockReturnValueOnce({depositToProperty: (propertyAddress: string, amount: number) => stubTransactionResposeFactory})
+		;(getLockupContract as jest.Mock).mockReturnValueOnce({
+			depositToProperty: (propertyAddress: string, amount: number) =>
+				stubTransactionResposeFactory,
+		})
 		const options: Options = {
 			provider: testProviders.ropsten,
 			propertyAddress,
@@ -33,10 +36,10 @@ describe('positionsCreate.ts', () => {
 		}
 		const result = await positionsCreate(options)
 		expect(getLockupContract).toHaveBeenCalledTimes(1)
-        expect(result).toEqual(stubTransactionResposeFactory)
+		expect(result).toEqual(stubTransactionResposeFactory)
 	})
 	it('return undefined if network is not valid', async () => {
-		(getLockupContract as jest.Mock).mockReturnValueOnce(undefined)
+		;(getLockupContract as jest.Mock).mockReturnValueOnce(undefined)
 		const options: Options = {
 			provider: testProviders.polyMumbai,
 			propertyAddress,

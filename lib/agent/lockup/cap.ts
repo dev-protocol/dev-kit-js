@@ -12,7 +12,5 @@ export const getCap: GetCap = async (
 ): Promise<string | undefined> => {
 	const lockupContract = await getLockupContract(options.provider)
 
-	return lockupContract
-		? await lockupContract.cap()
-		: undefined
+	return lockupContract ? await lockupContract.cap() : undefined
 }
