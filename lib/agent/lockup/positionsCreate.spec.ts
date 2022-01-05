@@ -22,7 +22,6 @@ describe('positionsCreate.ts', () => {
 		console.log(tx)
 	})
 	it('return undefined if network is not valid', async () => {
-		const wallet = new ethers.Wallet(env.mnemonic, testProviders.polyMumbai)
 		const options: Options = {
 			provider: testProviders.polyMumbai,
 			propertyAddress,
