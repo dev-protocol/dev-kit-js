@@ -3,18 +3,14 @@ import { getLockupContract } from './common'
 import { Provider } from '@ethersproject/abstract-provider'
 import { FallbackableOverrides } from '../../common/utils/execute'
 
-export type Options = {
+type Options = {
 	readonly provider: Provider
 	readonly propertyAddress: string
 	readonly amount: string
 	readonly overrides?: FallbackableOverrides
 }
 
-type PositionsCreate = (
-	options: Options
-) => Promise<TransactionResponse | undefined>
-
-export const positionsCreate: PositionsCreate = async (
+export const positionsCreate = async (
 	options: Options
 ): Promise<TransactionResponse | undefined> => {
 	const lockupContract = await getLockupContract(options.provider)

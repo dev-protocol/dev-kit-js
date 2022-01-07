@@ -1,16 +1,12 @@
 import { getLockupContract } from './common'
 import { Provider } from '@ethersproject/abstract-provider'
 
-export type Options = {
+type Options = {
 	readonly provider: Provider
 	readonly propertyAddress: string
 }
 
-type CalculateRewardAmount = (
-	options: Options
-) => Promise<readonly [string, string] | undefined>
-
-export const calculateRewardAmount: CalculateRewardAmount = async (
+export const calculateRewardAmount = async (
 	options: Options
 ): Promise<readonly [string, string] | undefined> => {
 	const lockupContract = await getLockupContract(options.provider)
