@@ -1,7 +1,7 @@
 import { getLockupContract } from './common'
 import { Provider } from '@ethersproject/abstract-provider'
 
-type Options = {
+export type Options = {
 	readonly provider: Provider
 }
 
