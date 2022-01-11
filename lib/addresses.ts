@@ -36,7 +36,7 @@ export const addresses = {
 	polygon: {
 		mainnet: {
 			token: '0xA5577D1cec2583058A6Bd6d5DEAC44797c205701',
-			lockup: '0x3590f2DF8185C6E257E7e9c8e87530971dfa231d',
+			lockup: '0x42767B12d3f07bE0D951a64eE6573B40Ff165C4e',
 			marketFactory: '0xEA518Ab9551d3cD9Ec4C74df1fa6946B18212178',
 			metricsFactory: '0xD18f2eB75cE3a6A35586115b2f2c63d907536CDE',
 			policyFactory: '0xD42c04179410a38BE95737e663480a7CC42B9C05',
