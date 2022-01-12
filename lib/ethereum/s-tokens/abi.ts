@@ -61,6 +61,44 @@ export const sTokensAbi = [
 			{
 				indexed: false,
 				internalType: 'address',
+				name: 'freezingUser',
+				type: 'address',
+			},
+		],
+		name: 'Freezed',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256',
+			},
+			{
+				indexed: false,
+				internalType: 'address',
+				name: 'meltingUser',
+				type: 'address',
+			},
+		],
+		name: 'Melted',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256',
+			},
+			{
+				indexed: false,
+				internalType: 'address',
 				name: 'owner',
 				type: 'address',
 			},
@@ -84,6 +122,31 @@ export const sTokensAbi = [
 			},
 		],
 		name: 'Minted',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: false,
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256',
+			},
+			{
+				indexed: false,
+				internalType: 'address',
+				name: 'author',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				internalType: 'string',
+				name: 'data',
+				type: 'string',
+			},
+		],
+		name: 'SetTokenUri',
 		type: 'event',
 	},
 	{
@@ -199,6 +262,61 @@ export const sTokensAbi = [
 		type: 'function',
 	},
 	{
+		inputs: [],
+		name: 'descriptorAddress',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '_tokenId',
+				type: 'uint256',
+			},
+		],
+		name: 'descriptors',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool',
+			},
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '_tokenId',
+				type: 'uint256',
+			},
+		],
+		name: 'freezeTokenURI',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
 		inputs: [
 			{
 				internalType: 'uint256',
@@ -252,6 +370,19 @@ export const sTokensAbi = [
 			},
 		],
 		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '_tokenId',
+				type: 'uint256',
+			},
+		],
+		name: 'meltTokenURI',
+		outputs: [],
+		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
@@ -491,6 +622,37 @@ export const sTokensAbi = [
 			},
 		],
 		name: 'setApprovalForAll',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_descriptor',
+				type: 'address',
+			},
+		],
+		name: 'setDescriptor',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '_tokenId',
+				type: 'uint256',
+			},
+			{
+				internalType: 'string',
+				name: '_data',
+				type: 'string',
+			},
+		],
+		name: 'setTokenURIImage',
 		outputs: [],
 		stateMutability: 'nonpayable',
 		type: 'function',
