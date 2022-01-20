@@ -12,7 +12,7 @@ export const marketAddresses = {
 			github: '0x84b9e407e2Ee76A641b45d007bBFd9e60a13FF7d',
 		},
 		rinkeby: {
-			github: '0x82045e7aD20dca31915896ED246bB56a3B5956d8',
+			github: '0xeb85170bce4ea8a9ca0fb5b6620ab74ef111a50c',
 		},
 	},
 	polygon: {
