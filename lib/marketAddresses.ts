@@ -20,7 +20,7 @@ export const marketAddresses = {
 			github: '0xa7d0A25Cb2378c935FF94863C8614367b9e85Ed8',
 		},
 		mumbai: {
-			github: '0x9edc758B0477559AB6556BCA9971B4DD892d8E28',
+			github: '0x0000000000000000000000000000000000000000',
 		},
 	},
 } as const
