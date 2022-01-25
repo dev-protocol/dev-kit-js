@@ -6,10 +6,7 @@ import { Provider } from '@ethersproject/abstract-provider'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { execute, FallbackableOverrides } from '../../common/utils/execute'
 import { ethers } from 'ethers'
-import {
-	getMetricsProperty,
-	WaitForEventOptions,
-} from '../../ethereum/market/authenticate'
+import { WaitForEventOptions } from '../../ethereum/market/authenticate'
 import { metricsFactoryAbi } from '../metrics-factory/abi'
 
 export type CreateCreateAndAuthenticateCaller = (

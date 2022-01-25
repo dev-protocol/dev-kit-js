@@ -5,6 +5,7 @@ import { propertyFactoryAbi } from './abi'
 import { createCreatePropertyCaller } from '../../ethereum/property-factory/create'
 import { WaitForEventOptions } from '../../ethereum/market/authenticate'
 import { createCreateAndAuthenticateCaller } from './createAndAuthenticate'
+import { createGetPropertiesOfAuthorCaller } from './getPropertiesOfAuthor'
 import { FallbackableOverrides } from '../../common/utils/execute'
 
 export type PropertyFactoryContract = {
@@ -26,6 +27,9 @@ export type PropertyFactoryContract = {
 		readonly transaction: TransactionResponse
 		readonly waitForAuthentication: () => Promise<string>
 	}>
+	readonly getPropertiesOfAuthor: (
+		author: string
+	) => Promise<readonly string[]>
 }
 
 export const createPropertyFactoryContract =
@@ -43,5 +47,6 @@ export const createPropertyFactoryContract =
 				contract,
 				provider as Provider
 			),
+			getPropertiesOfAuthor: createGetPropertiesOfAuthorCaller(contract)
 		}
 	}
