@@ -1,1 +1,1 @@
-export { createErc20Contract, Erc20Contract } from '../../ethereum/erc20'
+export { createErc20Contract, Erc20Contract } from '../../common/erc20'

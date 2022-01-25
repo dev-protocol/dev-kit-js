@@ -1,10 +1,9 @@
 import { ethers } from 'ethers'
 import { createPropertyContract, PropertyContract } from '.'
 import { propertyAbi } from './abi'
-import { createAuthorCaller } from './author'
-import { createChangeNameCaller } from './changeName'
-import { createChangeSymbolCaller } from './changeSymbol'
-import { createChangeAuthorCaller } from './changeAuthor'
+import { createAuthorCaller } from './../../ethereum/property/author'
+import { createChangeNameCaller } from './../../ethereum/property/changeName'
+import { createChangeSymbolCaller } from './../../ethereum/property/changeSymbol'
 import { createTransferCaller } from './../../common/erc20/transfer'
 import { createNameCaller } from './../../common/erc20/name'
 import { createSymbolCaller } from './../../common/erc20/symbol'
@@ -15,16 +14,15 @@ import { createBalanceOfCaller } from './../../common/erc20/balanceOf'
 import { createApproveCaller } from './../../common/erc20/approve'
 import { createAllowanceCaller } from './../../common/erc20/allowance'
 
-jest.mock('./author')
-jest.mock('./changeName')
-jest.mock('./changeSymbol')
-jest.mock('./changeAuthor')
+jest.mock('./../../ethereum/property/author')
+jest.mock('./../../ethereum/property/changeName')
+jest.mock('./../../ethereum/property/changeSymbol')
 jest.mock('./../../common/erc20/transfer')
 jest.mock('./../../common/erc20/name')
 jest.mock('./../../common/erc20/symbol')
 jest.mock('./../../common/erc20/totalSupply')
 jest.mock('./../../common/erc20/decimals')
-jest.mock('./../../common/erc20/transferFrom')
+jest.mock('../../common/erc20/transferFrom')
 jest.mock('./../../common/erc20/balanceOf')
 jest.mock('./../../common/erc20/approve')
 jest.mock('./../../common/erc20/allowance')
@@ -35,9 +33,6 @@ describe('property/index.ts', () => {
 		(contract) => contract
 	)
 	;(createChangeSymbolCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createChangeAuthorCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
 	;(createTransferCaller as jest.Mock).mockImplementation(
@@ -86,7 +81,6 @@ describe('property/index.ts', () => {
 					symbol: createSymbolCaller(contract),
 					decimals: createDecimalsCaller(contract),
 					author: createAuthorCaller(contract),
-					changeAuthor: createChangeAuthorCaller(contract),
 					changeName: createChangeNameCaller(contract),
 					changeSymbol: createChangeSymbolCaller(contract),
 					contract: () => contract,

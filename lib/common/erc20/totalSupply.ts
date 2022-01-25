@@ -1,18 +1,18 @@
 import { ethers } from 'ethers'
-import { execute, QueryOption } from '../../common/utils/execute'
+import { execute, QueryOption } from '../utils/execute'
 import { always } from 'ramda'
 
-export type CreateDecimalsCaller = (
+export type CreateTotalSupplyCaller = (
 	contract: ethers.Contract
 ) => () => Promise<string>
 
-export const createDecimalsCaller: CreateDecimalsCaller = (
+export const createTotalSupplyCaller: CreateTotalSupplyCaller = (
 	contract: ethers.Contract
 ) =>
 	always(
 		execute<QueryOption>({
 			contract,
-			method: 'decimals',
+			method: 'totalSupply',
 			mutation: false,
 		})
 	)

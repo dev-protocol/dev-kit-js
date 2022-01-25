@@ -1,26 +1,26 @@
 import { ethers } from 'ethers'
 import { createDevContract, DevContract } from '.'
-import { createTransferCaller } from './../erc20/transfer'
+import { createTransferCaller } from './../../common/erc20/transfer'
 import { devAbi } from './abi'
 import { createDepositCaller } from './deposit'
-import { createBalanceOfCaller } from './../erc20/balanceOf'
-import { createTotalSupplyCaller } from './../erc20/totalSupply'
-import { createApproveCaller } from './../erc20/approve'
-import { createTransferFromCaller } from '../erc20/transferFrom'
-import { createNameCaller } from './../erc20/name'
-import { createSymbolCaller } from './../erc20/symbol'
-import { createDecimalsCaller } from './../erc20/decimals'
-import { createAllowanceCaller } from './../erc20/allowance'
+import { createBalanceOfCaller } from './../../common/erc20/balanceOf'
+import { createTotalSupplyCaller } from './../../common/erc20/totalSupply'
+import { createApproveCaller } from './../../common/erc20/approve'
+import { createTransferFromCaller } from '../../common/erc20/transferFrom'
+import { createNameCaller } from './../../common/erc20/name'
+import { createSymbolCaller } from './../../common/erc20/symbol'
+import { createDecimalsCaller } from './../../common/erc20/decimals'
+import { createAllowanceCaller } from './../../common/erc20/allowance'
 
 jest.mock('./deposit')
-jest.mock('./../erc20/balanceOf')
-jest.mock('./../erc20/totalSupply')
-jest.mock('./../erc20/approve')
-jest.mock('../erc20/transferFrom')
-jest.mock('./../erc20/name')
-jest.mock('./../erc20/symbol')
-jest.mock('./../erc20/decimals')
-jest.mock('./../erc20/allowance')
+jest.mock('./../../common/erc20/balanceOf')
+jest.mock('./../../common/erc20/totalSupply')
+jest.mock('./../../common/erc20/approve')
+jest.mock('../../common/erc20/transferFrom')
+jest.mock('./../../common/erc20/name')
+jest.mock('./../../common/erc20/symbol')
+jest.mock('./../../common/erc20/decimals')
+jest.mock('./../../common/erc20/allowance')
 
 describe('dev/index.ts', () => {
 	;(createDepositCaller as jest.Mock).mockImplementation((contract) => contract)

@@ -11,7 +11,7 @@ import { createNameCaller } from './name'
 import { createSymbolCaller } from './symbol'
 import { createDecimalsCaller } from './decimals'
 import { createAllowanceCaller } from './allowance'
-import { FallbackableOverrides } from '../../common/utils/execute'
+import { FallbackableOverrides } from '../utils/execute'
 
 export type Erc20Contract = {
 	readonly totalSupply: () => Promise<string>
