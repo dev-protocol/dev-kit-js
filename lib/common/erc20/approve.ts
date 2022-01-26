@@ -3,10 +3,10 @@ import {
 	execute,
 	FallbackableOverrides,
 	MutationOption,
-} from '../../common/utils/execute'
+} from '../utils/execute'
 import { T } from 'ramda'
 
-export type CreateTransferCaller = (
+export type CreateApproveCaller = (
 	contract: ethers.Contract
 ) => (
 	to: string,
@@ -14,13 +14,13 @@ export type CreateTransferCaller = (
 	overrides?: FallbackableOverrides
 ) => Promise<boolean>
 
-export const createTransferCaller: CreateTransferCaller =
+export const createApproveCaller: CreateApproveCaller =
 	(contract: ethers.Contract) =>
 	async (to: string, value: string, overrides?: FallbackableOverrides) =>
 		execute<MutationOption>({
 			contract,
-			method: 'transfer',
-			args: [to, value],
+			method: 'approve',
 			mutation: true,
+			args: [to, value],
 			overrides,
 		}).then(T)

@@ -3,15 +3,20 @@ import { createPropertyFactoryContract, PropertyFactoryContract } from '.'
 import { propertyFactoryAbi } from './abi'
 import { createCreatePropertyCaller } from '../../ethereum/property-factory/create'
 import { createCreateAndAuthenticateCaller } from './createAndAuthenticate'
+import { createGetPropertiesOfAuthorCaller } from './getPropertiesOfAuthor'
 
 jest.mock('../../ethereum/property-factory/create')
 jest.mock('./createAndAuthenticate')
+jest.mock('./getPropertiesOfAuthor')
 
 describe('property-factory/index.ts', () => {
 	;(createCreatePropertyCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
 	;(createCreateAndAuthenticateCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createGetPropertiesOfAuthorCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
 	describe('createPropertyFactoryContract', () => {
@@ -34,6 +39,7 @@ describe('property-factory/index.ts', () => {
 						contract,
 						provider
 					),
+					getPropertiesOfAuthor: createGetPropertiesOfAuthorCaller(contract)
 				}
 			}
 
