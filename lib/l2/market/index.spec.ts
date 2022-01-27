@@ -3,6 +3,7 @@ import { createMarketContract, MarketContract } from '.'
 import { createSchemaCaller } from '../../ethereum/market/schema'
 import { createVoteCaller } from '../../ethereum/market/vote'
 import { createAuthenticateCaller } from './authenticate'
+import { createNameCaller } from './name'
 import { createBehaviorCaller } from '../../ethereum/market/behavior'
 import { createGetAuthenticatedPropertiesCaller } from './getAuthenticatedProperties'
 import { marketAbi } from './abi'
@@ -10,6 +11,7 @@ import { marketAbi } from './abi'
 jest.mock('../../ethereum/market/schema')
 jest.mock('../../ethereum/market/vote')
 jest.mock('./authenticate')
+jest.mock('./name')
 jest.mock('../../ethereum/market/behavior')
 jest.mock('./getAuthenticatedProperties')
 
@@ -25,7 +27,9 @@ describe('market/index.ts', () => {
 	;(createGetAuthenticatedPropertiesCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
-
+	;(createNameCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
 	describe('createMarketContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
@@ -41,6 +45,7 @@ describe('market/index.ts', () => {
 					schema: createSchemaCaller(contract),
 					authenticate: createAuthenticateCaller(contract, provider),
 					behavior: createBehaviorCaller(contract),
+					name: createNameCaller(contract),
 					getAuthenticatedProperties:
 						createGetAuthenticatedPropertiesCaller(contract),
 				}

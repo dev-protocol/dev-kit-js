@@ -6,6 +6,7 @@ import { marketAbi } from './abi'
 import { createSchemaCaller } from '../../ethereum/market/schema'
 import { createVoteCaller } from '../../ethereum/market/vote'
 import { createAuthenticateCaller } from './authenticate'
+import { createNameCaller } from './name'
 import { createBehaviorCaller } from '../../ethereum/market/behavior'
 import { createGetAuthenticatedPropertiesCaller } from './getAuthenticatedProperties'
 import { FallbackableOverrides } from '../../common/utils/execute'
@@ -26,6 +27,7 @@ export type MarketContract = {
 		overrides?: FallbackableOverrides
 	) => Promise<string>
 	readonly behavior: () => Promise<string>
+	readonly name: () => Promise<string>
 	readonly getAuthenticatedProperties: () => Promise<readonly string[]>
 }
 
@@ -38,6 +40,7 @@ export const createMarketContract =
 			schema: createSchemaCaller(contract),
 			authenticate: createAuthenticateCaller(contract, provider),
 			behavior: createBehaviorCaller(contract),
+			name: createNameCaller(contract),
 			getAuthenticatedProperties:
 				createGetAuthenticatedPropertiesCaller(contract),
 		}
