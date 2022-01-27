@@ -27,9 +27,7 @@ export type PropertyFactoryContract = {
 		readonly transaction: TransactionResponse
 		readonly waitForAuthentication: () => Promise<string>
 	}>
-	readonly getPropertiesOfAuthor: (
-		author: string
-	) => Promise<readonly string[]>
+	readonly getPropertiesOfAuthor: (author: string) => Promise<readonly string[]>
 }
 
 export const createPropertyFactoryContract =
@@ -47,6 +45,6 @@ export const createPropertyFactoryContract =
 				contract,
 				provider as Provider
 			),
-			getPropertiesOfAuthor: createGetPropertiesOfAuthorCaller(contract)
+			getPropertiesOfAuthor: createGetPropertiesOfAuthorCaller(contract),
 		}
 	}
