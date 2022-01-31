@@ -13,6 +13,7 @@ export const marketAddresses = {
 		},
 		rinkeby: {
 			github: '0xeb85170bce4ea8a9ca0fb5b6620ab74ef111a50c',
+			youtube: '0x53f8A1DEe0aF272d995aF1e206116172c00f2eb4',
 		},
 	},
 	polygon: {
@@ -21,6 +22,7 @@ export const marketAddresses = {
 		},
 		mumbai: {
 			github: '0x0000000000000000000000000000000000000000',
+			youtube: '0x7C7CDc82b195d4dcf9a789BD14CD1C73232025a8',
 		},
 	},
 } as const
