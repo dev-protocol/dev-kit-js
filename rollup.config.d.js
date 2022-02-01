@@ -27,4 +27,9 @@ export default [
 		output: [{ file: './l2/index.d.ts', format: 'es' }],
 		plugins,
 	},
+	{
+		input: 'dist/lib/agent/index.d.ts',
+		output: [{ file: './agent/index.d.ts', format: 'es' }],
+		plugins,
+	},
 ]

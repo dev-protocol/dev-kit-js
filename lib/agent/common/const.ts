@@ -1,21 +1,36 @@
-import { ethers } from 'ethers'
-import { env } from './env'
+import { addresses } from '../../addresses'
 
-export const networks = {
-	ethereum: {
-		main: 1,
-		ropsten: 3,
-	},
-	arbitrum: {
-		one: 42161,
-		rinkeby: 421611,
-	},
+export type L1AvailableNetwork = {
+	readonly chainId: number
+	readonly registry: string
 }
 
-export const testProviders = {
-	homestead: ethers.getDefaultProvider(env.homestead),
-	ropsten: ethers.getDefaultProvider(env.ropsten),
-	arbOne: ethers.getDefaultProvider(env.arbMainnet),
-	arbRinkeby: ethers.getDefaultProvider(env.arbRinkeby),
-	polyMumbai: ethers.getDefaultProvider(env.polygonMumbai),
+export type L2AvailableNetwork = {
+	readonly chainId: number
+	readonly map: {
+		readonly token: string
+		readonly lockup: string
+		readonly marketFactory: string
+		readonly metricsFactory: string
+		readonly policyFactory: string
+		readonly propertyFactory: string
+		readonly registry: string
+		readonly sTokens: string
+		readonly withdraw: string
+	}
 }
+
+export const l1AvailableNetworks: readonly L1AvailableNetwork[] = [
+	{ chainId: 1, registry: addresses.eth.main.registry },
+	{ chainId: 3, registry: addresses.eth.ropsten.registry },
+]
+
+export const l2AvailableNetworks: readonly L2AvailableNetwork[] = [
+	{
+		chainId: 42161,
+		map: addresses.arbitrum.one,
+	},
+	{ chainId: 421611, map: addresses.arbitrum.rinkeby },
+	{ chainId: 137, map: addresses.polygon.mainnet },
+	{ chainId: 80001, map: addresses.polygon.mumbai },
+]
