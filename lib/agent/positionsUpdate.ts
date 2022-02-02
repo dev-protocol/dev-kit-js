@@ -6,6 +6,6 @@ import { UndefinedOr } from '@devprotocol/util-ts'
 type PositionsUpdate = (options: {
 	readonly provider: Provider
 	readonly positionId: number
-	readonly amount: string
+	readonly additionalAmount: string
 	readonly overrides?: FallbackableOverrides
 }) => Promise<UndefinedOr<TransactionResponse>>
