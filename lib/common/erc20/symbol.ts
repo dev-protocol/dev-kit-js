@@ -1,5 +1,5 @@
 import { ethers } from 'ethers'
-import { execute, QueryOption } from '../../common/utils/execute'
+import { execute, QueryOption } from '../utils/execute'
 import { always } from 'ramda'
 
 export type CreateSymbolCaller = (

@@ -126,4 +126,36 @@ export const propertyFactoryAbi = [
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_author',
+				type: 'address',
+			},
+		],
+		name: 'getPropertiesOfAuthor',
+		outputs: [
+			{
+				internalType: 'address[]',
+				name: '',
+				type: 'address[]',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+		],
+		name: 'setPropertyAddress',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
 ]

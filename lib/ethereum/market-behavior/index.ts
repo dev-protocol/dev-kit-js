@@ -3,9 +3,11 @@ import { Provider } from '@ethersproject/abstract-provider'
 import { Signer } from '@ethersproject/abstract-signer'
 import { marketBehaviorAbi } from './abi'
 import { createGetIdCaller } from './getId'
+import { createGetMetricsCaller } from './getMetrics'
 
 export type CreateMarketBehaviorContract = {
 	readonly getId: (metricsAddress: string) => Promise<string>
+	readonly getMetrics: (id: string) => Promise<string>
 }
 
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
@@ -20,5 +22,6 @@ export const createMarketBehaviorContract =
 
 		return {
 			getId: createGetIdCaller(contract),
+			getMetrics: createGetMetricsCaller(contract),
 		}
 	}

@@ -1,6 +1,7 @@
 import { ethers } from 'ethers'
 import { createMarketBehaviorContract, CreateMarketBehaviorContract } from '.'
 import { createGetIdCaller } from './getId'
+import { createGetMetricsCaller } from './getMetrics'
 import { marketBehaviorAbi } from './abi'
 
 jest.mock('./getId')
@@ -23,6 +24,7 @@ describe('getId/index.ts', () => {
 				)
 				return {
 					getId: createGetIdCaller(contract),
+					getMetrics: createGetMetricsCaller(contract),
 				}
 			}
 
