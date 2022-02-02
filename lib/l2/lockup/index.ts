@@ -16,6 +16,7 @@ import {
 	createGetLockedupPropertiesCaller,
 	LockedupProperty,
 } from './getLockedupProperties'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type LockupContract = {
 	readonly withdrawByPosition: (
@@ -38,7 +39,7 @@ export type LockupContract = {
 	readonly depositToProperty: (
 		propertyAddress: string,
 		amount: string
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 	readonly depositToPosition: (
 		positionTokenId: string,
 		amount: string

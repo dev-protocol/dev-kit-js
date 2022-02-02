@@ -14,6 +14,21 @@ const inputL2 = [
 	'!**/*.spec.*',
 ]
 const plugins = [multi(), nodeResolve({ modulesOnly: true })]
+const pluginsCjs = [
+	...plugins,
+	getBabelOutputPlugin({
+		presets: [
+			[
+				'@babel/preset-env',
+				{
+					targets: {
+						node: '12',
+					},
+				},
+			],
+		],
+	}),
+]
 const external = ['ethers']
 
 export default [
@@ -37,21 +52,7 @@ export default [
 				format: 'cjs',
 			},
 		],
-		plugins: [
-			...plugins,
-			getBabelOutputPlugin({
-				presets: [
-					[
-						'@babel/preset-env',
-						{
-							targets: {
-								node: '12',
-							},
-						},
-					],
-				],
-			}),
-		],
+		plugins: pluginsCjs,
 	},
 	{
 		external,
@@ -73,20 +74,28 @@ export default [
 				format: 'cjs',
 			},
 		],
-		plugins: [
-			...plugins,
-			getBabelOutputPlugin({
-				presets: [
-					[
-						'@babel/preset-env',
-						{
-							targets: {
-								node: '12',
-							},
-						},
-					],
-				],
-			}),
+		plugins: pluginsCjs,
+	},
+	{
+		external,
+		input: 'dist/lib/agent/index.js',
+		output: [
+			{
+				file: './agent/index.mjs',
+				format: 'es',
+			},
 		],
+		plugins,
+	},
+	{
+		external,
+		input: 'dist/lib/agent/index.js',
+		output: [
+			{
+				file: './agent/index.js',
+				format: 'cjs',
+			},
+		],
+		plugins: pluginsCjs,
 	},
 ]

@@ -18,6 +18,7 @@ import { createDepositToPropertyCaller } from './depositToProperty'
 import { createDepositToPositionCaller } from './depositToPosition'
 import { createMigrateToSTokensCaller } from './migrateToSTokens'
 import { FallbackableOverrides } from '../../common/utils/execute'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type LockupContract = {
 	readonly getValue: (
@@ -61,7 +62,7 @@ export type LockupContract = {
 		propertyAddress: string,
 		amount: string,
 		overrides?: FallbackableOverrides
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 	readonly depositToPosition: (
 		positionTokenId: string,
 		amount: string,
