@@ -26,6 +26,7 @@ describe('metrics-group.ts', () => {
 				return {
 					totalAuthenticatedProperties:
 						createTotalAuthenticatedPropertiesCaller(contract),
+					contract: () => contract,
 				}
 			}
 

@@ -116,6 +116,7 @@ describe('registry/index.ts', () => {
 					token: createTokenCaller(contract),
 					withdraw: createWithdrawCaller(contract),
 					withdrawStorage: createWithdrawStorageCaller(contract),
+					contract: () => contract,
 				}
 			}
 

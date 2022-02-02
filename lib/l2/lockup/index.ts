@@ -17,11 +17,14 @@ import {
 	LockedupProperty,
 } from './getLockedupProperties'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
+import { always } from 'ramda'
+import { FallbackableOverrides } from '../../common/utils/execute'
 
 export type LockupContract = {
 	readonly withdrawByPosition: (
 		positionTokenId: string,
-		amount: string
+		amount: string,
+		overrides?: FallbackableOverrides
 	) => Promise<TransactionResponse>
 	readonly calculateWithdrawableInterestAmountByPosition: (
 		positionTokenId: string
@@ -38,15 +41,18 @@ export type LockupContract = {
 	readonly cap: () => Promise<string>
 	readonly depositToProperty: (
 		propertyAddress: string,
-		amount: string
+		amount: string,
+		overrides?: FallbackableOverrides
 	) => Promise<TransactionResponse>
 	readonly depositToPosition: (
 		positionTokenId: string,
-		amount: string
+		amount: string,
+		overrides?: FallbackableOverrides
 	) => Promise<TransactionResponse>
 	readonly totalLocked: () => Promise<string>
 	readonly totalLockedForProperty: (address: string) => Promise<string>
 	readonly getLockedupProperties: () => Promise<readonly LockedupProperty[]>
+	readonly contract: () => ethers.Contract
 }
 
 export const createLockupContract =
@@ -69,5 +75,6 @@ export const createLockupContract =
 			totalLocked: createTotalLockedCaller(contract),
 			totalLockedForProperty: createTotalLockedForPropertyCaller(contract),
 			getLockedupProperties: createGetLockedupPropertiesCaller(contract),
+			contract: always(contract),
 		}
 	}

@@ -27,9 +27,7 @@ describe('market/index.ts', () => {
 	;(createGetAuthenticatedPropertiesCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
-	;(createNameCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createNameCaller as jest.Mock).mockImplementation((contract) => contract)
 	describe('createMarketContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
@@ -48,6 +46,7 @@ describe('market/index.ts', () => {
 					name: createNameCaller(contract),
 					getAuthenticatedProperties:
 						createGetAuthenticatedPropertiesCaller(contract),
+					contract: () => contract,
 				}
 			}
 

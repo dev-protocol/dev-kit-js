@@ -50,6 +50,7 @@ describe('policy/index.ts', () => {
 					marketVotingSeconds: createMarketVotingSecondsCaller(contract),
 					policyVotingSeconds: createPolicyVotingSecondsCaller(contract),
 					shareOfTreasury: createShareOfTreasuryCaller(contract),
+					contract: () => contract,
 				}
 			}
 

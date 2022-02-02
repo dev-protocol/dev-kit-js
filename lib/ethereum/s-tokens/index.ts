@@ -12,6 +12,7 @@ import { createTokenURICaller, TokenURI } from './tokenURI'
 import { createPositionsOfPropertyCaller } from './positionsOfProperty'
 import { createPositionsOfOwnerCaller } from './positionsOfOwner'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
+import { always } from 'ramda'
 
 export type STokensContract = {
 	readonly positions: (tokenId: number) => Promise<Positions>
@@ -30,6 +31,7 @@ export type STokensContract = {
 	readonly positionsOfOwner: (
 		accountAddress: string
 	) => Promise<readonly number[]>
+	readonly contract: () => ethers.Contract
 }
 
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
@@ -52,5 +54,6 @@ export const createSTokensContract =
 			tokenURI: createTokenURICaller(contractClient),
 			positionsOfProperty: createPositionsOfPropertyCaller(contractClient),
 			positionsOfOwner: createPositionsOfOwnerCaller(contractClient),
+			contract: always(contractClient),
 		}
 	}

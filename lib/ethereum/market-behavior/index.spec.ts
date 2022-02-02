@@ -25,6 +25,7 @@ describe('getId/index.ts', () => {
 				return {
 					getId: createGetIdCaller(contract),
 					getMetrics: createGetMetricsCaller(contract),
+					contract: () => contract,
 				}
 			}
 

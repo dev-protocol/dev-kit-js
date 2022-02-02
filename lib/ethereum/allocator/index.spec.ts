@@ -25,6 +25,7 @@ describe('allocator/index.ts', () => {
 				return {
 					calculateMaxRewardsPerBlock:
 						createCalculateMaxRewardsPerBlockCaller(contract),
+					contract: () => contract,
 				}
 			}
 

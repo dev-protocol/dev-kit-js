@@ -27,6 +27,7 @@ describe('registry/index.ts', () => {
 
 				return {
 					registries: createRegistriesCaller(contract),
+					contract: () => contract,
 				}
 			}
 

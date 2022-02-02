@@ -23,6 +23,7 @@ describe('policy/index.ts', () => {
 				return {
 					create: createCreateCaller(contract),
 					forceAttach: createForceAttachCaller(contract),
+					contract: () => contract,
 				}
 			}
 

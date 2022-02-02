@@ -6,6 +6,7 @@ import { createCreateCaller } from './create'
 import { createForceAttachCaller } from './forceAttach'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
+import { always } from 'ramda'
 
 export type PolicyFactoryContract = {
 	readonly create: (
@@ -16,6 +17,7 @@ export type PolicyFactoryContract = {
 		policy: string,
 		overrides?: FallbackableOverrides
 	) => Promise<TransactionResponse>
+	readonly contract: () => ethers.Contract
 }
 
 export type CreatePolicyFactoryContract = (
@@ -33,5 +35,6 @@ export const createPolicyFactoryContract: CreatePolicyFactoryContract =
 		return {
 			create: createCreateCaller(contract),
 			forceAttach: createForceAttachCaller(contract),
+			contract: always(contract),
 		}
 	}

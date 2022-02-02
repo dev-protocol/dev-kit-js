@@ -82,6 +82,7 @@ describe('lockup/index.ts', () => {
 					totalLocked: createTotalLockedCaller(contract),
 					totalLockedForProperty: createTotalLockedForPropertyCaller(contract),
 					getLockedupProperties: createGetLockedupPropertiesCaller(contract),
+					contract: () => contract,
 				}
 			}
 

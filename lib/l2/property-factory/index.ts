@@ -7,6 +7,7 @@ import { WaitForEventOptions } from '../../ethereum/market/authenticate'
 import { createCreateAndAuthenticateCaller } from './createAndAuthenticate'
 import { createGetPropertiesOfAuthorCaller } from './getPropertiesOfAuthor'
 import { FallbackableOverrides } from '../../common/utils/execute'
+import { always } from 'ramda'
 
 export type PropertyFactoryContract = {
 	readonly create: (
@@ -28,6 +29,7 @@ export type PropertyFactoryContract = {
 		readonly waitForAuthentication: () => Promise<string>
 	}>
 	readonly getPropertiesOfAuthor: (author: string) => Promise<readonly string[]>
+	readonly contract: () => ethers.Contract
 }
 
 export const createPropertyFactoryContract =
@@ -46,5 +48,6 @@ export const createPropertyFactoryContract =
 				provider as Provider
 			),
 			getPropertiesOfAuthor: createGetPropertiesOfAuthorCaller(contract),
+			contract: always(contract),
 		}
 	}

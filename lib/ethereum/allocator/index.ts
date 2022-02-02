@@ -3,9 +3,11 @@ import { Provider } from '@ethersproject/abstract-provider'
 import { Signer } from '@ethersproject/abstract-signer'
 import { allocatorAbi } from './abi'
 import { createCalculateMaxRewardsPerBlockCaller } from './calculateMaxRewardsPerBlock'
+import { always } from 'ramda'
 
 export type CreateAllocatorContract = {
 	readonly calculateMaxRewardsPerBlock: () => Promise<string>
+	readonly contract: () => ethers.Contract
 }
 
 export const createAllocatorContract =
@@ -15,5 +17,6 @@ export const createAllocatorContract =
 		return {
 			calculateMaxRewardsPerBlock:
 				createCalculateMaxRewardsPerBlockCaller(contract),
+			contract: always(contract),
 		}
 	}
