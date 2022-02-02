@@ -4,6 +4,6 @@ import { Positions } from '../ethereum/s-tokens/positions'
 
 type PositionsList = (options: {
 	readonly provider: Provider
-	readonly propertyAddress?: string
-	readonly userAddress?: string
+	readonly destination?: string
+	readonly user?: string
 }) => Promise<UndefinedOr<readonly Positions[]>>
