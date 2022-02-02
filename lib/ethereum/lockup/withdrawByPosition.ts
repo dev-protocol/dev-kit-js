@@ -5,7 +5,7 @@ import {
 	FallbackableOverrides,
 	MutationOption,
 } from '../../common/utils/execute'
-import { T } from 'ramda'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateWithdrawByPositionCaller = (
 	contract: ethers.Contract
@@ -13,7 +13,7 @@ export type CreateWithdrawByPositionCaller = (
 	positionTokenId: string,
 	amount: string,
 	overrides?: FallbackableOverrides
-) => Promise<boolean>
+) => Promise<TransactionResponse>
 
 export const createWithdrawByPositionCaller: CreateWithdrawByPositionCaller =
 	(contract: ethers.Contract) =>
@@ -28,4 +28,4 @@ export const createWithdrawByPositionCaller: CreateWithdrawByPositionCaller =
 			mutation: true,
 			args: [positionTokenId, amount],
 			overrides,
-		}).then(T)
+		})

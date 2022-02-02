@@ -1,17 +1,17 @@
 import { createFreezeTokenURICaller } from './freezeTokenURI'
-import { stubbedSendTx } from '../../common/utils/for-test'
+import { stubTransactionResposeFactory } from '../../common/utils/for-test'
 
 describe('freezeTokenURI.spec.ts', () => {
 	describe('createFreezeTokenURICaller', () => {
 		it('call success', async () => {
-			const success = true
+			const success = stubTransactionResposeFactory({})
 			const tokenId = 1
 
 			const devContract = {
 				freezeTokenURI: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (tokenId: string) => stubbedSendTx()),
+					.mockImplementation(async (tokenId: string) => success),
 			}
 
 			const expected = success

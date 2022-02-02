@@ -1,10 +1,10 @@
 import { createTransferFromCaller } from './transferFrom'
-import { stubbedSendTx } from '../../common/utils/for-test'
+import { stubTransactionResposeFactory } from '../../common/utils/for-test'
 
 describe('transferFrom.spec.ts', () => {
 	describe('createTransferFromCaller', () => {
 		it('call success', async () => {
-			const success = true
+			const success = stubTransactionResposeFactory({})
 			const from = '0x1E9342827907CD370CB8Ba2F768d7D50b2f457F9'
 			const to = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 			const value = '12345'
@@ -13,8 +13,8 @@ describe('transferFrom.spec.ts', () => {
 				transferFrom: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (from: string, to: string, value: number) =>
-						stubbedSendTx()
+					.mockImplementation(
+						async (from: string, to: string, value: number) => success
 					),
 			}
 

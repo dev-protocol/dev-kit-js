@@ -4,11 +4,14 @@ import {
 	FallbackableOverrides,
 	MutationOption,
 } from '../../common/utils/execute'
-import { T } from 'ramda'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateChangeAuthorCaller = (
 	contract: ethers.Contract
-) => (nextAuther: string, overrides?: FallbackableOverrides) => Promise<boolean>
+) => (
+	nextAuther: string,
+	overrides?: FallbackableOverrides
+) => Promise<TransactionResponse>
 
 export const createChangeAuthorCaller: CreateChangeAuthorCaller =
 	(contract: ethers.Contract) =>
@@ -19,4 +22,4 @@ export const createChangeAuthorCaller: CreateChangeAuthorCaller =
 			mutation: true,
 			args: [nextAuther],
 			overrides,
-		}).then(T)
+		})

@@ -4,14 +4,14 @@ import {
 	FallbackableOverrides,
 	MutationOption,
 } from '../../common/utils/execute'
-import { T } from 'ramda'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateCreateCaller = (
 	contract: ethers.Contract
 ) => (
 	marketBehaviorAddress: string,
 	overrides?: FallbackableOverrides
-) => Promise<boolean>
+) => Promise<TransactionResponse>
 
 export const createCreateCaller: CreateCreateCaller =
 	(contract: ethers.Contract) =>
@@ -22,4 +22,4 @@ export const createCreateCaller: CreateCreateCaller =
 			mutation: true,
 			args: [marketBehaviorAddress],
 			overrides,
-		}).then(T)
+		})

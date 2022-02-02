@@ -11,12 +11,16 @@ import { createRewardsCaller, Rewards } from './rewards'
 import { createTokenURICaller, TokenURI } from './tokenURI'
 import { createPositionsOfPropertyCaller } from './positionsOfProperty'
 import { createPositionsOfOwnerCaller } from './positionsOfOwner'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type STokensContract = {
 	readonly positions: (tokenId: number) => Promise<Positions>
 	readonly isFreezed: (tokenId: number) => Promise<boolean>
-	readonly freezeTokenURI: (tokenId: number) => Promise<boolean>
-	readonly setTokenURIImage: (tokenId: number, data: string) => Promise<boolean>
+	readonly freezeTokenURI: (tokenId: number) => Promise<TransactionResponse>
+	readonly setTokenURIImage: (
+		tokenId: number,
+		data: string
+	) => Promise<TransactionResponse>
 	readonly ownerOf: (tokenId: number) => Promise<string>
 	readonly rewards: (tokenId: number) => Promise<Rewards>
 	readonly tokenURI: (tokenId: number) => Promise<TokenURI>

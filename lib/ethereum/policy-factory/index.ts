@@ -5,16 +5,17 @@ import { policyFactoryAbi } from './abi'
 import { createCreateCaller } from './create'
 import { createForceAttachCaller } from './forceAttach'
 import { FallbackableOverrides } from '../../common/utils/execute'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type PolicyFactoryContract = {
 	readonly create: (
 		newPolicyAddress: string,
 		overrides?: FallbackableOverrides
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 	readonly forceAttach: (
 		policy: string,
 		overrides?: FallbackableOverrides
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 }
 
 export type CreatePolicyFactoryContract = (

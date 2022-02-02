@@ -1,16 +1,16 @@
 import { createCreateCaller } from './create'
-import { stubbedSendTx } from '../../common/utils/for-test'
+import { stubTransactionResposeFactory } from '../../common/utils/for-test'
 
 describe('create.spec.ts', () => {
 	describe('createCreateCaller', () => {
 		it('call success', async () => {
-			const expected = true
+			const expected = stubTransactionResposeFactory({})
 			const marketFactoryContract = {
 				create: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (marketBehaviorAddress: string) =>
-						stubbedSendTx()
+					.mockImplementation(
+						async (marketBehaviorAddress: string) => expected
 					),
 			}
 

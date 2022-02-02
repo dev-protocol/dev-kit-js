@@ -1,17 +1,17 @@
 import { createChangeNameCaller } from './changeName'
-import { stubbedSendTx } from '../../common/utils/for-test'
+import { stubTransactionResposeFactory } from '../../common/utils/for-test'
 
 describe('changeName.spec.ts', () => {
 	describe('createChangeNameCaller', () => {
 		it('call success', async () => {
-			const expected = true
+			const expected = stubTransactionResposeFactory({})
 			const nextName = 'next'
 
 			const contract = {
 				changeName: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (nextName: string) => stubbedSendTx()),
+					.mockImplementation(async (nextName: string) => expected),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

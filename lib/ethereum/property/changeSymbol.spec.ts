@@ -1,17 +1,17 @@
 import { createChangeSymbolCaller } from './changeSymbol'
-import { stubbedSendTx } from '../../common/utils/for-test'
+import { stubTransactionResposeFactory } from '../../common/utils/for-test'
 
 describe('changeSymbol.spec.ts', () => {
 	describe('createChangeSymbolCaller', () => {
 		it('call success', async () => {
-			const expected = true
+			const expected = stubTransactionResposeFactory({})
 			const nextSymbol = 'next'
 
 			const contract = {
 				changeSymbol: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (nextSymbol: string) => stubbedSendTx()),
+					.mockImplementation(async (nextSymbol: string) => expected),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

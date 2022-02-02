@@ -1,12 +1,14 @@
 import { createDepositToPositionCaller } from './depositToPosition'
-import { stubbedSendTx } from '../../common/utils/for-test'
+import { stubTransactionResposeFactory } from '../../common/utils/for-test'
 
 describe('depositToPosition.spec.ts', () => {
 	describe('createDepositToPositionCaller', () => {
 		it('call success', async () => {
-			const expected = true
+			const expected = stubTransactionResposeFactory({})
 			const lockupContract = {
-				depositToPosition: jest.fn().mockImplementation(stubbedSendTx),
+				depositToPosition: jest
+					.fn()
+					.mockImplementation(() => Promise.resolve(expected)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,17 +1,17 @@
 import { createForceAttachCaller } from './forceAttach'
-import { stubbedSendTx } from '../../common/utils/for-test'
+import { stubTransactionResposeFactory } from '../../common/utils/for-test'
 
 describe('forceAttach.spec.ts', () => {
 	describe('createForceAttachCaller', () => {
 		it('call success', async () => {
-			const success = true
+			const success = stubTransactionResposeFactory({})
 			const policy = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 
 			const devContract = {
 				forceAttach: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (policy: string) => stubbedSendTx()),
+					.mockImplementation(async (policy: string) => success),
 			}
 
 			const expected = success

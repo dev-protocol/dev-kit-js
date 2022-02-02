@@ -4,14 +4,14 @@ import {
 	FallbackableOverrides,
 	MutationOption,
 } from '../../common/utils/execute'
-import { T } from 'ramda'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateWithdrawCaller = (
 	contract: ethers.Contract
 ) => (
 	propertyAddress: string,
 	overrides?: FallbackableOverrides
-) => Promise<boolean>
+) => Promise<TransactionResponse>
 
 export const createWithdrawCaller: CreateWithdrawCaller =
 	(contract: ethers.Contract) =>
@@ -22,4 +22,4 @@ export const createWithdrawCaller: CreateWithdrawCaller =
 			mutation: true,
 			args: [propertyAddress],
 			overrides,
-		}).then(T)
+		})

@@ -4,11 +4,14 @@ import {
 	FallbackableOverrides,
 	MutationOption,
 } from '../../common/utils/execute'
-import { T } from 'ramda'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateForceAttachCaller = (
 	contract: ethers.Contract
-) => (policy: string, overrides?: FallbackableOverrides) => Promise<boolean>
+) => (
+	policy: string,
+	overrides?: FallbackableOverrides
+) => Promise<TransactionResponse>
 
 export const createForceAttachCaller: CreateForceAttachCaller =
 	(contract: ethers.Contract) =>
@@ -19,4 +22,4 @@ export const createForceAttachCaller: CreateForceAttachCaller =
 			mutation: true,
 			args: [policy],
 			overrides,
-		}).then(T)
+		})

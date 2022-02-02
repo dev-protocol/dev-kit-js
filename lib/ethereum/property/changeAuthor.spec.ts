@@ -1,17 +1,17 @@
 import { createChangeAuthorCaller } from './changeAuthor'
-import { stubbedSendTx } from '../../common/utils/for-test'
+import { stubTransactionResposeFactory } from '../../common/utils/for-test'
 
 describe('changeAuthor.spec.ts', () => {
 	describe('createChangeAuthorCaller', () => {
 		it('call success', async () => {
-			const expected = true
+			const expected = stubTransactionResposeFactory({})
 			const nextAuther = '0x0472ec0185ebb8202f3d4ddb0226998889663cf2'
 
 			const contract = {
 				changeAuthor: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (nextAuther: string) => stubbedSendTx()),
+					.mockImplementation(async (nextAuther: string) => expected),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

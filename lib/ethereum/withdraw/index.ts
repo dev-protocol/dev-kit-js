@@ -14,7 +14,7 @@ export type WithdrawContract = {
 	readonly withdraw: (
 		propertyAddress: string,
 		overrides?: FallbackableOverrides
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 	readonly bulkWithdraw: (
 		propertyAddresses: readonly string[]
 	) => Promise<TransactionResponse>

@@ -16,6 +16,7 @@ import { createBalanceOfCaller } from '../../common/erc20/balanceOf'
 import { createApproveCaller } from '../../common/erc20/approve'
 import { createAllowanceCaller } from '../../common/erc20/allowance'
 import { FallbackableOverrides } from '../../common/utils/execute'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type PropertyContract = {
 	readonly totalSupply: () => Promise<string>
@@ -24,19 +25,19 @@ export type PropertyContract = {
 		to: string,
 		value: string,
 		overrides?: FallbackableOverrides
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 	readonly allowance: (from: string, to: string) => Promise<string>
 	readonly approve: (
 		to: string,
 		value: string,
 		overrides?: FallbackableOverrides
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 	readonly transferFrom: (
 		from: string,
 		to: string,
 		value: string,
 		overrides?: FallbackableOverrides
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 	readonly name: () => Promise<string>
 	readonly symbol: () => Promise<string>
 	readonly decimals: () => Promise<string>
@@ -44,15 +45,15 @@ export type PropertyContract = {
 	readonly changeAuthor: (
 		nextAuthor: string,
 		overrides?: FallbackableOverrides
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 	readonly changeName: (
 		nextName: string,
 		overrides?: FallbackableOverrides
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 	readonly changeSymbol: (
 		nextSymbol: string,
 		overrides?: FallbackableOverrides
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 }
 
 export type CreatePropertyContract = (

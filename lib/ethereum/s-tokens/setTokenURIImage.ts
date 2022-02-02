@@ -4,7 +4,7 @@ import {
 	FallbackableOverrides,
 	MutationOption,
 } from '../../common/utils/execute'
-import { T } from 'ramda'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateSetTokenURIImageCaller = (
 	contract: ethers.Contract
@@ -12,7 +12,7 @@ export type CreateSetTokenURIImageCaller = (
 	tokenId: number,
 	data: string,
 	overrides?: FallbackableOverrides
-) => Promise<boolean>
+) => Promise<TransactionResponse>
 
 export const createSetTokenURIImageCaller: CreateSetTokenURIImageCaller =
 	(contract: ethers.Contract) =>
@@ -23,4 +23,4 @@ export const createSetTokenURIImageCaller: CreateSetTokenURIImageCaller =
 			mutation: true,
 			args: [String(tokenId), data],
 			overrides,
-		}).then(T)
+		})

@@ -5,14 +5,14 @@ import {
 	FallbackableOverrides,
 	MutationOption,
 } from '../../common/utils/execute'
-import { T } from 'ramda'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateMigrateToSTokensCaller = (
 	contract: ethers.Contract
 ) => (
 	propertyAddress: string,
 	overrides?: FallbackableOverrides
-) => Promise<boolean>
+) => Promise<TransactionResponse>
 
 export const createMigrateToSTokensCaller: CreateMigrateToSTokensCaller =
 	(contract: ethers.Contract) =>
@@ -23,4 +23,4 @@ export const createMigrateToSTokensCaller: CreateMigrateToSTokensCaller =
 			mutation: true,
 			args: [propertyAddress],
 			overrides,
-		}).then(T)
+		})

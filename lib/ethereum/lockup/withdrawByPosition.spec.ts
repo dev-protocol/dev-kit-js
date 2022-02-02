@@ -1,12 +1,14 @@
 import { createWithdrawByPositionCaller } from './withdrawByPosition'
-import { stubbedSendTx } from '../../common/utils/for-test'
+import { stubTransactionResposeFactory } from '../../common/utils/for-test'
 
 describe('withdrawByPosition.spec.ts', () => {
 	describe('createWithdrawByPositionCaller', () => {
 		it('call success', async () => {
-			const expected = true
+			const expected = stubTransactionResposeFactory({})
 			const lockupContract = {
-				withdrawByPosition: jest.fn().mockImplementation(stubbedSendTx),
+				withdrawByPosition: jest
+					.fn()
+					.mockImplementation(() => Promise.resolve(expected)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

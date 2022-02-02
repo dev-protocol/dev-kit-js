@@ -1,16 +1,16 @@
 import { createWithdrawCaller } from './withdraw'
-import { stubbedSendTx } from '../../common/utils/for-test'
+import { stubTransactionResposeFactory } from '../../common/utils/for-test'
 
 describe('withdraw.spec.ts', () => {
 	describe('createwithdrawCaller', () => {
 		it('call success', async () => {
-			const value = true
+			const value = stubTransactionResposeFactory({})
 
 			const withdrawContract = {
 				withdraw: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (property: string) => stubbedSendTx()),
+					.mockImplementation(async (property: string) => value),
 			}
 
 			const expected = value

@@ -4,7 +4,7 @@ import {
 	FallbackableOverrides,
 	MutationOption,
 } from '../utils/execute'
-import { T } from 'ramda'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateApproveCaller = (
 	contract: ethers.Contract
@@ -12,7 +12,7 @@ export type CreateApproveCaller = (
 	to: string,
 	value: string,
 	overrides?: FallbackableOverrides
-) => Promise<boolean>
+) => Promise<TransactionResponse>
 
 export const createApproveCaller: CreateApproveCaller =
 	(contract: ethers.Contract) =>
@@ -23,4 +23,4 @@ export const createApproveCaller: CreateApproveCaller =
 			mutation: true,
 			args: [to, value],
 			overrides,
-		}).then(T)
+		})

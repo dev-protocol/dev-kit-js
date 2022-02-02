@@ -4,11 +4,14 @@ import {
 	FallbackableOverrides,
 	MutationOption,
 } from '../../common/utils/execute'
-import { T } from 'ramda'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateFreezeTokenURICaller = (
 	contract: ethers.Contract
-) => (tokenId: number, overrides?: FallbackableOverrides) => Promise<boolean>
+) => (
+	tokenId: number,
+	overrides?: FallbackableOverrides
+) => Promise<TransactionResponse>
 
 export const createFreezeTokenURICaller: CreateFreezeTokenURICaller =
 	(contract: ethers.Contract) =>
@@ -19,4 +22,4 @@ export const createFreezeTokenURICaller: CreateFreezeTokenURICaller =
 			mutation: true,
 			args: [String(tokenId)],
 			overrides,
-		}).then(T)
+		})

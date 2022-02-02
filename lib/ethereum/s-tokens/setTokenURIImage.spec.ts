@@ -1,10 +1,10 @@
 import { createSetTokenURIImageCaller } from './setTokenURIImage'
-import { stubbedSendTx } from '../../common/utils/for-test'
+import { stubTransactionResposeFactory } from '../../common/utils/for-test'
 
 describe('setTokenURIImage.spec.ts', () => {
 	describe('createSetTokenURIImageCaller', () => {
 		it('call success', async () => {
-			const success = true
+			const success = stubTransactionResposeFactory({})
 			const tokenId = 1
 			const data = 'https://hogehoge'
 
@@ -12,9 +12,7 @@ describe('setTokenURIImage.spec.ts', () => {
 				setTokenURIImage: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (tokenId: string, data: string) =>
-						stubbedSendTx()
-					),
+					.mockImplementation(async (tokenId: string, data: string) => success),
 			}
 
 			const expected = success

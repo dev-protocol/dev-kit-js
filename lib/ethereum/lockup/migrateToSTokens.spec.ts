@@ -1,12 +1,12 @@
 import { createMigrateToSTokensCaller } from './migrateToSTokens'
-import { stubbedSendTx } from '../../common/utils/for-test'
+import {  stubTransactionResposeFactory } from '../../common/utils/for-test'
 
 describe('migrateToSTokens.spec.ts', () => {
 	describe('createMigrateToSTokensCaller', () => {
 		it('call success', async () => {
-			const expected = true
+			const expected = stubTransactionResposeFactory({})
 			const lockupContract = {
-				migrateToSTokens: jest.fn().mockImplementation(stubbedSendTx),
+				migrateToSTokens: jest.fn().mockImplementation(()=>Promise.resolve(expected)),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

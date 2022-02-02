@@ -31,12 +31,12 @@ export type LockupContract = {
 		positionTokenId: string,
 		amount: string,
 		overrides?: FallbackableOverrides
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 	readonly withdraw: (
 		propertyAddress: string,
 		amount: string,
 		overrides?: FallbackableOverrides
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 	readonly calculateWithdrawableInterestAmountByPosition: (
 		positionTokenId: string
 	) => Promise<string>
@@ -67,11 +67,11 @@ export type LockupContract = {
 		positionTokenId: string,
 		amount: string,
 		overrides?: FallbackableOverrides
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 	readonly migrateToSTokens: (
 		positionTokenId: string,
 		overrides?: FallbackableOverrides
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 }
 
 export const createLockupContract =

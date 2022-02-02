@@ -22,7 +22,7 @@ export type LockupContract = {
 	readonly withdrawByPosition: (
 		positionTokenId: string,
 		amount: string
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 	readonly calculateWithdrawableInterestAmountByPosition: (
 		positionTokenId: string
 	) => Promise<string>
@@ -43,7 +43,7 @@ export type LockupContract = {
 	readonly depositToPosition: (
 		positionTokenId: string,
 		amount: string
-	) => Promise<boolean>
+	) => Promise<TransactionResponse>
 	readonly totalLocked: () => Promise<string>
 	readonly totalLockedForProperty: (address: string) => Promise<string>
 	readonly getLockedupProperties: () => Promise<readonly LockedupProperty[]>
