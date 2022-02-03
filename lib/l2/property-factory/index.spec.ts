@@ -40,6 +40,7 @@ describe('property-factory/index.ts', () => {
 						provider
 					),
 					getPropertiesOfAuthor: createGetPropertiesOfAuthorCaller(contract),
+					contract: () => contract,
 				}
 			}
 

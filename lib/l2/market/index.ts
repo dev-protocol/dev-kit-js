@@ -10,6 +10,7 @@ import { createNameCaller } from './name'
 import { createBehaviorCaller } from '../../ethereum/market/behavior'
 import { createGetAuthenticatedPropertiesCaller } from './getAuthenticatedProperties'
 import { FallbackableOverrides } from '../../common/utils/execute'
+import { always } from 'ramda'
 
 export type MarketContract = {
 	readonly schema: () => Promise<readonly string[]>
@@ -29,6 +30,7 @@ export type MarketContract = {
 	readonly behavior: () => Promise<string>
 	readonly name: () => Promise<string>
 	readonly getAuthenticatedProperties: () => Promise<readonly string[]>
+	readonly contract: () => ethers.Contract
 }
 
 export const createMarketContract =
@@ -43,5 +45,6 @@ export const createMarketContract =
 			name: createNameCaller(contract),
 			getAuthenticatedProperties:
 				createGetAuthenticatedPropertiesCaller(contract),
+			contract: always(contract),
 		}
 	}

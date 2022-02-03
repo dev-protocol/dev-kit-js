@@ -50,6 +50,7 @@ describe('lockup/index.ts', () => {
 					calculateWithdrawableAmount:
 						createCalculateWithdrawableAmountCaller(contract),
 					calculateRewardAmount: calculateRewardAmountCaller(contract),
+					contract: () => contract,
 				}
 			}
 

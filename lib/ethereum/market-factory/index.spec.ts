@@ -23,6 +23,7 @@ describe('market-factory/index.ts', () => {
 				)
 				return {
 					create: createCreateCaller(contract),
+					contract: () => contract,
 				}
 			}
 

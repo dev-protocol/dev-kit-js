@@ -19,6 +19,7 @@ import { createWithdrawStorageCaller } from './withdrawStorage'
 import { createPolicyFactoryCaller } from './policyFactory'
 import { createPolicySetCaller } from './policySet'
 import { createPolicyGroupCaller } from './policyGroup'
+import { always } from 'ramda'
 
 export type RegistryContract = {
 	readonly allocator: () => Promise<string>
@@ -38,6 +39,7 @@ export type RegistryContract = {
 	readonly token: () => Promise<string>
 	readonly withdraw: () => Promise<string>
 	readonly withdrawStorage: () => Promise<string>
+	readonly contract: () => ethers.Contract
 }
 
 export type CreateRegistryContract = (
@@ -71,5 +73,6 @@ export const createRegistryContract: CreateRegistryContract =
 			token: createTokenCaller(contract),
 			withdraw: createWithdrawCaller(contract),
 			withdrawStorage: createWithdrawStorageCaller(contract),
+			contract: always(contract),
 		}
 	}

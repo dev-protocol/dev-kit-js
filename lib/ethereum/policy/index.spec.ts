@@ -62,6 +62,7 @@ describe('policy/index.ts', () => {
 					shareOfTreasury: createShareOfTreasuryCaller(contract),
 					treasury: createTreasuryCaller(contract),
 					capSetter: createCapSetterCaller(contract),
+					contract: () => contract,
 				}
 			}
 

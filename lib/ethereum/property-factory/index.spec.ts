@@ -34,6 +34,7 @@ describe('property/index.ts', () => {
 						contract,
 						provider
 					),
+					contract: () => contract,
 				}
 			}
 

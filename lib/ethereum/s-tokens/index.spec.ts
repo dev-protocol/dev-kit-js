@@ -65,6 +65,7 @@ describe('s-tokens/index.ts', () => {
 					tokenURI: createTokenURICaller(contract),
 					positionsOfProperty: createPositionsOfPropertyCaller(contract),
 					positionsOfOwner: createPositionsOfOwnerCaller(contract),
+					contract: () => contract,
 				}
 			}
 

@@ -26,6 +26,7 @@ describe('market-factory/index.ts', () => {
 				return {
 					create: createCreateCaller(contract),
 					getEnabledMarkets: createGetEnabledMarketsCaller(contract),
+					contract: () => contract,
 				}
 			}
 

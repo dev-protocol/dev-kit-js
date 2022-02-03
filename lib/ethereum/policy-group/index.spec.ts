@@ -31,6 +31,7 @@ describe('policy-group/index.ts', () => {
 				return {
 					isGroup: createIsGroupCaller(contract),
 					isDuringVotingPeriod: createIsDuringVotingPeriodCaller(contract),
+					contract: () => contract,
 				}
 			}
 

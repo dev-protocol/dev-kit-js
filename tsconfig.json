@@ -17,6 +17,6 @@
 		"outDir": "dist",
 		"rootDir": "."
 	},
-	"include": ["lib"],
+	"include": ["lib", "lib/agent/common/clients/.ts"],
 	"exclude": ["node_modules", "**/*.spec.ts"]
 }

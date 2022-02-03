@@ -104,6 +104,7 @@ describe('lockup/index.ts', () => {
 					depositToProperty: createDepositToPropertyCaller(contract),
 					depositToPosition: createDepositToPositionCaller(contract),
 					migrateToSTokens: createMigrateToSTokensCaller(contract),
+					contract: () => contract,
 				}
 			}
 

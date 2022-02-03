@@ -25,6 +25,7 @@ describe('metrics/index.ts', () => {
 				return {
 					property: createPropertyCaller(contract),
 					market: createMarketCaller(contract),
+					contract: () => contract,
 				}
 			}
 

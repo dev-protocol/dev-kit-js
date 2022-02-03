@@ -19,6 +19,7 @@ import { createDepositToPositionCaller } from './depositToPosition'
 import { createMigrateToSTokensCaller } from './migrateToSTokens'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
+import { always } from 'ramda'
 
 export type LockupContract = {
 	readonly getValue: (
@@ -72,6 +73,7 @@ export type LockupContract = {
 		positionTokenId: string,
 		overrides?: FallbackableOverrides
 	) => Promise<TransactionResponse>
+	readonly contract: () => ethers.Contract
 }
 
 export const createLockupContract =
@@ -100,5 +102,6 @@ export const createLockupContract =
 			depositToProperty: createDepositToPropertyCaller(contract),
 			depositToPosition: createDepositToPositionCaller(contract),
 			migrateToSTokens: createMigrateToSTokensCaller(contract),
+			contract: always(contract),
 		}
 	}
