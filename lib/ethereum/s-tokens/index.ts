@@ -57,3 +57,5 @@ export const createSTokensContract =
 			contract: always(contractClient),
 		}
 	}
+
+export{ Positions } from './positions'
