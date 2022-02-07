@@ -17,7 +17,7 @@ type ApproveIfNeeded = (factoryOptions: {
 	readonly callback: (
 		receipt?: TransactionReceipt
 	) => Promise<TransactionResponse>
-}) => (options: {
+}) => (options?: {
 	readonly amount?: string
 	readonly overrides?: FallbackableOverrides
 }) => Promise<{
@@ -49,8 +49,8 @@ export const approveIfNeeded: ApproveIfNeeded =
 							} as const))(
 							await dev.approve(
 								to,
-								options.amount ?? factoryOptions.requiredAmount,
-								options.overrides
+								options?.amount ?? factoryOptions.requiredAmount,
+								options?.overrides
 							)
 					  )
 					: callback
