@@ -9,7 +9,7 @@ import { BigNumber } from 'ethers'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { devClients } from './clients/devClients'
 
-type ApproveIfNeeded = (factoryOptions: {
+export type ApproveIfNeeded = (factoryOptions: {
 	readonly provider: Provider
 	readonly requiredAmount: string
 	readonly from: string
@@ -23,6 +23,10 @@ type ApproveIfNeeded = (factoryOptions: {
 }) => Promise<{
 	readonly waitOrSkip: () => Promise<TransactionResponse>
 }>
+
+export type ApproveIfNeededResult = {
+	readonly approveIfNeeded: ReturnType<ApproveIfNeeded>
+}
 
 export const approveIfNeeded: ApproveIfNeeded =
 	(factoryOptions) => async (options) => {

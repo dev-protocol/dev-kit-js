@@ -1,7 +1,10 @@
 import { FallbackableOverrides } from '../common/utils/execute'
 import { Provider } from '@ethersproject/abstract-provider'
 import { lockupClients } from './common/clients/lockupClients'
-import { approveIfNeeded as _approveIfNeeded } from './common/approveIfNeeded'
+import {
+	approveIfNeeded as _approveIfNeeded,
+	ApproveIfNeededResult,
+} from './common/approveIfNeeded'
 import { UndefinedOr } from '@devprotocol/util-ts'
 
 type PositionsCreate = (options: {
@@ -10,11 +13,7 @@ type PositionsCreate = (options: {
 	readonly destination: string
 	readonly amount: string
 	readonly overrides?: FallbackableOverrides
-}) => Promise<
-	UndefinedOr<{
-		readonly approveIfNeeded: ReturnType<typeof _approveIfNeeded>
-	}>
->
+}) => Promise<UndefinedOr<ApproveIfNeededResult>>
 
 export const positionsCreate: PositionsCreate = async (options) => {
 	const [l1, l2] = await lockupClients(options.provider)
