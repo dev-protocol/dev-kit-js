@@ -9,5 +9,5 @@ type Asset = {
 
 type PropertiesAssets = (options: {
 	readonly provider: Provider
-	readonly destination?: string
+	readonly destination: string
 }) => Promise<UndefinedOr<readonly Asset[]>>

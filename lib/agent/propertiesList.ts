@@ -3,5 +3,5 @@ import { UndefinedOr } from '@devprotocol/util-ts'
 
 type PropertiesList = (options: {
 	readonly provider: Provider
-	readonly user?: string
+	readonly user: string
 }) => Promise<UndefinedOr<readonly string[]>>
