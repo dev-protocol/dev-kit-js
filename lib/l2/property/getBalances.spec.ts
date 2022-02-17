@@ -11,7 +11,7 @@ describe('GetBalances.spec.ts', () => {
 			]
 
 			const propertyContract = {
-				GetBalances: jest
+				getBalances: jest
 					.fn()
 					.mockImplementation(async () => Promise.resolve(value)),
 			}
@@ -34,7 +34,7 @@ describe('GetBalances.spec.ts', () => {
 			const error = 'error'
 
 			const propertyContract = {
-				GetBalances: jest
+				getBalances: jest
 					.fn()
 					.mockImplementation(async () => Promise.reject(error)),
 			}
