@@ -5,6 +5,10 @@ import { propertyAbi } from './abi'
 import { createAuthorCaller } from './../../ethereum/property/author'
 import { createChangeNameCaller } from './../../ethereum/property/changeName'
 import { createChangeSymbolCaller } from './../../ethereum/property/changeSymbol'
+import {
+	createGetBalancesCaller,
+	PropertyBalance,
+} from './getBalances'
 import { createTransferCaller } from './../../common/erc20/transfer'
 import { createNameCaller } from './../../common/erc20/name'
 import { createSymbolCaller } from './../../common/erc20/symbol'
@@ -50,6 +54,7 @@ export type PropertyContract = {
 		nextSymbol: string,
 		overrides?: FallbackableOverrides
 	) => Promise<TransactionResponse>
+	readonly getBalances: () => Promise<readonly PropertyBalance[]>
 	readonly contract: () => ethers.Contract
 }
 
@@ -75,6 +80,7 @@ export const createPropertyContract: CreatePropertyContract =
 			author: createAuthorCaller(contract),
 			changeName: createChangeNameCaller(contract),
 			changeSymbol: createChangeSymbolCaller(contract),
+			getBalances: createGetBalancesCaller(contract),
 			contract: always(contract),
 		}
 	}
