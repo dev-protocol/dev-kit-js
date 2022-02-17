@@ -4,7 +4,7 @@ import { execute, QueryOption } from '../../common/utils/execute'
 
 export type PropertyBalance = Readonly<{
 	readonly account: string
-	readonly balance: number
+	readonly balance: string
 }>
 
 export type CreateGetBalancesCaller = (
