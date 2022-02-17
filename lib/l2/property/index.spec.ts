@@ -13,6 +13,7 @@ import { createTransferFromCaller } from '../../common/erc20/transferFrom'
 import { createBalanceOfCaller } from './../../common/erc20/balanceOf'
 import { createApproveCaller } from './../../common/erc20/approve'
 import { createAllowanceCaller } from './../../common/erc20/allowance'
+import { createGetBalancesCaller } from './getBalances'
 
 jest.mock('./../../ethereum/property/author')
 jest.mock('./../../ethereum/property/changeName')
@@ -26,6 +27,7 @@ jest.mock('../../common/erc20/transferFrom')
 jest.mock('./../../common/erc20/balanceOf')
 jest.mock('./../../common/erc20/approve')
 jest.mock('./../../common/erc20/allowance')
+jest.mock('./getBalances')
 
 describe('property/index.ts', () => {
 	;(createAuthorCaller as jest.Mock).mockImplementation((contract) => contract)
@@ -56,6 +58,7 @@ describe('property/index.ts', () => {
 	;(createAllowanceCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
+	;(createGetBalancesCaller as jest.Mock).mockImplementation((contract) => contract)
 	describe('createPropertyContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
@@ -83,6 +86,7 @@ describe('property/index.ts', () => {
 					author: createAuthorCaller(contract),
 					changeName: createChangeNameCaller(contract),
 					changeSymbol: createChangeSymbolCaller(contract),
+					getBalances: createGetBalancesCaller(contract),
 					contract: () => contract,
 				}
 			}
