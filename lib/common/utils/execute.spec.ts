@@ -9,7 +9,9 @@ describe('execute.ts', () => {
 				Promise.resolve('value')
 			)
 			const contract = {
-				foo: fooStub,
+				callStatic: {
+					foo: fooStub,
+				}
 			} as unknown as ethers.Contract
 			const result = await execute({
 				contract,
@@ -25,7 +27,9 @@ describe('execute.ts', () => {
 		it("Execute the contract instance's `[passed method]()` when the mutation is false and not include args property.", async () => {
 			const fooStub = jest.fn(async () => Promise.resolve('value'))
 			const contract = {
-				foo: fooStub,
+				callStatic: {
+					foo: fooStub,
+				}
 			} as unknown as ethers.Contract
 			const result = await execute({
 				contract,
@@ -112,7 +116,9 @@ describe('execute.ts', () => {
 	describe('execute: stringify', () => {
 		it('Returns string', async () => {
 			const contract = {
-				foo: jest.fn(async () => Promise.resolve('value')),
+				callStatic: {
+					foo: jest.fn(async () => Promise.resolve('value')),
+				}
 			} as unknown as ethers.Contract
 			const result = await execute({
 				contract,
@@ -123,7 +129,9 @@ describe('execute.ts', () => {
 		})
 		it('Returns number', async () => {
 			const contract = {
-				foo: jest.fn(async () => Promise.resolve(123456789)),
+				callStatic: {
+					foo: jest.fn(async () => Promise.resolve(123456789)),
+				}
 			} as unknown as ethers.Contract
 			const result = await execute({
 				contract,
@@ -134,7 +142,9 @@ describe('execute.ts', () => {
 		})
 		it('Returns boolean', async () => {
 			const contract = {
-				foo: jest.fn(async () => Promise.resolve(false)),
+				callStatic: {
+					foo: jest.fn(async () => Promise.resolve(false)),
+				}
 			} as unknown as ethers.Contract
 			const result = await execute({
 				contract,
@@ -145,7 +155,9 @@ describe('execute.ts', () => {
 		})
 		it('Returns array of string, number, boolean', async () => {
 			const contract = {
-				foo: jest.fn(async () => Promise.resolve(['value', 123456789, false])),
+				callStatic: {
+					foo: jest.fn(async () => Promise.resolve(['value', 123456789, false])),
+				}
 			} as unknown as ethers.Contract
 			const result = await execute({
 				contract,
@@ -156,7 +168,9 @@ describe('execute.ts', () => {
 		})
 		it('Returns string when the response is BigNumber', async () => {
 			const contract = {
-				foo: jest.fn(async () => Promise.resolve(BigNumber.from(123456789))),
+				callStatic: {
+					foo: jest.fn(async () => Promise.resolve(BigNumber.from(123456789))),
+				}
 			} as unknown as ethers.Contract
 			const result = await execute({
 				contract,
@@ -167,14 +181,16 @@ describe('execute.ts', () => {
 		})
 		it('Returns array of string, number, boolean when the response included BigNumber', async () => {
 			const contract = {
-				foo: jest.fn(async () =>
-					Promise.resolve([
-						'value',
-						123456789,
-						false,
-						BigNumber.from(123456789),
-					])
-				),
+				callStatic: {
+					foo: jest.fn(async () =>
+						Promise.resolve([
+							'value',
+							123456789,
+							false,
+							BigNumber.from(123456789),
+						])
+					),
+				}
 			} as unknown as ethers.Contract
 			const result = await execute({
 				contract,
@@ -185,30 +201,32 @@ describe('execute.ts', () => {
 		})
 		it('Returns array of object with stringified values when the response included array of object', async () => {
 			const contract = {
-				foo: jest.fn(async () =>
-					Promise.resolve([
-						{
-							0: 'value1',
-							1: 123456789,
-							2: false,
-							3: BigNumber.from(123456789),
-							a: 'value',
-							b: 123456789,
-							c: false,
-							d: BigNumber.from(123456789),
-						},
-						{
-							0: 'value2',
-							1: 1234567891,
-							2: true,
-							3: BigNumber.from(1234567891),
-							a: 'value2',
-							b: 1234567891,
-							c: true,
-							d: BigNumber.from(1234567891),
-						},
-					])
-				),
+				callStatic: {
+					foo: jest.fn(async () =>
+						Promise.resolve([
+							{
+								0: 'value1',
+								1: 123456789,
+								2: false,
+								3: BigNumber.from(123456789),
+								a: 'value',
+								b: 123456789,
+								c: false,
+								d: BigNumber.from(123456789),
+							},
+							{
+								0: 'value2',
+								1: 1234567891,
+								2: true,
+								3: BigNumber.from(1234567891),
+								a: 'value2',
+								b: 1234567891,
+								c: true,
+								d: BigNumber.from(1234567891),
+							},
+						])
+					),
+				}
 			} as unknown as ethers.Contract
 			const result = await execute({
 				contract,
@@ -240,18 +258,20 @@ describe('execute.ts', () => {
 		})
 		it('Returns object of string, number, boolean when the response included BigNumber', async () => {
 			const contract = {
-				foo: jest.fn(async () =>
-					Promise.resolve({
-						0: 'value',
-						1: 123456789,
-						2: false,
-						3: BigNumber.from(123456789),
-						a: 'value',
-						b: 123456789,
-						c: false,
-						d: BigNumber.from(123456789),
-					})
-				),
+				callStatic: {
+					foo: jest.fn(async () =>
+						Promise.resolve({
+							0: 'value',
+							1: 123456789,
+							2: false,
+							3: BigNumber.from(123456789),
+							a: 'value',
+							b: 123456789,
+							c: false,
+							d: BigNumber.from(123456789),
+						})
+					),
+				}
 			} as unknown as ethers.Contract
 			const result = await execute({
 				contract,

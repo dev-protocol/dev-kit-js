@@ -34,14 +34,14 @@ export type ExecuteOption = QueryOption | MutationOption
 export type ExecuteFunction = <
 	O extends ExecuteOption = QueryOption,
 	R = string
->(
+	>(
 	opts: O
 ) => Promise<
 	O extends QueryOption
-		? R
-		: O extends MutationOption
-		? TransactionResponse
-		: never
+	? R
+	: O extends MutationOption
+	? TransactionResponse
+	: never
 >
 type PadCaller = (
 	arr: Args,
@@ -82,10 +82,10 @@ const stringifyItem = (
 	return isBigNumber(data)
 		? toString(data)
 		: typeof data === 'string' ||
-		  typeof data === 'number' ||
-		  typeof data === 'boolean'
-		? data
-		: toStringObj(data)
+			typeof data === 'number' ||
+			typeof data === 'boolean'
+			? data
+			: toStringObj(data)
 }
 const stringify = (
 	data:
@@ -111,7 +111,7 @@ export const execute: ExecuteFunction = async <
 ) => {
 	const signer =
 		typeof (opts.contract?.provider as SignableProvider)?.getSigner ===
-		'function'
+			'function'
 			? (opts.contract.provider as SignableProvider).getSigner()
 			: undefined
 	const contract =
@@ -120,13 +120,14 @@ export const execute: ExecuteFunction = async <
 		opts.args === undefined
 			? undefined
 			: opts.padEnd
-			? [...pad(opts.args, opts.padEnd)]
-			: [...opts.args]
+				? [...pad(opts.args, opts.padEnd)]
+				: [...opts.args]
 	const argsOverrided =
 		opts.mutation && opts.overrides?.overrides
 			? [...(args || []), opts.overrides.overrides]
 			: args
-	const method = contract[opts.method]
+	const method =
+		opts.mutation ? contract[opts.method] : contract.callStatic[opts.method]
 	const res = await (argsOverrided === undefined
 		? method()
 		: method.apply(N, argsOverrided)
