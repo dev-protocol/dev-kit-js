@@ -4,7 +4,7 @@ import { Signer } from '@ethersproject/abstract-signer'
 import { swapAbi } from './abi'
 import { createGetEstimatedDevForEthCaller } from './getEstimatedDevForEth'
 import { createSwapEthAndStakeDevCaller } from './swapEthAndStakeDev'
-import { FallbackableOverrides } from '../../common/utils/execute'
+import { FallbackableOverrides } from '../../../common/utils/execute'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { always } from 'ramda'
 
