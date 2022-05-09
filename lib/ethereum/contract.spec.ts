@@ -19,7 +19,6 @@ import { createMetricsContract } from './metrics'
 import { createPolicyFactoryContract } from './policy-factory'
 import { createSTokensContract } from './s-tokens'
 import { createMetricsGroupContract } from './metrics-group'
-import { createSwapContract } from './swap'
 
 describe('contract.ts', () => {
 	describe('createDevkitContract', () => {
@@ -43,7 +42,6 @@ describe('contract.ts', () => {
 				metricsGroup: createMetricsGroupContract(provider),
 				policyFactory: createPolicyFactoryContract(provider),
 				sTokens: createSTokensContract(provider),
-				swap: createSwapContract(provider),
 			}
 
 			const result = createDevkitContract(provider)

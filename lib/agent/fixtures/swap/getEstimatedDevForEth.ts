@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { ethers } from 'ethers'
-import { execute, QueryOption } from '../../common/utils/execute'
+import { execute, QueryOption } from '../../../common/utils/execute'
 
 export type CreateGetEstimatedDevForEthCaller = (
 	contract: ethers.Contract
@@ -13,4 +13,5 @@ export const createGetEstimatedDevForEthCaller: CreateGetEstimatedDevForEthCalle
 			method: 'getEstimatedDevForEth',
 			args: [ethAmount],
 			mutation: false,
+			static: true,
 		})

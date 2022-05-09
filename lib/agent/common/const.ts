@@ -17,6 +17,7 @@ export type L2AvailableNetwork = {
 		readonly registry: string
 		readonly sTokens: string
 		readonly withdraw: string
+		readonly swap: string
 	}
 }
 

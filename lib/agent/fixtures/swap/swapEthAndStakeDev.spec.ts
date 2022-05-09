@@ -1,5 +1,5 @@
 import { createSwapEthAndStakeDevCaller } from './swapEthAndStakeDev'
-import { stubTransactionResposeFactory } from '../../common/utils/for-test'
+import { stubTransactionResposeFactory } from '../../../common/utils/for-test'
 
 describe('depositToProperty.spec.ts', () => {
 	describe('createDepositToPropertyCaller', () => {
