@@ -1,4 +1,5 @@
 import { addresses } from '../../addresses'
+import { agentAddresses } from './agentAddresses'
 
 export type L1AvailableNetwork = {
 	readonly chainId: number
@@ -17,7 +18,6 @@ export type L2AvailableNetwork = {
 		readonly registry: string
 		readonly sTokens: string
 		readonly withdraw: string
-		readonly swap: string
 	}
 }
 
@@ -34,4 +34,22 @@ export const l2AvailableNetworks: readonly L2AvailableNetwork[] = [
 	{ chainId: 421611, map: addresses.arbitrum.rinkeby },
 	{ chainId: 137, map: addresses.polygon.mainnet },
 	{ chainId: 80001, map: addresses.polygon.mumbai },
+]
+
+export type AgentAvailableNetwork = {
+	readonly chainId: number
+	readonly map: {
+		readonly swap: string
+	}
+}
+
+export const AgentAvailableNetworks: readonly AgentAvailableNetwork[] = [
+	{ chainId: 1, map: agentAddresses.eth.main},
+	{
+		chainId: 42161,
+		map: agentAddresses.arbitrum.one,
+	},
+	{ chainId: 421611, map: agentAddresses.arbitrum.rinkeby },
+	{ chainId: 137, map: agentAddresses.polygon.mainnet },
+	{ chainId: 80001, map: agentAddresses.polygon.mumbai },
 ]

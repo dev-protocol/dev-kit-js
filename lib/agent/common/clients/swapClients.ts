@@ -1,4 +1,4 @@
-import { l2AvailableNetworks } from '../const'
+import { AgentAvailableNetworks } from '../const'
 import type { UndefinedOr } from '@devprotocol/util-ts'
 import {
 	createSwapContract, SwapContract
@@ -14,7 +14,7 @@ export const swapClients = async (provider: Provider): Promise<UndefinedOr<SwapC
 			const net = await provider.getNetwork()
 			const l2 = ((data) =>
 				data ? createSwapContract(provider)(data.map.swap) : undefined)(
-				l2AvailableNetworks.find(({ chainId }) => chainId === net.chainId)
+				AgentAvailableNetworks.find(({ chainId }) => chainId === net.chainId)
 			)
 			const results = l2
 			// eslint-disable-next-line functional/no-expression-statement

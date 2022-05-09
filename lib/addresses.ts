@@ -3,12 +3,10 @@ export const addresses = {
 		main: {
 			registry: '0x1D415aa39D647834786EB9B5a333A50e9935b796',
 			sTokens: '0x50489Ff5f879A44C87bBA85287729D663b18CeD5',
-			swap: '',
 		},
 		ropsten: {
 			registry: '0xD6D07f1c048bDF2B3d5d9B6c25eD1FC5348D0A70',
 			sTokens: '0x7224e918923984b430eA4B96C4C523Da6e8d7F9D',
-			swap: '',
 		},
 	},
 	arbitrum: {
@@ -22,7 +20,6 @@ export const addresses = {
 			registry: '0xbeF4DeEA3AE863739Bd402E025c749536f491ffa',
 			sTokens: '0x40d999931f7055F670511860e24624939e71a96a',
 			withdraw: '0x1c2699e43F0Bc47b45F27BFc84e99c64851A4BF0',
-			swap: '',
 		},
 		rinkeby: {
 			token: '0xc28BBE3B5ec1b06FDe258864f12c1577DaDFadDC',
@@ -34,7 +31,6 @@ export const addresses = {
 			registry: '0x519d5e729fbE6B3e4607260413Fb684759612465',
 			sTokens: '0xe45d65c6d6aA3e2a4c8aAcc0C8153778663fe794',
 			withdraw: '0xFBfB9aD095f906d7E354F7ee31d88F0ca517A9C0',
-			swap: '',
 		},
 	},
 	polygon: {
@@ -48,7 +44,6 @@ export const addresses = {
 			registry: '0xbeF4DeEA3AE863739Bd402E025c749536f491ffa',
 			sTokens: '0x89904De861CDEd2567695271A511B3556659FfA2',
 			withdraw: '0x60d1743fc6791aEDB833E4aED604eccb9EC838DE',
-			swap: '',
 		},
 		mumbai: {
 			token: '0xcbc698ed514dF6e54932a22515d6D0C27E4DA091',
@@ -60,7 +55,6 @@ export const addresses = {
 			registry: '0xe2C16936413D74c667aeF0D040c920BF639067d4',
 			sTokens: '0xe0af15141ABd0B31Fb15e250971936Fe8837230a',
 			withdraw: '0x5f9d9f40f4d7d8A350745D69e94E20339Df17b83',
-			swap: '',
 		},
 	},
 } as const
