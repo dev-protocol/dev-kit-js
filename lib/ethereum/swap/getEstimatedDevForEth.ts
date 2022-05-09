@@ -13,4 +13,5 @@ export const createGetEstimatedDevForEthCaller: CreateGetEstimatedDevForEthCalle
 			method: 'getEstimatedDevForEth',
 			args: [ethAmount],
 			mutation: false,
+			static: true,
 		})

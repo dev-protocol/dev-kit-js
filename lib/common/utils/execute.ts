@@ -18,6 +18,7 @@ type Option = {
 	readonly args?: Args
 	readonly mutation?: boolean
 	readonly padEnd?: number
+	readonly static?: boolean
 }
 
 export type QueryOption = Option & {
@@ -126,7 +127,7 @@ export const execute: ExecuteFunction = async <
 		opts.mutation && opts.overrides?.overrides
 			? [...(args || []), opts.overrides.overrides]
 			: args
-	const method = contract[opts.method]
+	const method = opts.static ? contract.callStatic[opts.method] :  contract[opts.method]
 	const res = await (argsOverrided === undefined
 		? method()
 		: method.apply(N, argsOverrided)
