@@ -6,6 +6,7 @@ type Args = ReadonlyArray<string | boolean | readonly string[]>
 type Overrides = {
 	readonly gasLimit?: number
 	readonly from?: string
+	readonly value?: BigNumber
 }
 export type FallbackableOverrides = {
 	readonly overrides?: Overrides
