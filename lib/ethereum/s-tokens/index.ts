@@ -58,4 +58,4 @@ export const createSTokensContract =
 		}
 	}
 
-export{ Positions } from './positions'
+export { Positions } from './positions'

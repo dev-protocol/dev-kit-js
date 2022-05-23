@@ -11,12 +11,13 @@ export type CreateGetBalancesCaller = (
 	contract: ethers.Contract
 ) => () => Promise<readonly PropertyBalance[]>
 
-export const createGetBalancesCaller: CreateGetBalancesCaller =
-	(contract: ethers.Contract) =>
-		always(
-			execute<QueryOption, readonly PropertyBalance[]>({
-				contract,
-				method: 'getBalances',
-				mutation: false,
-			})
-		)
+export const createGetBalancesCaller: CreateGetBalancesCaller = (
+	contract: ethers.Contract
+) =>
+	always(
+		execute<QueryOption, readonly PropertyBalance[]>({
+			contract,
+			method: 'getBalances',
+			mutation: false,
+		})
+	)

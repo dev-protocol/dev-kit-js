@@ -58,7 +58,9 @@ describe('property/index.ts', () => {
 	;(createAllowanceCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
-	;(createGetBalancesCaller as jest.Mock).mockImplementation((contract) => contract)
+	;(createGetBalancesCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
 	describe('createPropertyContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'

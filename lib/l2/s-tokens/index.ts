@@ -1,1 +1,5 @@
-export { createSTokensContract, STokensContract, Positions } from '../../ethereum/s-tokens'
+export {
+	createSTokensContract,
+	STokensContract,
+	Positions,
+} from '../../ethereum/s-tokens'

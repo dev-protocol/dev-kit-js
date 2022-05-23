@@ -5,10 +5,7 @@ import { propertyAbi } from './abi'
 import { createAuthorCaller } from './../../ethereum/property/author'
 import { createChangeNameCaller } from './../../ethereum/property/changeName'
 import { createChangeSymbolCaller } from './../../ethereum/property/changeSymbol'
-import {
-	createGetBalancesCaller,
-	PropertyBalance,
-} from './getBalances'
+import { createGetBalancesCaller, PropertyBalance } from './getBalances'
 import { createTransferCaller } from './../../common/erc20/transfer'
 import { createNameCaller } from './../../common/erc20/name'
 import { createSymbolCaller } from './../../common/erc20/symbol'
