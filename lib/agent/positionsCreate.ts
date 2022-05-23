@@ -1,6 +1,6 @@
 import { FallbackableOverrides } from '../common/utils/execute'
 import { Provider } from '@ethersproject/abstract-provider'
-import { lockupClients } from './common/clients/lockupClients'
+import { clientsLockup } from './common/clients/clientsLockup'
 import {
 	approveIfNeeded as _approveIfNeeded,
 	ApproveIfNeededResult,
@@ -16,7 +16,7 @@ type PositionsCreate = (options: {
 }) => Promise<UndefinedOr<ApproveIfNeededResult>>
 
 export const positionsCreate: PositionsCreate = async (options) => {
-	const [l1, l2] = await lockupClients(options.provider)
+	const [l1, l2] = await clientsLockup(options.provider)
 
 	return l1 || l2
 		? {

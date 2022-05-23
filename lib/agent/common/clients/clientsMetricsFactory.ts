@@ -1,28 +1,27 @@
 import { l2AvailableNetworks } from '../const'
 import type { UndefinedOr } from '@devprotocol/util-ts'
-import { createDevContract, DevContract } from '../../../ethereum/dev'
 import {
-	createDevContract as createDevContractL2,
-	DevContract as DevContractL2,
-} from '../../../l2/dev'
+	createMetricsFactoryContract as createMetricsFactoryContractL2,
+	MetricsFactoryContract as MetricsFactoryContractL2,
+} from '../../../l2/metrics-factory'
 import { Provider } from '@ethersproject/abstract-provider'
-import { registryClientL1 } from './registryClientL1'
 
-type Results = readonly [UndefinedOr<DevContract>, UndefinedOr<DevContractL2>]
+type Results = readonly [undefined, UndefinedOr<MetricsFactoryContractL2>]
 
 const cache: WeakMap<Provider, Results> = new WeakMap()
 
-export const devClients = async (provider: Provider): Promise<Results> => {
+export const clientsMetricsFactory = async (
+	provider: Provider
+): Promise<Results> => {
 	const res =
 		cache.get(provider) ??
 		(await (async () => {
 			const net = await provider.getNetwork()
-			const registry = await registryClientL1(provider)
-			const l1 = registry
-				? createDevContract(provider)(await registry.token())
-				: undefined
+			const l1 = undefined
 			const l2 = ((data) =>
-				data ? createDevContractL2(provider)(data.map.token) : undefined)(
+				data
+					? createMetricsFactoryContractL2(provider)(data.map.metricsFactory)
+					: undefined)(
 				l2AvailableNetworks.find(({ chainId }) => chainId === net.chainId)
 			)
 			const results: Results = [l1, l2]

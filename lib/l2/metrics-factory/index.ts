@@ -7,7 +7,7 @@ import { createMetricsOfPropertyCaller } from './metricsOfProperty'
 import { createMetricsCountCaller } from './metricsCount'
 import { always } from 'ramda'
 
-export type CreateMetricsFactoryContract = {
+export type MetricsFactoryContract = {
 	readonly authenticatedPropertiesCount: () => Promise<string>
 	readonly metricsCount: () => Promise<number>
 	readonly metricsOfProperty: (
@@ -19,7 +19,7 @@ export type CreateMetricsFactoryContract = {
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
 export const createMetricsFactoryContract =
 	(provider: Provider | Signer) =>
-	(address: string): CreateMetricsFactoryContract => {
+	(address: string): MetricsFactoryContract => {
 		const contract = new ethers.Contract(
 			address,
 			[...metricsFactoryAbi],

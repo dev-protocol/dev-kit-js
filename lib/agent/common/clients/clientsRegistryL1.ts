@@ -8,7 +8,7 @@ import { Provider } from '@ethersproject/abstract-provider'
 
 const cache: WeakMap<Provider, UndefinedOr<RegistryContract>> = new WeakMap()
 
-export const registryClientL1 = async (
+export const clientsRegistryL1 = async (
 	provider: Provider
 ): Promise<UndefinedOr<RegistryContract>> => {
 	const res =

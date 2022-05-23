@@ -7,7 +7,7 @@ import {
 import { Provider } from '@ethersproject/abstract-provider'
 import { BigNumber } from 'ethers'
 import { FallbackableOverrides } from '../../common/utils/execute'
-import { devClients } from './clients/devClients'
+import { clientsDev } from './clients/clientsDev'
 
 export type ApproveIfNeeded = (factoryOptions: {
 	readonly provider: Provider
@@ -30,7 +30,7 @@ export type ApproveIfNeededResult = {
 
 export const approveIfNeeded: ApproveIfNeeded =
 	(factoryOptions) => async (options) => {
-		const [l1, l2] = await devClients(factoryOptions.provider)
+		const [l1, l2] = await clientsDev(factoryOptions.provider)
 		const client = l1 ?? l2
 		const allowance = await whenDefinedAll(
 			[client, factoryOptions.to],
