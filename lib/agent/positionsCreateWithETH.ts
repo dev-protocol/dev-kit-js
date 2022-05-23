@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 import { FallbackableOverrides } from '../common/utils/execute'
 import { Provider } from '@ethersproject/abstract-provider'
-import { swapClients } from './common/clients/swapClients'
+import { clientsUtilsSwapForStake } from './common/clients/clientsUtilsSwapForStake'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 type PositionsCreateWithEth = (options: {
@@ -13,7 +13,7 @@ type PositionsCreateWithEth = (options: {
 }) => Promise<{ readonly estimatedDev: string, readonly estimatedEth: string, readonly create: () => Promise<TransactionResponse> }>
 
 export const positionsCreateWithEth: PositionsCreateWithEth = async (options) => {
-	const l2 = await swapClients(options.provider)
+	const [, l2] = await clientsUtilsSwapForStake(options.provider)
 
 	return l2
 		? {

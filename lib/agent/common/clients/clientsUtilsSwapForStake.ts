@@ -5,9 +5,11 @@ import {
 } from '../../fixtures/swap'
 import { Provider } from '@ethersproject/abstract-provider'
 
-const cache: WeakMap<Provider, UndefinedOr<SwapContract>> = new WeakMap()
+type Results = readonly [undefined, UndefinedOr<SwapContract>]
 
-export const swapClients = async (provider: Provider): Promise<UndefinedOr<SwapContract>> => {
+const cache: WeakMap<Provider, Results> = new WeakMap()
+
+export const clientsUtilsSwapForStake = async (provider: Provider): Promise<Results> => {
 	const res =
 		cache.get(provider) ??
 		(await (async () => {
@@ -16,7 +18,7 @@ export const swapClients = async (provider: Provider): Promise<UndefinedOr<SwapC
 				data ? createSwapContract(provider)(data.map.swap) : undefined)(
 				AgentAvailableNetworks.find(({ chainId }) => chainId === net.chainId)
 			)
-			const results = l2
+			const results: Results = [undefined, l2]
 			// eslint-disable-next-line functional/no-expression-statement
 			cache.set(provider, results)
 			return results
