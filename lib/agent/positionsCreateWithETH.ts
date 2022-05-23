@@ -4,23 +4,28 @@ import { Provider } from '@ethersproject/abstract-provider'
 import { swapClients } from './common/clients/swapClients'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
-type PositionsCreateWithETH = (options: {
+type PositionsCreateWithEth = (options: {
 	readonly provider: Provider
-	readonly ethAmount: string
+	readonly ethAmount?: string
+	readonly devAmount?: string
 	readonly destination: string
-	readonly overrides: FallbackableOverrides
-}) => Promise<{ readonly estimation: string, readonly create: () => Promise<TransactionResponse> }>
+	readonly overrides?: FallbackableOverrides
+}) => Promise<{ readonly estimatedDev: string, readonly estimatedEth: string, readonly create: () => Promise<TransactionResponse> }>
 
-export const positionsCreateWithETH: PositionsCreateWithETH = async (options) => {
+export const positionsCreateWithEth: PositionsCreateWithEth = async (options) => {
 	const l2 = await swapClients(options.provider)
 
 	return l2
 		? {
-			estimation: await l2.getEstimatedDevForEth(options.ethAmount),
+			estimatedDev: options.ethAmount ? await l2.getEstimatedDevForEth(options.ethAmount) : 'No ehtAmount provided',
+			estimatedEth: options.devAmount ? await l2.getEstimatedEthForDev(options.devAmount) : 'No devAmount provided',
 			create: async () => {
+				const ethAmount = options.ethAmount ? options.ethAmount :
+					(options.devAmount ? await l2.getEstimatedEthForDev(options.devAmount) : 'Neither ethAmount nor devAmount provided')
+				const _overrides = { ...options.overrides, ...{ overrides: { value: ethAmount } } }
 				return await l2.swapEthAndStakeDevCaller(
 					options.destination,
-					options.overrides
+					_overrides
 				)
 			}
 		}

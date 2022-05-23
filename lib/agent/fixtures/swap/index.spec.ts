@@ -1,14 +1,19 @@
 import { ethers } from 'ethers'
 import { createSwapContract, SwapContract } from '.'
 import { createGetEstimatedDevForEthCaller } from './getEstimatedDevForEth'
+import { createGetEstimatedEthForDevCaller } from './getEstimatedEthForDev'
 import { swapAbi } from './abi'
 import { createSwapEthAndStakeDevCaller } from './swapEthAndStakeDev'
 
 jest.mock('./getEstimatedDevForEth')
+jest.mock('./getEstimatedEthForDev')
 jest.mock('./swapEthAndStakeDev')
 
 describe('swap/index.ts', () => {
 	;(createGetEstimatedDevForEthCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createGetEstimatedEthForDevCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
 	;(createSwapEthAndStakeDevCaller as jest.Mock).mockImplementation(
@@ -27,6 +32,7 @@ describe('swap/index.ts', () => {
 				const contract = new ethers.Contract(address, [...swapAbi], provider)
 				return {
 					getEstimatedDevForEth: createGetEstimatedDevForEthCaller(contract),
+					getEstimatedEthForDev: createGetEstimatedEthForDevCaller(contract),
 					swapEthAndStakeDevCaller: createSwapEthAndStakeDevCaller(contract),
 					contract: () => contract,
 				}
