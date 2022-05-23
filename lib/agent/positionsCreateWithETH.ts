@@ -17,7 +17,7 @@ export const positionsCreateWithEth: PositionsCreateWithEth = async (options) =>
 
 	return l2
 		? {
-			estimatedDev: options.ethAmount ? await l2.getEstimatedDevForEth(options.ethAmount) : 'No ehtAmount provided',
+			estimatedDev: options.ethAmount ? await l2.getEstimatedDevForEth(options.ethAmount) : 'No ethAmount provided',
 			estimatedEth: options.devAmount ? await l2.getEstimatedEthForDev(options.devAmount) : 'No devAmount provided',
 			create: async () => {
 				const ethAmount = options.ethAmount ? options.ethAmount :
