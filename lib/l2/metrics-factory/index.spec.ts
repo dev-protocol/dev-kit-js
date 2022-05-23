@@ -1,5 +1,5 @@
 import { ethers } from 'ethers'
-import { createMetricsFactoryContract, CreateMetricsFactoryContract } from '.'
+import { createMetricsFactoryContract, MetricsFactoryContract } from '.'
 import { metricsFactoryAbi } from './abi'
 import { createAuthenticatedPropertiesCountCaller } from './authenticatedPropertiesCount'
 import { createMetricsOfPropertyCaller } from './metricsOfProperty'
@@ -25,7 +25,7 @@ describe('metrics-factory.ts', () => {
 			const address = '0x0000000000000000000000000000000000000000'
 			const provider = new ethers.providers.JsonRpcProvider(host)
 
-			const expected: (address: string) => CreateMetricsFactoryContract = (
+			const expected: (address: string) => MetricsFactoryContract = (
 				address: string
 			) => {
 				const contract = new ethers.Contract(
