@@ -22,7 +22,7 @@ export const positionsCreateWithEth: PositionsCreateWithEth = async (options) =>
 			create: async () => {
 				const ethAmount = options.ethAmount ? options.ethAmount :
 					(options.devAmount ? await l2.getEstimatedEthForDev(options.devAmount) : 'Neither ethAmount nor devAmount provided')
-				const _overrides = {overrides: {...{value: ethAmount}, ...options.overrides?.overrides}}
+				const _overrides = { overrides: { ...{ value: ethAmount }, ...options.overrides?.overrides } }
 				return await l2.swapEthAndStakeDevCaller(
 					options.destination,
 					_overrides
