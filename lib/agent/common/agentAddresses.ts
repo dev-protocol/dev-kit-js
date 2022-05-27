@@ -6,10 +6,10 @@ export const agentAddresses = {
 	},
 	arbitrum: {
 		one: {
-			swap: '0xe9F82b4cbF500B2f1661Ae16771D589913ECe157',
+			swap: '0xDe77B9c28D49e14164E6fcf07Bb235FEB76d4a54',
 		},
 		rinkeby: {
-			swap: '0x563E3a4dd9299ee908881450B8ac7745BbFfa309',
+			swap: '0xCb4a628D6ABd9Ac0aad0Bb6caC89Eb1EDfd33231',
 		},
 	},
 	polygon: {
