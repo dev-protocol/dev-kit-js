@@ -1,7 +1,7 @@
 export const agentAddresses = {
 	eth: {
 		main: {
-			swap: '',
+			swap: '0xC2b299CF668974939B2CCca4eB99F0749F64a2e4',
 		},
 	},
 	arbitrum: {

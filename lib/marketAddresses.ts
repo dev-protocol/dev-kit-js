@@ -2,6 +2,7 @@ export const marketAddresses = {
 	eth: {
 		main: {
 			github: '0x34A7AdC94C4D41C3e3469F98033B372cB2fAf318',
+			youtube: '0x2AD380927F509A1d6338b89A7286cFAc52a896Dd',
 		},
 		ropsten: {
 			github: '0x1A45BA7BB4a5A4a01Eb5330C9F2fd8af47C16eBe',
