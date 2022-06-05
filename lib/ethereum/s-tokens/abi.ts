@@ -80,25 +80,6 @@ export const sTokensAbi = [
 			{
 				indexed: false,
 				internalType: 'address',
-				name: 'meltingUser',
-				type: 'address',
-			},
-		],
-		name: 'Melted',
-		type: 'event',
-	},
-	{
-		anonymous: false,
-		inputs: [
-			{
-				indexed: false,
-				internalType: 'uint256',
-				name: 'tokenId',
-				type: 'uint256',
-			},
-			{
-				indexed: false,
-				internalType: 'address',
 				name: 'owner',
 				type: 'address',
 			},
@@ -122,31 +103,6 @@ export const sTokensAbi = [
 			},
 		],
 		name: 'Minted',
-		type: 'event',
-	},
-	{
-		anonymous: false,
-		inputs: [
-			{
-				indexed: false,
-				internalType: 'uint256',
-				name: 'tokenId',
-				type: 'uint256',
-			},
-			{
-				indexed: false,
-				internalType: 'address',
-				name: 'author',
-				type: 'address',
-			},
-			{
-				indexed: false,
-				internalType: 'string',
-				name: 'data',
-				type: 'string',
-			},
-		],
-		name: 'SetTokenUri',
 		type: 'event',
 	},
 	{
@@ -249,71 +205,22 @@ export const sTokensAbi = [
 		type: 'function',
 	},
 	{
-		inputs: [],
-		name: 'config',
-		outputs: [
-			{
-				internalType: 'address',
-				name: '',
-				type: 'address',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [],
-		name: 'descriptorAddress',
-		outputs: [
-			{
-				internalType: 'address',
-				name: '',
-				type: 'address',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
 		inputs: [
 			{
-				internalType: 'uint256',
-				name: '_tokenId',
-				type: 'uint256',
+				internalType: 'address',
+				name: '',
+				type: 'address',
 			},
 		],
-		name: 'descriptors',
+		name: 'descriptorOf',
 		outputs: [
-			{
-				internalType: 'bool',
-				name: '',
-				type: 'bool',
-			},
 			{
 				internalType: 'address',
 				name: '',
 				type: 'address',
 			},
-			{
-				internalType: 'string',
-				name: '',
-				type: 'string',
-			},
 		],
 		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'uint256',
-				name: '_tokenId',
-				type: 'uint256',
-			},
-		],
-		name: 'freezeTokenURI',
-		outputs: [],
-		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
@@ -333,19 +240,6 @@ export const sTokensAbi = [
 			},
 		],
 		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_config',
-				type: 'address',
-			},
-		],
-		name: 'initialize',
-		outputs: [],
-		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
@@ -376,47 +270,19 @@ export const sTokensAbi = [
 		inputs: [
 			{
 				internalType: 'uint256',
-				name: '_tokenId',
+				name: '',
 				type: 'uint256',
 			},
 		],
-		name: 'meltTokenURI',
-		outputs: [],
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_owner',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_property',
-				type: 'address',
-			},
-			{
-				internalType: 'uint256',
-				name: '_amount',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: '_price',
-				type: 'uint256',
-			},
-		],
-		name: 'mint',
+		name: 'isFreezed',
 		outputs: [
 			{
-				internalType: 'uint256',
-				name: 'tokenId_',
-				type: 'uint256',
+				internalType: 'bool',
+				name: '',
+				type: 'bool',
 			},
 		],
-		stateMutability: 'nonpayable',
+		stateMutability: 'view',
 		type: 'function',
 	},
 	{
@@ -452,106 +318,13 @@ export const sTokensAbi = [
 		type: 'function',
 	},
 	{
-		inputs: [
-			{
-				internalType: 'uint256',
-				name: '_tokenId',
-				type: 'uint256',
-			},
-		],
-		name: 'positions',
+		inputs: [],
+		name: 'registryAddress',
 		outputs: [
 			{
 				internalType: 'address',
-				name: 'property_',
-				type: 'address',
-			},
-			{
-				internalType: 'uint256',
-				name: 'amount_',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: 'price_',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: 'cumulativeReward_',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: 'pendingReward_',
-				type: 'uint256',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_owner',
-				type: 'address',
-			},
-		],
-		name: 'positionsOfOwner',
-		outputs: [
-			{
-				internalType: 'uint256[]',
 				name: '',
-				type: 'uint256[]',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_property',
 				type: 'address',
-			},
-		],
-		name: 'positionsOfProperty',
-		outputs: [
-			{
-				internalType: 'uint256[]',
-				name: '',
-				type: 'uint256[]',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'uint256',
-				name: '_tokenId',
-				type: 'uint256',
-			},
-		],
-		name: 'rewards',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: 'entireReward_',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: 'cumulativeReward_',
-				type: 'uint256',
-			},
-			{
-				internalType: 'uint256',
-				name: 'withdrawableReward_',
-				type: 'uint256',
 			},
 		],
 		stateMutability: 'view',
@@ -629,37 +402,6 @@ export const sTokensAbi = [
 	{
 		inputs: [
 			{
-				internalType: 'address',
-				name: '_descriptor',
-				type: 'address',
-			},
-		],
-		name: 'setDescriptor',
-		outputs: [],
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
-				internalType: 'uint256',
-				name: '_tokenId',
-				type: 'uint256',
-			},
-			{
-				internalType: 'string',
-				name: '_data',
-				type: 'string',
-			},
-		],
-		name: 'setTokenURIImage',
-		outputs: [],
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		inputs: [
-			{
 				internalType: 'bytes4',
 				name: 'interfaceId',
 				type: 'bytes4',
@@ -692,6 +434,42 @@ export const sTokensAbi = [
 	{
 		inputs: [
 			{
+				internalType: 'address',
+				name: 'from',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: 'to',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256',
+			},
+		],
+		name: 'transferFrom',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_registry',
+				type: 'address',
+			},
+		],
+		name: 'initialize',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
 				internalType: 'uint256',
 				name: '_tokenId',
 				type: 'uint256',
@@ -711,23 +489,125 @@ export const sTokensAbi = [
 	{
 		inputs: [
 			{
+				internalType: 'uint256',
+				name: '_tokenId',
+				type: 'uint256',
+			},
+			{
 				internalType: 'address',
-				name: 'from',
+				name: '_owner',
+				type: 'address',
+			},
+			{
+				components: [
+					{
+						internalType: 'address',
+						name: 'property',
+						type: 'address',
+					},
+					{
+						internalType: 'uint256',
+						name: 'amount',
+						type: 'uint256',
+					},
+					{
+						internalType: 'uint256',
+						name: 'price',
+						type: 'uint256',
+					},
+					{
+						internalType: 'uint256',
+						name: 'cumulativeReward',
+						type: 'uint256',
+					},
+					{
+						internalType: 'uint256',
+						name: 'pendingReward',
+						type: 'uint256',
+					},
+				],
+				internalType: 'struct ISTokensManager.StakingPositions',
+				name: '_positions',
+				type: 'tuple',
+			},
+			{
+				components: [
+					{
+						internalType: 'uint256',
+						name: 'entireReward',
+						type: 'uint256',
+					},
+					{
+						internalType: 'uint256',
+						name: 'cumulativeReward',
+						type: 'uint256',
+					},
+					{
+						internalType: 'uint256',
+						name: 'withdrawableReward',
+						type: 'uint256',
+					},
+				],
+				internalType: 'struct ISTokensManager.Rewards',
+				name: '_rewardsArg',
+				type: 'tuple',
+			},
+		],
+		name: 'tokenURISim',
+		outputs: [
+			{
+				internalType: 'string',
+				name: '',
+				type: 'string',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [],
+		name: 'currentIndex',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_owner',
 				type: 'address',
 			},
 			{
 				internalType: 'address',
-				name: 'to',
+				name: '_property',
 				type: 'address',
 			},
 			{
 				internalType: 'uint256',
-				name: 'tokenId',
+				name: '_amount',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: '_price',
 				type: 'uint256',
 			},
 		],
-		name: 'transferFrom',
-		outputs: [],
+		name: 'mint',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: 'tokenId_',
+				type: 'uint256',
+			},
+		],
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
@@ -768,6 +648,175 @@ export const sTokensAbi = [
 			},
 		],
 		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '_tokenId',
+				type: 'uint256',
+			},
+			{
+				internalType: 'string',
+				name: '_data',
+				type: 'string',
+			},
+		],
+		name: 'setTokenURIImage',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_descriptor',
+				type: 'address',
+			},
+		],
+		name: 'setTokenURIDescriptor',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '_tokenId',
+				type: 'uint256',
+			},
+		],
+		name: 'freezeTokenURI',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '_tokenId',
+				type: 'uint256',
+			},
+		],
+		name: 'positions',
+		outputs: [
+			{
+				components: [
+					{
+						internalType: 'address',
+						name: 'property',
+						type: 'address',
+					},
+					{
+						internalType: 'uint256',
+						name: 'amount',
+						type: 'uint256',
+					},
+					{
+						internalType: 'uint256',
+						name: 'price',
+						type: 'uint256',
+					},
+					{
+						internalType: 'uint256',
+						name: 'cumulativeReward',
+						type: 'uint256',
+					},
+					{
+						internalType: 'uint256',
+						name: 'pendingReward',
+						type: 'uint256',
+					},
+				],
+				internalType: 'struct ISTokensManager.StakingPositions',
+				name: '',
+				type: 'tuple',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '_tokenId',
+				type: 'uint256',
+			},
+		],
+		name: 'rewards',
+		outputs: [
+			{
+				components: [
+					{
+						internalType: 'uint256',
+						name: 'entireReward',
+						type: 'uint256',
+					},
+					{
+						internalType: 'uint256',
+						name: 'cumulativeReward',
+						type: 'uint256',
+					},
+					{
+						internalType: 'uint256',
+						name: 'withdrawableReward',
+						type: 'uint256',
+					},
+				],
+				internalType: 'struct ISTokensManager.Rewards',
+				name: '',
+				type: 'tuple',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+		],
+		name: 'positionsOfProperty',
+		outputs: [
+			{
+				internalType: 'uint256[]',
+				name: '',
+				type: 'uint256[]',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_owner',
+				type: 'address',
+			},
+		],
+		name: 'positionsOfOwner',
+		outputs: [
+			{
+				internalType: 'uint256[]',
+				name: '',
+				type: 'uint256[]',
+			},
+		],
+		stateMutability: 'view',
 		type: 'function',
 	},
 ]

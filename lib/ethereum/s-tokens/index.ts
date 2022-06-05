@@ -13,6 +13,7 @@ import { createPositionsOfPropertyCaller } from './positionsOfProperty'
 import { createPositionsOfOwnerCaller } from './positionsOfOwner'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { always } from 'ramda'
+import { createTokenURISimCaller, TokenURISimProps } from './tokenURISim'
 
 export type STokensContract = {
 	readonly positions: (tokenId: number) => Promise<Positions>
@@ -25,6 +26,7 @@ export type STokensContract = {
 	readonly ownerOf: (tokenId: number) => Promise<string>
 	readonly rewards: (tokenId: number) => Promise<Rewards>
 	readonly tokenURI: (tokenId: number) => Promise<TokenURI>
+	readonly tokenURISim: (props?: TokenURISimProps) => Promise<TokenURI>
 	readonly positionsOfProperty: (
 		propertyAddress: string
 	) => Promise<readonly number[]>
@@ -52,6 +54,7 @@ export const createSTokensContract =
 			ownerOf: createOwnerOfCaller(contractClient),
 			rewards: createRewardsCaller(contractClient),
 			tokenURI: createTokenURICaller(contractClient),
+			tokenURISim: createTokenURISimCaller(contractClient),
 			positionsOfProperty: createPositionsOfPropertyCaller(contractClient),
 			positionsOfOwner: createPositionsOfOwnerCaller(contractClient),
 			contract: always(contractClient),

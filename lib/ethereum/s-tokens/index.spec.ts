@@ -5,6 +5,7 @@ import { createPositionsCaller } from './positions'
 import { createOwnerOfCaller } from './ownerOf'
 import { createRewardsCaller } from './rewards'
 import { createTokenURICaller } from './tokenURI'
+import { createTokenURISimCaller } from './tokenURISim'
 import { createPositionsOfPropertyCaller } from './positionsOfProperty'
 import { createPositionsOfOwnerCaller } from './positionsOfOwner'
 import { createIsFreezedCaller } from './isFreezed'
@@ -18,6 +19,7 @@ jest.mock('./setTokenURIImage')
 jest.mock('./ownerOf')
 jest.mock('./rewards')
 jest.mock('./tokenURI')
+jest.mock('./tokenURISim')
 jest.mock('./positionsOfProperty')
 jest.mock('./positionsOfOwner')
 
@@ -45,6 +47,9 @@ describe('s-tokens/index.ts', () => {
 	;(createSetTokenURIImageCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
+	;(createTokenURISimCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
 	describe('createSTokensContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
@@ -63,6 +68,7 @@ describe('s-tokens/index.ts', () => {
 					ownerOf: createOwnerOfCaller(contract),
 					rewards: createRewardsCaller(contract),
 					tokenURI: createTokenURICaller(contract),
+					tokenURISim: createTokenURISimCaller(contract),
 					positionsOfProperty: createPositionsOfPropertyCaller(contract),
 					positionsOfOwner: createPositionsOfOwnerCaller(contract),
 					contract: () => contract,
