@@ -37,7 +37,7 @@ export const estimationsAPY: EstimationsAPY = async (options) => {
 		([_tvl, y, policy]) => policy.holdersShare(y, _tvl)
 	)
 	const annualYeild = whenDefined(yeild, (y) =>
-		BN.from(y).mul(l1P ? v.from(2102400) : BN.from(31536000))
+		BN.from(y).mul(l1P ? BN.from(2102400) : BN.from(31536000))
 	)
 	const shareOfHolders = whenDefinedAll([holders, yeild], ([hol, y]) =>
 		new BigNumber(hol).div(y).times(100).toNumber()
