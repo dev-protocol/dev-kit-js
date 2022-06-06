@@ -59,7 +59,7 @@ export const approveIfNeeded: ApproveIfNeeded = async (factoryOptions) => {
 		([x, to]) => x.allowance(factoryOptions.from, to)
 	)
 
-	return whenDefinedAll([client, factoryOptions.to], async ([dev, to]) => {
+	return whenDefinedAll([client, factoryOptions.to], ([dev, to]) => {
 		return BigNumber.from(allowance).lt(factoryOptions.requiredAmount)
 			? ({
 					approvalNeeded: true,

@@ -19,8 +19,8 @@ export const positionsCreate: PositionsCreate = async (options) => {
 	const [l1, l2] = await clientsLockup(options.provider)
 
 	return l1 || l2
-		? {
-				..._approveIfNeeded({
+		? ((res) => res)(
+				await _approveIfNeeded({
 					provider: options.provider,
 					requiredAmount: options.amount,
 					from: options.from,
@@ -39,7 +39,7 @@ export const positionsCreate: PositionsCreate = async (options) => {
 									options.overrides
 							  )
 							: (undefined as never),
-				}),
-		  }
+				})
+		  )
 		: undefined
 }
