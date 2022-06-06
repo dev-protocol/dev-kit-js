@@ -7,11 +7,13 @@ export type CreateGetEstimatedEthForDevCaller = (
 ) => (devAmount: string) => Promise<string>
 
 export const createGetEstimatedEthForDevCaller: CreateGetEstimatedEthForDevCaller =
-	(contract: ethers.Contract) => async (devAmount: string) =>
-		execute<QueryOption>({
+	(contract: ethers.Contract) => async (devAmount: string) => {
+		const res = await execute<QueryOption, string | readonly string[]>({
 			contract,
 			method: 'getEstimatedEthForDev',
 			args: [devAmount],
 			mutation: false,
 			static: true,
 		})
+		return Array.isArray(res) ? res[0] : res
+	}

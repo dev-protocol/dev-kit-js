@@ -20,7 +20,7 @@ export const positionsCreate: PositionsCreate = async (options) => {
 
 	return l1 || l2
 		? {
-				approveIfNeeded: _approveIfNeeded({
+				..._approveIfNeeded({
 					provider: options.provider,
 					requiredAmount: options.amount,
 					from: options.from,
