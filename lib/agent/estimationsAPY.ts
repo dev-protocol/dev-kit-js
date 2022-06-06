@@ -40,9 +40,9 @@ export const estimationsAPY: EstimationsAPY = async (options) => {
 		BN.from(y).mul(l1P ? BN.from(2102400) : BN.from(31536000))
 	)
 	const shareOfHolders = whenDefinedAll([holders, yeild], ([hol, y]) =>
-		new BigNumber(hol).div(y).times(100).toNumber()
+		new BigNumber(hol).div(y).toNumber()
 	)
-	const shareOfStakers = whenDefined(shareOfHolders, (hs) => 100 - hs)
+	const shareOfStakers = whenDefined(shareOfHolders, (hs) => 1 - hs)
 	const apyForStakers = whenDefinedAll(
 		[annualYeild, shareOfStakers, tvl],
 		([ay, sh, tv]) => new BigNumber(ay.toString()).times(sh).div(tv).toNumber()
