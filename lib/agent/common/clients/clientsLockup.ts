@@ -6,7 +6,7 @@ import {
 	LockupContract as LockupContractL2,
 } from '../../../l2/lockup'
 import { Provider } from '@ethersproject/abstract-provider'
-import { clientsRegistryL1 } from './clientsRegistryL1'
+import { clientsRegistry } from './clientsRegistry'
 
 type Results = readonly [
 	UndefinedOr<LockupContract>,
@@ -20,7 +20,7 @@ export const clientsLockup = async (provider: Provider): Promise<Results> => {
 		cache.get(provider) ??
 		(await (async () => {
 			const net = await provider.getNetwork()
-			const registry = await clientsRegistryL1(provider)
+			const [registry] = await clientsRegistry(provider)
 			const l1 = registry
 				? createLockupContract(provider)(await registry.lockup())
 				: undefined

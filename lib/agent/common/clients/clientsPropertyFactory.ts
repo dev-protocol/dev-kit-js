@@ -9,7 +9,7 @@ import {
 	PropertyFactoryContract as PropertyFactoryContractL2,
 } from '../../../l2/property-factory'
 import { Provider } from '@ethersproject/abstract-provider'
-import { clientsRegistryL1 } from './clientsRegistryL1'
+import { clientsRegistry } from './clientsRegistry'
 
 type Results = readonly [
 	UndefinedOr<PropertyFactoryContract>,
@@ -25,7 +25,7 @@ export const clientsPropertyFactory = async (
 		cache.get(provider) ??
 		(await (async () => {
 			const net = await provider.getNetwork()
-			const registry = await clientsRegistryL1(provider)
+			const [registry] = await clientsRegistry(provider)
 			const l1 = registry
 				? createPropertyFactoryContract(provider)(
 						await registry.propertyFactory()

@@ -9,7 +9,7 @@ import {
 	PropertyContract as PropertyContractL2,
 } from '../../../l2/property'
 import { Provider } from '@ethersproject/abstract-provider'
-import { clientsRegistryL1 } from './clientsRegistryL1'
+import { clientsRegistry } from './clientsRegistry'
 
 type Results = readonly [
 	UndefinedOr<PropertyContract>,
@@ -27,7 +27,7 @@ export const clientsProperty = async (
 		cache.get(provider)?.get(tokenAddress) ??
 		(await (async () => {
 			const net = await provider.getNetwork()
-			const registry = await clientsRegistryL1(provider)
+			const [registry] = await clientsRegistry(provider)
 			const l1 = registry
 				? createPropertyContract(provider)(tokenAddress)
 				: undefined

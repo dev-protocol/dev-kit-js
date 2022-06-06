@@ -2,11 +2,16 @@ import { ethers } from 'ethers'
 import { createMetricsGroupContract, CreateMetricsGroupContract } from '.'
 import { metricsGroupAbi } from './abi'
 import { createTotalAuthenticatedPropertiesCaller } from './totalAuthenticatedProperties'
+import { createTotalIssuedMetrics } from './totalIssuedMetrics'
 
 jest.mock('./totalAuthenticatedProperties')
+jest.mock('./totalIssuedMetrics')
 
 describe('metrics-group.ts', () => {
 	;(createTotalAuthenticatedPropertiesCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
+	;(createTotalIssuedMetrics as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
 	describe('createMetricsGroupContract', () => {
@@ -26,6 +31,7 @@ describe('metrics-group.ts', () => {
 				return {
 					totalAuthenticatedProperties:
 						createTotalAuthenticatedPropertiesCaller(contract),
+					totalIssuedMetrics: createTotalIssuedMetrics(contract),
 					contract: () => contract,
 				}
 			}
