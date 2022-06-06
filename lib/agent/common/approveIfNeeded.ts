@@ -11,12 +11,12 @@ import { clientsDev } from './clients/clientsDev'
 
 // eslint-disable-next-line functional/no-mixed-type
 export type ApproveIfNeededResultForApproveIsNeeded = {
-	readonly needToApproval: true
+	readonly approvalNeeded: true
 	readonly approveIfNeeded: (options?: {
 		readonly amount?: string
 		readonly overrides?: FallbackableOverrides
 	}) => Promise<{
-		readonly needToWait: true
+		readonly waitNeeded: true
 		readonly waitOrSkipApproval: () => Promise<
 			TransactionReceipt & { readonly run: () => Promise<TransactionResponse> }
 		>
@@ -25,12 +25,12 @@ export type ApproveIfNeededResultForApproveIsNeeded = {
 
 // eslint-disable-next-line functional/no-mixed-type
 export type ApproveIfNeededResultForApproveIsNotNeeded = {
-	readonly needToApproval: false
+	readonly approvalNeeded: false
 	readonly approveIfNeeded: (options?: {
 		readonly amount?: string
 		readonly overrides?: FallbackableOverrides
 	}) => Promise<{
-		readonly needToWait: false
+		readonly waitNeeded: false
 		readonly waitOrSkipApproval: () => Promise<{
 			readonly run: () => Promise<TransactionResponse>
 		}>
@@ -62,7 +62,7 @@ export const approveIfNeeded: ApproveIfNeeded = async (factoryOptions) => {
 	return whenDefinedAll([client, factoryOptions.to], async ([dev, to]) => {
 		return BigNumber.from(allowance).lt(factoryOptions.requiredAmount)
 			? ({
-					needToApproval: true,
+					approvalNeeded: true,
 					approveIfNeeded: async (options) => {
 						const res = await dev.approve(
 							to,
@@ -71,7 +71,7 @@ export const approveIfNeeded: ApproveIfNeeded = async (factoryOptions) => {
 						)
 						return {
 							...res,
-							needToWait: true,
+							waitNeeded: true,
 							waitOrSkipApproval: async () => {
 								const repeipt = await res.wait()
 								return {
@@ -83,10 +83,10 @@ export const approveIfNeeded: ApproveIfNeeded = async (factoryOptions) => {
 					},
 			  } as ApproveIfNeededResultForApproveIsNeeded)
 			: ({
-					needToApproval: false,
+					approvalNeeded: false,
 					approveIfNeeded: async (options) => {
 						return {
-							needToWait: false,
+							waitNeeded: false,
 							waitOrSkipApproval: async () => ({
 								run: () => factoryOptions.callback(),
 							}),
