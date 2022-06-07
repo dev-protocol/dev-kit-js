@@ -1,7 +1,6 @@
 import { ethers } from 'ethers'
 import type { BaseProvider } from '@ethersproject/providers'
 import type { TransactionResponse } from '@ethersproject/abstract-provider'
-import { Signer } from '@ethersproject/abstract-signer'
 import { propertyFactoryAbi } from './abi'
 import { createCreatePropertyCaller } from '../../ethereum/property-factory/create'
 import { WaitForEventOptions } from '../../ethereum/market/authenticate'
@@ -46,7 +45,7 @@ export const createPropertyFactoryContract =
 			create: createCreatePropertyCaller(contract),
 			createAndAuthenticate: createCreateAndAuthenticateCaller(
 				contract,
-				provider as Provider
+				provider
 			),
 			getPropertiesOfAuthor: createGetPropertiesOfAuthorCaller(contract),
 			contract: always(contract),
