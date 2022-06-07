@@ -34,7 +34,7 @@
 		"build:ts": "tsc --target esnext",
 		"build:rollup": "rollup -c && rollup -c rollup.config.d.js",
 		"lint": "yarn lint:eslint && yarn lint:format",
-		"lint:eslint": "eslint . --ext .ts --fix",
+		"lint:eslint": "eslint . --ext .ts --fix --cache --quiet",
 		"lint:format": "prettier --write '**/*.{ts,js,json,md,yml}'",
 		"test": "jest",
 		"test:coverage": "jest --coverage",

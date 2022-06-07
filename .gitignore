@@ -68,3 +68,4 @@ dist
 *.d.ts
 *.ts.map
 !rollup.config.*
+.eslintcache
