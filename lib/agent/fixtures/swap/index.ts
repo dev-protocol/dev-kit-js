@@ -1,6 +1,5 @@
 import { ethers } from 'ethers'
-import { Provider } from '@ethersproject/abstract-provider'
-import { Signer } from '@ethersproject/abstract-signer'
+import type { BaseProvider } from '@ethersproject/providers'
 import { swapAbiV2 } from './abi-v2'
 import { swapAbiV3 } from './abi-v3'
 import { createGetEstimatedDevForEthCaller } from './getEstimatedDevForEth'
@@ -21,7 +20,7 @@ export type SwapContract = {
 }
 
 export const createSwapContract =
-	(provider: Provider | Signer, v: 'v2' | 'v3' = 'v3') =>
+	(provider: BaseProvider, v: 'v2' | 'v3' = 'v3') =>
 	(address: string): SwapContract => {
 		const contract = new ethers.Contract(
 			address,

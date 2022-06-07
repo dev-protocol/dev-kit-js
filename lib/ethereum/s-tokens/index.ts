@@ -1,6 +1,5 @@
 import { ethers } from 'ethers'
-import { Provider } from '@ethersproject/abstract-provider'
-import { Signer } from '@ethersproject/abstract-signer'
+import type { BaseProvider } from '@ethersproject/providers'
 import { sTokensAbi } from './abi'
 import { createPositionsCaller, Positions } from './positions'
 import { createIsFreezedCaller } from './isFreezed'
@@ -38,7 +37,7 @@ export type STokensContract = {
 
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
 export const createSTokensContract =
-	(provider: Provider | Signer) =>
+	(provider: BaseProvider) =>
 	(address: string): STokensContract => {
 		const contractClient: ethers.Contract = new ethers.Contract(
 			address,

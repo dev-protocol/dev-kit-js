@@ -127,7 +127,9 @@ export const execute: ExecuteFunction = async <
 		opts.mutation && opts.overrides?.overrides
 			? [...(args || []), opts.overrides.overrides]
 			: args
-	const method = opts.static ? contract.callStatic[opts.method] :  contract[opts.method]
+	const method = opts.static
+		? contract.callStatic[opts.method]
+		: contract[opts.method]
 	const res = await (argsOverrided === undefined
 		? method()
 		: method.apply(N, argsOverrided)

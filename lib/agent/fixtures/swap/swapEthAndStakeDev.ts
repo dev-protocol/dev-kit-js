@@ -16,10 +16,7 @@ export type CreateSwapEthAndStakeDevCaller = (
 
 export const createSwapEthAndStakeDevCaller: CreateSwapEthAndStakeDevCaller =
 	(contract: ethers.Contract) =>
-	async (
-		propertyAddress: string,
-		overrides?: FallbackableOverrides
-	) =>
+	async (propertyAddress: string, overrides?: FallbackableOverrides) =>
 		execute<MutationOption>({
 			contract,
 			method: 'swapEthAndStakeDev',

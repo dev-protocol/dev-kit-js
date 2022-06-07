@@ -1,14 +1,14 @@
 import { AgentAvailableNetworks } from '../const'
 import type { UndefinedOr } from '@devprotocol/util-ts'
 import { createSwapContract, SwapContract } from '../../fixtures/swap'
-import { Provider } from '@ethersproject/abstract-provider'
+import type { BaseProvider } from '@ethersproject/providers'
 
 type Results = readonly [undefined, UndefinedOr<SwapContract>]
 
-const cache: WeakMap<Provider, Results> = new WeakMap()
+const cache: WeakMap<BaseProvider, Results> = new WeakMap()
 
 export const clientsUtilsSwapForStake = async (
-	provider: Provider
+	provider: BaseProvider
 ): Promise<Results> => {
 	const res =
 		cache.get(provider) ??

@@ -8,7 +8,7 @@ import {
 	createSTokensContract as createSTokensContractL2,
 	STokensContract as STokensContractL2,
 } from '../../../l2/s-tokens'
-import { Provider } from '@ethersproject/abstract-provider'
+import type { BaseProvider } from '@ethersproject/providers'
 import { addresses } from '../../../addresses'
 
 type Results = readonly [
@@ -16,9 +16,11 @@ type Results = readonly [
 	UndefinedOr<STokensContractL2>
 ]
 
-const cache: WeakMap<Provider, Results> = new WeakMap()
+const cache: WeakMap<BaseProvider, Results> = new WeakMap()
 
-export const clientsSTokens = async (provider: Provider): Promise<Results> => {
+export const clientsSTokens = async (
+	provider: BaseProvider
+): Promise<Results> => {
 	const res =
 		cache.get(provider) ??
 		(await (async () => {

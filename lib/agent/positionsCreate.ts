@@ -1,5 +1,5 @@
 import { FallbackableOverrides } from '../common/utils/execute'
-import { Provider } from '@ethersproject/abstract-provider'
+import type { BaseProvider } from '@ethersproject/providers'
 import { clientsLockup } from './common/clients/clientsLockup'
 import {
 	approveIfNeeded as _approveIfNeeded,
@@ -8,7 +8,7 @@ import {
 import { UndefinedOr } from '@devprotocol/util-ts'
 
 type PositionsCreate = (options: {
-	readonly provider: Provider
+	readonly provider: BaseProvider
 	readonly from: string
 	readonly destination: string
 	readonly amount: string

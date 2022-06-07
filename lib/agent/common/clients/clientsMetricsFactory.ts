@@ -4,14 +4,14 @@ import {
 	createMetricsFactoryContract as createMetricsFactoryContractL2,
 	MetricsFactoryContract as MetricsFactoryContractL2,
 } from '../../../l2/metrics-factory'
-import { Provider } from '@ethersproject/abstract-provider'
+import type { BaseProvider } from '@ethersproject/providers'
 
 type Results = readonly [undefined, UndefinedOr<MetricsFactoryContractL2>]
 
-const cache: WeakMap<Provider, Results> = new WeakMap()
+const cache: WeakMap<BaseProvider, Results> = new WeakMap()
 
 export const clientsMetricsFactory = async (
-	provider: Provider
+	provider: BaseProvider
 ): Promise<Results> => {
 	const res =
 		cache.get(provider) ??

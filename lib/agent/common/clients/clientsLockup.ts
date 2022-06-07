@@ -5,7 +5,7 @@ import {
 	createLockupContract as createLockupContractL2,
 	LockupContract as LockupContractL2,
 } from '../../../l2/lockup'
-import { Provider } from '@ethersproject/abstract-provider'
+import type { BaseProvider } from '@ethersproject/providers'
 import { clientsRegistry } from './clientsRegistry'
 
 type Results = readonly [
@@ -13,9 +13,11 @@ type Results = readonly [
 	UndefinedOr<LockupContractL2>
 ]
 
-const cache: WeakMap<Provider, Results> = new WeakMap()
+const cache: WeakMap<BaseProvider, Results> = new WeakMap()
 
-export const clientsLockup = async (provider: Provider): Promise<Results> => {
+export const clientsLockup = async (
+	provider: BaseProvider
+): Promise<Results> => {
 	const res =
 		cache.get(provider) ??
 		(await (async () => {

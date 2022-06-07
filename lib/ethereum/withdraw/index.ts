@@ -1,6 +1,5 @@
 import { ethers } from 'ethers'
-import { Provider } from '@ethersproject/abstract-provider'
-import { Signer } from '@ethersproject/abstract-signer'
+import type { BaseProvider } from '@ethersproject/providers'
 import { withdrawAbi } from './abi'
 import { createWithdrawCaller } from './withdraw'
 import { createGetRewardsAmountCaller } from './getRewardsAmount'
@@ -32,7 +31,7 @@ export type WithdrawContract = {
 }
 
 export const createWithdrawContract =
-	(provider: Provider | Signer) =>
+	(provider: BaseProvider) =>
 	(address: string): WithdrawContract => {
 		const contract = new ethers.Contract(address, [...withdrawAbi], provider)
 

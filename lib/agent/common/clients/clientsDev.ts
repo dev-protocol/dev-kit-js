@@ -5,14 +5,14 @@ import {
 	createDevContract as createDevContractL2,
 	DevContract as DevContractL2,
 } from '../../../l2/dev'
-import { Provider } from '@ethersproject/abstract-provider'
+import type { BaseProvider } from '@ethersproject/providers'
 import { clientsRegistry } from './clientsRegistry'
 
 type Results = readonly [UndefinedOr<DevContract>, UndefinedOr<DevContractL2>]
 
-const cache: WeakMap<Provider, Results> = new WeakMap()
+const cache: WeakMap<BaseProvider, Results> = new WeakMap()
 
-export const clientsDev = async (provider: Provider): Promise<Results> => {
+export const clientsDev = async (provider: BaseProvider): Promise<Results> => {
 	const res =
 		cache.get(provider) ??
 		(await (async () => {
