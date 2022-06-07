@@ -39,12 +39,20 @@ export const l2AvailableNetworks: readonly L2AvailableNetwork[] = [
 export type AgentAvailableNetwork = {
 	readonly chainId: number
 	readonly map: {
-		readonly swap: string
+		readonly swap:
+			| {
+					readonly v2: string
+					readonly v3: undefined
+			  }
+			| {
+					readonly v2: undefined
+					readonly v3: string
+			  }
 	}
 }
 
 export const AgentAvailableNetworks: readonly AgentAvailableNetwork[] = [
-	{ chainId: 1, map: agentAddresses.eth.main},
+	{ chainId: 1, map: agentAddresses.eth.main },
 	{
 		chainId: 42161,
 		map: agentAddresses.arbitrum.one,

@@ -1,6 +1,7 @@
 import { ethers } from 'ethers'
 import type { BaseProvider } from '@ethersproject/providers'
-import { swapAbi } from './abi'
+import { swapAbiV2 } from './abi-v2'
+import { swapAbiV3 } from './abi-v3'
 import { createGetEstimatedDevForEthCaller } from './getEstimatedDevForEth'
 import { createGetEstimatedEthForDevCaller } from './getEstimatedEthForDev'
 import { createSwapEthAndStakeDevCaller } from './swapEthAndStakeDev'
@@ -19,9 +20,13 @@ export type SwapContract = {
 }
 
 export const createSwapContract =
-	(provider: BaseProvider) =>
+	(provider: BaseProvider, v: 'v2' | 'v3' = 'v3') =>
 	(address: string): SwapContract => {
-		const contract = new ethers.Contract(address, [...swapAbi], provider)
+		const contract = new ethers.Contract(
+			address,
+			v === 'v3' ? [...swapAbiV3] : [...swapAbiV2],
+			provider
+		)
 
 		return {
 			getEstimatedDevForEth: createGetEstimatedDevForEthCaller(contract),

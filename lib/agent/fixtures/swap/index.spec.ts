@@ -2,7 +2,7 @@ import { ethers } from 'ethers'
 import { createSwapContract, SwapContract } from '.'
 import { createGetEstimatedDevForEthCaller } from './getEstimatedDevForEth'
 import { createGetEstimatedEthForDevCaller } from './getEstimatedEthForDev'
-import { swapAbi } from './abi'
+import { swapAbiV3 } from './abi-v3'
 import { createSwapEthAndStakeDevCaller } from './swapEthAndStakeDev'
 
 jest.mock('./getEstimatedDevForEth')
@@ -26,10 +26,8 @@ describe('swap/index.ts', () => {
 			const address = '0x0000000000000000000000000000000000000000'
 			const provider = new ethers.providers.JsonRpcProvider(host)
 
-			const expected: (address: string) => SwapContract = (
-				address: string
-			) => {
-				const contract = new ethers.Contract(address, [...swapAbi], provider)
+			const expected: (address: string) => SwapContract = (address: string) => {
+				const contract = new ethers.Contract(address, [...swapAbiV3], provider)
 				return {
 					getEstimatedDevForEth: createGetEstimatedDevForEthCaller(contract),
 					getEstimatedEthForDev: createGetEstimatedEthForDevCaller(contract),

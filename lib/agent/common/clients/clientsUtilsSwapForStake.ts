@@ -15,7 +15,15 @@ export const clientsUtilsSwapForStake = async (
 		(await (async () => {
 			const net = await provider.getNetwork()
 			const l2 = ((data) =>
-				data ? createSwapContract(provider)(data.map.swap) : undefined)(
+				data
+					? ((v3) =>
+							createSwapContract(
+								provider,
+								v3 ? 'v3' : 'v2'
+							)(data.map.swap.v3 ?? data.map.swap.v2))(
+							data.map.swap.v3 !== undefined
+					  )
+					: undefined)(
 				AgentAvailableNetworks.find(({ chainId }) => chainId === net.chainId)
 			)
 			const results: Results = [undefined, l2]
