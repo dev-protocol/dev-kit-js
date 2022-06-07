@@ -1,5 +1,6 @@
 import { ethers } from 'ethers'
-import { Provider, TransactionResponse } from '@ethersproject/abstract-provider'
+import type { BaseProvider } from '@ethersproject/providers'
+import type { TransactionResponse } from '@ethersproject/abstract-provider'
 import { Signer } from '@ethersproject/abstract-signer'
 import { propertyFactoryAbi } from './abi'
 import { createCreatePropertyCaller } from '../../ethereum/property-factory/create'
@@ -33,7 +34,7 @@ export type PropertyFactoryContract = {
 }
 
 export const createPropertyFactoryContract =
-	(provider: Provider | Signer) =>
+	(provider: BaseProvider) =>
 	(address: string): PropertyFactoryContract => {
 		const contract = new ethers.Contract(
 			address,

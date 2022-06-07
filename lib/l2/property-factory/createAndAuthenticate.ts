@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-expression-statement */
 /* eslint-disable functional/no-conditional-statement */
 /* eslint-disable functional/functional-parameters */
-import { Provider } from '@ethersproject/abstract-provider'
+import type { BaseProvider } from '@ethersproject/providers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { execute, FallbackableOverrides } from '../../common/utils/execute'
 import { ethers } from 'ethers'
@@ -11,7 +11,7 @@ import { metricsFactoryAbi } from '../metrics-factory/abi'
 
 export type CreateCreateAndAuthenticateCaller = (
 	contract: ethers.Contract,
-	provider: Provider
+	provider: BaseProvider
 ) => (
 	name: string,
 	symbol: string,
@@ -27,7 +27,7 @@ export type CreateCreateAndAuthenticateCaller = (
 
 export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCaller =
 
-		(contract: ethers.Contract, provider: Provider) =>
+		(contract: ethers.Contract, provider: BaseProvider) =>
 		async (
 			name: string,
 			symbol: string,

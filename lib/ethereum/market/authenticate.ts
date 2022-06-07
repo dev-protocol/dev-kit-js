@@ -5,7 +5,7 @@
 /* eslint-disable functional/no-expression-statement */
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { Signer } from '@ethersproject/abstract-signer'
-import { Provider } from '@ethersproject/abstract-provider'
+import type { BaseProvider } from '@ethersproject/providers'
 import { ethers } from 'ethers'
 import {
 	execute,
@@ -17,7 +17,7 @@ import { metricsFactoryAbi } from '../metrics-factory/abi'
 
 export const getMetricsProperty = async (
 	address: string,
-	provider: Provider | Signer
+	provider: BaseProvider
 ): Promise<string> =>
 	execute<QueryOption>({
 		contract: new ethers.Contract(address, metricsAbi, provider),
@@ -31,7 +31,7 @@ export type WaitForEventOptions = {
 
 export type CreateAuthenticateCaller = (
 	contract: ethers.Contract,
-	provider: Provider | Signer
+	provider: BaseProvider
 ) => (
 	propertyAddress: string,
 	args: readonly string[],
@@ -40,7 +40,7 @@ export type CreateAuthenticateCaller = (
 ) => Promise<string>
 
 export const createAuthenticateCaller: CreateAuthenticateCaller =
-	(contract: ethers.Contract, provider: Provider | Signer) =>
+	(contract: ethers.Contract, provider: BaseProvider) =>
 	async (
 		propertyAddress: string,
 		args: readonly string[],

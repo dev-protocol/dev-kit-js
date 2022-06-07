@@ -1,6 +1,5 @@
 import { ethers } from 'ethers'
-import { Provider } from '@ethersproject/abstract-provider'
-import { Signer } from '@ethersproject/abstract-signer'
+import type { BaseProvider } from '@ethersproject/providers'
 import { marketFactoryAbi } from './abi'
 import { createCreateCaller } from './create'
 import { FallbackableOverrides } from '../../common/utils/execute'
@@ -16,7 +15,7 @@ export type MarketFactoryContract = {
 }
 
 export const createMarketFactoryContract =
-	(provider: Provider | Signer) =>
+	(provider: BaseProvider) =>
 	(address: string): MarketFactoryContract => {
 		const contract = new ethers.Contract(
 			address,

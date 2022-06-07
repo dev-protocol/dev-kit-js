@@ -1,6 +1,5 @@
 import { ethers } from 'ethers'
-import { Provider } from '@ethersproject/abstract-provider'
-import { Signer } from '@ethersproject/abstract-signer'
+import type { BaseProvider } from '@ethersproject/providers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { marketAbi } from './abi'
 import { createSchemaCaller } from '../../ethereum/market/schema'
@@ -34,7 +33,7 @@ export type MarketContract = {
 }
 
 export const createMarketContract =
-	(provider: Provider | Signer) =>
+	(provider: BaseProvider) =>
 	(address: string): MarketContract => {
 		const contract = new ethers.Contract(address, [...marketAbi], provider)
 		return {

@@ -8,7 +8,7 @@ import {
 	createPropertyContract as createPropertyContractL2,
 	PropertyContract as PropertyContractL2,
 } from '../../../l2/property'
-import { Provider } from '@ethersproject/abstract-provider'
+import type { BaseProvider } from '@ethersproject/providers'
 import { clientsRegistry } from './clientsRegistry'
 
 type Results = readonly [
@@ -17,10 +17,10 @@ type Results = readonly [
 ]
 
 // eslint-disable-next-line functional/prefer-readonly-type
-const cache: WeakMap<Provider, Map<string, Results>> = new WeakMap()
+const cache: WeakMap<BaseProvider, Map<string, Results>> = new WeakMap()
 
 export const clientsProperty = async (
-	provider: Provider,
+	provider: BaseProvider,
 	tokenAddress: string
 ): Promise<Results> => {
 	const res =

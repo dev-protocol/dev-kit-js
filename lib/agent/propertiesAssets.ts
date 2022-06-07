@@ -1,4 +1,4 @@
-import { Provider } from '@ethersproject/abstract-provider'
+import type { BaseProvider } from '@ethersproject/providers'
 import { UndefinedOr } from '@devprotocol/util-ts'
 
 type Asset = {
@@ -8,6 +8,6 @@ type Asset = {
 }
 
 type PropertiesAssets = (options: {
-	readonly provider: Provider
+	readonly provider: BaseProvider
 	readonly destination: string
 }) => Promise<UndefinedOr<readonly Asset[]>>

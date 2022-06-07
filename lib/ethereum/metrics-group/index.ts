@@ -1,6 +1,5 @@
 import { ethers } from 'ethers'
-import { Provider } from '@ethersproject/abstract-provider'
-import { Signer } from '@ethersproject/abstract-signer'
+import type { BaseProvider } from '@ethersproject/providers'
 import { metricsGroupAbi } from './abi'
 import { createTotalAuthenticatedPropertiesCaller } from './totalAuthenticatedProperties'
 import { always } from 'ramda'
@@ -13,7 +12,7 @@ export type CreateMetricsGroupContract = {
 }
 
 export const createMetricsGroupContract =
-	(provider: Provider | Signer) =>
+	(provider: BaseProvider) =>
 	(address: string): CreateMetricsGroupContract => {
 		const contract = new ethers.Contract(
 			address,

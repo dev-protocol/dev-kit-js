@@ -1,6 +1,5 @@
 import { ethers } from 'ethers'
-import { Provider } from '@ethersproject/abstract-provider'
-import { Signer } from '@ethersproject/abstract-signer'
+import type { BaseProvider } from '@ethersproject/providers'
 import { addressConfigAbi } from './abi'
 import { createTokenCaller } from './token'
 import { createAllocatorCaller } from './allocator'
@@ -43,11 +42,11 @@ export type RegistryContract = {
 }
 
 export type CreateRegistryContract = (
-	provider: Provider | Signer
+	provider: BaseProvider
 ) => (address: string) => RegistryContract
 
 export const createRegistryContract: CreateRegistryContract =
-	(provider: Provider | Signer) =>
+	(provider: BaseProvider) =>
 	(address: string): RegistryContract => {
 		const contract = new ethers.Contract(
 			address,

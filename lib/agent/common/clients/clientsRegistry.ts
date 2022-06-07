@@ -8,16 +8,18 @@ import {
 	createRegistryContract as createRegistryContractL2,
 	RegistryContract as RegistryContractL2,
 } from '../../../l2/registry'
-import { Provider } from '@ethersproject/abstract-provider'
+import type { BaseProvider } from '@ethersproject/providers'
 
 type Results = readonly [
 	UndefinedOr<RegistryContract>,
 	UndefinedOr<RegistryContractL2>
 ]
 
-const cache: WeakMap<Provider, Results> = new WeakMap()
+const cache: WeakMap<BaseProvider, Results> = new WeakMap()
 
-export const clientsRegistry = async (provider: Provider): Promise<Results> => {
+export const clientsRegistry = async (
+	provider: BaseProvider
+): Promise<Results> => {
 	const res =
 		cache.get(provider) ??
 		(await (async () => {

@@ -1,6 +1,5 @@
 import { ethers } from 'ethers'
-import { Provider } from '@ethersproject/abstract-provider'
-import { Signer } from '@ethersproject/abstract-signer'
+import type { BaseProvider } from '@ethersproject/providers'
 import { swapAbi } from './abi'
 import { createGetEstimatedDevForEthCaller } from './getEstimatedDevForEth'
 import { createGetEstimatedEthForDevCaller } from './getEstimatedEthForDev'
@@ -10,12 +9,8 @@ import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { always } from 'ramda'
 
 export type SwapContract = {
-	readonly getEstimatedDevForEth: (
-		ethAmount: string,
-	) => Promise<string>
-	readonly getEstimatedEthForDev: (
-		devAmount: string,
-	) => Promise<string>
+	readonly getEstimatedDevForEth: (ethAmount: string) => Promise<string>
+	readonly getEstimatedEthForDev: (devAmount: string) => Promise<string>
 	readonly swapEthAndStakeDevCaller: (
 		propertyAddress: string,
 		overrides: FallbackableOverrides
@@ -24,7 +19,7 @@ export type SwapContract = {
 }
 
 export const createSwapContract =
-	(provider: Provider | Signer) =>
+	(provider: BaseProvider) =>
 	(address: string): SwapContract => {
 		const contract = new ethers.Contract(address, [...swapAbi], provider)
 

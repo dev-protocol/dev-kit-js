@@ -1,6 +1,5 @@
 import { ethers } from 'ethers'
-import { Provider } from '@ethersproject/abstract-provider'
-import { Signer } from '@ethersproject/abstract-signer'
+import type { BaseProvider } from '@ethersproject/providers'
 import { policyGroupAbi } from './abi'
 import { createIsGroupCaller } from './isGroup'
 import { always } from 'ramda'
@@ -12,11 +11,11 @@ export type PolicyGroupContract = {
 }
 
 export type CreatePolicyGroupContract = (
-	provider: Provider | Signer
+	provider: BaseProvider
 ) => (address: string) => PolicyGroupContract
 
 export const createPolicyGroupContract: CreatePolicyGroupContract =
-	(provider: Provider | Signer) => (address: string) => {
+	(provider: BaseProvider) => (address: string) => {
 		const contract = new ethers.Contract(address, [...policyGroupAbi], provider)
 		return {
 			isGroup: createIsGroupCaller(contract),

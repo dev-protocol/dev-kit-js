@@ -4,13 +4,13 @@ import {
 	TransactionResponse,
 	TransactionReceipt,
 } from '@ethersproject/abstract-provider'
-import { Provider } from '@ethersproject/abstract-provider'
+import type { BaseProvider } from '@ethersproject/providers'
 import { BigNumber } from 'ethers'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { clientsDev } from './clients/clientsDev'
 
 export type ApproveIfNeeded = (factoryOptions: {
-	readonly provider: Provider
+	readonly provider: BaseProvider
 	readonly requiredAmount: string
 	readonly from: string
 	readonly to?: string

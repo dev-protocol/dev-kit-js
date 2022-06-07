@@ -4,7 +4,7 @@ import {
 	createPolicyContract as createPolicyContractL2,
 	PolicyContract as PolicyContractL2,
 } from '../../../l2/policy'
-import { Provider } from '@ethersproject/abstract-provider'
+import type { BaseProvider } from '@ethersproject/providers'
 import { clientsRegistry } from './clientsRegistry'
 
 type Results = readonly [
@@ -13,9 +13,11 @@ type Results = readonly [
 ]
 
 // eslint-disable-next-line functional/prefer-readonly-type
-const cache: WeakMap<Provider, Results> = new WeakMap()
+const cache: WeakMap<BaseProvider, Results> = new WeakMap()
 
-export const clientsPolicy = async (provider: Provider): Promise<Results> => {
+export const clientsPolicy = async (
+	provider: BaseProvider
+): Promise<Results> => {
 	const res =
 		cache.get(provider) ??
 		(await (async () => {
