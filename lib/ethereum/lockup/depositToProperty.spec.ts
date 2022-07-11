@@ -26,7 +26,7 @@ describe('depositToProperty.spec.ts', () => {
 		it('call success with optional payload', async () => {
 			const expected = stubTransactionResposeFactory({})
 			const lockupContract = {
-				depositToPosition: jest
+				depositToProperty: jest
 					.fn()
 					.mockImplementation(() => Promise.resolve(expected)),
 			}
