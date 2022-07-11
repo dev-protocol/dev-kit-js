@@ -92,6 +92,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [],
@@ -105,6 +106,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [],
@@ -118,6 +120,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -137,6 +140,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [],
@@ -150,6 +154,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -169,6 +174,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [],
@@ -182,6 +188,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -201,6 +208,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [],
@@ -214,6 +222,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [],
@@ -227,6 +236,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [],
@@ -240,6 +250,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [],
@@ -253,6 +264,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [],
@@ -266,6 +278,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [],
@@ -279,6 +292,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -298,6 +312,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -323,6 +338,35 @@ export const lockupAbi = [
 				internalType: 'uint256',
 				name: '_amount',
 				type: 'uint256',
+			},
+		],
+		name: 'depositToProperty',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: '_amount',
+				type: 'uint256',
+			},
+			{
+				internalType: 'bytes32',
+				name: '_payload',
+				type: 'bytes32',
 			},
 		],
 		name: 'depositToProperty',
@@ -408,6 +452,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -449,6 +494,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -473,6 +519,7 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [],
@@ -499,5 +546,6 @@ export const lockupAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 ]

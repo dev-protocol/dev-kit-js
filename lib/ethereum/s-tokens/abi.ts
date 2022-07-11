@@ -203,6 +203,7 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -222,6 +223,7 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -241,6 +243,7 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -265,6 +268,7 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -284,6 +288,7 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [],
@@ -297,6 +302,7 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -316,6 +322,27 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		name: 'payloadOf',
+		outputs: [
+			{
+				internalType: 'bytes32',
+				name: '',
+				type: 'bytes32',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [],
@@ -329,6 +356,7 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -417,6 +445,7 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [],
@@ -430,6 +459,7 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -485,6 +515,7 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -552,6 +583,11 @@ export const sTokensAbi = [
 				name: '_rewardsArg',
 				type: 'tuple',
 			},
+			{
+				internalType: 'bytes32',
+				name: '_payload',
+				type: 'bytes32',
+			},
 		],
 		name: 'tokenURISim',
 		outputs: [
@@ -563,6 +599,7 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [],
@@ -576,6 +613,7 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -598,6 +636,11 @@ export const sTokensAbi = [
 				internalType: 'uint256',
 				name: '_price',
 				type: 'uint256',
+			},
+			{
+				internalType: 'bytes32',
+				name: '_payload',
+				type: 'bytes32',
 			},
 		],
 		name: 'mint',
@@ -744,6 +787,7 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -780,6 +824,7 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -799,6 +844,7 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 	{
 		inputs: [
@@ -818,5 +864,6 @@ export const sTokensAbi = [
 		],
 		stateMutability: 'view',
 		type: 'function',
+		constant: true,
 	},
 ]

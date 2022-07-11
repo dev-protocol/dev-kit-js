@@ -12,6 +12,7 @@ export type CreateDepositToPropertyCaller = (
 ) => (
 	propertyAddress: string,
 	amount: string,
+	payload?: string | Uint8Array,
 	overrides?: FallbackableOverrides
 ) => Promise<TransactionResponse>
 
@@ -20,12 +21,15 @@ export const createDepositToPropertyCaller: CreateDepositToPropertyCaller =
 	async (
 		propertyAddress: string,
 		amount: string,
+		payload?: string | Uint8Array,
 		overrides?: FallbackableOverrides
 	) =>
 		execute<MutationOption>({
 			contract,
 			method: 'depositToProperty',
 			mutation: true,
-			args: [propertyAddress, amount],
+			args: payload
+				? [propertyAddress, amount, payload]
+				: [propertyAddress, amount],
 			overrides,
 		})

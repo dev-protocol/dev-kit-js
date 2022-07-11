@@ -23,6 +23,26 @@ describe('depositToProperty.spec.ts', () => {
 			expect(result).toEqual(stubTx)
 		})
 
+		it('call success with optional payload', async () => {
+			const expected = stubTransactionResposeFactory({})
+			const lockupContract = {
+				depositToPosition: jest
+					.fn()
+					.mockImplementation(() => Promise.resolve(expected)),
+			}
+
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const caller = createDepositToPropertyCaller(lockupContract as any)
+
+			const result = await caller(
+				'32',
+				'100',
+				'0xb690e3d57bc3c98d69dfb6136cd622b2ba93f965cc4740a53019a867a8af2106'
+			)
+
+			expect(result).toEqual(expected)
+		})
+
 		it('call failure', async () => {
 			const error = 'error'
 			const lockupContract = {

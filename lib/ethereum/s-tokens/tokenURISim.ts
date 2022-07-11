@@ -20,6 +20,7 @@ export type TokenURISimProps = {
 		readonly cumulativeReward?: string
 		readonly withdrawableReward?: string
 	}
+	readonly payload?: string | Uint8Array
 }
 
 export type CreateTokenURISimCaller = (
@@ -49,10 +50,11 @@ export const createTokenURISimCaller: CreateTokenURISimCaller =
 		const owner = props.owner ?? constants.AddressZero
 		const positions = { ...defaultPositions, ...props.positions }
 		const rewards = { ...defaultRewards, ...props.rewards }
+		const payload = props.payload ? props.payload : constants.HashZero
 		const res = await execute<QueryOption>({
 			contract,
 			method: 'tokenURISim',
-			args: [tokenId, owner, values(positions), values(rewards)],
+			args: [tokenId, owner, values(positions), values(rewards), payload],
 			mutation: false,
 		})
 		const decoded = decode(
