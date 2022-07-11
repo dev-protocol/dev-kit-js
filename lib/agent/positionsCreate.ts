@@ -12,6 +12,7 @@ type PositionsCreate = (options: {
 	readonly from: string
 	readonly destination: string
 	readonly amount: string
+	readonly payload?: string | Uint8Array
 	readonly overrides?: FallbackableOverrides
 }) => Promise<UndefinedOr<ApproveIfNeededResult>>
 
@@ -30,12 +31,14 @@ export const positionsCreate: PositionsCreate = async (options) => {
 							? l1.depositToProperty(
 									options.destination,
 									options.amount,
+									options.payload,
 									options.overrides
 							  )
 							: l2
 							? l2.depositToProperty(
 									options.destination,
 									options.amount,
+									options.payload,
 									options.overrides
 							  )
 							: (undefined as never),
