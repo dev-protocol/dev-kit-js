@@ -41,6 +41,7 @@ export type LockupContract = {
 	readonly depositToProperty: (
 		propertyAddress: string,
 		amount: string,
+		payload?: string | Uint8Array,
 		overrides?: FallbackableOverrides
 	) => Promise<TransactionResponse>
 	readonly depositToPosition: (

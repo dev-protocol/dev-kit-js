@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { BigNumber, ethers } from 'ethers'
+import { BigNumber, ethers, utils } from 'ethers'
 import { execute } from './execute'
 
 describe('execute.ts', () => {
@@ -104,6 +104,26 @@ describe('execute.ts', () => {
 			expect(fooStub.mock.calls[0][7]).toEqual('')
 			// @ts-expect-error
 			expect(fooStub.mock.calls[0][8]).toEqual(undefined)
+		})
+		it('Uint8Array in the passed args will be conveted to string', async () => {
+			const fooStub = jest.fn(async (arg1: string, arg2: string) =>
+				Promise.resolve('value')
+			)
+			const contract = {
+				foo: fooStub,
+			} as unknown as ethers.Contract
+			const result = await execute({
+				contract,
+				method: 'foo',
+				args: ['abc', utils.toUtf8Bytes('TEST')],
+				mutation: false,
+			})
+			expect(result).toEqual('value')
+			expect(fooStub.mock.calls.length).toEqual(1)
+			expect(fooStub.mock.calls[0][0]).toEqual('abc')
+			expect(fooStub.mock.calls[0][1]).toEqual(
+				utils.keccak256(utils.toUtf8Bytes('TEST'))
+			)
 		})
 	})
 	describe.skip('execute: overrides and fallbackOverrider', () => {

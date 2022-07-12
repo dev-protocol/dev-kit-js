@@ -1,8 +1,9 @@
-import { ethers, BigNumber, providers } from 'ethers'
+import { ethers, BigNumber, providers, utils } from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { mergeAll } from 'ramda'
 
-type Args = ReadonlyArray<string | boolean | readonly string[]>
+type Args = ReadonlyArray<string | boolean | readonly string[] | Uint8Array>
+type ArgsWithoutUint8Array = ReadonlyArray<string | boolean | readonly string[]>
 type Overrides = {
 	readonly gasLimit?: number
 	readonly from?: string
@@ -45,19 +46,22 @@ export type ExecuteFunction = <
 		: never
 >
 type PadCaller = (
-	arr: Args,
+	arr: ArgsWithoutUint8Array,
 	v: string | boolean | undefined | readonly string[],
 	i: number,
 	fn: PadCaller
-) => Args
-const pad = (args: Args, index: number): Args =>
-	((fn: PadCaller): Args => fn([], args[0], 0, fn))(
+) => ArgsWithoutUint8Array
+const pad = (
+	args: ArgsWithoutUint8Array,
+	index: number
+): ArgsWithoutUint8Array =>
+	((fn: PadCaller): ArgsWithoutUint8Array => fn([], args[0], 0, fn))(
 		(
-			arr: Args,
+			arr: ArgsWithoutUint8Array,
 			v: string | boolean | undefined | readonly string[],
 			i: number,
 			fn: PadCaller
-		): Args =>
+		): ArgsWithoutUint8Array =>
 			i < index ? fn(arr.concat(v ?? ''), args[i + 1], i + 1, fn) : arr
 	)
 
@@ -117,12 +121,16 @@ export const execute: ExecuteFunction = async <
 			: undefined
 	const contract =
 		opts.mutation && signer ? opts.contract.connect(signer) : opts.contract
-	const args =
+	const convertedArgs: ArgsWithoutUint8Array | undefined =
 		opts.args === undefined
 			? undefined
+			: opts.args.map((v) => (v instanceof Uint8Array ? utils.keccak256(v) : v))
+	const args =
+		convertedArgs === undefined
+			? undefined
 			: opts.padEnd
-			? [...pad(opts.args, opts.padEnd)]
-			: [...opts.args]
+			? [...pad(convertedArgs, opts.padEnd)]
+			: [...convertedArgs]
 	const argsOverrided =
 		opts.mutation && opts.overrides?.overrides
 			? [...(args || []), opts.overrides.overrides]

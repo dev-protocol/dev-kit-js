@@ -640,6 +640,37 @@ export const lockupAbi = [
 		constant: false,
 		inputs: [
 			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: '_amount',
+				type: 'uint256',
+			},
+			{
+				internalType: 'bytes32',
+				name: '_payload',
+				type: 'bytes32',
+			},
+		],
+		name: 'depositToProperty',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		payable: false,
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		constant: false,
+		inputs: [
+			{
 				internalType: 'uint256',
 				name: '_tokenId',
 				type: 'uint256',
