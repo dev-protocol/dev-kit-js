@@ -3,12 +3,17 @@ import { FallbackableOverrides } from '../common/utils/execute'
 import type { BaseProvider } from '@ethersproject/providers'
 import { clientsUtilsSwapForStake } from './common/clients/clientsUtilsSwapForStake'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
+import { constants } from 'ethers'
 
 type PositionsCreateWithEth = (options: {
 	readonly provider: BaseProvider
 	readonly ethAmount?: string
 	readonly devAmount?: string
 	readonly destination: string
+	readonly deadline?: number
+	readonly gatewayAddress?: string
+	readonly gatewayBasisFee?: number
+	readonly payload?: string
 	readonly overrides?: FallbackableOverrides
 }) => Promise<{
 	readonly estimatedDev: string
@@ -41,10 +46,26 @@ export const positionsCreateWithEth: PositionsCreateWithEth = async (
 							...options.overrides?.overrides,
 						},
 					}
-					return await l2.swapEthAndStakeDevCaller(
-						options.destination,
-						_overrides
-					)
+
+					const deadline =
+						options.deadline ??
+						(await options.provider.getBlock('latest')).timestamp + 300
+
+					return options.gatewayAddress && options.gatewayBasisFee
+						? await l2.swapEthAndStakeDevCaller(
+								options.destination,
+								deadline,
+								options.payload ?? constants.HashZero,
+								_overrides,
+								options.gatewayAddress,
+								String(options.gatewayBasisFee)
+						  )
+						: await l2.swapEthAndStakeDevCaller(
+								options.destination,
+								deadline,
+								options.payload ?? constants.HashZero,
+								_overrides
+						  )
 				},
 		  }
 		: (undefined as never)

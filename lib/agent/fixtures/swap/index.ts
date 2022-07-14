@@ -8,23 +8,42 @@ import { createSwapEthAndStakeDevCaller } from './swapEthAndStakeDev'
 import { FallbackableOverrides } from '../../../common/utils/execute'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { always } from 'ramda'
+import { createSwapEthAndStakeDevPolygonCaller } from './swapEthAndStakeDevPolygon'
+import { swapAbiV2Polygon } from './abi-v2-polygon'
 
 export type SwapContract = {
 	readonly getEstimatedDevForEth: (ethAmount: string) => Promise<string>
 	readonly getEstimatedEthForDev: (devAmount: string) => Promise<string>
 	readonly swapEthAndStakeDevCaller: (
 		propertyAddress: string,
-		overrides: FallbackableOverrides
+		deadline: number,
+		payload: string,
+		overrides: FallbackableOverrides,
+		gatewayAddress?: string,
+		gatewayBasisPoints?: string
+	) => Promise<TransactionResponse>
+	readonly swapEthAndStakeDevPolygonCaller: (
+		propertyAddress: string,
+		amount: string,
+		deadline: number,
+		payload: string,
+		overrides: FallbackableOverrides,
+		gatewayAddress?: string,
+		gatewayBasisPoints?: string
 	) => Promise<TransactionResponse>
 	readonly contract: () => ethers.Contract
 }
 
 export const createSwapContract =
-	(provider: BaseProvider, v: 'v2' | 'v3' = 'v3') =>
+	(provider: BaseProvider, v: 'v2' | 'v3' | 'v2_polygon' = 'v3') =>
 	(address: string): SwapContract => {
 		const contract = new ethers.Contract(
 			address,
-			v === 'v3' ? [...swapAbiV3] : [...swapAbiV2],
+			v === 'v3'
+				? [...swapAbiV3]
+				: v === 'v2_polygon'
+				? [...swapAbiV2Polygon]
+				: [...swapAbiV2],
 			provider
 		)
 
@@ -32,6 +51,8 @@ export const createSwapContract =
 			getEstimatedDevForEth: createGetEstimatedDevForEthCaller(contract),
 			getEstimatedEthForDev: createGetEstimatedEthForDevCaller(contract),
 			swapEthAndStakeDevCaller: createSwapEthAndStakeDevCaller(contract),
+			swapEthAndStakeDevPolygonCaller:
+				createSwapEthAndStakeDevPolygonCaller(contract),
 			contract: always(contract),
 		}
 	}
