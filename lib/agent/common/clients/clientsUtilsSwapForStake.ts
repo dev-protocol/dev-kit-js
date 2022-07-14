@@ -3,9 +3,15 @@ import type { UndefinedOr } from '@devprotocol/util-ts'
 import { createSwapContract, SwapContract } from '../../fixtures/swap'
 import type { BaseProvider } from '@ethersproject/providers'
 
-type Results = readonly [undefined, UndefinedOr<SwapContract>]
+type Results = readonly [
+	undefined,
+	UndefinedOr<SwapContract>,
+	UndefinedOr<string>
+]
 
 const cache: WeakMap<BaseProvider, Results> = new WeakMap()
+
+const polygonIDs = [137, 80001]
 
 export const clientsUtilsSwapForStake = async (
 	provider: BaseProvider
@@ -14,19 +20,23 @@ export const clientsUtilsSwapForStake = async (
 		cache.get(provider) ??
 		(await (async () => {
 			const net = await provider.getNetwork()
-			const l2 = ((data) =>
-				data
-					? ((v3) =>
-							createSwapContract(
-								provider,
-								v3 ? 'v3' : 'v2'
-							)(data.map.swap.v3 ?? data.map.swap.v2))(
-							data.map.swap.v3 !== undefined
-					  )
-					: undefined)(
-				AgentAvailableNetworks.find(({ chainId }) => chainId === net.chainId)
+			const detectedNetwork = AgentAvailableNetworks.find(
+				({ chainId }) => chainId === net.chainId
 			)
-			const results: Results = [undefined, l2]
+			const l2 = detectedNetwork
+				? ((v: 'v2' | 'v3' | 'v2_polygon') =>
+						createSwapContract(
+							provider,
+							v
+						)(detectedNetwork.map.swap.v3 ?? detectedNetwork.map.swap.v2))(
+						polygonIDs.some((id) => id === net.chainId)
+							? 'v2_polygon'
+							: detectedNetwork.map.swap.v3 !== undefined
+							? 'v3'
+							: 'v2'
+				  )
+				: undefined
+			const results: Results = [undefined, l2, detectedNetwork?.map.weth]
 			// eslint-disable-next-line functional/no-expression-statement
 			cache.set(provider, results)
 			return results

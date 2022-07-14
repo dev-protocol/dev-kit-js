@@ -35,11 +35,15 @@ export type SwapContract = {
 }
 
 export const createSwapContract =
-	(provider: BaseProvider, v: 'v2' | 'v3' = 'v3') =>
+	(provider: BaseProvider, v: 'v2' | 'v3' | 'v2_polygon' = 'v3') =>
 	(address: string): SwapContract => {
 		const contract = new ethers.Contract(
 			address,
-			v === 'v3' ? [...swapAbiV3] : [...swapAbiV2],
+			v === 'v3'
+				? [...swapAbiV3]
+				: v === 'v2_polygon'
+				? [...swapAbiV2Polygon]
+				: [...swapAbiV2],
 			provider
 		)
 
@@ -47,9 +51,8 @@ export const createSwapContract =
 			getEstimatedDevForEth: createGetEstimatedDevForEthCaller(contract),
 			getEstimatedEthForDev: createGetEstimatedEthForDevCaller(contract),
 			swapEthAndStakeDevCaller: createSwapEthAndStakeDevCaller(contract),
-			swapEthAndStakeDevPolygonCaller: createSwapEthAndStakeDevPolygonCaller(
-				new ethers.Contract(address, swapAbiV2Polygon, provider)
-			),
+			swapEthAndStakeDevPolygonCaller:
+				createSwapEthAndStakeDevPolygonCaller(contract),
 			contract: always(contract),
 		}
 	}

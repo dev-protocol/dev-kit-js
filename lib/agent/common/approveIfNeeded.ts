@@ -1,11 +1,12 @@
 /* eslint-disable functional/functional-parameters */
-import { UndefinedOr, whenDefinedAll } from '@devprotocol/util-ts'
+import { UndefinedOr, whenDefined, whenDefinedAll } from '@devprotocol/util-ts'
 import {
 	TransactionResponse,
 	TransactionReceipt,
 } from '@ethersproject/abstract-provider'
 import type { BaseProvider } from '@ethersproject/providers'
 import { BigNumber } from 'ethers'
+import { createErc20Contract } from '../../common/erc20'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { clientsDev } from './clients/clientsDev'
 
@@ -46,14 +47,16 @@ export type ApproveIfNeeded = (factoryOptions: {
 	readonly requiredAmount: string
 	readonly from: string
 	readonly to?: string
+	readonly token?: string
 	readonly callback: (
 		receipt?: TransactionReceipt
 	) => Promise<TransactionResponse>
 }) => Promise<UndefinedOr<ApproveIfNeededResult>>
 
 export const approveIfNeeded: ApproveIfNeeded = async (factoryOptions) => {
-	const [l1, l2] = await clientsDev(factoryOptions.provider)
-	const client = l1 ?? l2
+	const client = factoryOptions.token
+		? createErc20Contract(factoryOptions.provider)(factoryOptions.token)
+		: await clientsDev(factoryOptions.provider).then(([l1, l2]) => l1 ?? l2)
 	const allowance = await whenDefinedAll(
 		[client, factoryOptions.to],
 		([x, to]) => x.allowance(factoryOptions.from, to)
