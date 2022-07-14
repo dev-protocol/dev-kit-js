@@ -10,11 +10,11 @@ type PositionsCreateWithEth = (options: {
 	readonly ethAmount?: string
 	readonly devAmount?: string
 	readonly destination: string
+	readonly overrides?: FallbackableOverrides
+	readonly payload?: string
 	readonly deadline?: number
 	readonly gatewayAddress?: string
-	readonly gatewayBasisFee?: number
-	readonly payload?: string
-	readonly overrides?: FallbackableOverrides
+	readonly gatewayBasisPoints?: number
 }) => Promise<{
 	readonly estimatedDev: string
 	readonly estimatedEth: string
@@ -42,26 +42,27 @@ export const positionsCreateWithEth: PositionsCreateWithEth = async (
 						: 'Neither ethAmount nor devAmount provided'
 					const _overrides = {
 						overrides: {
-							...{ value: ethAmount },
 							...options.overrides?.overrides,
 						},
 					}
 
-					const deadline =
-						options.deadline ??
-						(await options.provider.getBlock('latest')).timestamp + 300
+					const deadline = options.deadline
+						? options.deadline
+						: (await options.provider.getBlock('latest')).timestamp + 300
 
-					return options.gatewayAddress && options.gatewayBasisFee
-						? await l2.swapEthAndStakeDevCaller(
+					return options.gatewayAddress && options.gatewayBasisPoints
+						? await l2.swapEthAndStakeDevPolygonCaller(
 								options.destination,
+								ethAmount,
 								deadline,
 								options.payload ?? ethers.constants.HashZero,
 								_overrides,
 								options.gatewayAddress,
-								String(options.gatewayBasisFee)
+								String(options.gatewayBasisPoints)
 						  )
-						: await l2.swapEthAndStakeDevCaller(
+						: await l2.swapEthAndStakeDevPolygonCaller(
 								options.destination,
+								ethAmount,
 								deadline,
 								options.payload ?? ethers.constants.HashZero,
 								_overrides

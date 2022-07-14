@@ -4,6 +4,7 @@ import { createGetEstimatedDevForEthCaller } from './getEstimatedDevForEth'
 import { createGetEstimatedEthForDevCaller } from './getEstimatedEthForDev'
 import { swapAbiV3 } from './abi-v3'
 import { createSwapEthAndStakeDevCaller } from './swapEthAndStakeDev'
+import { createSwapEthAndStakeDevPolygonCaller } from './swapEthAndStakeDevPolygon'
 
 jest.mock('./getEstimatedDevForEth')
 jest.mock('./getEstimatedEthForDev')
@@ -32,6 +33,8 @@ describe('swap/index.ts', () => {
 					getEstimatedDevForEth: createGetEstimatedDevForEthCaller(contract),
 					getEstimatedEthForDev: createGetEstimatedEthForDevCaller(contract),
 					swapEthAndStakeDevCaller: createSwapEthAndStakeDevCaller(contract),
+					swapEthAndStakeDevPolygonCaller:
+						createSwapEthAndStakeDevPolygonCaller(contract),
 					contract: () => contract,
 				}
 			}

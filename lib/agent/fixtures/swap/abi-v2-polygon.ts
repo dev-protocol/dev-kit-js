@@ -1,4 +1,4 @@
-export const swapAbiV2 = [
+export const swapAbiV2Polygon = [
 	{
 		inputs: [
 			{
@@ -19,6 +19,11 @@ export const swapAbiV2 = [
 			{
 				internalType: 'address',
 				name: '_sTokensAddress',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_wethAddress',
 				type: 'address',
 			},
 		],
@@ -198,6 +203,11 @@ export const swapAbiV2 = [
 			},
 			{
 				internalType: 'uint256',
+				name: 'amount',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
 				name: 'deadline',
 				type: 'uint256',
 			},
@@ -209,7 +219,7 @@ export const swapAbiV2 = [
 		],
 		name: 'swapEthAndStakeDev',
 		outputs: [],
-		stateMutability: 'payable',
+		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
@@ -218,6 +228,11 @@ export const swapAbiV2 = [
 				internalType: 'address',
 				name: 'property',
 				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: 'amount',
+				type: 'uint256',
 			},
 			{
 				internalType: 'uint256',
@@ -242,7 +257,7 @@ export const swapAbiV2 = [
 		],
 		name: 'swapEthAndStakeDev',
 		outputs: [],
-		stateMutability: 'payable',
+		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
@@ -251,6 +266,19 @@ export const swapAbiV2 = [
 		outputs: [
 			{
 				internalType: 'contract IUniswapV2Router02',
+				name: '',
+				type: 'address',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [],
+		name: 'wethAddress',
+		outputs: [
+			{
+				internalType: 'address',
 				name: '',
 				type: 'address',
 			},

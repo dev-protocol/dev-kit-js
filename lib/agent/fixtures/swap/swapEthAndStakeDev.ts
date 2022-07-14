@@ -11,16 +11,43 @@ export type CreateSwapEthAndStakeDevCaller = (
 	contract: ethers.Contract
 ) => (
 	propertyAddress: string,
-	overrides?: FallbackableOverrides
+	deadline: number,
+	payload?: string,
+	overrides?: FallbackableOverrides,
+	gatewayAddress?: string,
+	gatewayBasisPoints?: string
 ) => Promise<TransactionResponse>
 
 export const createSwapEthAndStakeDevCaller: CreateSwapEthAndStakeDevCaller =
 	(contract: ethers.Contract) =>
-	async (propertyAddress: string, overrides?: FallbackableOverrides) =>
-		execute<MutationOption>({
+	async (
+		propertyAddress: string,
+		deadline: number,
+		payload?: string,
+		overrides?: FallbackableOverrides,
+		gatewayAddress?: string,
+		gatewayBasisPoints?: string
+	) => {
+		const args =
+			gatewayAddress && gatewayBasisPoints
+				? [
+						propertyAddress,
+						String(deadline),
+						payload ?? ethers.constants.HashZero,
+						gatewayAddress,
+						gatewayBasisPoints,
+				  ]
+				: [
+						propertyAddress,
+						String(deadline),
+						payload ?? ethers.constants.HashZero,
+				  ]
+
+		return execute<MutationOption>({
 			contract,
 			method: 'swapEthAndStakeDev',
 			mutation: true,
-			args: [propertyAddress],
+			args,
 			overrides,
 		})
+	}
