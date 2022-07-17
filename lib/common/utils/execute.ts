@@ -1,6 +1,6 @@
 import { ethers, BigNumber, providers, utils } from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { mergeAll } from 'ramda'
+import { keys, mergeAll } from 'ramda'
 
 type Args = ReadonlyArray<string | boolean | readonly string[] | Uint8Array>
 type ArgsWithoutUint8Array = ReadonlyArray<string | boolean | readonly string[]>
@@ -20,6 +20,7 @@ type Option = {
 	readonly mutation?: boolean
 	readonly padEnd?: number
 	readonly static?: boolean
+	readonly interface?: string
 }
 
 export type QueryOption = Option & {
@@ -135,9 +136,19 @@ export const execute: ExecuteFunction = async <
 		opts.mutation && opts.overrides?.overrides
 			? [...(args || []), opts.overrides.overrides]
 			: args
-	const method = opts.static
+	const singleMethod = opts.static
 		? contract.callStatic[opts.method]
 		: contract[opts.method]
+	const overloadedMethod = singleMethod
+		? undefined
+		: ((name) => (opts.static ? contract.callStatic[name] : contract[name]))(
+				String(
+					keys(contract.functions).find(
+						(fn: string | number) => fn === `${opts.method}(${opts.interface})`
+					)
+				)
+		  )
+	const method = singleMethod ?? overloadedMethod
 	const res = await (argsOverrided === undefined
 		? method()
 		: method.apply(N, argsOverrided)

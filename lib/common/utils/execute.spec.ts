@@ -125,6 +125,25 @@ describe('execute.ts', () => {
 				utils.keccak256(utils.toUtf8Bytes('TEST'))
 			)
 		})
+		it("Execute the contract instance's `[passed overloaded method]()`.", async () => {
+			const fooStub = jest.fn(async () => Promise.resolve(true))
+			const contract = {
+				'foo(uint256)': () => {},
+				'foo(uint256,address)': fooStub,
+				functions: {
+					'foo(uint256)': () => {},
+					'foo(uint256,address)': () => {},
+				},
+			} as unknown as ethers.Contract
+			const result = await execute({
+				contract,
+				method: 'foo',
+				args: ['1', '0x'],
+				mutation: false,
+				interface: 'uint256,address',
+			})
+			expect(result).toEqual(true)
+		})
 	})
 	describe.skip('execute: overrides and fallbackOverrider', () => {
 		// TODO: Write tests

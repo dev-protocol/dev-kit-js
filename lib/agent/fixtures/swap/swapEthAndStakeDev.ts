@@ -49,5 +49,9 @@ export const createSwapEthAndStakeDevCaller: CreateSwapEthAndStakeDevCaller =
 			mutation: true,
 			args,
 			overrides,
+			interface:
+				gatewayAddress && gatewayBasisPoints
+					? 'address,uint256,bytes32,address,uint256'
+					: 'address,uint256,bytes32',
 		})
 	}

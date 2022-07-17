@@ -32,4 +32,5 @@ export const createDepositToPropertyCaller: CreateDepositToPropertyCaller =
 				? [propertyAddress, amount, payload]
 				: [propertyAddress, amount],
 			overrides,
+			interface: payload ? 'address,uint256,bytes32' : 'address,uint256',
 		})
