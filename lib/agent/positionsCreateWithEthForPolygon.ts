@@ -9,7 +9,7 @@ import {
 } from './common/approveIfNeeded'
 import { UndefinedOr, whenDefined } from '@devprotocol/util-ts'
 
-type PositionsCreateWithEth = (options: {
+type PositionsCreateWithEthForPolygon = (options: {
 	readonly provider: BaseProvider
 	readonly ethAmount?: string
 	readonly devAmount?: string
@@ -26,7 +26,7 @@ type PositionsCreateWithEth = (options: {
 	readonly create: () => Promise<UndefinedOr<ApproveIfNeededResult>>
 }>
 
-export const positionsCreateWithEth: PositionsCreateWithEth = async (
+export const positionsCreateWithEth: PositionsCreateWithEthForPolygon = async (
 	options
 ) => {
 	const [, l2, weth] = await clientsUtilsSwapForStake(options.provider)

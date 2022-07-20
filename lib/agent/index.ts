@@ -1,5 +1,6 @@
 export { positionsCreate } from './positionsCreate'
 export { positionsCreateWithEth } from './positionsCreateWithEth'
+export { positionsCreateWithEth as positionsCreateWithEthForPolygon } from './positionsCreateWithEthForPolygon'
 export { estimationsAPY } from './estimationsAPY'
 
 export { clientsDev } from './common/clients/clientsDev'
