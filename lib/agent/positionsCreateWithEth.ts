@@ -12,7 +12,7 @@ type PositionsCreateWithEth = (options: {
 	readonly destination: string
 	readonly deadline?: number
 	readonly gatewayAddress?: string
-	readonly gatewayBasisFee?: number
+	readonly gatewayBasisPoints?: number
 	readonly payload?: string
 	readonly overrides?: FallbackableOverrides
 }) => Promise<{
@@ -51,14 +51,14 @@ export const positionsCreateWithEth: PositionsCreateWithEth = async (
 						options.deadline ??
 						(await options.provider.getBlock('latest')).timestamp + 300
 
-					return options.gatewayAddress && options.gatewayBasisFee
+					return options.gatewayAddress && options.gatewayBasisPoints
 						? await l2.swapEthAndStakeDevCaller(
 								options.destination,
 								deadline,
 								options.payload ?? constants.HashZero,
 								_overrides,
 								options.gatewayAddress,
-								String(options.gatewayBasisFee)
+								String(options.gatewayBasisPoints)
 						  )
 						: await l2.swapEthAndStakeDevCaller(
 								options.destination,

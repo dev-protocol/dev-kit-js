@@ -52,18 +52,17 @@ export const positionsCreateWithEth: PositionsCreateWithEthForPolygon = async (
 							},
 						}
 
-						const deadline = options.deadline
-							? options.deadline
-							: (await options.provider.getBlock('latest')).timestamp + 300
-
 						return approveIfNeeded({
 							provider: options.provider,
 							requiredAmount: ethAmount,
 							from,
 							token: weth,
 							to: l2.contract().address,
-							callback: async () =>
-								options.gatewayAddress && options.gatewayBasisPoints
+							callback: async () => {
+								const deadline = options.deadline
+									? options.deadline
+									: (await options.provider.getBlock('latest')).timestamp + 300
+								return options.gatewayAddress && options.gatewayBasisPoints
 									? l2.swapEthAndStakeDevPolygonCaller(
 											options.destination,
 											ethAmount,
@@ -79,7 +78,8 @@ export const positionsCreateWithEth: PositionsCreateWithEthForPolygon = async (
 											deadline,
 											options.payload ?? constants.HashZero,
 											_overrides
-									  ),
+									  )
+							},
 						})
 					}),
 		  }
