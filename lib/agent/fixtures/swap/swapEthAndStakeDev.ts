@@ -6,6 +6,7 @@ import {
 	MutationOption,
 } from '../../../common/utils/execute'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
+import { agentAddresses } from '../../common/agentAddresses'
 
 export type CreateSwapEthAndStakeDevCaller = (
 	contract: ethers.Contract
@@ -28,20 +29,22 @@ export const createSwapEthAndStakeDevCaller: CreateSwapEthAndStakeDevCaller =
 		gatewayAddress?: string,
 		gatewayBasisPoints?: string
 	) => {
-		const args =
-			gatewayAddress && gatewayBasisPoints
-				? [
-						propertyAddress,
-						String(deadline),
-						payload ?? ethers.constants.HashZero,
-						gatewayAddress,
-						gatewayBasisPoints,
-				  ]
-				: [
-						propertyAddress,
-						String(deadline),
-						payload ?? ethers.constants.HashZero,
-				  ]
+		const isV2Mainnet = agentAddresses.eth.main.swap.v2 === contract.address // The mainnet contract uses still legacy version
+		const args = isV2Mainnet
+			? [propertyAddress]
+			: gatewayAddress && gatewayBasisPoints
+			? [
+					propertyAddress,
+					String(deadline),
+					payload ?? ethers.constants.HashZero,
+					gatewayAddress,
+					gatewayBasisPoints,
+			  ]
+			: [
+					propertyAddress,
+					String(deadline),
+					payload ?? ethers.constants.HashZero,
+			  ]
 
 		return execute<MutationOption>({
 			contract,
@@ -49,9 +52,10 @@ export const createSwapEthAndStakeDevCaller: CreateSwapEthAndStakeDevCaller =
 			mutation: true,
 			args,
 			overrides,
-			interface:
-				gatewayAddress && gatewayBasisPoints
-					? 'address,uint256,bytes32,address,uint256'
-					: 'address,uint256,bytes32',
+			interface: isV2Mainnet
+				? undefined
+				: gatewayAddress && gatewayBasisPoints
+				? 'address,uint256,bytes32,address,uint256'
+				: 'address,uint256,bytes32',
 		})
 	}

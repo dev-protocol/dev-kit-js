@@ -24,7 +24,7 @@ export const clientsUtilsSwapForStake = async (
 				({ chainId }) => chainId === net.chainId
 			)
 			const l2 = detectedNetwork
-				? ((v: 'v2' | 'v3' | 'v2_polygon') =>
+				? ((v: 'v2' | 'v3' | 'v2_mainnet' | 'v2_polygon') =>
 						createSwapContract(
 							provider,
 							v
@@ -33,7 +33,7 @@ export const clientsUtilsSwapForStake = async (
 							? 'v2_polygon'
 							: detectedNetwork.map.swap.v3 !== undefined
 							? 'v3'
-							: 'v2'
+							: 'v2_mainnet'
 				  )
 				: undefined
 			const results: Results = [undefined, l2, detectedNetwork?.map.weth]
