@@ -128,6 +128,30 @@ export const swapAbiV2 = [
 	{
 		inputs: [
 			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		name: 'gatewayOf',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: 'input',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: 'fee',
+				type: 'uint256',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
 				internalType: 'uint256',
 				name: 'ethAmount',
 				type: 'uint256',
