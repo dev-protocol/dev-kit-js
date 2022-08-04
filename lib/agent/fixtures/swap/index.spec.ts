@@ -32,12 +32,9 @@ describe('swap/index.ts', () => {
 				return {
 					getEstimatedDevForEth: createGetEstimatedDevForEthCaller(
 						contract,
-						'v3'
+						'v2'
 					),
-					getEstimatedEthForDev: createGetEstimatedEthForDevCaller(
-						contract,
-						'v3'
-					),
+					getEstimatedEthForDev: createGetEstimatedEthForDevCaller(contract),
 					swapEthAndStakeDevCaller: createSwapEthAndStakeDevCaller(contract),
 					swapEthAndStakeDevPolygonCaller:
 						createSwapEthAndStakeDevPolygonCaller(contract),
