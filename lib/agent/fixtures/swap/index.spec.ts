@@ -30,7 +30,10 @@ describe('swap/index.ts', () => {
 			const expected: (address: string) => SwapContract = (address: string) => {
 				const contract = new ethers.Contract(address, [...swapAbiV3], provider)
 				return {
-					getEstimatedDevForEth: createGetEstimatedDevForEthCaller(contract),
+					getEstimatedDevForEth: createGetEstimatedDevForEthCaller(
+						contract,
+						'v2'
+					),
 					getEstimatedEthForDev: createGetEstimatedEthForDevCaller(contract),
 					swapEthAndStakeDevCaller: createSwapEthAndStakeDevCaller(contract),
 					swapEthAndStakeDevPolygonCaller:

@@ -48,7 +48,7 @@ export const createSwapContract =
 		)
 
 		return {
-			getEstimatedDevForEth: createGetEstimatedDevForEthCaller(contract),
+			getEstimatedDevForEth: createGetEstimatedDevForEthCaller(contract, v),
 			getEstimatedEthForDev: createGetEstimatedEthForDevCaller(contract),
 			swapEthAndStakeDevCaller: createSwapEthAndStakeDevCaller(contract),
 			swapEthAndStakeDevPolygonCaller:
