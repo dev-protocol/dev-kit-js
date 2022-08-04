@@ -15,5 +15,7 @@ export const createGetEstimatedDevForEthCaller: CreateGetEstimatedDevForEthCalle
 			mutation: false,
 			static: true,
 		})
-		return Array.isArray(res) ? res[0] : res
+		const polygonIDs = [137, 80001]
+		const chain = (await contract.provider.getNetwork()).chainId
+		return Array.isArray(res) ? res[polygonIDs.includes(chain) ? 2 : 1] : res
 	}
