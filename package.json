@@ -97,7 +97,7 @@
 		"@types/bent": "^7.3.1",
 		"async-ray": "^3.2.0",
 		"bent": "^7.3.12",
-		"bignumber.js": "9.0.2",
+		"bignumber.js": "9.1.0",
 		"js-base64": "^3.7.2",
 		"ramda": "^0.28.0"
 	},
