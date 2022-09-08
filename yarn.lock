@@ -5415,14 +5415,15 @@ eslint-config-prettier@8.5.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.5.0.tgz#5a81680ec934beca02c7b1a61cf8ca34b66feab1"
   integrity sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==
 
-eslint-plugin-functional@4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-functional/-/eslint-plugin-functional-4.2.2.tgz#d4c10fec0f45db892590255a03f2f9ad06eddd24"
-  integrity sha512-sDz61AoXnR5dIipurwqoxvZ/CHzF1FHVGR5bUR+vJjqYiRNp+Y/m2SXEpyDqYwv8zSdZpBP77g8WR3+ZiJdZpw==
+eslint-plugin-functional@4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-functional/-/eslint-plugin-functional-4.3.0.tgz#8a5599531e014f1159e8a01ab6aaf78e297f7fe8"
+  integrity sha512-zXiVnGcMQveW9+1GeARaeDhIQE8AtDgUgjiPqDSfthztlxERF6LsQ9UbIrpJCpdr7F8jPhjEBNoW45gjRFTgeg==
   dependencies:
     "@typescript-eslint/utils" "^5.10.2"
     deepmerge-ts "^4.0.3"
     escape-string-regexp "^4.0.0"
+    semver "^7.3.7"
 
 eslint-plugin-jest@26.9.0:
   version "26.9.0"
