@@ -53,7 +53,7 @@
 		"@typescript-eslint/parser": "5.37.0",
 		"eslint": "8.23.1",
 		"eslint-config-prettier": "8.5.0",
-		"eslint-plugin-functional": "4.3.1",
+		"eslint-plugin-functional": "4.3.2",
 		"eslint-plugin-jest": "26.9.0",
 		"ethers": "5.7.1",
 		"husky": "7.0.4",
