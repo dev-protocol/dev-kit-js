@@ -1,26 +1,21 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { ethers } from 'ethers'
-import {
-	execute,
-	FallbackableOverrides,
-	MutationOption,
-} from '../../common/utils/execute'
-import { TransactionResponse } from '@ethersproject/abstract-provider'
+import { execute, QueryOption } from '../../common/utils/execute'
 
 export type CreatePayloadOfCaller = (
 	contract: ethers.Contract
 ) => (
-	tokenId: number,
-	overrides?: FallbackableOverrides
-) => Promise<TransactionResponse>
+	tokenId: number
+) => Promise<string>
 
 export const createpayloadOfCaller: CreatePayloadOfCaller =
 	(contract: ethers.Contract) =>
-	async (tokenId: number, overrides?: FallbackableOverrides) =>
-		execute<MutationOption>({
+	async (tokenId: number): Promise<string> =>{
+		const res = execute<QueryOption>({
 			contract,
 			method: 'payloadOf',
 			args: [String(tokenId)],
-            overrides,
-			mutation: true,
+			mutation: false
 		})
+		return res
+	}
