@@ -13,6 +13,7 @@ import { createFreezeTokenURICaller } from './freezeTokenURI'
 import { createSetTokenURIImageCaller } from './setTokenURIImage'
 import { createSetSTokenRoyaltyForPropertyCaller } from './setSTokenRoyaltyForProperty'
 import { createRoyaltyOfCaller } from './royaltyOf'
+import { createSetTokenURIDescriptorCaller } from './setTokenURIDescriptor'
 
 jest.mock('./positions')
 jest.mock('./isFreezed')
@@ -26,6 +27,7 @@ jest.mock('./positionsOfProperty')
 jest.mock('./positionsOfOwner')
 jest.mock('./setSTokenRoyaltyForProperty')
 jest.mock('./royaltyOf')
+jest.mock('./setTokenURIDescriptor')
 
 describe('s-tokens/index.ts', () => {
 	;(createPositionsCaller as jest.Mock).mockImplementation(
@@ -57,6 +59,9 @@ describe('s-tokens/index.ts', () => {
 	;(createRoyaltyOfCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
+	;(createSetTokenURIDescriptorCaller as jest.Mock).mockImplementation(
+		(contract) => contract
+	)
 	;(createTokenURISimCaller as jest.Mock).mockImplementation(
 		(contract) => contract
 	)
@@ -77,6 +82,7 @@ describe('s-tokens/index.ts', () => {
 					setTokenURIImage: createSetTokenURIImageCaller(contract),
 					setSTokenRoyaltyForProperty: createSetSTokenRoyaltyForPropertyCaller(contract),
 					royaltyOf: createRoyaltyOfCaller(contract),
+					setTokenURIDescriptor: createSetTokenURIDescriptorCaller(contract),
 					ownerOf: createOwnerOfCaller(contract),
 					rewards: createRewardsCaller(contract),
 					tokenURI: createTokenURICaller(contract),

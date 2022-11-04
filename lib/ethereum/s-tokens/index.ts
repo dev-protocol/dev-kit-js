@@ -12,6 +12,7 @@ import { createPositionsOfPropertyCaller } from './positionsOfProperty'
 import { createPositionsOfOwnerCaller } from './positionsOfOwner'
 import { createSetSTokenRoyaltyForPropertyCaller } from './setSTokenRoyaltyForProperty'
 import { createRoyaltyOfCaller } from './royaltyOf'
+import { createSetTokenURIDescriptorCaller } from './setTokenURIDescriptor'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { always } from 'ramda'
 import { createTokenURISimCaller, TokenURISimProps } from './tokenURISim'
@@ -29,6 +30,10 @@ export type STokensContract = {
 		royalty: number
 	) => Promise<TransactionResponse>
 	readonly royaltyOf: (propertyAddress: string) => Promise<string>
+	readonly setTokenURIDescriptor: (
+		propertyAddress: string,
+		descriptorAddress: string
+	) => Promise<TransactionResponse>
 	readonly ownerOf: (tokenId: number) => Promise<string>
 	readonly rewards: (tokenId: number) => Promise<Rewards>
 	readonly tokenURI: (tokenId: number) => Promise<TokenURI>
@@ -59,6 +64,7 @@ export const createSTokensContract =
 			setTokenURIImage: createSetTokenURIImageCaller(contractClient),
 			setSTokenRoyaltyForProperty: createSetSTokenRoyaltyForPropertyCaller(contractClient),
 			royaltyOf: createRoyaltyOfCaller(contractClient),
+			setTokenURIDescriptor: createSetTokenURIDescriptorCaller(contractClient),
 			ownerOf: createOwnerOfCaller(contractClient),
 			rewards: createRewardsCaller(contractClient),
 			tokenURI: createTokenURICaller(contractClient),
