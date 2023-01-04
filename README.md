@@ -51,3 +51,12 @@ The URL of the provider is easy to use with each node provisioning service.
 ## build
 > yarn build
 ```
+
+## how to publish
+
+```bash
+> npm version [major|minor|patch]
+> git push && git push --tags
+```
+
+GitHub Actions "Publish" automatically publishes the new version.

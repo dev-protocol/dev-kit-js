@@ -38,7 +38,7 @@
 		"lint:format": "prettier --write '**/*.{ts,js,json,md,yml}'",
 		"test": "jest",
 		"test:coverage": "jest --coverage",
-		"prepack": "yarn test && yarn build",
+		"prepack": "yarn build",
 		"clean": "rimraf dist l2 agent",
 		"prepare": "husky install"
 	},
