@@ -62,7 +62,8 @@ export const createSTokensContract =
 			isFreezed: createIsFreezedCaller(contractClient),
 			freezeTokenURI: createFreezeTokenURICaller(contractClient),
 			setTokenURIImage: createSetTokenURIImageCaller(contractClient),
-			setSTokenRoyaltyForProperty: createSetSTokenRoyaltyForPropertyCaller(contractClient),
+			setSTokenRoyaltyForProperty:
+				createSetSTokenRoyaltyForPropertyCaller(contractClient),
 			royaltyOf: createRoyaltyOfCaller(contractClient),
 			setTokenURIDescriptor: createSetTokenURIDescriptorCaller(contractClient),
 			ownerOf: createOwnerOfCaller(contractClient),

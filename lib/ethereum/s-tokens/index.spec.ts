@@ -80,7 +80,8 @@ describe('s-tokens/index.ts', () => {
 					isFreezed: createIsFreezedCaller(contract),
 					freezeTokenURI: createFreezeTokenURICaller(contract),
 					setTokenURIImage: createSetTokenURIImageCaller(contract),
-					setSTokenRoyaltyForProperty: createSetSTokenRoyaltyForPropertyCaller(contract),
+					setSTokenRoyaltyForProperty:
+						createSetSTokenRoyaltyForPropertyCaller(contract),
 					royaltyOf: createRoyaltyOfCaller(contract),
 					setTokenURIDescriptor: createSetTokenURIDescriptorCaller(contract),
 					ownerOf: createOwnerOfCaller(contract),
