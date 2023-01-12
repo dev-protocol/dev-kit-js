@@ -3,7 +3,7 @@ import { createRoyaltyOfCaller } from './royaltyOf'
 describe('royaltyOf.spec.ts', () => {
 	describe('createRoyaltyOfCaller', () => {
 		it('call success', async () => {
-            const propertyAddress = '0x541F7914ED2A4a8B477edc711FA349A77983F3AD'
+			const propertyAddress = '0x541F7914ED2A4a8B477edc711FA349A77983F3AD'
 			const royalty = 10
 
 			const devContract = {
@@ -24,14 +24,16 @@ describe('royaltyOf.spec.ts', () => {
 		})
 
 		it('call failure', async () => {
-            const propertyAddress = '0x541F7914ED2A4a8B477edc711FA349A77983F3AD'
+			const propertyAddress = '0x541F7914ED2A4a8B477edc711FA349A77983F3AD'
 			const error = 'error'
 
 			const devContract = {
 				royaltyOf: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (propertyAddress: string) => Promise.reject(error)),
+					.mockImplementation(async (propertyAddress: string) =>
+						Promise.reject(error)
+					),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

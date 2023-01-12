@@ -3,7 +3,7 @@ import { createpayloadOfCaller } from './payloadOf'
 describe('payloadOf.spec.ts', () => {
 	describe('createpayloadOfCaller', () => {
 		it('call success', async () => {
-			const value = "0x74657374696e67"
+			const value = '0x74657374696e67'
 			const tokenId = 1
 
 			const devContract = {
