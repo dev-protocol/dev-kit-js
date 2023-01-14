@@ -16,23 +16,31 @@ import { createSetTokenURIDescriptorCaller } from './setTokenURIDescriptor'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { always } from 'ramda'
 import { createTokenURISimCaller, TokenURISimProps } from './tokenURISim'
+import { FallbackableOverrides } from '../../common/utils/execute'
 
 export type STokensContract = {
 	readonly positions: (tokenId: number) => Promise<Positions>
 	readonly isFreezed: (tokenId: number) => Promise<boolean>
-	readonly freezeTokenURI: (tokenId: number) => Promise<TransactionResponse>
+	readonly freezeTokenURI: (
+		tokenId: number,
+		overrides?: FallbackableOverrides
+	) => Promise<TransactionResponse>
 	readonly setTokenURIImage: (
 		tokenId: number,
-		data: string
+		data: string,
+		overrides?: FallbackableOverrides
 	) => Promise<TransactionResponse>
 	readonly setSTokenRoyaltyForProperty: (
 		propertyAddress: string,
-		royalty: number
+		royalty: number,
+		overrides?: FallbackableOverrides
 	) => Promise<TransactionResponse>
 	readonly royaltyOf: (propertyAddress: string) => Promise<string>
 	readonly setTokenURIDescriptor: (
 		propertyAddress: string,
-		descriptorAddress: string
+		descriptorAddress: string,
+		payloads?: ReadonlyArray<string | Uint8Array>,
+		overrides?: FallbackableOverrides
 	) => Promise<TransactionResponse>
 	readonly ownerOf: (tokenId: number) => Promise<string>
 	readonly rewards: (tokenId: number) => Promise<Rewards>
