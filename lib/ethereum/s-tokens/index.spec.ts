@@ -14,6 +14,7 @@ import { createSetTokenURIImageCaller } from './setTokenURIImage'
 import { createSetSTokenRoyaltyForPropertyCaller } from './setSTokenRoyaltyForProperty'
 import { createRoyaltyOfCaller } from './royaltyOf'
 import { createSetTokenURIDescriptorCaller } from './setTokenURIDescriptor'
+import { createPayloadOfCaller } from './payloadOf'
 
 jest.mock('./positions')
 jest.mock('./isFreezed')
@@ -90,6 +91,7 @@ describe('s-tokens/index.ts', () => {
 					tokenURISim: createTokenURISimCaller(contract),
 					positionsOfProperty: createPositionsOfPropertyCaller(contract),
 					positionsOfOwner: createPositionsOfOwnerCaller(contract),
+					payloadOf: createPayloadOfCaller(contract),
 					contract: () => contract,
 				}
 			}
