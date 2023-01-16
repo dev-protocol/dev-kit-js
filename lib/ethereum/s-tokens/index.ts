@@ -8,6 +8,7 @@ import { createSetTokenURIImageCaller } from './setTokenURIImage'
 import { createOwnerOfCaller } from './ownerOf'
 import { createRewardsCaller, Rewards } from './rewards'
 import { createTokenURICaller, TokenURI } from './tokenURI'
+import { createPayloadOfCaller } from './payloadOf'
 import { createPositionsOfPropertyCaller } from './positionsOfProperty'
 import { createPositionsOfOwnerCaller } from './positionsOfOwner'
 import { createSetSTokenRoyaltyForPropertyCaller } from './setSTokenRoyaltyForProperty'
@@ -53,6 +54,7 @@ export type STokensContract = {
 		accountAddress: string
 	) => Promise<readonly number[]>
 	readonly contract: () => ethers.Contract
+	readonly payloadOf: (tokenId: number) => Promise<string>
 }
 
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
@@ -78,6 +80,7 @@ export const createSTokensContract =
 			rewards: createRewardsCaller(contractClient),
 			tokenURI: createTokenURICaller(contractClient),
 			tokenURISim: createTokenURISimCaller(contractClient),
+			payloadOf: createPayloadOfCaller(contractClient),
 			positionsOfProperty: createPositionsOfPropertyCaller(contractClient),
 			positionsOfOwner: createPositionsOfOwnerCaller(contractClient),
 			contract: always(contractClient),
