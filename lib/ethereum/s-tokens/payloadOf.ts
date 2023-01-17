@@ -6,7 +6,7 @@ export type CreatePayloadOfCaller = (
 	contract: ethers.Contract
 ) => (tokenId: number) => Promise<string>
 
-export const createpayloadOfCaller: CreatePayloadOfCaller =
+export const createPayloadOfCaller: CreatePayloadOfCaller =
 	(contract: ethers.Contract) =>
 	async (tokenId: number): Promise<string> => {
 		const res = execute<QueryOption>({

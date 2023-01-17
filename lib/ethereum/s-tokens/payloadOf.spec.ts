@@ -1,7 +1,7 @@
-import { createpayloadOfCaller } from './payloadOf'
+import { createPayloadOfCaller } from './payloadOf'
 
 describe('payloadOf.spec.ts', () => {
-	describe('createpayloadOfCaller', () => {
+	describe('createPayloadOfCaller', () => {
 		it('call success', async () => {
 			const value = '0x74657374696e67'
 			const tokenId = 1
@@ -16,7 +16,7 @@ describe('payloadOf.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createpayloadOfCaller(devContract as any)
+			const caller = createPayloadOfCaller(devContract as any)
 
 			const result = await caller(tokenId)
 
@@ -35,7 +35,7 @@ describe('payloadOf.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createpayloadOfCaller(devContract as any)
+			const caller = createPayloadOfCaller(devContract as any)
 
 			const result = await caller(tokenId).catch((err) => err)
 
