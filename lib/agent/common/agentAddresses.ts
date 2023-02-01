@@ -21,8 +21,8 @@ export const agentAddresses = {
 	polygon: {
 		mainnet: {
 			swap: {
-				v2: '0xA379F35b916203112D157d4655353BB17AD81DC0',
-				v3: undefined,
+				v2: undefined,
+				v3: '0x9265Cf9e6Dc5B163bDB75d51661Ca8EA3b6150c4',
 			},
 			weth: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
 		},
