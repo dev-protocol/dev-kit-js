@@ -16,10 +16,7 @@ describe('totalLockedForProperty.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createGetEstimatedDevForEthCaller(
-				swapContract as any,
-				'v3'
-			)
+			const caller = createGetEstimatedDevForEthCaller(swapContract as any)
 
 			const result = await caller('1000')
 
@@ -40,10 +37,7 @@ describe('totalLockedForProperty.spec.ts', () => {
 			const expected = value[1]
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createGetEstimatedDevForEthCaller(
-				swapContract as any,
-				'v2'
-			)
+			const caller = createGetEstimatedDevForEthCaller(swapContract as any)
 
 			const result = await caller('1000')
 
@@ -62,10 +56,7 @@ describe('totalLockedForProperty.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createGetEstimatedDevForEthCaller(
-				swapContract as any,
-				'v3'
-			)
+			const caller = createGetEstimatedDevForEthCaller(swapContract as any)
 
 			const result = await caller('1000').catch((err) => err)
 
