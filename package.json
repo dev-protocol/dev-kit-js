@@ -48,7 +48,7 @@
 		"@rollup/plugin-multi-entry": "6.0.0",
 		"@rollup/plugin-node-resolve": "15.0.1",
 		"@types/jest": "29.4.0",
-		"@types/ramda": "0.28.22",
+		"@types/ramda": "0.28.23",
 		"@typescript-eslint/eslint-plugin": "5.51.0",
 		"@typescript-eslint/parser": "5.51.0",
 		"eslint": "8.33.0",

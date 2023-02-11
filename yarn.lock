@@ -2447,10 +2447,10 @@
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.4.2.tgz#4c62fae93eb479660c3bd93f9d24d561597a8281"
   integrity sha512-ekoj4qOQYp7CvjX8ZDBgN86w3MqQhLE1hczEJbEIjgFEumDy+na/4AJAbLXfgEWFNB2pKadM5rPFtuSGMWK7xA==
 
-"@types/ramda@0.28.22":
-  version "0.28.22"
-  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.28.22.tgz#170155639e05fae68820003a862bb8cffe38d69f"
-  integrity sha512-DoIfh0sBxrL/aqADk+SGrfjJT9cB8modg+4NRlF7/Tfg4N2+KBEkAgpYYzrjiZxxR5YzWizjfVrTEdVDwYK7xQ==
+"@types/ramda@0.28.23":
+  version "0.28.23"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.28.23.tgz#d04279865a86c330c03c99ac61161d9905f276f5"
+  integrity sha512-9TYWiwkew+mCMsL7jZ+kkzy6QXn8PL5/SKmBPmjgUlTpkokZWTBr+OhiIUDztpAEbslWyt24NNfEmZUBFmnXig==
   dependencies:
     ts-toolbelt "^6.15.1"
 
