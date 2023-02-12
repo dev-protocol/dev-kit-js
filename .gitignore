@@ -61,5 +61,11 @@ typings/
 .next
 
 # build
-cjs
-esm
+dist
+*.js
+!examples/*.js
+*.mjs
+*.d.ts
+*.ts.map
+!rollup.config.*
+.eslintcache

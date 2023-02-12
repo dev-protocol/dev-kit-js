@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
-		"target": "es5",
+		"target": "es2015",
 		"lib": ["dom", "es2018"],
 		"strict": true,
 		"strictNullChecks": true,
@@ -13,8 +13,10 @@
 		"pretty": true,
 		"newLine": "lf",
 		"esModuleInterop": true,
-		"moduleResolution": "node"
+		"moduleResolution": "node",
+		"outDir": "dist",
+		"rootDir": "."
 	},
-	"include": ["lib"],
+	"include": ["lib", "lib/agent/common/clients/.ts"],
 	"exclude": ["node_modules", "**/*.spec.ts"]
 }
