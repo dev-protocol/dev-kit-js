@@ -24,13 +24,13 @@ export const clientsUtilsSwapForStake = async (
 				({ chainId }) => chainId === net.chainId
 			)
 			const l2 = detectedNetwork
-				? ((v: 'v2' | 'v3' | 'v2_polygon') =>
+				? ((v: 'v2' | 'v3' | 'v3_polygon') =>
 						createSwapContract(
 							provider,
 							v
 						)(detectedNetwork.map.swap.v3 ?? detectedNetwork.map.swap.v2))(
 						polygonIDs.some((id) => id === net.chainId)
-							? 'v2_polygon'
+							? 'v3_polygon'
 							: detectedNetwork.map.swap.v3 !== undefined
 							? 'v3'
 							: 'v2'

@@ -1,4 +1,4 @@
-import { ethers } from 'ethers'
+import { ethers, utils } from 'ethers'
 import {
 	execute,
 	FallbackableOverrides,
@@ -11,16 +11,26 @@ export type CreateSetTokenURIDescriptorCaller = (
 ) => (
 	propertyAddress: string,
 	descriptorAddress: string,
+	payloads?: ReadonlyArray<string | Uint8Array>,
 	overrides?: FallbackableOverrides
 ) => Promise<TransactionResponse>
 
 export const createSetTokenURIDescriptorCaller: CreateSetTokenURIDescriptorCaller =
-	(contract: ethers.Contract) =>
-	async (propertyAddress: string, descriptorAddress: string, overrides?: FallbackableOverrides) =>
-		execute<MutationOption>({
-			contract,
-			method: 'setTokenURIDescriptor',
-			mutation: true,
-			args: [propertyAddress, descriptorAddress],
-			overrides,
-		})
+
+		(contract: ethers.Contract) =>
+		async (
+			propertyAddress: string,
+			descriptorAddress: string,
+			payloads?: ReadonlyArray<string | Uint8Array>,
+			overrides?: FallbackableOverrides
+		) =>
+			execute<MutationOption>({
+				contract,
+				method: 'setTokenURIDescriptor',
+				mutation: true,
+				args: payloads
+					? [propertyAddress, descriptorAddress, payloads.map(utils.keccak256)]
+					: [propertyAddress, descriptorAddress],
+				overrides,
+				interface: payloads ? 'address,address,bytes32[]' : 'address,address',
+			})

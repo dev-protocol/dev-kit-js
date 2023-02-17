@@ -1,9 +1,14 @@
-name: Node
+name: Publish
 
-on: [push]
+on:
+  workflow_run:
+    workflows: ['Node']
+    branches: [main]
+    types:
+      - completed
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
 
     strategy:
@@ -16,11 +21,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: yarn install, lint, build, and test
+      - name: yarn install, and build
         run: |
           yarn install
-          yarn lint
           yarn run build
-          yarn test
-        env:
-          CI: true
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}

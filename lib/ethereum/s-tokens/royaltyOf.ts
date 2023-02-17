@@ -2,17 +2,16 @@
 import { ethers } from 'ethers'
 import { execute, QueryOption } from '../../common/utils/execute'
 
-export type CreatePayloadOfCaller = (
+export type CreateRoyaltyOfCaller = (
 	contract: ethers.Contract
-) => (tokenId: number) => Promise<string>
+) => (propertyAddress: string) => Promise<string>
 
-export const createPayloadOfCaller: CreatePayloadOfCaller =
-	(contract: ethers.Contract) =>
-	async (tokenId: number): Promise<string> => {
+export const createRoyaltyOfCaller: CreateRoyaltyOfCaller =
+	(contract: ethers.Contract) => async (propertyAddress: string) => {
 		const res = execute<QueryOption>({
 			contract,
-			method: 'payloadOf',
-			args: [String(tokenId)],
+			method: 'royaltyOf',
+			args: [propertyAddress],
 			mutation: false,
 		})
 		return res

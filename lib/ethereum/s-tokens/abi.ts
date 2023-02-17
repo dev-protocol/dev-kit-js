@@ -228,6 +228,31 @@ export const sTokensAbi = [
 	{
 		inputs: [
 			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+			{
+				internalType: 'bytes32',
+				name: '',
+				type: 'bytes32',
+			},
+		],
+		name: 'descriptorOfPropertyByPayload',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+		constant: true,
+	},
+	{
+		inputs: [
+			{
 				internalType: 'uint256',
 				name: 'tokenId',
 				type: 'uint256',
@@ -362,6 +387,26 @@ export const sTokensAbi = [
 		inputs: [
 			{
 				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		name: 'royaltyOf',
+		outputs: [
+			{
+				internalType: 'uint24',
+				name: '',
+				type: 'uint24',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+		constant: true,
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
 				name: 'from',
 				type: 'address',
 			},
@@ -428,26 +473,6 @@ export const sTokensAbi = [
 		type: 'function',
 	},
 	{
-		inputs: [
-			{
-				internalType: 'bytes4',
-				name: 'interfaceId',
-				type: 'bytes4',
-			},
-		],
-		name: 'supportsInterface',
-		outputs: [
-			{
-				internalType: 'bool',
-				name: '',
-				type: 'bool',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-		constant: true,
-	},
-	{
 		inputs: [],
 		name: 'symbol',
 		outputs: [
@@ -493,6 +518,112 @@ export const sTokensAbi = [
 			},
 		],
 		name: 'initialize',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'bytes4',
+				name: 'interfaceId',
+				type: 'bytes4',
+			},
+		],
+		name: 'supportsInterface',
+		outputs: [
+			{
+				internalType: 'bool',
+				name: '',
+				type: 'bool',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+		constant: true,
+	},
+	{
+		inputs: [],
+		name: 'totalSupply',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+		constant: true,
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_owner',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: 'index',
+				type: 'uint256',
+			},
+		],
+		name: 'tokenOfOwnerByIndex',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+		constant: true,
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: 'index',
+				type: 'uint256',
+			},
+		],
+		name: 'tokenByIndex',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: '',
+				type: 'uint256',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+		constant: true,
+	},
+	{
+		inputs: [],
+		name: 'owner',
+		outputs: [
+			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+		constant: true,
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_proxyAdmin',
+				type: 'address',
+			},
+		],
+		name: 'setProxyAdmin',
 		outputs: [],
 		stateMutability: 'nonpayable',
 		type: 'function',
@@ -723,6 +854,29 @@ export const sTokensAbi = [
 				name: '_descriptor',
 				type: 'address',
 			},
+			{
+				internalType: 'bytes32[]',
+				name: '_keys',
+				type: 'bytes32[]',
+			},
+		],
+		name: 'setTokenURIDescriptor',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_descriptor',
+				type: 'address',
+			},
 		],
 		name: 'setTokenURIDescriptor',
 		outputs: [],
@@ -860,6 +1014,54 @@ export const sTokensAbi = [
 				internalType: 'uint256[]',
 				name: '',
 				type: 'uint256[]',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+		constant: true,
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_property',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: '_percentage',
+				type: 'uint256',
+			},
+		],
+		name: 'setSTokenRoyaltyForProperty',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'uint256',
+				name: 'tokenId',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: 'value',
+				type: 'uint256',
+			},
+		],
+		name: 'royaltyInfo',
+		outputs: [
+			{
+				internalType: 'address',
+				name: 'receiver',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: 'royaltyAmount',
+				type: 'uint256',
 			},
 		],
 		stateMutability: 'view',

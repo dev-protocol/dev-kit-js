@@ -1,9 +1,9 @@
-export const swapAbiV2Polygon = [
+export const swapAbiV3Polygon = [
 	{
 		inputs: [
 			{
 				internalType: 'address',
-				name: '_uniswapRouterAddress',
+				name: '_wethAddress',
 				type: 'address',
 			},
 			{
@@ -19,11 +19,6 @@ export const swapAbiV2Polygon = [
 			{
 				internalType: 'address',
 				name: '_sTokensAddress',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_wethAddress',
 				type: 'address',
 			},
 		],
@@ -133,6 +128,30 @@ export const swapAbiV2Polygon = [
 	{
 		inputs: [
 			{
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		name: 'gatewayOf',
+		outputs: [
+			{
+				internalType: 'uint256',
+				name: 'input',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: 'fee',
+				type: 'uint256',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
 				internalType: 'uint256',
 				name: 'ethAmount',
 				type: 'uint256',
@@ -141,12 +160,12 @@ export const swapAbiV2Polygon = [
 		name: 'getEstimatedDevForEth',
 		outputs: [
 			{
-				internalType: 'uint256[]',
+				internalType: 'uint256',
 				name: '',
-				type: 'uint256[]',
+				type: 'uint256',
 			},
 		],
-		stateMutability: 'view',
+		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
@@ -160,12 +179,12 @@ export const swapAbiV2Polygon = [
 		name: 'getEstimatedEthForDev',
 		outputs: [
 			{
-				internalType: 'uint256[]',
+				internalType: 'uint256',
 				name: '',
-				type: 'uint256[]',
+				type: 'uint256',
 			},
 		],
-		stateMutability: 'view',
+		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
@@ -174,6 +193,19 @@ export const swapAbiV2Polygon = [
 		outputs: [
 			{
 				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		stateMutability: 'view',
+		type: 'function',
+	},
+	{
+		inputs: [],
+		name: 'quoter',
+		outputs: [
+			{
+				internalType: 'contract IQuoter',
 				name: '',
 				type: 'address',
 			},
@@ -265,7 +297,7 @@ export const swapAbiV2Polygon = [
 		name: 'uniswapRouter',
 		outputs: [
 			{
-				internalType: 'contract IUniswapV2Router02',
+				internalType: 'contract ISwapRouter',
 				name: '',
 				type: 'address',
 			},
