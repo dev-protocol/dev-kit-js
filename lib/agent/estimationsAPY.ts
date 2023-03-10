@@ -1,13 +1,13 @@
-import type { BaseProvider } from '@ethersproject/providers'
 import { clientsLockup } from './common/clients/clientsLockup'
 import { UndefinedOr, whenDefined, whenDefinedAll } from '@devprotocol/util-ts'
 import { clientsMetricsFactory } from './common/clients/clientsMetricsFactory'
 import { clientsMetricsGroup } from './common/clients/clientsMetricsGroup'
 import { clientsPolicy } from './common/clients/clientsPolicy'
 import { BigNumber } from 'bignumber.js'
+import { ContractRunner } from 'ethers'
 
 type EstimationsAPY = (options: {
-	readonly provider: BaseProvider
+	readonly provider: ContractRunner
 }) => Promise<readonly [UndefinedOr<number>, UndefinedOr<number>]>
 
 export const estimationsAPY: EstimationsAPY = async (options) => {

@@ -1,4 +1,4 @@
-import { ethers, keccak256 } from 'ethers'
+import { ethers, type BrowserProvider, keccak256 } from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { keys, mergeAll } from 'ramda'
 
@@ -106,15 +106,20 @@ const stringify = (
 
 const N = null
 
-type SignableProvider = providers.JsonRpcProvider | providers.Web3Provider
-
 export const execute: ExecuteFunction = async <
 	T = string,
 	O extends ExecuteOption = QueryOption
 >(
 	opts: O
 ) => {
-	const contract = opts.contract
+	const signer =
+		typeof (opts.contract?.runner as BrowserProvider)?.getSigner === 'function'
+			? await (opts.contract.runner as BrowserProvider).getSigner()
+			: undefined
+	const contract =
+		opts.mutation && signer
+			? (opts.contract.connect(signer) as ethers.Contract)
+			: opts.contract
 	const convertedArgs: ArgsWithoutUint8Array | undefined =
 		opts.args === undefined
 			? undefined
@@ -135,8 +140,9 @@ export const execute: ExecuteFunction = async <
 	const overloadedMethod = ((name) =>
 		opts.static ? contract[name].staticCall : contract[name])(
 		String(
-			keys(contract.functions).find(
-				(fn: string | number) => fn === `${opts.method}(${opts.interface})`
+			keys(contract).find(
+				(fn: string | number | unknown) =>
+					fn === `${opts.method}(${opts.interface})`
 			)
 		)
 	)

@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { metricsFactoryAbi } from './abi'
 import { createAuthenticatedPropertiesCountCaller } from './authenticatedPropertiesCount'
 import { createMetricsOfPropertyCaller } from './metricsOfProperty'
@@ -17,7 +16,7 @@ export type MetricsFactoryContract = {
 
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
 export const createMetricsFactoryContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): MetricsFactoryContract => {
 		const contract = new ethers.Contract(
 			address,

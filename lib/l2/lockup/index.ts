@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { lockupAbi } from './abi'
 import { createTotalLockedCaller } from './totalLocked'
 import { createTotalLockedForPropertyCaller } from './totalLockedForProperty'
@@ -56,7 +55,7 @@ export type LockupContract = {
 }
 
 export const createLockupContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): LockupContract => {
 		const contract = new ethers.Contract(address, [...lockupAbi], provider)
 

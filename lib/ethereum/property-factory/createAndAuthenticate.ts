@@ -2,16 +2,15 @@
 /* eslint-disable functional/no-expression-statement */
 /* eslint-disable functional/no-conditional-statement */
 /* eslint-disable functional/functional-parameters */
-import type { BaseProvider } from '@ethersproject/providers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { execute, FallbackableOverrides } from '../../common/utils/execute'
-import { ethers } from 'ethers'
+import { ContractRunner, ethers } from 'ethers'
 import { getMetricsProperty, WaitForEventOptions } from '../market/authenticate'
 import { metricsFactoryAbi } from '../metrics-factory/abi'
 
 export type CreateCreateAndAuthenticateCaller = (
 	contract: ethers.Contract,
-	provider: BaseProvider
+	provider: ContractRunner
 ) => (
 	name: string,
 	symbol: string,
@@ -27,7 +26,7 @@ export type CreateCreateAndAuthenticateCaller = (
 
 export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCaller =
 
-		(contract: ethers.Contract, provider: BaseProvider) =>
+		(contract: ethers.Contract, provider: ContractRunner) =>
 		async (
 			name: string,
 			symbol: string,
@@ -61,9 +60,9 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 						'Create',
 						async (_: string, metricsAddress: string) =>
 							getMetricsProperty(metricsAddress, provider)
-								.then((metricsProperty) => {
+								.then(async (metricsProperty) => {
 									if (metricsProperty === marketAddress) {
-										subscriberdContract.removeAllListeners()
+										;(await subscriberdContract).removeAllListeners()
 										resolve(metricsAddress)
 									}
 								})
@@ -75,7 +74,7 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 				const subscribedContract = contract.on(
 					'Create',
 					async (_: string, propertyAddress: string) => {
-						subscribedContract.removeAllListeners()
+						;(await subscribedContract).removeAllListeners()
 						resolve({
 							property: propertyAddress,
 							transaction,

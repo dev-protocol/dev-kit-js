@@ -13,7 +13,7 @@ import {
 	TransactionResponse,
 	TransactionReceipt,
 } from '@ethersproject/abstract-provider'
-import { BigNumber } from 'ethers'
+import { BigNumber } from '@ethersproject/bignumber'
 
 export type StubTransactionResposeFactory = (p: {
 	readonly hash?: string
@@ -22,9 +22,9 @@ export type StubTransactionResposeFactory = (p: {
 	readonly wait?: () => Promise<TransactionReceipt>
 	readonly from?: string
 	readonly nonce?: number
-	readonly gasLimit?: BigNumber
+	readonly gasLimit?: bigint
 	readonly data?: string
-	readonly value?: BigNumber
+	readonly value?: bigint
 	readonly chainId?: number
 }) => TransactionResponse
 
@@ -37,24 +37,24 @@ export const stubTransactionResposeFactory: StubTransactionResposeFactory = ({
 			from: 'from',
 			contractAddress: 'contractAddress',
 			transactionIndex: 10,
-			gasUsed: BigNumber.from(10),
+			gasUsed: 10n as unknown as BigNumber,
 			logsBloom: 'logsBloom',
 			blockHash: 'blockHash',
 			transactionHash: 'transactionHash',
 			logs: [],
 			blockNumber: 100,
 			confirmations: 102,
-			cumulativeGasUsed: BigNumber.from(10),
-			effectiveGasPrice: BigNumber.from(10),
+			cumulativeGasUsed: 10n as unknown as BigNumber,
+			effectiveGasPrice: 10n as unknown as BigNumber,
 			byzantium: true,
 			type: 10,
 		}),
 	confirmations = 102,
 	from = 'from',
 	nonce = 10,
-	gasLimit = BigNumber.from(10),
+	gasLimit = 10n,
 	data = 'data',
-	value = BigNumber.from(10),
+	value = 10n,
 	chainId = 10,
 }) => ({
 	hash,
@@ -63,9 +63,9 @@ export const stubTransactionResposeFactory: StubTransactionResposeFactory = ({
 	wait,
 	from,
 	nonce,
-	gasLimit,
+	gasLimit: gasLimit as unknown as BigNumber,
 	data,
-	value,
+	value: value as unknown as BigNumber,
 	chainId,
 })
 

@@ -1,4 +1,3 @@
-import type { BaseProvider } from '@ethersproject/providers'
 import { UndefinedOr, whenDefined } from '@devprotocol/util-ts'
 import { clientsMetricsFactory } from './common/clients/clientsMetricsFactory'
 import { createMetricsContract } from '../ethereum/metrics'
@@ -6,6 +5,7 @@ import { createMarketContract } from '../ethereum/market'
 import { createMarketBehaviorContract } from '../ethereum/market-behavior'
 import { flatten, toPairs, unnest, values } from 'ramda'
 import { marketAddresses } from '../marketAddresses'
+import { ContractRunner } from 'ethers'
 
 type Asset = {
 	readonly market: string
@@ -14,7 +14,7 @@ type Asset = {
 }
 
 type PropertiesAssets = (options: {
-	readonly provider: BaseProvider
+	readonly provider: ContractRunner
 	readonly destination: string
 }) => Promise<UndefinedOr<readonly Asset[]>>
 

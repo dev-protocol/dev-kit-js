@@ -1,4 +1,4 @@
-import { ethers, utils } from 'ethers'
+import { ethers, keccak256 } from 'ethers'
 import {
 	execute,
 	FallbackableOverrides,
@@ -29,7 +29,7 @@ export const createSetTokenURIDescriptorCaller: CreateSetTokenURIDescriptorCalle
 				method: 'setTokenURIDescriptor',
 				mutation: true,
 				args: payloads
-					? [propertyAddress, descriptorAddress, payloads.map(utils.keccak256)]
+					? [propertyAddress, descriptorAddress, payloads.map(keccak256)]
 					: [propertyAddress, descriptorAddress],
 				overrides,
 				interface: payloads ? 'address,address,bytes32[]' : 'address,address',

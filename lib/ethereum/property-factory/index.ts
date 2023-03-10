@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import type { TransactionResponse } from '@ethersproject/abstract-provider'
 import { propertyFactoryAbi } from './abi'
 import { createCreatePropertyCaller } from './create'
@@ -31,7 +30,7 @@ export type PropertyFactoryContract = {
 }
 
 export const createPropertyFactoryContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): PropertyFactoryContract => {
 		const contract = new ethers.Contract(
 			address,
