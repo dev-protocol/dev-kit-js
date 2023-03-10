@@ -1,4 +1,4 @@
-import { constants, utils } from 'ethers'
+import { ZeroAddress, ZeroHash, keccak256, toUtf8Bytes } from 'ethers'
 import { createTokenURISimCaller } from './tokenURISim'
 
 describe('tokenURISim.spec.ts', () => {
@@ -42,48 +42,48 @@ describe('tokenURISim.spec.ts', () => {
 			await caller({ owner: '0xABC' })
 			await caller({ positions: { pendingReward: '1', property: '0xXYZ' } })
 			await caller({ rewards: { cumulativeReward: '2' } })
-			await caller({ payload: utils.toUtf8Bytes('ADDITIONAL_BYTES') })
+			await caller({ payload: toUtf8Bytes('ADDITIONAL_BYTES') })
 			expect(contract.tokenURISim.mock.calls[0]).toEqual([
 				'0',
-				constants.AddressZero,
-				[constants.AddressZero, '0', '0', '0', '0'],
+				ZeroAddress,
+				[ZeroAddress, '0', '0', '0', '0'],
 				['0', '0', '0'],
-				constants.HashZero,
+				ZeroHash,
 			])
 			expect(contract.tokenURISim.mock.calls[1]).toEqual([
 				'1',
-				constants.AddressZero,
-				[constants.AddressZero, '0', '0', '0', '0'],
+				ZeroAddress,
+				[ZeroAddress, '0', '0', '0', '0'],
 				['0', '0', '0'],
-				constants.HashZero,
+				ZeroHash,
 			])
 			expect(contract.tokenURISim.mock.calls[2]).toEqual([
 				'0',
 				'0xABC',
-				[constants.AddressZero, '0', '0', '0', '0'],
+				[ZeroAddress, '0', '0', '0', '0'],
 				['0', '0', '0'],
-				constants.HashZero,
+				ZeroHash,
 			])
 			expect(contract.tokenURISim.mock.calls[3]).toEqual([
 				'0',
-				constants.AddressZero,
+				ZeroAddress,
 				['0xXYZ', '0', '0', '0', '1'],
 				['0', '0', '0'],
-				constants.HashZero,
+				ZeroHash,
 			])
 			expect(contract.tokenURISim.mock.calls[4]).toEqual([
 				'0',
-				constants.AddressZero,
-				[constants.AddressZero, '0', '0', '0', '0'],
+				ZeroAddress,
+				[ZeroAddress, '0', '0', '0', '0'],
 				['0', '2', '0'],
-				constants.HashZero,
+				ZeroHash,
 			])
 			expect(contract.tokenURISim.mock.calls[5]).toEqual([
 				'0',
-				constants.AddressZero,
-				[constants.AddressZero, '0', '0', '0', '0'],
+				ZeroAddress,
+				[ZeroAddress, '0', '0', '0', '0'],
 				['0', '0', '0'],
-				utils.keccak256(utils.toUtf8Bytes('ADDITIONAL_BYTES')),
+				keccak256(toUtf8Bytes('ADDITIONAL_BYTES')),
 			])
 		})
 

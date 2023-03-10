@@ -13,7 +13,7 @@ describe('allocator/index.ts', () => {
 		it('check return object', () => {
 			const host = 'localhost'
 			const address = 'address'
-			const provider = new ethers.providers.JsonRpcProvider(host)
+			const provider = new ethers.JsonRpcProvider(host)
 			const expected: (address: string) => CreateAllocatorContract = (
 				address: string
 			) => {

@@ -24,7 +24,7 @@ describe('contract.ts', () => {
 	describe('createDevkitContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
-			const provider = new ethers.providers.JsonRpcProvider(host)
+			const provider = new ethers.JsonRpcProvider(host)
 
 			const expected: DevkitContract = {
 				allocator: createAllocatorContract(provider),
@@ -53,7 +53,7 @@ describe('contract.ts', () => {
 	describe('contractFactory', () => {
 		it('check return object', () => {
 			const host = 'localhost'
-			const provider = new ethers.providers.JsonRpcProvider(host)
+			const provider = new ethers.JsonRpcProvider(host)
 
 			const expected = createDevkitContract(provider)
 			const result = contractFactory(provider)

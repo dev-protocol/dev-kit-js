@@ -1,6 +1,6 @@
 import { createSwapEthAndStakeDevCaller } from './swapEthAndStakeDev'
 import { stubTransactionResposeFactory } from '../../../common/utils/for-test'
-import { ethers } from 'ethers'
+import { ethers, getDefaultProvider } from 'ethers'
 
 describe('depositToProperty.spec.ts', () => {
 	describe('createDepositToPropertyCaller', () => {
@@ -16,12 +16,12 @@ describe('depositToProperty.spec.ts', () => {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createSwapEthAndStakeDevCaller(swapContract as any)
 
-			const provider = await ethers.getDefaultProvider()
+			const provider = getDefaultProvider(137)
 			const block = await provider.getBlock('latest')
 
 			const result = await caller(
 				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
-				block.timestamp + 300
+				block?.timestamp ?? 0 + 300
 			)
 
 			expect(result).toEqual(stubTx)
@@ -38,12 +38,12 @@ describe('depositToProperty.spec.ts', () => {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createSwapEthAndStakeDevCaller(swapContract as any)
 
-			const provider = await ethers.getDefaultProvider()
+			const provider = getDefaultProvider(137)
 			const block = await provider.getBlock('latest')
 
 			const result = await caller(
 				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
-				block.timestamp + 300
+				block?.timestamp ?? 0 + 300
 			).catch((err) => err)
 
 			expect(result).toEqual(error)

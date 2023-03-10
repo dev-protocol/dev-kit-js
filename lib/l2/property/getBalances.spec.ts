@@ -1,13 +1,12 @@
-import { BigNumber } from 'ethers'
 import { createGetBalancesCaller } from './getBalances'
 
 describe('GetBalances.spec.ts', () => {
 	describe('createGetBalancesCaller', () => {
 		it('call success', async () => {
 			const value = [
-				{ account: '0x0', balance: BigNumber.from(1) },
-				{ account: '0x1', balance: BigNumber.from(2) },
-				{ account: '0x2', balance: BigNumber.from(3) },
+				{ account: '0x0', balance: 1n },
+				{ account: '0x1', balance: 2n },
+				{ account: '0x2', balance: 3n },
 			]
 
 			const propertyContract = {
