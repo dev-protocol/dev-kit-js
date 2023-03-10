@@ -25,7 +25,7 @@ export const positionsCreate: PositionsCreate = async (options) => {
 					provider: options.provider,
 					requiredAmount: options.amount,
 					from: options.from,
-					to: ((x) => x?.contract().address)(l1 ?? l2),
+					to: await ((x) => x?.contract().getAddress())(l1 ?? l2),
 					callback: (receipt) =>
 						l1
 							? l1.depositToProperty(

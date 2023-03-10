@@ -2,7 +2,7 @@
 import { FallbackableOverrides } from '../common/utils/execute'
 import type { BaseProvider } from '@ethersproject/providers'
 import { clientsUtilsSwapForStake } from './common/clients/clientsUtilsSwapForStake'
-import { constants } from 'ethers'
+import { ZeroHash } from 'ethers'
 import {
 	approveIfNeeded,
 	ApproveIfNeededResult,
@@ -57,7 +57,7 @@ export const positionsCreateWithEth: PositionsCreateWithEthForPolygon = async (
 							requiredAmount: ethAmount,
 							from,
 							token: weth,
-							to: l2.contract().address,
+							to: await l2.contract().getAddress(),
 							callback: async () => {
 								const deadline = options.deadline
 									? options.deadline
@@ -67,7 +67,7 @@ export const positionsCreateWithEth: PositionsCreateWithEthForPolygon = async (
 											options.destination,
 											ethAmount,
 											deadline,
-											options.payload ?? constants.HashZero,
+											options.payload ?? ZeroHash,
 											_overrides,
 											options.gatewayAddress,
 											String(options.gatewayBasisPoints)
@@ -76,7 +76,7 @@ export const positionsCreateWithEth: PositionsCreateWithEthForPolygon = async (
 											options.destination,
 											ethAmount,
 											deadline,
-											options.payload ?? constants.HashZero,
+											options.payload ?? ZeroHash,
 											_overrides
 									  )
 							},

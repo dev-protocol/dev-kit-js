@@ -4,7 +4,6 @@ import { UndefinedOr, whenDefined, whenDefinedAll } from '@devprotocol/util-ts'
 import { clientsMetricsFactory } from './common/clients/clientsMetricsFactory'
 import { clientsMetricsGroup } from './common/clients/clientsMetricsGroup'
 import { clientsPolicy } from './common/clients/clientsPolicy'
-import { BigNumber as BN } from 'ethers'
 import { BigNumber } from 'bignumber.js'
 
 type EstimationsAPY = (options: {
@@ -36,8 +35,9 @@ export const estimationsAPY: EstimationsAPY = async (options) => {
 		[tvl, yeild, l1P || l2P],
 		([_tvl, y, policy]) => policy.holdersShare(y, _tvl)
 	)
-	const annualYeild = whenDefined(yeild, (y) =>
-		BN.from(y).mul(l1P ? BN.from(2102400) : BN.from(31536000))
+	const annualYeild = whenDefined(
+		yeild,
+		(y) => BigInt(y) * (l1P ? BigInt(2102400) : BigInt(31536000))
 	)
 	const shareOfHolders = whenDefinedAll([holders, yeild], ([hol, y]) =>
 		new BigNumber(hol).div(y).toNumber()

@@ -3,7 +3,7 @@ import { FallbackableOverrides } from '../common/utils/execute'
 import type { BaseProvider } from '@ethersproject/providers'
 import { clientsUtilsSwapForStake } from './common/clients/clientsUtilsSwapForStake'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { constants } from 'ethers'
+import { ZeroHash } from 'ethers'
 
 type PositionsCreateWithEth = (options: {
 	readonly provider: BaseProvider
@@ -55,7 +55,7 @@ export const positionsCreateWithEth: PositionsCreateWithEth = async (
 						? await l2.swapEthAndStakeDevCaller(
 								options.destination,
 								deadline,
-								options.payload ?? constants.HashZero,
+								options.payload ?? ZeroHash,
 								_overrides,
 								options.gatewayAddress,
 								String(options.gatewayBasisPoints)
@@ -63,7 +63,7 @@ export const positionsCreateWithEth: PositionsCreateWithEth = async (
 						: await l2.swapEthAndStakeDevCaller(
 								options.destination,
 								deadline,
-								options.payload ?? constants.HashZero,
+								options.payload ?? ZeroHash,
 								_overrides
 						  )
 				},

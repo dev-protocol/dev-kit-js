@@ -5,7 +5,6 @@ import {
 	TransactionReceipt,
 } from '@ethersproject/abstract-provider'
 import type { BaseProvider } from '@ethersproject/providers'
-import { BigNumber } from 'ethers'
 import { createErc20Contract } from '../../common/erc20'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { clientsDev } from './clients/clientsDev'
@@ -63,7 +62,7 @@ export const approveIfNeeded: ApproveIfNeeded = async (factoryOptions) => {
 	)
 
 	return whenDefinedAll([client, factoryOptions.to], ([dev, to]) => {
-		return BigNumber.from(allowance).lt(factoryOptions.requiredAmount)
+		return BigInt(allowance ?? 0) < BigInt(factoryOptions.requiredAmount)
 			? ({
 					approvalNeeded: true,
 					approveIfNeeded: async (options) => {

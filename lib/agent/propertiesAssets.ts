@@ -52,8 +52,10 @@ export const propertiesAssets: PropertiesAssets = async (options) => {
 	const results = await whenDefined(marketBehaviors, (mb) =>
 		Promise.all(
 			mb.map(async (cont) => {
-				const metrics = cont.metrics.contract().address
-				const market = cont.market.contract().address
+				const [metrics, market] = await Promise.all([
+					cont.metrics.contract().getAddress(),
+					cont.market.contract().getAddress(),
+				])
 				const marketSlug = marketSet.find(([, addr]) => addr === market)?.[0]
 				return {
 					id: await cont.marketBehavior.getId(metrics),

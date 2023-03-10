@@ -1,4 +1,4 @@
-import { ethers, BigNumber, providers, utils } from 'ethers'
+import { ethers, keccak256 } from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { keys, mergeAll } from 'ramda'
 
@@ -67,10 +67,9 @@ const pad = (
 	)
 
 type Value = boolean | string | number
-type ValueWithBigNumber = Value | BigNumber
-const isBigNumber = (data: unknown): data is BigNumber =>
-	BigNumber.isBigNumber(data)
-const toString = (data: Readonly<BigNumber>): string => data.toString()
+type ValueWithBigNumber = Value | bigint
+const isBigNumber = (data: unknown): data is bigint => data instanceof BigInt
+const toString = (data: Readonly<bigint>): string => data.toString()
 const toStringObj = (
 	data: Readonly<Record<string, ValueWithBigNumber>>
 ): Record<string, Value> => {
@@ -115,17 +114,11 @@ export const execute: ExecuteFunction = async <
 >(
 	opts: O
 ) => {
-	const signer =
-		typeof (opts.contract?.provider as SignableProvider)?.getSigner ===
-		'function'
-			? (opts.contract.provider as SignableProvider).getSigner()
-			: undefined
-	const contract =
-		opts.mutation && signer ? opts.contract.connect(signer) : opts.contract
+	const contract = opts.contract
 	const convertedArgs: ArgsWithoutUint8Array | undefined =
 		opts.args === undefined
 			? undefined
-			: opts.args.map((v) => (v instanceof Uint8Array ? utils.keccak256(v) : v))
+			: opts.args.map((v) => (v instanceof Uint8Array ? keccak256(v) : v))
 	const args =
 		convertedArgs === undefined
 			? undefined
@@ -137,17 +130,16 @@ export const execute: ExecuteFunction = async <
 			? [...(args || []), opts.overrides.overrides]
 			: args
 	const singleMethod = opts.static
-		? contract.callStatic[opts.method]
+		? contract[opts.method].staticCall
 		: contract[opts.method]
-	const overloadedMethod = singleMethod
-		? undefined
-		: ((name) => (opts.static ? contract.callStatic[name] : contract[name]))(
-				String(
-					keys(contract.functions).find(
-						(fn: string | number) => fn === `${opts.method}(${opts.interface})`
-					)
-				)
-		  )
+	const overloadedMethod = ((name) =>
+		opts.static ? contract[name].staticCall : contract[name])(
+		String(
+			keys(contract.functions).find(
+				(fn: string | number) => fn === `${opts.method}(${opts.interface})`
+			)
+		)
+	)
 	const method = singleMethod ?? overloadedMethod
 	const res = await (argsOverrided === undefined
 		? method()
