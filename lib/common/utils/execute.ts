@@ -1,4 +1,9 @@
-import { ethers, type BrowserProvider, keccak256 } from 'ethers'
+import {
+	ethers,
+	type BrowserProvider,
+	keccak256,
+	BaseContractMethod,
+} from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { keys, mergeAll } from 'ramda'
 
@@ -135,18 +140,19 @@ export const execute: ExecuteFunction = async <
 			? [...(args || []), opts.overrides.overrides]
 			: args
 	const singleMethod = opts.static
-		? contract[opts.method].staticCall
-		: contract[opts.method]
-	const overloadedMethod = ((name) =>
-		opts.static ? contract[name].staticCall : contract[name])(
-		String(
-			keys(contract).find(
-				(fn: string | number | unknown) =>
-					fn === `${opts.method}(${opts.interface})`
-			)
-		)
-	)
-	const method = singleMethod ?? overloadedMethod
+		? (contract[opts.method] as undefined | BaseContractMethod)?.staticCall
+		: (contract[opts.method] as undefined | BaseContractMethod)
+	const overloadedMethod = singleMethod
+		? undefined
+		: ((name) => (opts.static ? contract[name].staticCall : contract[name]))(
+				String(
+					keys(contract).find(
+						(fn: string | number | unknown) =>
+							fn === `${opts.method}(${opts.interface})`
+					)
+				)
+		  )
+	const method = singleMethod ?? (overloadedMethod as BaseContractMethod)
 	const res = await (argsOverrided === undefined
 		? method()
 		: method.apply(N, argsOverrided)
