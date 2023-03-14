@@ -73,7 +73,7 @@ const pad = (
 
 type Value = boolean | string | number
 type ValueWithBigNumber = Value | bigint
-const isBigNumber = (data: unknown): data is bigint => data instanceof BigInt
+const isBigNumber = (data: unknown): data is bigint => typeof data === 'bigint'
 const toString = (data: Readonly<bigint>): string => data.toString()
 const toStringObj = (
 	data: Readonly<Record<string, ValueWithBigNumber>>
