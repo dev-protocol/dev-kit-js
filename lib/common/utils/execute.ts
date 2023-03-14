@@ -144,7 +144,10 @@ export const execute: ExecuteFunction = async <
 		: (contract[opts.method] as undefined | BaseContractMethod)
 	const overloadedMethod = singleMethod
 		? undefined
-		: ((name) => (opts.static ? contract[name].staticCall : contract[name]))(
+		: ((name) =>
+				opts.static
+					? (contract[name] as undefined | BaseContractMethod)?.staticCall
+					: contract[name])(
 				String(
 					keys(contract).find(
 						(fn: string | number | unknown) =>
