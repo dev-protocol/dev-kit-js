@@ -6,8 +6,8 @@ describe('totalLockedForProperty.spec.ts', () => {
 			const value = 'value'
 
 			const swapContract = {
-				callStatic: {
-					getEstimatedEthForDev: jest
+				getEstimatedEthForDev: {
+					staticCall: jest
 						.fn()
 						.mockImplementation(async () => Promise.resolve(value)),
 				},
@@ -27,8 +27,8 @@ describe('totalLockedForProperty.spec.ts', () => {
 			const value = ['value']
 
 			const swapContract = {
-				callStatic: {
-					getEstimatedEthForDev: jest
+				getEstimatedEthForDev: {
+					staticCall: jest
 						.fn()
 						.mockImplementation(async () => Promise.resolve(value)),
 				},
@@ -48,8 +48,8 @@ describe('totalLockedForProperty.spec.ts', () => {
 			const error = 'error'
 
 			const swapContract = {
-				callStatic: {
-					getEstimatedEthForDev: jest
+				getEstimatedEthForDev: {
+					staticCall: jest
 						.fn()
 						.mockImplementation(async () => Promise.reject(error)),
 				},
