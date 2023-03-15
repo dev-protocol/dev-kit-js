@@ -5,9 +5,11 @@ import { createGetMetricsCaller } from './getMetrics'
 import { marketBehaviorAbi } from './abi'
 
 jest.mock('./getId')
+jest.mock('ethers')
 
 describe('getId/index.ts', () => {
-	;(createGetIdCaller as jest.Mock).mockImplementation((contract) => contract)
+	;(createGetIdCaller as jest.Mock).mockImplementation(() => 123)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 	describe('createMarketBehaviorContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'

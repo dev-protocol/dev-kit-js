@@ -14,20 +14,18 @@ jest.mock('./authenticate')
 jest.mock('./name')
 jest.mock('../../ethereum/market/behavior')
 jest.mock('./getAuthenticatedProperties')
+jest.mock('ethers')
 
 describe('market/index.ts', () => {
-	;(createSchemaCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createVoteCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createAuthenticateCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createBehaviorCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createSchemaCaller as jest.Mock).mockImplementation(() => 123)
+	;(createVoteCaller as jest.Mock).mockImplementation(() => 123)
+	;(createAuthenticateCaller as jest.Mock).mockImplementation(() => 123)
+	;(createBehaviorCaller as jest.Mock).mockImplementation(() => 123)
 	;(createGetAuthenticatedPropertiesCaller as jest.Mock).mockImplementation(
-		(contract) => contract
+		() => 123
 	)
-	;(createNameCaller as jest.Mock).mockImplementation((contract) => contract)
+	;(createNameCaller as jest.Mock).mockImplementation(() => 123)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 	describe('createMarketContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'

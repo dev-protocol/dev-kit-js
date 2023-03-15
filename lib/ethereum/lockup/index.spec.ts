@@ -31,47 +31,35 @@ jest.mock('./depositToPosition')
 jest.mock('./withdrawByPosition')
 jest.mock('./migrateToSTokens')
 jest.mock('./calculateWithdrawableInterestAmountByPosition')
+jest.mock('ethers')
 
 describe('lockup/index.ts', () => {
-	;(createGetPropertyValueCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createWithdrawCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createGetPropertyValueCaller as jest.Mock).mockImplementation(() => 123)
+	;(createWithdrawCaller as jest.Mock).mockImplementation(() => 123)
 	;(
 		createCalculateWithdrawableInterestAmountCaller as jest.Mock
-	).mockImplementation((contract) => contract)
-	;(createGetAllValueCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	).mockImplementation(() => 123)
+	;(createGetAllValueCaller as jest.Mock).mockImplementation(() => 123)
 	;(createGetStorageWithdrawalStatusCaller as jest.Mock).mockImplementation(
-		(contract) => contract
+		() => 123
 	)
 	;(
 		createCalculateCumulativeHoldersRewardAmountCaller as jest.Mock
-	).mockImplementation((contract) => contract)
+	).mockImplementation(() => 123)
 	;(
 		createCalculateCumulativeRewardPricesCaller as jest.Mock
-	).mockImplementation((contract) => contract)
+	).mockImplementation(() => 123)
 	;(createCalculateRewardAmountCaller as jest.Mock).mockImplementation(
-		(contract) => contract
+		() => 123
 	)
-	;(createDepositToPropertyCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createDepositToPositionCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createWithdrawByPositionCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createMigrateToSTokensCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createDepositToPropertyCaller as jest.Mock).mockImplementation(() => 123)
+	;(createDepositToPositionCaller as jest.Mock).mockImplementation(() => 123)
+	;(createWithdrawByPositionCaller as jest.Mock).mockImplementation(() => 123)
+	;(createMigrateToSTokensCaller as jest.Mock).mockImplementation(() => 123)
 	;(
 		createcalculateWithdrawableInterestAmountByPositionCaller as jest.Mock
-	).mockImplementation((contract) => contract)
+	).mockImplementation(() => 123)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 
 	describe('createLockupContract', () => {
 		it('check return object', () => {

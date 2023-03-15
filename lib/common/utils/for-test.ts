@@ -13,7 +13,7 @@ import {
 	TransactionResponse,
 	TransactionReceipt,
 } from '@ethersproject/abstract-provider'
-import { BigNumber } from '@ethersproject/bignumber'
+import type { BigNumber } from '@ethersproject/bignumber'
 
 export type StubTransactionResposeFactory = (p: {
 	readonly hash?: string

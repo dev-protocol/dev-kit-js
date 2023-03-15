@@ -21,27 +21,19 @@ jest.mock('./../../common/erc20/name')
 jest.mock('./../../common/erc20/symbol')
 jest.mock('./../../common/erc20/decimals')
 jest.mock('./../../common/erc20/allowance')
+jest.mock('ethers')
 
 describe('dev/index.ts', () => {
-	;(createDepositCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createBalanceOfCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createTotalSupplyCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createApproveCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createTransferFromCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createNameCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createSymbolCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createDecimalsCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createAllowanceCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createDepositCaller as jest.Mock).mockImplementation(() => 123)
+	;(createBalanceOfCaller as jest.Mock).mockImplementation(() => 123)
+	;(createTotalSupplyCaller as jest.Mock).mockImplementation(() => 123)
+	;(createApproveCaller as jest.Mock).mockImplementation(() => 123)
+	;(createTransferFromCaller as jest.Mock).mockImplementation(() => 123)
+	;(createNameCaller as jest.Mock).mockImplementation(() => 123)
+	;(createSymbolCaller as jest.Mock).mockImplementation(() => 123)
+	;(createDecimalsCaller as jest.Mock).mockImplementation(() => 123)
+	;(createAllowanceCaller as jest.Mock).mockImplementation(() => 123)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 
 	describe('createDevContract', () => {
 		it('check return object', () => {

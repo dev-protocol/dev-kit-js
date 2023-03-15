@@ -4,11 +4,11 @@ import { addressRegistryAbi } from './abi'
 import { createRegistriesCaller } from './registries'
 
 jest.mock('./registries')
+jest.mock('ethers')
 
 describe('registry/index.ts', () => {
-	;(createRegistriesCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createRegistriesCaller as jest.Mock).mockImplementation(() => 123)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 
 	describe('createRegistryContract', () => {
 		it('check return object', () => {

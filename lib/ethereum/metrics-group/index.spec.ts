@@ -6,14 +6,14 @@ import { createTotalIssuedMetrics } from './totalIssuedMetrics'
 
 jest.mock('./totalAuthenticatedProperties')
 jest.mock('./totalIssuedMetrics')
+jest.mock('ethers')
 
 describe('metrics-group.ts', () => {
 	;(createTotalAuthenticatedPropertiesCaller as jest.Mock).mockImplementation(
-		(contract) => contract
+		() => 123
 	)
-	;(createTotalIssuedMetrics as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createTotalIssuedMetrics as jest.Mock).mockImplementation(() => 123)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 	describe('createMetricsGroupContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'

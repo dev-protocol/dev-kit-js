@@ -6,14 +6,14 @@ import { createCreateAndAuthenticateCaller } from './createAndAuthenticate'
 
 jest.mock('./create')
 jest.mock('./createAndAuthenticate')
+jest.mock('ethers')
 
 describe('property/index.ts', () => {
-	;(createCreatePropertyCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createCreatePropertyCaller as jest.Mock).mockImplementation(() => 123)
 	;(createCreateAndAuthenticateCaller as jest.Mock).mockImplementation(
-		(contract) => contract
+		() => 123
 	)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 	describe('createPropertyFactoryContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'

@@ -4,9 +4,11 @@ import { marketFactoryAbi } from './abi'
 import { createCreateCaller } from './create'
 
 jest.mock('./create')
+jest.mock('ethers')
 
 describe('market-factory/index.ts', () => {
-	;(createCreateCaller as jest.Mock).mockImplementation((contract) => contract)
+	;(createCreateCaller as jest.Mock).mockImplementation(() => 123)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 	describe('createMarketFactoryContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'

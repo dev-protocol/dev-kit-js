@@ -12,23 +12,17 @@ jest.mock('./bulkWithdraw')
 jest.mock('./getRewardsAmount')
 jest.mock('./calculateWithdrawableAmount')
 jest.mock('./calculateRewardAmount')
+jest.mock('ethers')
 
 describe('lockup/index.ts', () => {
-	;(createWithdrawCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createBulkWithdrawCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createGetRewardsAmountCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createWithdrawCaller as jest.Mock).mockImplementation(() => 123)
+	;(createBulkWithdrawCaller as jest.Mock).mockImplementation(() => 123)
+	;(createGetRewardsAmountCaller as jest.Mock).mockImplementation(() => 123)
 	;(createCalculateWithdrawableAmountCaller as jest.Mock).mockImplementation(
-		(contract) => contract
+		() => 123
 	)
-	;(calculateRewardAmountCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(calculateRewardAmountCaller as jest.Mock).mockImplementation(() => 123)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 	describe('createLockupContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'

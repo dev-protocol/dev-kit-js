@@ -4,12 +4,14 @@ import { createCalculateMaxRewardsPerBlockCaller } from './calculateMaxRewardsPe
 import { allocatorAbi } from './abi'
 
 jest.mock('./calculateMaxRewardsPerBlock')
+jest.mock('ethers')
 
 describe('allocator/index.ts', () => {
 	describe('createAllocatorContract', () => {
 		;(createCalculateMaxRewardsPerBlockCaller as jest.Mock).mockImplementation(
-			(contract) => contract
+			() => 123
 		)
+		;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 		it('check return object', () => {
 			const host = 'localhost'
 			const address = 'address'

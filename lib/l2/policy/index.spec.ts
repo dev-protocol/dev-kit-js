@@ -14,24 +14,16 @@ jest.mock('../../ethereum/policy/authenticationFee')
 jest.mock('./marketVotingSeconds')
 jest.mock('./policyVotingSeconds')
 jest.mock('../../ethereum/policy/shareOfTreasury')
+jest.mock('ethers')
 
 describe('policy/index.ts', () => {
-	;(createHoldersShareCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createRewardsCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createAuthenticationFeeCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createMarketVotingSecondsCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createPolicyVotingSecondsCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createShareOfTreasuryCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createHoldersShareCaller as jest.Mock).mockImplementation(() => 123)
+	;(createRewardsCaller as jest.Mock).mockImplementation(() => 123)
+	;(createAuthenticationFeeCaller as jest.Mock).mockImplementation(() => 123)
+	;(createMarketVotingSecondsCaller as jest.Mock).mockImplementation(() => 123)
+	;(createPolicyVotingSecondsCaller as jest.Mock).mockImplementation(() => 123)
+	;(createShareOfTreasuryCaller as jest.Mock).mockImplementation(() => 123)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 	describe('createPolicyContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'

@@ -29,43 +29,27 @@ jest.mock('./positionsOfOwner')
 jest.mock('./setSTokenRoyaltyForProperty')
 jest.mock('./royaltyOf')
 jest.mock('./setTokenURIDescriptor')
+jest.mock('ethers')
 
 describe('s-tokens/index.ts', () => {
-	;(createPositionsCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createOwnerOfCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createRewardsCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createTokenURICaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createPositionsOfPropertyCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createPositionsOfOwnerCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createIsFreezedCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createFreezeTokenURICaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createSetTokenURIImageCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createPositionsCaller as jest.Mock).mockImplementation(() => 123)
+	;(createOwnerOfCaller as jest.Mock).mockImplementation(() => 123)
+	;(createRewardsCaller as jest.Mock).mockImplementation(() => 123)
+	;(createTokenURICaller as jest.Mock).mockImplementation(() => 123)
+	;(createPositionsOfPropertyCaller as jest.Mock).mockImplementation(() => 123)
+	;(createPositionsOfOwnerCaller as jest.Mock).mockImplementation(() => 123)
+	;(createIsFreezedCaller as jest.Mock).mockImplementation(() => 123)
+	;(createFreezeTokenURICaller as jest.Mock).mockImplementation(() => 123)
+	;(createSetTokenURIImageCaller as jest.Mock).mockImplementation(() => 123)
 	;(createSetSTokenRoyaltyForPropertyCaller as jest.Mock).mockImplementation(
-		(contract) => contract
+		() => 123
 	)
-	;(createRoyaltyOfCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createRoyaltyOfCaller as jest.Mock).mockImplementation(() => 123)
 	;(createSetTokenURIDescriptorCaller as jest.Mock).mockImplementation(
-		(contract) => contract
+		() => 123
 	)
-	;(createTokenURISimCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createTokenURISimCaller as jest.Mock).mockImplementation(() => 123)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 	describe('createSTokensContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'

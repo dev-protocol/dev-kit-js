@@ -6,12 +6,12 @@ import { metricsAbi } from './abi'
 
 jest.mock('./property')
 jest.mock('./market')
+jest.mock('ethers')
 
 describe('metrics/index.ts', () => {
-	;(createPropertyCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createMarketCaller as jest.Mock).mockImplementation((contract) => contract)
+	;(createPropertyCaller as jest.Mock).mockImplementation(() => 123)
+	;(createMarketCaller as jest.Mock).mockImplementation(() => 123)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 	describe('createMetricsContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'

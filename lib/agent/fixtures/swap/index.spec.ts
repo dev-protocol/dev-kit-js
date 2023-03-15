@@ -9,17 +9,17 @@ import { createSwapEthAndStakeDevPolygonCaller } from './swapEthAndStakeDevPolyg
 jest.mock('./getEstimatedDevForEth')
 jest.mock('./getEstimatedEthForDev')
 jest.mock('./swapEthAndStakeDev')
+jest.mock('ethers')
 
 describe('swap/index.ts', () => {
 	;(createGetEstimatedDevForEthCaller as jest.Mock).mockImplementation(
-		(contract) => contract
+		() => 123
 	)
 	;(createGetEstimatedEthForDevCaller as jest.Mock).mockImplementation(
-		(contract) => contract
+		() => 123
 	)
-	;(createSwapEthAndStakeDevCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createSwapEthAndStakeDevCaller as jest.Mock).mockImplementation(() => 123)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 
 	describe('createSwapContract', () => {
 		it('check return object', () => {

@@ -8,17 +8,17 @@ import { createGetPropertiesOfAuthorCaller } from './getPropertiesOfAuthor'
 jest.mock('../../ethereum/property-factory/create')
 jest.mock('./createAndAuthenticate')
 jest.mock('./getPropertiesOfAuthor')
+jest.mock('ethers')
 
 describe('property-factory/index.ts', () => {
-	;(createCreatePropertyCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createCreatePropertyCaller as jest.Mock).mockImplementation(() => 123)
 	;(createCreateAndAuthenticateCaller as jest.Mock).mockImplementation(
-		(contract) => contract
+		() => 123
 	)
 	;(createGetPropertiesOfAuthorCaller as jest.Mock).mockImplementation(
-		(contract) => contract
+		() => 123
 	)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 	describe('createPropertyFactoryContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
