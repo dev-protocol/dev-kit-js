@@ -59,6 +59,6 @@ export const createTokenURISimCaller: CreateTokenURISimCaller =
 		})
 		const decoded = decode(
 			res.replace(/^data:application\/json;base64,(.*)/, '$1')
-		)
+		).replace(/\n/g, '\\n')
 		return JSON.parse(decoded)
 	}
