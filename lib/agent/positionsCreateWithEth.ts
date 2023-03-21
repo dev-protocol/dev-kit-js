@@ -51,7 +51,8 @@ export const positionsCreateWithEth: PositionsCreateWithEth = async (
 						options.deadline ??
 						(await options.provider.getBlock('latest')).timestamp + 300
 
-					return options.gatewayAddress && options.gatewayBasisPoints
+					return options.gatewayAddress &&
+						typeof options.gatewayBasisPoints === 'number'
 						? await l2.swapEthAndStakeDevCaller(
 								options.destination,
 								deadline,
