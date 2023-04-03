@@ -96,7 +96,7 @@
 		"@devprotocol/util-ts": "3.0.0",
 		"bignumber.js": "9.1.1",
 		"js-base64": "^3.7.2",
-		"ramda": "^0.28.0"
+		"ramda": "^0.29.0"
 	},
 	"peerDependencies": {
 		"ethers": "^5.0.0"
