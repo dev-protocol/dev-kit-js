@@ -2,7 +2,11 @@ import { ethers, BigNumber, providers, utils } from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { keys, mergeAll } from 'ramda'
 
-type Args = ReadonlyArray<string | boolean | readonly string[] | Uint8Array>
+import { Image } from '../../ethereum/simpleCollection/types'
+
+type Args = ReadonlyArray<
+	string | boolean | readonly string[] | Uint8Array | readonly Image[]
+>
 type ArgsWithoutUint8Array = ReadonlyArray<string | boolean | readonly string[]>
 type Overrides = {
 	readonly gasLimit?: number
