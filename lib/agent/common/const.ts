@@ -48,6 +48,7 @@ export type AgentAvailableNetwork = {
 					readonly v2: undefined
 					readonly v3: string
 			  }
+		readonly swapUsdc?: string
 		readonly weth?: string
 	}
 }
