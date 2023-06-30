@@ -7,7 +7,7 @@ import { Image } from '../../ethereum/simpleCollection/types'
 type Args = ReadonlyArray<
 	string | boolean | readonly string[] | Uint8Array | readonly Image[]
 >
-type ArgsWithoutUint8Array = ReadonlyArray<string | boolean | readonly string[]>
+type ArgsWithoutUint8Array = ReadonlyArray<string | boolean | readonly string[] | readonly Image[]>
 type Overrides = {
 	readonly gasLimit?: number
 	readonly from?: string
