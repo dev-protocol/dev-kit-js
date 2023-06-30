@@ -1,6 +1,7 @@
 export { positionsCreate } from './positionsCreate'
 export { positionsCreateWithEth } from './positionsCreateWithEth'
 export { positionsCreateWithEth as positionsCreateWithEthForPolygon } from './positionsCreateWithEthForPolygon'
+export { positionsCreateWithUsdc } from './positionsCreateWithUsdc'
 export { estimationsAPY } from './estimationsAPY'
 export { propertiesAssets } from './propertiesAssets'
 
@@ -14,3 +15,4 @@ export { clientsRegistry } from './common/clients/clientsRegistry'
 export { clientsPolicy } from './common/clients/clientsPolicy'
 export { clientsSTokens } from './common/clients/clientsSTokens'
 export { clientsUtilsSwapForStake } from './common/clients/clientsUtilsSwapForStake'
+export { clientsUtilsSwapUsdcForStake } from './common/clients/clientsUtilsSwapUsdcForStake'
