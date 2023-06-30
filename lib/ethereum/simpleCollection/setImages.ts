@@ -17,7 +17,7 @@ export type SetImages = (
 	overrides?: FallbackableOverrides
 ) => Promise<TransactionResponse>
 
-export const setImages: SetImages =
+export const createSetImagesCaller: SetImages =
 	(contract: ethers.Contract) =>
 	async (
 		propertyAddress: string,
