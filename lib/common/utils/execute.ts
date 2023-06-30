@@ -7,7 +7,9 @@ import { Image } from '../../ethereum/simpleCollection/types'
 type Args = ReadonlyArray<
 	string | boolean | readonly string[] | Uint8Array | readonly Image[]
 >
-type ArgsWithoutUint8Array = ReadonlyArray<string | boolean | readonly string[] | readonly Image[]>
+type ArgsWithoutUint8Array = ReadonlyArray<
+	string | boolean | readonly string[] | readonly Image[]
+>
 type Overrides = {
 	readonly gasLimit?: number
 	readonly from?: string
@@ -52,7 +54,7 @@ export type ExecuteFunction = <
 >
 type PadCaller = (
 	arr: ArgsWithoutUint8Array,
-	v: string | boolean | undefined | readonly string[],
+	v: string | boolean | undefined | readonly string[] | readonly Image[],
 	i: number,
 	fn: PadCaller
 ) => ArgsWithoutUint8Array
@@ -63,7 +65,7 @@ const pad = (
 	((fn: PadCaller): ArgsWithoutUint8Array => fn([], args[0], 0, fn))(
 		(
 			arr: ArgsWithoutUint8Array,
-			v: string | boolean | undefined | readonly string[],
+			v: string | boolean | undefined | readonly string[] | readonly Image[],
 			i: number,
 			fn: PadCaller
 		): ArgsWithoutUint8Array =>
