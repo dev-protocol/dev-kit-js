@@ -11,8 +11,6 @@ type Results = readonly [
 
 const cache: WeakMap<BaseProvider, Results> = new WeakMap()
 
-const polygonIDs = [137, 80001]
-
 export const clientsUtilsSwapUsdcForStake = async (
     provider: BaseProvider
 ): Promise<Results> => {
@@ -23,7 +21,15 @@ export const clientsUtilsSwapUsdcForStake = async (
             const detectedNetwork = AgentAvailableNetworks.find(
                 ({ chainId }) => chainId === net.chainId
             )
-            
+            const cont = detectedNetwork
+                ? createSwapUsdcContract(
+                            provider
+                        )(detectedNetwork.map.swapUsdc?.swap || '')
+                : undefined
+            const results: Results = [undefined, cont, detectedNetwork?.map.swapUsdc?.usdc]
+            // eslint-disable-next-line functional/no-expression-statement
+            cache.set(provider, results)
+            return results
         })())
     return res
 }
