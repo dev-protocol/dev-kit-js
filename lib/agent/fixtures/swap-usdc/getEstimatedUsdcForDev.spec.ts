@@ -1,41 +1,49 @@
-import {createGetEstimatedUsdcForDevCaller} from './getEstimatedUsdcForDev'
+import { createGetEstimatedUsdcForDevCaller } from './getEstimatedUsdcForDev'
 
 describe('getEstimatedUsdcForDev.spec.ts', () => {
-    describe('createGetEstimatedUsdcForDevCaller.spec.ts', () => {
-        it('call success', async () => {
-            const value = 'value'
+	describe('createGetEstimatedUsdcForDevCaller.spec.ts', () => {
+		it('call success', async () => {
+			const value = 'value'
 
-            const contract = {
-                getEstimatedUsdcForDev: jest
-                    .fn()
-                    .mockImplementation(async () => Promise.resolve(value)),
-            }
+			const contract = {
+				callStatic: {
+					getEstimatedUsdcForDev: jest
+						.fn()
+						.mockImplementation(async () => Promise.resolve(value)),
+				},
+			}
 
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const caller = createGetEstimatedUsdcForDevCaller(contract as any)
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const caller = createGetEstimatedUsdcForDevCaller(contract as any)
 
-            const result = await caller('devAmount')
+			const result = await caller('devAmount')
 
-            expect(contract.getEstimatedUsdcForDev).toBeCalledWith('devAmount')
-            expect(result).toEqual(value)
-        })
+			expect(contract.callStatic.getEstimatedUsdcForDev).toBeCalledWith(
+				'devAmount'
+			)
+			expect(result).toEqual(value)
+		})
 
-        it('call failure', async () => {
-            const error = 'error'
+		it('call failure', async () => {
+			const error = 'error'
 
-            const contract = {
-                getEstimatedUsdcForDev: jest
-                    .fn()
-                    .mockImplementation(async () => Promise.reject(error)),
-            }
+			const contract = {
+				callStatic: {
+					getEstimatedUsdcForDev: jest
+						.fn()
+						.mockImplementation(async () => Promise.reject(error)),
+				},
+			}
 
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const caller = createGetEstimatedUsdcForDevCaller(contract as any)
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const caller = createGetEstimatedUsdcForDevCaller(contract as any)
 
-            const result = await caller('devAmount').catch((err) => err)
+			const result = await caller('devAmount').catch((err) => err)
 
-            expect(contract.getEstimatedUsdcForDev).toBeCalledWith('devAmount')
-            expect(result).toEqual(error)
-        })
-    })
+			expect(contract.callStatic.getEstimatedUsdcForDev).toBeCalledWith(
+				'devAmount'
+			)
+			expect(result).toEqual(error)
+		})
+	})
 })
