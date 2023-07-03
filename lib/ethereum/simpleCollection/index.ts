@@ -3,6 +3,7 @@ import type { BaseProvider } from '@ethersproject/providers'
 
 import { simpleCollectionsAbi } from './abi'
 import { createSetImagesCaller } from './setImages'
+import { createRemoveImageCaller } from './removeImage'
 
 export const createSimpleCollectionsContract =
 	(provider: BaseProvider) => (address: string) => {
@@ -14,6 +15,7 @@ export const createSimpleCollectionsContract =
 
 		return {
 			setImages: createSetImagesCaller(contractClient),
+			removeImage: createRemoveImageCaller(contractClient),
 		}
 	}
 
