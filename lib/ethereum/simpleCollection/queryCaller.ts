@@ -4,8 +4,11 @@ import { Rewards } from '../s-tokens/rewards'
 import { execute, QueryOption } from '../../common/utils/execute'
 import { Positions as StakingPosition } from '../s-tokens/positions'
 
-export type CreateImageCaller = (
-	contract: ethers.Contract
+type QueryMethods = 'image' | 'name' | 'description'
+
+export type CreateQueryCaller = (
+	contract: ethers.Contract,
+	method: QueryMethods
 ) => (
 	id: number,
 	address: string,
@@ -14,8 +17,8 @@ export type CreateImageCaller = (
 	keys: readonly string[]
 ) => Promise<string>
 
-export const createImageCaller: CreateImageCaller =
-	(contract: ethers.Contract) =>
+export const createQueryCaller: CreateQueryCaller =
+	(contract: ethers.Contract, method: QueryMethods) =>
 	async (
 		id: number,
 		address: string,
@@ -25,7 +28,7 @@ export const createImageCaller: CreateImageCaller =
 	) =>
 		execute<QueryOption, string>({
 			contract,
-			method: 'image',
+			method: method,
 			args: [String(id), address, stakingPositions, rewards, keys],
 			mutation: false,
 		})

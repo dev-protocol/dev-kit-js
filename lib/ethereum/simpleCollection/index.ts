@@ -1,7 +1,7 @@
 import { ethers } from 'ethers'
 import type { BaseProvider } from '@ethersproject/providers'
 
-import { createImageCaller } from './image'
+import { createQueryCaller } from './queryCaller'
 import { simpleCollectionsAbi } from './abi'
 import { createSetImagesCaller } from './setImages'
 import { createRemoveImageCaller } from './removeImage'
@@ -15,7 +15,9 @@ export const createSimpleCollectionsContract =
 		)
 
 		return {
-			image: createImageCaller(contractClient),
+			image: createQueryCaller(contractClient, 'image'),
+			name: createQueryCaller(contractClient, 'name'),
+			description: createQueryCaller(contractClient, 'description'),
 			setImages: createSetImagesCaller(contractClient),
 			removeImage: createRemoveImageCaller(contractClient),
 		}
