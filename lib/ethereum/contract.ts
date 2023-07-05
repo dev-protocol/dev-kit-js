@@ -16,6 +16,7 @@ import { createMetricsContract } from './metrics'
 import { createPolicyFactoryContract } from './policy-factory'
 import { createSTokensContract } from './s-tokens'
 import { createMetricsGroupContract } from './metrics-group'
+import { createSimpleCollectionsContract } from './simpleCollection'
 
 export type DevkitContract = {
 	readonly allocator: ReturnType<typeof createAllocatorContract>
@@ -33,6 +34,7 @@ export type DevkitContract = {
 	readonly metricsGroup: ReturnType<typeof createMetricsGroupContract>
 	readonly policyFactory: ReturnType<typeof createPolicyFactoryContract>
 	readonly sTokens: ReturnType<typeof createSTokensContract>
+	readonly simpleCollections: ReturnType<typeof createSimpleCollectionsContract>
 }
 export type ContractFactory = (ethersProvider: BaseProvider) => DevkitContract
 export type CreateDevkitContract = (provider: BaseProvider) => DevkitContract
@@ -55,6 +57,7 @@ export const createDevkitContract: CreateDevkitContract = (
 	metricsGroup: createMetricsGroupContract(provider),
 	policyFactory: createPolicyFactoryContract(provider),
 	sTokens: createSTokensContract(provider),
+	simpleCollections: createSimpleCollectionsContract(provider),
 })
 
 export const contractFactory: ContractFactory = createDevkitContract
