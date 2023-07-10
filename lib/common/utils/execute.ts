@@ -2,8 +2,22 @@ import { ethers, BigNumber, providers, utils } from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { keys, mergeAll } from 'ramda'
 
-type Args = ReadonlyArray<string | boolean | readonly string[] | Uint8Array>
-type ArgsWithoutUint8Array = ReadonlyArray<string | boolean | readonly string[]>
+import { Positions } from '../../ethereum/s-tokens'
+import { Rewards } from '../../ethereum/s-tokens/rewards'
+import { Image } from '../../ethereum/simpleCollection/types'
+
+type Args = ReadonlyArray<
+	| string
+	| boolean
+	| readonly string[]
+	| Uint8Array
+	| readonly Image[]
+	| Positions
+	| Rewards
+>
+type ArgsWithoutUint8Array = ReadonlyArray<
+	string | boolean | readonly string[] | readonly Image[] | Positions | Rewards
+>
 type Overrides = {
 	readonly gasLimit?: number
 	readonly from?: string
@@ -48,7 +62,14 @@ export type ExecuteFunction = <
 >
 type PadCaller = (
 	arr: ArgsWithoutUint8Array,
-	v: string | boolean | undefined | readonly string[],
+	v:
+		| string
+		| boolean
+		| undefined
+		| readonly string[]
+		| readonly Image[]
+		| Positions
+		| Rewards,
 	i: number,
 	fn: PadCaller
 ) => ArgsWithoutUint8Array
@@ -59,7 +80,14 @@ const pad = (
 	((fn: PadCaller): ArgsWithoutUint8Array => fn([], args[0], 0, fn))(
 		(
 			arr: ArgsWithoutUint8Array,
-			v: string | boolean | undefined | readonly string[],
+			v:
+				| string
+				| boolean
+				| undefined
+				| readonly string[]
+				| readonly Image[]
+				| Positions
+				| Rewards,
 			i: number,
 			fn: PadCaller
 		): ArgsWithoutUint8Array =>
