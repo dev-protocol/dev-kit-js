@@ -16,9 +16,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: yarn install, lint, build, and test
+      - name: deps install, lint, build, and test
         run: |
-          yarn install
+          npm install
           yarn lint
           yarn test --maxWorkers=50% --silent
         env:
