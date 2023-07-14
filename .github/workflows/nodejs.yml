@@ -21,6 +21,6 @@ jobs:
           yarn install
           yarn lint
           yarn run build
-          yarn test
+          yarn test --maxWorkers=50%
         env:
           CI: true
