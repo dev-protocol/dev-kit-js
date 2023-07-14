@@ -12,7 +12,7 @@ jest.mock('ethers')
 
 describe('metrics-factory.ts', () => {
 	;(createAuthenticatedPropertiesCountCaller as jest.Mock).mockImplementation(
-		() => 123
+		() => 123,
 	)
 	;(createMetricsOfPropertyCaller as jest.Mock).mockImplementation(() => 123)
 	;(createMetricsCountCaller as jest.Mock).mockImplementation(() => 123)
@@ -24,12 +24,12 @@ describe('metrics-factory.ts', () => {
 			const provider = new ethers.JsonRpcProvider(host)
 
 			const expected: (address: string) => MetricsFactoryContract = (
-				address: string
+				address: string,
 			) => {
 				const contract = new ethers.Contract(
 					address,
 					[...metricsFactoryAbi],
-					provider
+					provider,
 				)
 				return {
 					authenticatedPropertiesCount:
@@ -44,7 +44,7 @@ describe('metrics-factory.ts', () => {
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result(address))).toEqual(
-				JSON.stringify(expected(address))
+				JSON.stringify(expected(address)),
 			)
 		})
 	})

@@ -23,7 +23,7 @@ export type DevContract = {
 	readonly transferFrom: (
 		from: string,
 		to: string,
-		value: string
+		value: string,
 	) => Promise<TransactionResponse>
 	readonly name: () => Promise<string>
 	readonly symbol: () => Promise<string>
@@ -31,7 +31,7 @@ export type DevContract = {
 	readonly deposit: (
 		to: string,
 		value: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly contract: () => ethers.Contract
 }

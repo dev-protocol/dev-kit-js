@@ -11,7 +11,7 @@ describe('balanceOf.spec.ts', () => {
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(async (address: string) =>
-						Promise.resolve(value)
+						Promise.resolve(value),
 					),
 			}
 

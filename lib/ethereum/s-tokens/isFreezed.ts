@@ -4,7 +4,7 @@ import { execute, QueryOption } from '../../common/utils/execute'
 import { T } from 'ramda'
 
 export type CreateIsFreezedCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (tokenId: number) => Promise<boolean>
 
 export const createIsFreezedCaller: CreateIsFreezedCaller =

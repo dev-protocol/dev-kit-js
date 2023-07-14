@@ -7,11 +7,11 @@ import {
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type RemoveImage = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (
 	propertyAddress: string,
 	keys: readonly string[],
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<TransactionResponse>
 
 export const createRemoveImageCaller: RemoveImage =
@@ -19,7 +19,7 @@ export const createRemoveImageCaller: RemoveImage =
 	async (
 		propertyAddress: string,
 		keys: readonly string[],
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) =>
 		execute<MutationOption>({
 			contract,

@@ -7,10 +7,10 @@ import {
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateFreezeTokenURICaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (
 	tokenId: number,
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<TransactionResponse>
 
 export const createFreezeTokenURICaller: CreateFreezeTokenURICaller =

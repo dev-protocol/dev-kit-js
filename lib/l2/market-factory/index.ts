@@ -7,7 +7,7 @@ import { always } from 'ramda'
 
 export type MarketFactoryContract = {
 	readonly create: (
-		marketBehaviorAddress: string
+		marketBehaviorAddress: string,
 	) => Promise<TransactionResponse>
 	readonly getEnabledMarkets: () => Promise<readonly string[]>
 	readonly contract: () => ethers.Contract
@@ -19,7 +19,7 @@ export const createMarketFactoryContract =
 		const contract = new ethers.Contract(
 			address,
 			[...marketFactoryAbi],
-			provider
+			provider,
 		)
 		return {
 			create: createCreateCaller(contract),

@@ -29,27 +29,27 @@ export const estimationsAPY: EstimationsAPY = async (options) => {
 		: undefined
 	const yeild = await whenDefinedAll(
 		[tvl, assets, l1P || l2P],
-		([_tvl, _assets, policy]) => policy.rewards(_tvl, _assets.toString())
+		([_tvl, _assets, policy]) => policy.rewards(_tvl, _assets.toString()),
 	)
 	const holders = await whenDefinedAll(
 		[tvl, yeild, l1P || l2P],
-		([_tvl, y, policy]) => policy.holdersShare(y, _tvl)
+		([_tvl, y, policy]) => policy.holdersShare(y, _tvl),
 	)
 	const annualYeild = whenDefined(
 		yeild,
-		(y) => BigInt(y) * (l1P ? BigInt(2102400) : BigInt(31536000))
+		(y) => BigInt(y) * (l1P ? BigInt(2102400) : BigInt(31536000)),
 	)
 	const shareOfHolders = whenDefinedAll([holders, yeild], ([hol, y]) =>
-		new BigNumber(hol).div(y).toNumber()
+		new BigNumber(hol).div(y).toNumber(),
 	)
 	const shareOfStakers = whenDefined(shareOfHolders, (hs) => 1 - hs)
 	const apyForStakers = whenDefinedAll(
 		[annualYeild, shareOfStakers, tvl],
-		([ay, sh, tv]) => new BigNumber(ay.toString()).times(sh).div(tv).toNumber()
+		([ay, sh, tv]) => new BigNumber(ay.toString()).times(sh).div(tv).toNumber(),
 	)
 	const apyForHolders = whenDefinedAll(
 		[annualYeild, shareOfHolders, tvl],
-		([ay, sh, tv]) => new BigNumber(ay.toString()).times(sh).div(tv).toNumber()
+		([ay, sh, tv]) => new BigNumber(ay.toString()).times(sh).div(tv).toNumber(),
 	)
 
 	return [apyForStakers, apyForHolders]

@@ -7,10 +7,10 @@ import {
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateForceAttachCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (
 	policy: string,
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<TransactionResponse>
 
 export const createForceAttachCaller: CreateForceAttachCaller =

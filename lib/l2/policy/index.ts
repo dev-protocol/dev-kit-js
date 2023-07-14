@@ -13,7 +13,7 @@ export type PolicyContract = {
 	readonly rewards: (lockups: string, assets: string) => Promise<string>
 	readonly authenticationFee: (
 		assets: string,
-		propertyAssets: string
+		propertyAssets: string,
 	) => Promise<string>
 	readonly marketVotingSeconds: () => Promise<string>
 	readonly policyVotingSeconds: () => Promise<string>

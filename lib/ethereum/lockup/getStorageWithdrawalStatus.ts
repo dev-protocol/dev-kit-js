@@ -2,7 +2,7 @@ import { ethers } from 'ethers'
 import { execute, QueryOption } from '../../common/utils/execute'
 
 export type CreateGetStorageWithdrawalStatusCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (propertyAddress: string, accountAddress: string) => Promise<string>
 
 export const createGetStorageWithdrawalStatusCaller: CreateGetStorageWithdrawalStatusCaller =

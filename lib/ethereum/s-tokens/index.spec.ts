@@ -42,11 +42,11 @@ describe('s-tokens/index.ts', () => {
 	;(createFreezeTokenURICaller as jest.Mock).mockImplementation(() => 123)
 	;(createSetTokenURIImageCaller as jest.Mock).mockImplementation(() => 123)
 	;(createSetSTokenRoyaltyForPropertyCaller as jest.Mock).mockImplementation(
-		() => 123
+		() => 123,
 	)
 	;(createRoyaltyOfCaller as jest.Mock).mockImplementation(() => 123)
 	;(createSetTokenURIDescriptorCaller as jest.Mock).mockImplementation(
-		() => 123
+		() => 123,
 	)
 	;(createTokenURISimCaller as jest.Mock).mockImplementation(() => 123)
 	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
@@ -57,7 +57,7 @@ describe('s-tokens/index.ts', () => {
 			const provider = new ethers.JsonRpcProvider(host)
 
 			const expected: (address: string) => STokensContract = (
-				address: string
+				address: string,
 			) => {
 				const contract = new ethers.Contract(address, [...sTokensAbi], provider)
 				return {
@@ -84,7 +84,7 @@ describe('s-tokens/index.ts', () => {
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result(address))).toEqual(
-				JSON.stringify(expected(address))
+				JSON.stringify(expected(address)),
 			)
 		})
 	})

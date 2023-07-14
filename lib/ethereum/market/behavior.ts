@@ -4,16 +4,16 @@ import { always } from 'ramda'
 import { ethers } from 'ethers'
 
 export type CreateBehaviorCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => () => Promise<string>
 
 export const createBehaviorCaller: CreateBehaviorCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) =>
 	always(
 		execute<QueryOption>({
 			contract,
 			method: 'behavior',
 			mutation: false,
-		})
+		}),
 	)

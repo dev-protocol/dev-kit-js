@@ -4,7 +4,7 @@ import { execute, QueryOption } from '../../common/utils/execute'
 import { always } from 'ramda'
 
 export type CreateAuthenticatedPropertiesCountCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => () => Promise<string>
 
 export const createAuthenticatedPropertiesCountCaller: CreateAuthenticatedPropertiesCountCaller =
@@ -14,5 +14,5 @@ export const createAuthenticatedPropertiesCountCaller: CreateAuthenticatedProper
 				contract,
 				method: 'authenticatedPropertiesCount',
 				mutation: false,
-			})
+			}),
 		)

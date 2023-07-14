@@ -13,7 +13,7 @@ import { ContractRunner } from 'ethers'
 
 type Results = readonly [
 	UndefinedOr<PropertyContract>,
-	UndefinedOr<PropertyContractL2>
+	UndefinedOr<PropertyContractL2>,
 ]
 
 // eslint-disable-next-line functional/prefer-readonly-type
@@ -21,7 +21,7 @@ const cache: WeakMap<ContractRunner, Map<string, Results>> = new WeakMap()
 
 export const clientsProperty = async (
 	provider: ContractRunner,
-	tokenAddress: string
+	tokenAddress: string,
 ): Promise<Results> => {
 	const res =
 		cache.get(provider)?.get(tokenAddress) ??
@@ -34,8 +34,8 @@ export const clientsProperty = async (
 			const l2 = ((data) =>
 				data ? createPropertyContractL2(provider)(tokenAddress) : undefined)(
 				l2AvailableNetworks.find(
-					({ chainId }) => chainId === Number(net?.chainId)
-				)
+					({ chainId }) => chainId === Number(net?.chainId),
+				),
 			)
 			const results: Results = [l1, l2]
 			const map = cache.get(provider)
@@ -44,7 +44,7 @@ export const clientsProperty = async (
 				provider,
 				map
 					? map.set(tokenAddress, results)
-					: new Map([[tokenAddress, results]])
+					: new Map([[tokenAddress, results]]),
 			)
 			return results
 		})())

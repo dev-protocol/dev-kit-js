@@ -23,19 +23,19 @@ export type PropertyContract = {
 	readonly transfer: (
 		to: string,
 		value: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly allowance: (from: string, to: string) => Promise<string>
 	readonly approve: (
 		to: string,
 		value: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly transferFrom: (
 		from: string,
 		to: string,
 		value: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly name: () => Promise<string>
 	readonly symbol: () => Promise<string>
@@ -43,18 +43,18 @@ export type PropertyContract = {
 	readonly author: () => Promise<string>
 	readonly changeName: (
 		nextName: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly changeSymbol: (
 		nextSymbol: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly getBalances: () => Promise<readonly PropertyBalance[]>
 	readonly contract: () => ethers.Contract
 }
 
 export type CreatePropertyContract = (
-	provider: ContractRunner
+	provider: ContractRunner,
 ) => (address: string) => PropertyContract
 
 export const createPropertyContract: CreatePropertyContract =

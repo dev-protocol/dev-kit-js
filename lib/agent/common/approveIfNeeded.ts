@@ -48,7 +48,7 @@ export type ApproveIfNeeded = (factoryOptions: {
 	readonly to?: string
 	readonly token?: string
 	readonly callback: (
-		receipt?: TransactionReceipt
+		receipt?: TransactionReceipt,
 	) => Promise<TransactionResponse>
 }) => Promise<UndefinedOr<ApproveIfNeededResult>>
 
@@ -58,7 +58,7 @@ export const approveIfNeeded: ApproveIfNeeded = async (factoryOptions) => {
 		: await clientsDev(factoryOptions.provider).then(([l1, l2]) => l1 ?? l2)
 	const allowance = await whenDefinedAll(
 		[client, factoryOptions.to],
-		([x, to]) => x.allowance(factoryOptions.from, to)
+		([x, to]) => x.allowance(factoryOptions.from, to),
 	)
 
 	return whenDefinedAll([client, factoryOptions.to], ([dev, to]) => {
@@ -69,7 +69,7 @@ export const approveIfNeeded: ApproveIfNeeded = async (factoryOptions) => {
 						const res = await dev.approve(
 							to,
 							options?.amount ?? factoryOptions.requiredAmount,
-							options?.overrides
+							options?.overrides,
 						)
 						return {
 							...res,

@@ -9,7 +9,7 @@ describe('registries.spec.ts', () => {
 				registries: jest
 					.fn()
 					.mockImplementation(async (key: string) =>
-						Promise.resolve(key === 'test' ? value : undefined)
+						Promise.resolve(key === 'test' ? value : undefined),
 					),
 			}
 

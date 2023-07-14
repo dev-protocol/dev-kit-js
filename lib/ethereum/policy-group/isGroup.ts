@@ -3,7 +3,7 @@ import { execute, QueryOption } from '../../common/utils/execute'
 import { T } from 'ramda'
 
 export type CreateIsGroupCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (policyAddress: string) => Promise<boolean>
 
 export const createIsGroupCaller: CreateIsGroupCaller =

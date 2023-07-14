@@ -3,7 +3,7 @@ import { execute, QueryOption } from '../utils/execute'
 import { always } from 'ramda'
 
 export type CreateNameCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => () => Promise<string>
 
 export const createNameCaller: CreateNameCaller = (contract: ethers.Contract) =>
@@ -12,5 +12,5 @@ export const createNameCaller: CreateNameCaller = (contract: ethers.Contract) =>
 			contract,
 			method: 'name',
 			mutation: false,
-		})
+		}),
 	)

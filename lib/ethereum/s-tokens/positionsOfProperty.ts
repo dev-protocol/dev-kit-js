@@ -3,7 +3,7 @@ import { ethers } from 'ethers'
 import { execute, QueryOption } from '../../common/utils/execute'
 
 export type CreatePositionsOfPropertyCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (propertyAddress: string) => Promise<readonly number[]>
 
 export const createPositionsOfPropertyCaller: CreatePositionsOfPropertyCaller =

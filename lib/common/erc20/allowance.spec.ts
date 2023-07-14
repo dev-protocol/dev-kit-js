@@ -12,7 +12,7 @@ describe('allowance.spec.ts', () => {
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(async (from: string, to: string) =>
-						Promise.resolve(value)
+						Promise.resolve(value),
 					),
 			}
 
@@ -36,7 +36,7 @@ describe('allowance.spec.ts', () => {
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(async (from: string, to: string) =>
-						Promise.reject(error)
+						Promise.reject(error),
 					),
 			}
 

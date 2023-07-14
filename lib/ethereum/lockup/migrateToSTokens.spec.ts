@@ -31,7 +31,7 @@ describe('migrateToSTokens.spec.ts', () => {
 			const caller = createMigrateToSTokensCaller(lockupContract as any)
 
 			const result = await caller(
-				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5'
+				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
 			).catch((err) => err)
 
 			expect(result).toEqual(error)

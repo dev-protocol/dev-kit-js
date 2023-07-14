@@ -14,7 +14,7 @@ describe('transferFrom.spec.ts', () => {
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(
-						async (from: string, to: string, value: number) => success
+						async (from: string, to: string, value: number) => success,
 					),
 			}
 
@@ -39,7 +39,7 @@ describe('transferFrom.spec.ts', () => {
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(async (from: string, to: string, value: number) =>
-						Promise.reject(error)
+						Promise.reject(error),
 					),
 			}
 

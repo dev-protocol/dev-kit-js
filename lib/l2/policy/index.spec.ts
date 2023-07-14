@@ -31,7 +31,7 @@ describe('policy/index.ts', () => {
 			const provider = new ethers.JsonRpcProvider(host)
 
 			const expected: (address: string) => PolicyContract = (
-				address: string
+				address: string,
 			) => {
 				const contract = new ethers.Contract(address, [...policyAbi], provider)
 
@@ -50,7 +50,7 @@ describe('policy/index.ts', () => {
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result(address))).toEqual(
-				JSON.stringify(expected(address))
+				JSON.stringify(expected(address)),
 			)
 		})
 	})

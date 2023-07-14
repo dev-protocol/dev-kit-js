@@ -15,7 +15,7 @@ export type MarketContract = {
 	readonly vote: (
 		propertyAddress: string,
 		agree: boolean,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly authenticate: (
 		address: string,
@@ -23,7 +23,7 @@ export type MarketContract = {
 		options: {
 			readonly metricsFactoryAddress: string
 		},
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<string>
 	readonly behavior: () => Promise<string>
 	readonly name: () => Promise<string>

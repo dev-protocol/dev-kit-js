@@ -17,7 +17,7 @@ export const createMarketBehaviorContract =
 		const contract = new ethers.Contract(
 			address,
 			[...marketBehaviorAbi],
-			provider
+			provider,
 		)
 
 		return {

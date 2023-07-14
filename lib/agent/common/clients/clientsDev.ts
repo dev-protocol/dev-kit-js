@@ -13,7 +13,7 @@ type Results = readonly [UndefinedOr<DevContract>, UndefinedOr<DevContractL2>]
 const cache: WeakMap<ContractRunner, Results> = new WeakMap()
 
 export const clientsDev = async (
-	provider: ContractRunner
+	provider: ContractRunner,
 ): Promise<Results> => {
 	const res =
 		cache.get(provider) ??
@@ -26,8 +26,8 @@ export const clientsDev = async (
 			const l2 = ((data) =>
 				data ? createDevContractL2(provider)(data.map.token) : undefined)(
 				l2AvailableNetworks.find(
-					({ chainId }) => chainId === Number(net?.chainId)
-				)
+					({ chainId }) => chainId === Number(net?.chainId),
+				),
 			)
 			const results: Results = [l1, l2]
 			// eslint-disable-next-line functional/no-expression-statement

@@ -23,34 +23,34 @@ export type STokensContract = {
 	readonly isFreezed: (tokenId: number) => Promise<boolean>
 	readonly freezeTokenURI: (
 		tokenId: number,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly setTokenURIImage: (
 		tokenId: number,
 		data: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly setSTokenRoyaltyForProperty: (
 		propertyAddress: string,
 		royalty: number,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly royaltyOf: (propertyAddress: string) => Promise<string>
 	readonly setTokenURIDescriptor: (
 		propertyAddress: string,
 		descriptorAddress: string,
 		payloads?: ReadonlyArray<string | Uint8Array>,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly ownerOf: (tokenId: number) => Promise<string>
 	readonly rewards: (tokenId: number) => Promise<Rewards>
 	readonly tokenURI: (tokenId: number) => Promise<TokenURI>
 	readonly tokenURISim: (props?: TokenURISimProps) => Promise<TokenURI>
 	readonly positionsOfProperty: (
-		propertyAddress: string
+		propertyAddress: string,
 	) => Promise<readonly number[]>
 	readonly positionsOfOwner: (
-		accountAddress: string
+		accountAddress: string,
 	) => Promise<readonly number[]>
 	readonly contract: () => ethers.Contract
 	readonly payloadOf: (tokenId: number) => Promise<string>
@@ -63,7 +63,7 @@ export const createSTokensContract =
 		const contractClient: ethers.Contract = new ethers.Contract(
 			address,
 			[...sTokensAbi],
-			provider
+			provider,
 		)
 
 		return {

@@ -3,7 +3,7 @@ import { execute, MutationOption } from '../../common/utils/execute'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateBulkWithdrawCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (propertyAddresses: readonly string[]) => Promise<TransactionResponse>
 
 export const createBulkWithdrawCaller: CreateBulkWithdrawCaller =

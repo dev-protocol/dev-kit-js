@@ -5,7 +5,7 @@ import { Positions as StakingPosition } from '../s-tokens'
 describe('name.spec.ts', () => {
 	describe('createQueryCaller:name', () => {
 		it('call success', async () => {
-			const value = "This is image name"
+			const value = 'This is image name'
 
 			const id = 1
 			const address = ''
@@ -14,12 +14,12 @@ describe('name.spec.ts', () => {
 				amount: '0',
 				price: '0',
 				cumulativeReward: '0',
-				pendingReward: '0'
+				pendingReward: '0',
 			}
 			const rewards = {
 				entireReward: '0',
 				cumulativeReward: '0',
-				withdrawableReward: '0'
+				withdrawableReward: '0',
 			}
 			const keys = ['0x000']
 			const devContract = {
@@ -27,7 +27,15 @@ describe('name.spec.ts', () => {
 				name: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (id: number, address: string, stakingPositions: StakingPosition, rewards: Rewards, keys: readonly string[]) => value),
+					.mockImplementation(
+						async (
+							id: number,
+							address: string,
+							stakingPositions: StakingPosition,
+							rewards: Rewards,
+							keys: readonly string[],
+						) => value,
+					),
 			}
 			const expected = value
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -46,12 +54,12 @@ describe('name.spec.ts', () => {
 				amount: '0',
 				price: '0',
 				cumulativeReward: '0',
-				pendingReward: '0'
+				pendingReward: '0',
 			}
 			const rewards = {
 				entireReward: '0',
 				cumulativeReward: '0',
-				withdrawableReward: '0'
+				withdrawableReward: '0',
 			}
 			const keys = ['0x000']
 			const devContract = {
@@ -59,11 +67,25 @@ describe('name.spec.ts', () => {
 				name: jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					.mockImplementation(async (id: number, address: string, stakingPositions: StakingPosition, rewards: Rewards, keys: readonly string[]) => Promise.reject(error)),
+					.mockImplementation(
+						async (
+							id: number,
+							address: string,
+							stakingPositions: StakingPosition,
+							rewards: Rewards,
+							keys: readonly string[],
+						) => Promise.reject(error),
+					),
 			}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createQueryCaller(devContract as any, 'name')
-			const result = await caller(id, address, stakingPositions, rewards, keys).catch((err) => err)
+			const result = await caller(
+				id,
+				address,
+				stakingPositions,
+				rewards,
+				keys,
+			).catch((err) => err)
 
 			expect(result).toEqual(error)
 		})

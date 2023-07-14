@@ -34,7 +34,7 @@ describe('lockup/index.ts', () => {
 		createCalculateCumulativeRewardPricesCaller as jest.Mock
 	).mockImplementation(() => 123)
 	;(createCalculateRewardAmountCaller as jest.Mock).mockImplementation(
-		() => 123
+		() => 123,
 	)
 	;(createDepositToPropertyCaller as jest.Mock).mockImplementation(() => 123)
 	;(createDepositToPositionCaller as jest.Mock).mockImplementation(() => 123)
@@ -44,10 +44,10 @@ describe('lockup/index.ts', () => {
 	).mockImplementation(() => 123)
 	;(createTotalLockedCaller as jest.Mock).mockImplementation(() => 123)
 	;(createTotalLockedForPropertyCaller as jest.Mock).mockImplementation(
-		() => 123
+		() => 123,
 	)
 	;(createGetLockedupPropertiesCaller as jest.Mock).mockImplementation(
-		() => 123
+		() => 123,
 	)
 	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 
@@ -58,7 +58,7 @@ describe('lockup/index.ts', () => {
 			const provider = new ethers.JsonRpcProvider(host)
 
 			const expected: (address: string) => LockupContract = (
-				address: string
+				address: string,
 			) => {
 				const contract = new ethers.Contract(address, [...lockupAbi], provider)
 				return {
@@ -84,7 +84,7 @@ describe('lockup/index.ts', () => {
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result(address))).toEqual(
-				JSON.stringify(expected(address))
+				JSON.stringify(expected(address)),
 			)
 		})
 	})

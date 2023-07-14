@@ -16,7 +16,7 @@ export const createMetricsGroupContract =
 		const contract = new ethers.Contract(
 			address,
 			[...metricsGroupAbi],
-			provider
+			provider,
 		)
 
 		return {

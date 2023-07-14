@@ -8,7 +8,7 @@ describe('authenticationFee.spec.ts', () => {
 			const policyContract = {
 				authenticationFee: jest.fn().mockImplementation(
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					async (assets: string, propertyAssets: string) => value
+					async (assets: string, propertyAssets: string) => value,
 				),
 			}
 
@@ -30,7 +30,7 @@ describe('authenticationFee.spec.ts', () => {
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(async (assets: string, propertyAssets: string) =>
-						Promise.reject(error)
+						Promise.reject(error),
 					),
 			}
 
@@ -38,7 +38,7 @@ describe('authenticationFee.spec.ts', () => {
 			const caller = createAuthenticationFeeCaller(policyContract as any)
 
 			const result = await caller('111111111111', '2222222222').catch(
-				(err) => err
+				(err) => err,
 			)
 
 			expect(result).toEqual(error)

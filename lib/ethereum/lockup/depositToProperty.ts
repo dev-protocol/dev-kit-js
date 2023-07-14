@@ -8,12 +8,12 @@ import {
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateDepositToPropertyCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (
 	propertyAddress: string,
 	amount: string,
 	payload?: string | Uint8Array,
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<TransactionResponse>
 
 export const createDepositToPropertyCaller: CreateDepositToPropertyCaller =
@@ -22,7 +22,7 @@ export const createDepositToPropertyCaller: CreateDepositToPropertyCaller =
 		propertyAddress: string,
 		amount: string,
 		payload?: string | Uint8Array,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) =>
 		execute<MutationOption>({
 			contract,

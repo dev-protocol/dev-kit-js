@@ -38,7 +38,7 @@ describe('erc20/index.ts', () => {
 			const address = '0x0000000000000000000000000000000000000000'
 			const provider = new ethers.JsonRpcProvider(host)
 			const expected: (address: string) => Erc20Contract = (
-				address: string
+				address: string,
 			) => {
 				const contract = new ethers.Contract(address, [...erc20Abi], provider)
 				return {
@@ -58,7 +58,7 @@ describe('erc20/index.ts', () => {
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result(address))).toEqual(
-				JSON.stringify(expected(address))
+				JSON.stringify(expected(address)),
 			)
 		})
 	})

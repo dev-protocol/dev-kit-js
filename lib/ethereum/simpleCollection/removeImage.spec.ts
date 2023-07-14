@@ -13,10 +13,7 @@ describe('removeImage.spec.ts', () => {
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(
-						async (
-							propertyAddress: string,
-							keys: readonly string[]
-						) => success
+						async (propertyAddress: string, keys: readonly string[]) => success,
 					),
 			}
 			const expected = success
@@ -36,17 +33,13 @@ describe('removeImage.spec.ts', () => {
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(
-						async (
-							propertyAddress: string,
-							keys: readonly string[]
-						) => Promise.reject(error)
+						async (propertyAddress: string, keys: readonly string[]) =>
+							Promise.reject(error),
 					),
 			}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createRemoveImageCaller(devContract as any)
-			const result = await caller(propertyAddress, keys).catch(
-				(err) => err
-			)
+			const result = await caller(propertyAddress, keys).catch((err) => err)
 
 			expect(result).toEqual(error)
 		})

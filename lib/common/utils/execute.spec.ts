@@ -6,7 +6,7 @@ describe('execute.ts', () => {
 	describe('execute', () => {
 		it("Execute the contract instance's `[passed method]([...passed args])` when the mutation is false.", async () => {
 			const fooStub = jest.fn(async (arg1: string, arg2: string) =>
-				Promise.resolve('value')
+				Promise.resolve('value'),
 			)
 			const contract = {
 				foo: fooStub,
@@ -38,7 +38,7 @@ describe('execute.ts', () => {
 		})
 		it("Execute the contract instance's `[passed method]([...passed args])` when the mutation is true.", async () => {
 			const fooStub = jest.fn(async (arg1: string, arg2: string) =>
-				Promise.resolve(true)
+				Promise.resolve(true),
 			)
 			const contract = {
 				foo: fooStub,
@@ -78,9 +78,9 @@ describe('execute.ts', () => {
 					arg5: boolean,
 					arg6: string,
 					arg7: string,
-					arg8: string
+					arg8: string,
 					// eslint-disable-next-line max-params
-				) => Promise.resolve(true)
+				) => Promise.resolve(true),
 			)
 			const contract = {
 				foo: fooStub,
@@ -107,7 +107,7 @@ describe('execute.ts', () => {
 		})
 		it('Uint8Array in the passed args will be conveted to string', async () => {
 			const fooStub = jest.fn(async (arg1: string, arg2: string) =>
-				Promise.resolve('value')
+				Promise.resolve('value'),
 			)
 			const contract = {
 				foo: fooStub,
@@ -205,7 +205,7 @@ describe('execute.ts', () => {
 		it('Returns array of string, number, boolean when the response included BigNumber', async () => {
 			const contract = {
 				foo: jest.fn(async () =>
-					Promise.resolve(['value', 123456789, false, 123456789n])
+					Promise.resolve(['value', 123456789, false, 123456789n]),
 				),
 			} as unknown as ethers.Contract
 			const result = await execute({
@@ -239,7 +239,7 @@ describe('execute.ts', () => {
 							c: true,
 							d: 1234567891n,
 						},
-					])
+					]),
 				),
 			} as unknown as ethers.Contract
 			const result = await execute({
@@ -282,7 +282,7 @@ describe('execute.ts', () => {
 						b: 123456789,
 						c: false,
 						d: 123456789n,
-					})
+					}),
 				),
 			} as unknown as ethers.Contract
 			const result = await execute({
@@ -306,7 +306,7 @@ describe('execute.ts', () => {
 				foo: jest.fn(async () =>
 					Promise.resolve({
 						data: 123456789n,
-					})
+					}),
 				),
 			} as unknown as ethers.Contract
 			const result = await execute({

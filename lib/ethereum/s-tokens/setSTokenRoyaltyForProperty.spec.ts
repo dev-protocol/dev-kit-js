@@ -13,7 +13,7 @@ describe('setSTokenRoyaltyForProperty.spec.ts', () => {
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(
-						async (propertyAddress: string, royalty: number) => success
+						async (propertyAddress: string, royalty: number) => success,
 					),
 			}
 
@@ -38,7 +38,7 @@ describe('setSTokenRoyaltyForProperty.spec.ts', () => {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(
 						async (propertyAddress: string, descriptorAddress: string) =>
-							Promise.reject(error)
+							Promise.reject(error),
 					),
 			}
 

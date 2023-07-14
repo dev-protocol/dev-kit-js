@@ -10,14 +10,14 @@ import { metricsFactoryAbi } from '../metrics-factory/abi'
 
 export type CreateCreateAndAuthenticateCaller = (
 	contract: ethers.Contract,
-	provider: ContractRunner
+	provider: ContractRunner,
 ) => (
 	name: string,
 	symbol: string,
 	marketAddress: string,
 	args: readonly string[],
 	options: WaitForEventOptions,
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<{
 	readonly property: string
 	readonly transaction: TransactionResponse
@@ -33,7 +33,7 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 			marketAddress: string,
 			args: readonly string[],
 			{ metricsFactoryAddress }: WaitForEventOptions,
-			overrides?: FallbackableOverrides
+			overrides?: FallbackableOverrides,
 		): Promise<{
 			readonly property: string
 			readonly transaction: TransactionResponse
@@ -51,7 +51,7 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 			const metricsFactoryContract = new ethers.Contract(
 				metricsFactoryAddress,
 				metricsFactoryAbi,
-				provider
+				provider,
 			)
 
 			const waitForAuthentication = (): Promise<string> =>
@@ -66,7 +66,7 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 										resolve(metricsAddress)
 									}
 								})
-								.catch(reject)
+								.catch(reject),
 					)
 				})
 
@@ -80,7 +80,7 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 							transaction,
 							waitForAuthentication,
 						})
-					}
+					},
 				)
 			})
 		}

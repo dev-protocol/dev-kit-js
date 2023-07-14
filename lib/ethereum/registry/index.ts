@@ -41,7 +41,7 @@ export type RegistryContract = {
 }
 
 export type CreateRegistryContract = (
-	provider: ContractRunner
+	provider: ContractRunner,
 ) => (address: string) => RegistryContract
 
 export const createRegistryContract: CreateRegistryContract =
@@ -50,7 +50,7 @@ export const createRegistryContract: CreateRegistryContract =
 		const contract = new ethers.Contract(
 			address,
 			[...addressConfigAbi],
-			provider
+			provider,
 		)
 
 		return {

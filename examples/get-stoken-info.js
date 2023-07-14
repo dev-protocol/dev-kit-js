@@ -4,7 +4,7 @@ import { contractFactory, addresses } from '@devprotocol/dev-kit'
 // use main net
 const contractAddress = addresses.eth.main.sTokens
 const provider = new ethers.providers.JsonRpcProvider(
-	process.env.WEB3_PROVIDER_URL
+	process.env.WEB3_PROVIDER_URL,
 )
 const contract = contractFactory(provider)
 const propertyAddress = '0xac1AC9d00314aE7B4a7d6DbEE4860bECedF92309'
@@ -34,6 +34,6 @@ const res = await Promise.all(
 		const positions = await getSTokenPositions(contract, sTokenId)
 		const rewards = await getSTokenRewards(contract, sTokenId)
 		return { sTokenId, positions, rewards }
-	})
+	}),
 )
 console.log(res)

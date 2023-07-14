@@ -3,7 +3,7 @@ import { execute, QueryOption } from '../../common/utils/execute'
 import { arrayify } from '../../common/utils/arrayify'
 
 export type CreateCalculateRewardAmountCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (propertyAddress: string) => Promise<readonly [string, string]>
 
 export const createCalculateRewardAmountCaller: CreateCalculateRewardAmountCaller =
