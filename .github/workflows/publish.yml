@@ -21,9 +21,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: deps install, and build
+      - name: yarn install, and build
         run: |
-          npm install
+          yarn install
           yarn run build
       - uses: JS-DevTools/npm-publish@v2
         with:
