@@ -30,6 +30,8 @@ const pluginsCjs = [
 	}),
 ]
 const external = ['ethers']
+const [, , , _mode] = process.argv
+const mode = _mode === '--esm' ? 'es' : _mode === '--cjs' ? 'cjs' : undefined
 
 export default [
 	{
@@ -98,4 +100,4 @@ export default [
 		],
 		plugins: pluginsCjs,
 	},
-]
+].filter((x) => (mode ? x.output.every(({ format }) => format === mode) : x))
