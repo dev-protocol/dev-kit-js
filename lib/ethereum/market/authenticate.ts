@@ -15,7 +15,7 @@ import { metricsFactoryAbi } from '../metrics-factory/abi'
 
 export const getMetricsProperty = async (
 	address: string,
-	provider: ContractRunner
+	provider: ContractRunner,
 ): Promise<string> =>
 	execute<QueryOption>({
 		contract: new ethers.Contract(address, metricsAbi, provider),
@@ -29,12 +29,12 @@ export type WaitForEventOptions = {
 
 export type CreateAuthenticateCaller = (
 	contract: ethers.Contract,
-	provider: ContractRunner
+	provider: ContractRunner,
 ) => (
 	propertyAddress: string,
 	args: readonly string[],
 	options: WaitForEventOptions,
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<string>
 
 export const createAuthenticateCaller: CreateAuthenticateCaller =
@@ -43,7 +43,7 @@ export const createAuthenticateCaller: CreateAuthenticateCaller =
 		propertyAddress: string,
 		args: readonly string[],
 		{ metricsFactoryAddress }: WaitForEventOptions,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	): Promise<string> => {
 		await execute({
 			contract,
@@ -56,7 +56,7 @@ export const createAuthenticateCaller: CreateAuthenticateCaller =
 		const metricsFactoryContract = new ethers.Contract(
 			metricsFactoryAddress,
 			metricsFactoryAbi,
-			provider
+			provider,
 		)
 
 		return new Promise((resolve, reject) => {
@@ -70,7 +70,7 @@ export const createAuthenticateCaller: CreateAuthenticateCaller =
 								resolve(metricsAddress)
 							}
 						})
-						.catch(reject)
+						.catch(reject),
 			)
 		})
 	}

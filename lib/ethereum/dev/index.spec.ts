@@ -61,7 +61,7 @@ describe('dev/index.ts', () => {
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result(address))).toEqual(
-				JSON.stringify(expected(address))
+				JSON.stringify(expected(address)),
 			)
 		})
 	})

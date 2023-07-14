@@ -16,7 +16,7 @@ describe('isDuringVotingPeriod.spec.ts', () => {
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createIsDuringVotingPeriodCaller(
-				policyGroupContract as any
+				policyGroupContract as any,
 			)
 
 			const result = await caller('0x0')
@@ -36,7 +36,7 @@ describe('isDuringVotingPeriod.spec.ts', () => {
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createIsDuringVotingPeriodCaller(
-				policyGroupContract as any
+				policyGroupContract as any,
 			)
 
 			const result = await caller('0x0').catch((err) => err)

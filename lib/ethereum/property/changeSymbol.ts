@@ -7,10 +7,10 @@ import {
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateChangeSymbolCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (
 	nextAuther: string,
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<TransactionResponse>
 
 export const createChangeSymbolCaller: CreateChangeSymbolCaller =

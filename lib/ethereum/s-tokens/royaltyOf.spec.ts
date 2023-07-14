@@ -32,7 +32,7 @@ describe('royaltyOf.spec.ts', () => {
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(async (propertyAddress: string) =>
-						Promise.reject(error)
+						Promise.reject(error),
 					),
 			}
 

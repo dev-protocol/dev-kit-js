@@ -32,17 +32,17 @@ export const positionsCreate: PositionsCreate = async (options) => {
 									options.destination,
 									options.amount,
 									options.payload,
-									options.overrides
+									options.overrides,
 							  )
 							: l2
 							? l2.depositToProperty(
 									options.destination,
 									options.amount,
 									options.payload,
-									options.overrides
+									options.overrides,
 							  )
 							: (undefined as never),
-				})
+				}),
 		  )
 		: undefined
 }

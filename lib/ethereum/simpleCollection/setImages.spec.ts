@@ -25,8 +25,8 @@ describe('setImages.spec.ts', () => {
 						async (
 							propertyAddress: string,
 							images: readonly Image[],
-							keys: readonly string[]
-						) => success
+							keys: readonly string[],
+						) => success,
 					),
 			}
 			const expected = success
@@ -57,14 +57,14 @@ describe('setImages.spec.ts', () => {
 						async (
 							propertyAddress: string,
 							images: readonly Image[],
-							keys: readonly string[]
-						) => Promise.reject(error)
+							keys: readonly string[],
+						) => Promise.reject(error),
 					),
 			}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createSetImagesCaller(devContract as any)
 			const result = await caller(propertyAddress, images, keys).catch(
-				(err) => err
+				(err) => err,
 			)
 
 			expect(result).toEqual(error)

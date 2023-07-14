@@ -21,7 +21,7 @@ type PositionsCreateWithEth = (options: {
 }>
 
 export const positionsCreateWithEth: PositionsCreateWithEth = async (
-	options
+	options,
 ) => {
 	const [, l2] = await clientsUtilsSwapForStake(options.provider)
 
@@ -59,13 +59,13 @@ export const positionsCreateWithEth: PositionsCreateWithEth = async (
 								options.payload ?? ZeroHash,
 								_overrides,
 								options.gatewayAddress,
-								String(options.gatewayBasisPoints)
+								String(options.gatewayBasisPoints),
 						  )
 						: await l2.swapEthAndStakeDevCaller(
 								options.destination,
 								deadline,
 								options.payload ?? ZeroHash,
-								_overrides
+								_overrides,
 						  )
 				},
 		  }

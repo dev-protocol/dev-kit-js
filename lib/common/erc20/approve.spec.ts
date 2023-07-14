@@ -35,7 +35,7 @@ describe('approve.spec.ts', () => {
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(async (to: string, value: number) =>
-						Promise.reject(error)
+						Promise.reject(error),
 					),
 			}
 

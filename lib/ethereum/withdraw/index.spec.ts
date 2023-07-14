@@ -19,7 +19,7 @@ describe('lockup/index.ts', () => {
 	;(createBulkWithdrawCaller as jest.Mock).mockImplementation(() => 123)
 	;(createGetRewardsAmountCaller as jest.Mock).mockImplementation(() => 123)
 	;(createCalculateWithdrawableAmountCaller as jest.Mock).mockImplementation(
-		() => 123
+		() => 123,
 	)
 	;(calculateRewardAmountCaller as jest.Mock).mockImplementation(() => 123)
 	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
@@ -30,12 +30,12 @@ describe('lockup/index.ts', () => {
 			const provider = new ethers.JsonRpcProvider(host)
 
 			const expected: (address: string) => WithdrawContract = (
-				address: string
+				address: string,
 			) => {
 				const contract = new ethers.Contract(
 					address,
 					[...withdrawAbi],
-					provider
+					provider,
 				)
 				return {
 					withdraw: createWithdrawCaller(contract),
@@ -52,7 +52,7 @@ describe('lockup/index.ts', () => {
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result(address))).toEqual(
-				JSON.stringify(expected(address))
+				JSON.stringify(expected(address)),
 			)
 		})
 	})

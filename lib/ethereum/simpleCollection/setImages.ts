@@ -9,12 +9,12 @@ import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { Image } from './types'
 
 export type SetImages = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (
 	propertyAddress: string,
 	images: readonly Image[],
 	keys: readonly string[],
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<TransactionResponse>
 
 export const createSetImagesCaller: SetImages =
@@ -23,7 +23,7 @@ export const createSetImagesCaller: SetImages =
 		propertyAddress: string,
 		images: readonly Image[],
 		keys: readonly string[],
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) =>
 		execute<MutationOption>({
 			contract,

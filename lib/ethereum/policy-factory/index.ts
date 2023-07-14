@@ -9,17 +9,17 @@ import { always } from 'ramda'
 export type PolicyFactoryContract = {
 	readonly create: (
 		newPolicyAddress: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly forceAttach: (
 		policy: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly contract: () => ethers.Contract
 }
 
 export type CreatePolicyFactoryContract = (
-	provider: ContractRunner
+	provider: ContractRunner,
 ) => (address: string) => PolicyFactoryContract
 
 export const createPolicyFactoryContract: CreatePolicyFactoryContract =
@@ -27,7 +27,7 @@ export const createPolicyFactoryContract: CreatePolicyFactoryContract =
 		const contract = new ethers.Contract(
 			address,
 			[...policyFactoryAbi],
-			provider
+			provider,
 		)
 
 		return {

@@ -8,7 +8,7 @@ export type LockedupProperty = Readonly<{
 }>
 
 export type CreateGetLockedupPropertiesCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => () => Promise<readonly LockedupProperty[]>
 
 export const createGetLockedupPropertiesCaller: CreateGetLockedupPropertiesCaller =
@@ -18,5 +18,5 @@ export const createGetLockedupPropertiesCaller: CreateGetLockedupPropertiesCalle
 				contract,
 				method: 'getLockedupProperties',
 				mutation: false,
-			})
+			}),
 		)

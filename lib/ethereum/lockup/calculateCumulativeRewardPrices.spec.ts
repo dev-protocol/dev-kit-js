@@ -15,7 +15,7 @@ describe('calculateCumulativeRewardPrices.spec.ts', () => {
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createCalculateCumulativeRewardPricesCaller(
-				lockupContract as any
+				lockupContract as any,
 			)
 
 			const result = await caller()
@@ -35,7 +35,7 @@ describe('calculateCumulativeRewardPrices.spec.ts', () => {
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createCalculateCumulativeRewardPricesCaller(
-				lockupContract as any
+				lockupContract as any,
 			)
 
 			const result = await caller().catch((err) => err)

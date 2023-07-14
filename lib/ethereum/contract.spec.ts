@@ -43,7 +43,7 @@ describe('contract.ts', () => {
 				metricsGroup: createMetricsGroupContract(provider),
 				policyFactory: createPolicyFactoryContract(provider),
 				sTokens: createSTokensContract(provider),
-				simpleCollections: createSimpleCollectionsContract(provider)
+				simpleCollections: createSimpleCollectionsContract(provider),
 			}
 
 			const result = createDevkitContract(provider)

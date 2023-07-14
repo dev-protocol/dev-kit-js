@@ -9,7 +9,7 @@ jest.mock('ethers')
 describe('allocator/index.ts', () => {
 	describe('createAllocatorContract', () => {
 		;(createCalculateMaxRewardsPerBlockCaller as jest.Mock).mockImplementation(
-			() => 123
+			() => 123,
 		)
 		;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 		it('check return object', () => {
@@ -17,12 +17,12 @@ describe('allocator/index.ts', () => {
 			const address = 'address'
 			const provider = new ethers.JsonRpcProvider(host)
 			const expected: (address: string) => CreateAllocatorContract = (
-				address: string
+				address: string,
 			) => {
 				const contract = new ethers.Contract(
 					address,
 					[...allocatorAbi],
-					provider
+					provider,
 				)
 				return {
 					calculateMaxRewardsPerBlock:
@@ -34,7 +34,7 @@ describe('allocator/index.ts', () => {
 			const result = createAllocatorContract(provider)
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result(address))).toEqual(
-				JSON.stringify(expected(address))
+				JSON.stringify(expected(address)),
 			)
 		})
 	})

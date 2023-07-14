@@ -8,13 +8,13 @@ type QueryMethods = 'image' | 'name' | 'description'
 
 export type CreateQueryCaller = (
 	contract: ethers.Contract,
-	method: QueryMethods
+	method: QueryMethods,
 ) => (
 	id: number,
 	address: string,
 	stakingPositions: StakingPosition,
 	rewards: Rewards,
-	keys: readonly string[]
+	keys: readonly string[],
 ) => Promise<string>
 
 export const createQueryCaller: CreateQueryCaller =
@@ -24,7 +24,7 @@ export const createQueryCaller: CreateQueryCaller =
 		address: string,
 		stakingPositions: StakingPosition,
 		rewards: Rewards,
-		keys: readonly string[]
+		keys: readonly string[],
 	) =>
 		execute<QueryOption, string>({
 			contract,

@@ -20,7 +20,7 @@ type PropertiesAssets = (options: {
 
 export const propertiesAssets: PropertiesAssets = async (options) => {
 	const marketSet = unnest(
-		flatten(values(marketAddresses).map(values)).map(toPairs)
+		flatten(values(marketAddresses).map(values)).map(toPairs),
 	) as ReadonlyArray<readonly [string, string]>
 	const [, metricsFactory] = await clientsMetricsFactory(options.provider)
 	const metricsContract = createMetricsContract(options.provider)
@@ -28,26 +28,26 @@ export const propertiesAssets: PropertiesAssets = async (options) => {
 	const marketBehaviorContract = createMarketBehaviorContract(options.provider)
 
 	const listOfMetrics = await whenDefined(metricsFactory, (c) =>
-		c.metricsOfProperty(options.destination)
+		c.metricsOfProperty(options.destination),
 	)
 	const listOfMetricsContract = await whenDefined(listOfMetrics, (x) =>
-		Promise.all(x.map(metricsContract))
+		Promise.all(x.map(metricsContract)),
 	)
 	const listOfMarketContract = await whenDefined(listOfMetricsContract, (m) =>
 		Promise.all(
 			m.map(async (metrics) => ({
 				metrics,
 				market: marketContract(await metrics.market()),
-			}))
-		)
+			})),
+		),
 	)
 	const marketBehaviors = await whenDefined(listOfMarketContract, (m) =>
 		Promise.all(
 			m.map(async (cont) => ({
 				marketBehavior: marketBehaviorContract(await cont.market.behavior()),
 				...cont,
-			}))
-		)
+			})),
+		),
 	)
 	const results = await whenDefined(marketBehaviors, (mb) =>
 		Promise.all(
@@ -62,8 +62,8 @@ export const propertiesAssets: PropertiesAssets = async (options) => {
 					market,
 					marketSlug,
 				}
-			})
-		)
+			}),
+		),
 	)
 
 	return results

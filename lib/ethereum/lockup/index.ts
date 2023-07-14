@@ -22,55 +22,55 @@ import { always } from 'ramda'
 export type LockupContract = {
 	readonly getValue: (
 		propertyAddress: string,
-		accountAddress: string
+		accountAddress: string,
 	) => Promise<string>
 	readonly getAllValue: () => Promise<string>
 	readonly getPropertyValue: (address: string) => Promise<string>
 	readonly withdrawByPosition: (
 		positionTokenId: string,
 		amount: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly withdraw: (
 		propertyAddress: string,
 		amount: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly calculateWithdrawableInterestAmountByPosition: (
-		positionTokenId: string
+		positionTokenId: string,
 	) => Promise<string>
 	readonly calculateWithdrawableInterestAmount: (
 		propertyAddress: string,
-		accountAddress: string
+		accountAddress: string,
 	) => Promise<string>
 	readonly calculateCumulativeHoldersRewardAmount: (
-		propertyAddress: string
+		propertyAddress: string,
 	) => Promise<string>
 	readonly getStorageWithdrawalStatus: (
 		propertyAddress: string,
-		accountAddress: string
+		accountAddress: string,
 	) => Promise<string>
 	readonly calculateCumulativeRewardPrices: () => Promise<
 		readonly [string, string, string, string]
 	>
 	readonly calculateRewardAmount: (
-		propertyAddress: string
+		propertyAddress: string,
 	) => Promise<readonly [string, string]>
 	readonly cap: () => Promise<string>
 	readonly depositToProperty: (
 		propertyAddress: string,
 		amount: string,
 		payload?: string | Uint8Array,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly depositToPosition: (
 		positionTokenId: string,
 		amount: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly migrateToSTokens: (
 		positionTokenId: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly contract: () => ethers.Contract
 }

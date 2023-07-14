@@ -10,7 +10,7 @@ export type PolicyGroupContract = {
 }
 
 export type CreatePolicyGroupContract = (
-	provider: ContractRunner
+	provider: ContractRunner,
 ) => (address: string) => PolicyGroupContract
 
 export const createPolicyGroupContract: CreatePolicyGroupContract =

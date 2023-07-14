@@ -3,7 +3,7 @@ import { execute, QueryOption } from '../../common/utils/execute'
 import { always } from 'ramda'
 
 export type CreateSchemaCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => () => Promise<readonly string[]>
 type ParsedValue = {
 	readonly v: string
@@ -11,7 +11,7 @@ type ParsedValue = {
 }
 
 export const createSchemaCaller: CreateSchemaCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ): (() => Promise<readonly string[]>) =>
 	always(
 		execute<QueryOption>({ contract, method: 'schema', mutation: false }).then(
@@ -20,7 +20,7 @@ export const createSchemaCaller: CreateSchemaCaller = (
 					result
 						.split(`'`)
 						.map<ParsedValue>((v) => ({ v, s: /[[\],:]/.test(v) }))
-						.reduce((a, c) => `${a}${c.s ? c.v : `"${c.v}"`}`, '')
-				) as readonly string[]
-		)
+						.reduce((a, c) => `${a}${c.s ? c.v : `"${c.v}"`}`, ''),
+				) as readonly string[],
+		),
 	)

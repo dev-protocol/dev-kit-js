@@ -15,7 +15,7 @@ describe('metricsOfProperty.spec.ts', () => {
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createMetricsOfPropertyCaller(
-				metricsFactoryContract as any
+				metricsFactoryContract as any,
 			)
 
 			const result = await caller('property')

@@ -4,7 +4,7 @@ import { always } from 'ramda'
 import { arrayify } from '../../common/utils/arrayify'
 
 export type CreateCalculateCumulativeRewardPricesCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => () => Promise<readonly [string, string, string, string]>
 
 export const createCalculateCumulativeRewardPricesCaller: CreateCalculateCumulativeRewardPricesCaller =
@@ -14,5 +14,5 @@ export const createCalculateCumulativeRewardPricesCaller: CreateCalculateCumulat
 				contract,
 				method: 'calculateCumulativeRewardPrices',
 				mutation: false,
-			}).then((r) => arrayify(r) as readonly [string, string, string, string])
+			}).then((r) => arrayify(r) as readonly [string, string, string, string]),
 		)

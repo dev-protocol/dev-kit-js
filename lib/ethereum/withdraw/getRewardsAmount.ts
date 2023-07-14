@@ -2,7 +2,7 @@ import { ethers } from 'ethers'
 import { execute, QueryOption } from '../../common/utils/execute'
 
 export type CreateGetRewardsAmountCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (address: string) => Promise<string>
 
 export const createGetRewardsAmountCaller: CreateGetRewardsAmountCaller =

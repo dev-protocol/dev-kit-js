@@ -9,7 +9,7 @@ export type MetricsFactoryContract = {
 	readonly authenticatedPropertiesCount: () => Promise<string>
 	readonly metricsCount: () => Promise<number>
 	readonly metricsOfProperty: (
-		propertyAddress: string
+		propertyAddress: string,
 	) => Promise<readonly string[]>
 	readonly contract: () => ethers.Contract
 }
@@ -21,7 +21,7 @@ export const createMetricsFactoryContract =
 		const contract = new ethers.Contract(
 			address,
 			[...metricsFactoryAbi],
-			provider
+			provider,
 		)
 
 		return {

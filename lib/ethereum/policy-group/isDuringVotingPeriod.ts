@@ -7,7 +7,7 @@ import {
 import { T } from 'ramda'
 
 export type CreateIsDuringVotingPeriodCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (policyAddress: string) => Promise<boolean>
 
 export const createIsDuringVotingPeriodCaller: CreateIsDuringVotingPeriodCaller =

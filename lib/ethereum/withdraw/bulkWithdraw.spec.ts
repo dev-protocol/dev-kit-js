@@ -11,7 +11,7 @@ describe('bulkWithdraw.spec.ts', () => {
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(async (properties: readonly string[]) =>
-						Promise.resolve(stubTx)
+						Promise.resolve(stubTx),
 					),
 			}
 
@@ -31,7 +31,7 @@ describe('bulkWithdraw.spec.ts', () => {
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(async (properties: readonly string[]) =>
-						Promise.reject(err)
+						Promise.reject(err),
 					),
 			}
 

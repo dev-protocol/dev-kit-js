@@ -3,7 +3,7 @@ import { execute, QueryOption } from '../../common/utils/execute'
 import { always } from 'ramda'
 
 export type CreateMarketVotingSecondsCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => () => Promise<string>
 
 export const createMarketVotingSecondsCaller: CreateMarketVotingSecondsCaller =
@@ -13,5 +13,5 @@ export const createMarketVotingSecondsCaller: CreateMarketVotingSecondsCaller =
 				contract,
 				method: 'marketVotingSeconds',
 				mutation: false,
-			})
+			}),
 		)

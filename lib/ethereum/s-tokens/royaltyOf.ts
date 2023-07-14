@@ -3,7 +3,7 @@ import { ethers } from 'ethers'
 import { execute, QueryOption } from '../../common/utils/execute'
 
 export type CreateRoyaltyOfCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (propertyAddress: string) => Promise<string>
 
 export const createRoyaltyOfCaller: CreateRoyaltyOfCaller =

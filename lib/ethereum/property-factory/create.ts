@@ -8,12 +8,12 @@ import {
 } from '../../common/utils/execute'
 
 export type CreateCreatePropertyCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (
 	name: string,
 	symbol: string,
 	author: string,
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<string>
 
 export const createCreatePropertyCaller: CreateCreatePropertyCaller =
@@ -22,7 +22,7 @@ export const createCreatePropertyCaller: CreateCreatePropertyCaller =
 		name: string,
 		symbol: string,
 		author: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	): Promise<string> => {
 		await execute<MutationOption>({
 			contract,
@@ -38,7 +38,7 @@ export const createCreatePropertyCaller: CreateCreatePropertyCaller =
 				async (_: string, propertyAddress: string) => {
 					;(await subscribedContract).removeAllListeners()
 					resolve(propertyAddress)
-				}
+				},
 			)
 		})
 	}

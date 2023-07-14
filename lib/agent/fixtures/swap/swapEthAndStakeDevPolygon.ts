@@ -8,7 +8,7 @@ import {
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateSwapEthAndStakeDevPolygonCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (
 	propertyAddress: string,
 	amount: string,
@@ -16,7 +16,7 @@ export type CreateSwapEthAndStakeDevPolygonCaller = (
 	payload: string,
 	overrides: FallbackableOverrides,
 	gatewayAddress?: string,
-	gatewayBasisPoints?: string
+	gatewayBasisPoints?: string,
 ) => Promise<TransactionResponse>
 
 export const createSwapEthAndStakeDevPolygonCaller: CreateSwapEthAndStakeDevPolygonCaller =
@@ -29,7 +29,7 @@ export const createSwapEthAndStakeDevPolygonCaller: CreateSwapEthAndStakeDevPoly
 			payload: string,
 			overrides: FallbackableOverrides,
 			gatewayAddress?: string,
-			gatewayBasisPoints?: string
+			gatewayBasisPoints?: string,
 		) =>
 			execute<MutationOption>({
 				contract,

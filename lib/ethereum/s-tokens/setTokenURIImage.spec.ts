@@ -35,7 +35,7 @@ describe('setTokenURIImage.spec.ts', () => {
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(async (tokenId: string, data: string) =>
-						Promise.reject(error)
+						Promise.reject(error),
 					),
 			}
 

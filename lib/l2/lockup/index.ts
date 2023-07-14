@@ -22,31 +22,31 @@ export type LockupContract = {
 	readonly withdrawByPosition: (
 		positionTokenId: string,
 		amount: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly calculateWithdrawableInterestAmountByPosition: (
-		positionTokenId: string
+		positionTokenId: string,
 	) => Promise<string>
 	readonly calculateCumulativeHoldersRewardAmount: (
-		propertyAddress: string
+		propertyAddress: string,
 	) => Promise<string>
 	readonly calculateCumulativeRewardPrices: () => Promise<
 		readonly [string, string, string, string]
 	>
 	readonly calculateRewardAmount: (
-		propertyAddress: string
+		propertyAddress: string,
 	) => Promise<readonly [string, string]>
 	readonly cap: () => Promise<string>
 	readonly depositToProperty: (
 		propertyAddress: string,
 		amount: string,
 		payload?: string | Uint8Array,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly depositToPosition: (
 		positionTokenId: string,
 		amount: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly totalLocked: () => Promise<string>
 	readonly totalLockedForProperty: (address: string) => Promise<string>

@@ -15,7 +15,7 @@ describe('authenticatedPropertiesCount.spec.ts', () => {
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createAuthenticatedPropertiesCountCaller(
-				metricsFactoryContract as any
+				metricsFactoryContract as any,
 			)
 
 			const result = await caller()
@@ -34,7 +34,7 @@ describe('authenticatedPropertiesCount.spec.ts', () => {
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createAuthenticatedPropertiesCountCaller(
-				metricsGroupContract as any
+				metricsGroupContract as any,
 			)
 
 			const result = await caller().catch((err) => err)

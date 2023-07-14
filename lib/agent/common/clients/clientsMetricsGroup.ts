@@ -11,7 +11,7 @@ type Results = readonly [UndefinedOr<CreateMetricsGroupContract>, undefined]
 const cache: WeakMap<ContractRunner, Results> = new WeakMap()
 
 export const clientsMetricsGroup = async (
-	provider: ContractRunner
+	provider: ContractRunner,
 ): Promise<Results> => {
 	const res =
 		cache.get(provider) ??

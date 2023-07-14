@@ -12,19 +12,19 @@ import { always } from 'ramda'
 export type WithdrawContract = {
 	readonly withdraw: (
 		propertyAddress: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly bulkWithdraw: (
-		propertyAddresses: readonly string[]
+		propertyAddresses: readonly string[],
 	) => Promise<TransactionResponse>
 	readonly getRewardsAmount: (propertyAddress: string) => Promise<string>
 	readonly calculateWithdrawableAmount: (
 		propertyAddress: string,
-		accountAddress: string
+		accountAddress: string,
 	) => Promise<string>
 	readonly calculateRewardAmount: (
 		propertyAddress: string,
-		accountAddress: string
+		accountAddress: string,
 	) => Promise<string>
 	readonly contract: () => ethers.Contract
 }

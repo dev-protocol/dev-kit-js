@@ -19,7 +19,7 @@ export type SwapContract = {
 		payload: string,
 		overrides: FallbackableOverrides,
 		gatewayAddress?: string,
-		gatewayBasisPoints?: string
+		gatewayBasisPoints?: string,
 	) => Promise<TransactionResponse>
 	readonly swapEthAndStakeDevPolygonCaller: (
 		propertyAddress: string,
@@ -28,7 +28,7 @@ export type SwapContract = {
 		payload: string,
 		overrides: FallbackableOverrides,
 		gatewayAddress?: string,
-		gatewayBasisPoints?: string
+		gatewayBasisPoints?: string,
 	) => Promise<TransactionResponse>
 	readonly contract: () => ethers.Contract
 }
@@ -43,7 +43,7 @@ export const createSwapContract =
 				: v === 'v3_polygon'
 				? [...swapAbiV3Polygon]
 				: [...swapAbiV2],
-			provider
+			provider,
 		)
 
 		return {

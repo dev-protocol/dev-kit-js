@@ -55,9 +55,9 @@ export type ExecuteOption = QueryOption | MutationOption
 
 export type ExecuteFunction = <
 	O extends ExecuteOption = QueryOption,
-	R = string
+	R = string,
 >(
-	opts: O
+	opts: O,
 ) => Promise<
 	O extends QueryOption
 		? R
@@ -76,11 +76,11 @@ type PadCaller = (
 		| Positions
 		| Rewards,
 	i: number,
-	fn: PadCaller
+	fn: PadCaller,
 ) => ArgsWithoutUint8Array
 const pad = (
 	args: ArgsWithoutUint8Array,
-	index: number
+	index: number,
 ): ArgsWithoutUint8Array =>
 	((fn: PadCaller): ArgsWithoutUint8Array => fn([], args[0], 0, fn))(
 		(
@@ -94,9 +94,9 @@ const pad = (
 				| Positions
 				| Rewards,
 			i: number,
-			fn: PadCaller
+			fn: PadCaller,
 		): ArgsWithoutUint8Array =>
-			i < index ? fn(arr.concat(v ?? ''), args[i + 1], i + 1, fn) : arr
+			i < index ? fn(arr.concat(v ?? ''), args[i + 1], i + 1, fn) : arr,
 	)
 
 type Value = boolean | string | number
@@ -104,18 +104,18 @@ type ValueWithBigNumber = Value | bigint
 const isBigNumber = (data: unknown): data is bigint => typeof data === 'bigint'
 const toString = (data: Readonly<bigint>): string => data.toString()
 const toStringObj = (
-	data: Readonly<Record<string, ValueWithBigNumber>>
+	data: Readonly<Record<string, ValueWithBigNumber>>,
 ): Record<string, Value> => {
 	const keys = Object.keys(data)
 	const valueSet = keys.map((key) => ({
 		[key]: ((value) => (isBigNumber(value) ? toString(value) : value))(
-			data[key]
+			data[key],
 		),
 	}))
 	return mergeAll(valueSet)
 }
 const stringifyItem = (
-	data: ValueWithBigNumber | Record<string, ValueWithBigNumber>
+	data: ValueWithBigNumber | Record<string, ValueWithBigNumber>,
 ): Value | Readonly<Record<string, Value>> => {
 	return isBigNumber(data)
 		? toString(data)
@@ -129,7 +129,7 @@ const stringify = (
 	data:
 		| ValueWithBigNumber
 		| Record<string, ValueWithBigNumber>
-		| readonly (ValueWithBigNumber | Record<string, ValueWithBigNumber>)[]
+		| readonly (ValueWithBigNumber | Record<string, ValueWithBigNumber>)[],
 ):
 	| Value
 	| Readonly<Record<string, Value>>
@@ -141,9 +141,9 @@ const N = null
 
 export const execute: ExecuteFunction = async <
 	T = string,
-	O extends ExecuteOption = QueryOption
+	O extends ExecuteOption = QueryOption,
 >(
-	opts: O
+	opts: O,
 ) => {
 	const signer =
 		typeof (opts.contract?.runner as BrowserProvider)?.getSigner === 'function'
@@ -179,9 +179,9 @@ export const execute: ExecuteFunction = async <
 				String(
 					keys(contract).find(
 						(fn: string | number | unknown) =>
-							fn === `${opts.method}(${opts.interface})`
-					)
-				)
+							fn === `${opts.method}(${opts.interface})`,
+					),
+				),
 		  )
 	const method = singleMethod ?? (overloadedMethod as BaseContractMethod)
 	const res = await (argsOverrided === undefined

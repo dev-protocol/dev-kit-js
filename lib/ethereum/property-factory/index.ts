@@ -12,7 +12,7 @@ export type PropertyFactoryContract = {
 		name: string,
 		symbol: string,
 		author: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<string>
 	readonly createAndAuthenticate: (
 		name: string,
@@ -20,7 +20,7 @@ export type PropertyFactoryContract = {
 		marketAddress: string,
 		args: readonly string[],
 		options: WaitForEventOptions,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<{
 		readonly property: string
 		readonly transaction: TransactionResponse
@@ -35,14 +35,14 @@ export const createPropertyFactoryContract =
 		const contract = new ethers.Contract(
 			address,
 			[...propertyFactoryAbi],
-			provider
+			provider,
 		)
 
 		return {
 			create: createCreatePropertyCaller(contract),
 			createAndAuthenticate: createCreateAndAuthenticateCaller(
 				contract,
-				provider
+				provider,
 			),
 			contract: always(contract),
 		}

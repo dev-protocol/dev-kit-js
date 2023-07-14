@@ -24,7 +24,7 @@ export type TokenURISimProps = {
 }
 
 export type CreateTokenURISimCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (props?: TokenURISimProps) => Promise<TokenURI>
 
 type DeepNonNullable<T> = {
@@ -58,7 +58,7 @@ export const createTokenURISimCaller: CreateTokenURISimCaller =
 			mutation: false,
 		})
 		const decoded = decode(
-			res.replace(/^data:application\/json;base64,(.*)/, '$1')
+			res.replace(/^data:application\/json;base64,(.*)/, '$1'),
 		).replace(/\n/g, '\\n')
 		return JSON.parse(decoded)
 	}

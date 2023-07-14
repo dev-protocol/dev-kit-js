@@ -15,7 +15,7 @@ describe('calculateWithdrawableInterestAmountByPosition.spec.ts', () => {
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createcalculateWithdrawableInterestAmountByPositionCaller(
-				lockupContract as any
+				lockupContract as any,
 			)
 
 			const result = await caller('123')
@@ -34,7 +34,7 @@ describe('calculateWithdrawableInterestAmountByPosition.spec.ts', () => {
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createcalculateWithdrawableInterestAmountByPositionCaller(
-				lockupContract as any
+				lockupContract as any,
 			)
 
 			const result = await caller('123').catch((err) => err)

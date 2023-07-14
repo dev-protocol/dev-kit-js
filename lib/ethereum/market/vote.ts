@@ -7,25 +7,25 @@ import {
 } from '../../common/utils/execute'
 
 export type CreateVoteCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (
 	propertyAddress: string,
 	agree: boolean,
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<TransactionResponse>
 
 export const createVoteCaller: CreateVoteCaller =
 	(
-		contract: ethers.Contract
+		contract: ethers.Contract,
 	): ((
 		propertyAddress: string,
 		agree: boolean,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>) =>
 	async (
 		propertyAddress: string,
 		agree: boolean,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	): Promise<TransactionResponse> =>
 		execute<MutationOption>({
 			contract,

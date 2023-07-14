@@ -13,13 +13,13 @@ import { ContractRunner } from 'ethers'
 
 type Results = readonly [
 	UndefinedOr<STokensContract>,
-	UndefinedOr<STokensContractL2>
+	UndefinedOr<STokensContractL2>,
 ]
 
 const cache: WeakMap<ContractRunner, Results> = new WeakMap()
 
 export const clientsSTokens = async (
-	provider: ContractRunner
+	provider: ContractRunner,
 ): Promise<Results> => {
 	const res =
 		cache.get(provider) ??
@@ -30,18 +30,18 @@ export const clientsSTokens = async (
 					? createSTokensContract(provider)(
 							data.chainId === 1
 								? addresses.eth.main.sTokens
-								: addresses.eth.ropsten.sTokens
+								: addresses.eth.ropsten.sTokens,
 					  )
 					: undefined)(
 				l1AvailableNetworks.find(
-					({ chainId }) => chainId === Number(net?.chainId)
-				)
+					({ chainId }) => chainId === Number(net?.chainId),
+				),
 			)
 			const l2 = ((data) =>
 				data ? createSTokensContractL2(provider)(data.map.sTokens) : undefined)(
 				l2AvailableNetworks.find(
-					({ chainId }) => chainId === Number(net?.chainId)
-				)
+					({ chainId }) => chainId === Number(net?.chainId),
+				),
 			)
 			const results: Results = [l1, l2]
 			// eslint-disable-next-line functional/no-expression-statement

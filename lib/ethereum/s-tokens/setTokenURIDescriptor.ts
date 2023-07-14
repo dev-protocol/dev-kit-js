@@ -7,12 +7,12 @@ import {
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateSetTokenURIDescriptorCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (
 	propertyAddress: string,
 	descriptorAddress: string,
 	payloads?: ReadonlyArray<string | Uint8Array>,
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<TransactionResponse>
 
 export const createSetTokenURIDescriptorCaller: CreateSetTokenURIDescriptorCaller =
@@ -22,7 +22,7 @@ export const createSetTokenURIDescriptorCaller: CreateSetTokenURIDescriptorCalle
 			propertyAddress: string,
 			descriptorAddress: string,
 			payloads?: ReadonlyArray<string | Uint8Array>,
-			overrides?: FallbackableOverrides
+			overrides?: FallbackableOverrides,
 		) =>
 			execute<MutationOption>({
 				contract,

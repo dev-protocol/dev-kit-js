@@ -13,10 +13,10 @@ jest.mock('ethers')
 
 describe('swap/index.ts', () => {
 	;(createGetEstimatedDevForEthCaller as jest.Mock).mockImplementation(
-		() => 123
+		() => 123,
 	)
 	;(createGetEstimatedEthForDevCaller as jest.Mock).mockImplementation(
-		() => 123
+		() => 123,
 	)
 	;(createSwapEthAndStakeDevCaller as jest.Mock).mockImplementation(() => 123)
 	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
@@ -43,7 +43,7 @@ describe('swap/index.ts', () => {
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result(address))).toEqual(
-				JSON.stringify(expected(address))
+				JSON.stringify(expected(address)),
 			)
 		})
 	})

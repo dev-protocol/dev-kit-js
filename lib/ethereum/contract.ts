@@ -40,7 +40,7 @@ export type ContractFactory = (ethersProvider: ContractRunner) => DevkitContract
 export type CreateDevkitContract = (provider: ContractRunner) => DevkitContract
 
 export const createDevkitContract: CreateDevkitContract = (
-	provider: ContractRunner
+	provider: ContractRunner,
 ): DevkitContract => ({
 	allocator: createAllocatorContract(provider),
 	market: createMarketContract(provider),

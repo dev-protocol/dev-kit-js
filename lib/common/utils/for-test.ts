@@ -80,7 +80,7 @@ export const stubbedSendTx = (
 		value: 'test',
 	},
 	reject = false,
-	rejectOnConfirmation = false
+	rejectOnConfirmation = false,
 ) => {
 	const result = {
 		status: true,
@@ -95,7 +95,7 @@ export const stubbedSendTx = (
 	}
 	;(Promise.prototype as any).on = function (
 		event: string,
-		cb: (...args: readonly any[]) => void
+		cb: (...args: readonly any[]) => void,
 	) {
 		if (event === 'confirmation') {
 			setTimeout(() => {

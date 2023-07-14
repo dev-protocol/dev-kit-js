@@ -13,10 +13,10 @@ jest.mock('ethers')
 describe('property-factory/index.ts', () => {
 	;(createCreatePropertyCaller as jest.Mock).mockImplementation(() => 123)
 	;(createCreateAndAuthenticateCaller as jest.Mock).mockImplementation(
-		() => 123
+		() => 123,
 	)
 	;(createGetPropertiesOfAuthorCaller as jest.Mock).mockImplementation(
-		() => 123
+		() => 123,
 	)
 	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 	describe('createPropertyFactoryContract', () => {
@@ -26,18 +26,18 @@ describe('property-factory/index.ts', () => {
 			const provider = new ethers.JsonRpcProvider(host)
 
 			const expected: (address: string) => PropertyFactoryContract = (
-				address: string
+				address: string,
 			) => {
 				const contract = new ethers.Contract(
 					address,
 					[...propertyFactoryAbi],
-					provider
+					provider,
 				)
 				return {
 					create: createCreatePropertyCaller(contract),
 					createAndAuthenticate: createCreateAndAuthenticateCaller(
 						contract,
-						provider
+						provider,
 					),
 					getPropertiesOfAuthor: createGetPropertiesOfAuthorCaller(contract),
 					contract: () => contract,
@@ -48,7 +48,7 @@ describe('property-factory/index.ts', () => {
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result(address))).toEqual(
-				JSON.stringify(expected(address))
+				JSON.stringify(expected(address)),
 			)
 		})
 	})

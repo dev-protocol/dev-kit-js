@@ -22,7 +22,7 @@ describe('market/index.ts', () => {
 	;(createAuthenticateCaller as jest.Mock).mockImplementation(() => 123)
 	;(createBehaviorCaller as jest.Mock).mockImplementation(() => 123)
 	;(createGetAuthenticatedPropertiesCaller as jest.Mock).mockImplementation(
-		() => 123
+		() => 123,
 	)
 	;(createNameCaller as jest.Mock).mockImplementation(() => 123)
 	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
@@ -33,7 +33,7 @@ describe('market/index.ts', () => {
 			const provider = new ethers.JsonRpcProvider(host)
 
 			const expected: (address: string) => MarketContract = (
-				address: string
+				address: string,
 			) => {
 				const contract = new ethers.Contract(address, [...marketAbi], provider)
 				return {
@@ -52,7 +52,7 @@ describe('market/index.ts', () => {
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result(address))).toEqual(
-				JSON.stringify(expected(address))
+				JSON.stringify(expected(address)),
 			)
 		})
 	})
