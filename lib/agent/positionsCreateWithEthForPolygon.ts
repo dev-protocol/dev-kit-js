@@ -60,10 +60,9 @@ export const positionsCreateWithEth: PositionsCreateWithEthForPolygon = async (
 							callback: async () => {
 								const deadline = options.deadline
 									? options.deadline
-									: ((await options.provider.provider?.getBlock('latest'))
-											?.timestamp ?? Math.floor(new Date().getTime() / 1000)) +
-									  300
-								return options.gatewayAddress && options.gatewayBasisPoints
+									: (await options.provider.getBlock('latest')).timestamp + 300
+								return options.gatewayAddress &&
+									typeof options.gatewayBasisPoints === 'number'
 									? l2.swapEthAndStakeDevPolygonCaller(
 											options.destination,
 											ethAmount,

@@ -29,9 +29,9 @@ export const agentAddresses = {
 		mumbai: {
 			swap: {
 				v2: undefined,
-				v3: '0x01C818717B5471562172f3F886E4C4dC053D6ed8',
+				v3: '0x60650E5a95864b989C8b7B0357a2d4979a34c6AF',
 			},
-			weth: '0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa',
+			weth: '0x3c8d6A6420C922c88577352983aFFdf7b0F977cA',
 		},
 	},
 } as const

@@ -7,6 +7,17 @@ export type TokenURI = {
 	readonly name: string
 	readonly description: string
 	readonly image: string
+	readonly attributes: readonly [
+		{
+			readonly trait_type: 'Destination'
+			readonly value: string
+		},
+		{
+			readonly trait_type: 'Locked Amount'
+			readonly display_type: 'number'
+			readonly value: number
+		}
+	]
 }
 
 export type CreateTokenURICaller = (
@@ -23,6 +34,6 @@ export const createTokenURICaller: CreateTokenURICaller =
 		})
 		const decoded = decode(
 			res.replace(/^data:application\/json;base64,(.*)/, '$1')
-		)
+		).replace(/\n/g, '\\n')
 		return JSON.parse(decoded)
 	}
