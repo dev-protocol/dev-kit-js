@@ -26,7 +26,7 @@ type PositionsCreateWithEthForPolygon = (options: {
 }>
 
 export const positionsCreateWithEth: PositionsCreateWithEthForPolygon = async (
-	options
+	options,
 ) => {
 	const [, l2, weth] = await clientsUtilsSwapForStake(options.provider)
 
@@ -60,7 +60,9 @@ export const positionsCreateWithEth: PositionsCreateWithEthForPolygon = async (
 							callback: async () => {
 								const deadline = options.deadline
 									? options.deadline
-									: (await options.provider.getBlock('latest')).timestamp + 300
+									: ((await options.provider.provider?.getBlock('latest'))
+											?.timestamp ?? Math.floor(new Date().getTime() / 1000)) +
+									  300
 								return options.gatewayAddress &&
 									typeof options.gatewayBasisPoints === 'number'
 									? l2.swapEthAndStakeDevPolygonCaller(
@@ -70,14 +72,14 @@ export const positionsCreateWithEth: PositionsCreateWithEthForPolygon = async (
 											options.payload ?? ZeroHash,
 											_overrides,
 											options.gatewayAddress,
-											String(options.gatewayBasisPoints)
+											String(options.gatewayBasisPoints),
 									  )
 									: l2.swapEthAndStakeDevPolygonCaller(
 											options.destination,
 											ethAmount,
 											deadline,
 											options.payload ?? ZeroHash,
-											_overrides
+											_overrides,
 									  )
 							},
 						})
