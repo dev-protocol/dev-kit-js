@@ -20,7 +20,6 @@ jobs:
         run: |
           yarn install
           yarn lint
-          yarn run build
           yarn test --maxWorkers=50% --silent
         env:
           CI: true
