@@ -1,6 +1,6 @@
 import { createSetTokenURIDescriptorCaller } from './setTokenURIDescriptor'
 import { stubTransactionResposeFactory } from '../../common/utils/for-test'
-import { utils } from 'ethers'
+import { keccak256, randomBytes } from 'ethers'
 
 describe('setTokenURIDescriptor.spec.ts', () => {
 	describe('createSetTokenURIDescriptorCaller', () => {
@@ -84,8 +84,8 @@ describe('setTokenURIDescriptor.spec.ts', () => {
 			const caller = createSetTokenURIDescriptorCaller(devContract as any)
 
 			const result = await caller(propertyAddress, descriptorAddress, [
-				utils.keccak256(utils.randomBytes(3)),
-				utils.keccak256(utils.randomBytes(3)),
+				keccak256(randomBytes(3)),
+				keccak256(randomBytes(3)),
 			])
 
 			expect(result).toEqual(expected)

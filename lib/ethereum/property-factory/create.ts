@@ -36,7 +36,7 @@ export const createCreatePropertyCaller: CreateCreatePropertyCaller =
 			const subscribedContract = contract.on(
 				'Create',
 				async (_: string, propertyAddress: string) => {
-					subscribedContract.removeAllListeners()
+					;(await subscribedContract).removeAllListeners()
 					resolve(propertyAddress)
 				}
 			)

@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { propertyAbi } from './abi'
 import { createAuthorCaller } from './../../ethereum/property/author'
 import { createChangeNameCaller } from './../../ethereum/property/changeName'
@@ -55,11 +54,11 @@ export type PropertyContract = {
 }
 
 export type CreatePropertyContract = (
-	provider: BaseProvider
+	provider: ContractRunner
 ) => (address: string) => PropertyContract
 
 export const createPropertyContract: CreatePropertyContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): PropertyContract => {
 		const contract = new ethers.Contract(address, [...propertyAbi], provider)
 

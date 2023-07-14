@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { addressConfigAbi } from './abi'
 import { createTokenCaller } from './token'
 import { createAllocatorCaller } from './allocator'
@@ -42,11 +41,11 @@ export type RegistryContract = {
 }
 
 export type CreateRegistryContract = (
-	provider: BaseProvider
+	provider: ContractRunner
 ) => (address: string) => RegistryContract
 
 export const createRegistryContract: CreateRegistryContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): RegistryContract => {
 		const contract = new ethers.Contract(
 			address,

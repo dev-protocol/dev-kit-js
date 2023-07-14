@@ -6,18 +6,18 @@ import { policyGroupAbi } from './abi'
 
 jest.mock('./isGroup')
 jest.mock('./isDuringVotingPeriod')
+jest.mock('ethers')
 
 describe('policy-group/index.ts', () => {
-	;(createIsGroupCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createIsDuringVotingPeriodCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createIsGroupCaller as jest.Mock).mockImplementation(() => 123)
+	;(createIsDuringVotingPeriodCaller as jest.Mock).mockImplementation(() => 123)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 
 	describe('createPolicyGroupContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
 			const address = '0x0000000000000000000000000000000000000000'
-			const provider = new ethers.providers.JsonRpcProvider(host)
+			const provider = new ethers.JsonRpcProvider(host)
 
 			const expected: (address: string) => PolicyGroupContract = (
 				address: string

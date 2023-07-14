@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
-		"target": "es2015",
+		"target": "ESNext",
 		"lib": ["dom", "es2018"],
 		"strict": true,
 		"strictNullChecks": true,

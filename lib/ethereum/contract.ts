@@ -1,6 +1,5 @@
 /* eslint-disable functional/no-throw-statement */
 /* eslint-disable functional/no-conditional-statement */
-import type { BaseProvider } from '@ethersproject/providers'
 import { createMarketContract } from './market/index'
 import { createMarketBehaviorContract } from './market-behavior/index'
 import { createPropertyContract } from './property/index'
@@ -17,6 +16,7 @@ import { createPolicyFactoryContract } from './policy-factory'
 import { createSTokensContract } from './s-tokens'
 import { createMetricsGroupContract } from './metrics-group'
 import { createSimpleCollectionsContract } from './simpleCollection'
+import { ContractRunner } from 'ethers'
 
 export type DevkitContract = {
 	readonly allocator: ReturnType<typeof createAllocatorContract>
@@ -36,11 +36,11 @@ export type DevkitContract = {
 	readonly sTokens: ReturnType<typeof createSTokensContract>
 	readonly simpleCollections: ReturnType<typeof createSimpleCollectionsContract>
 }
-export type ContractFactory = (ethersProvider: BaseProvider) => DevkitContract
-export type CreateDevkitContract = (provider: BaseProvider) => DevkitContract
+export type ContractFactory = (ethersProvider: ContractRunner) => DevkitContract
+export type CreateDevkitContract = (provider: ContractRunner) => DevkitContract
 
 export const createDevkitContract: CreateDevkitContract = (
-	provider: BaseProvider
+	provider: ContractRunner
 ): DevkitContract => ({
 	allocator: createAllocatorContract(provider),
 	market: createMarketContract(provider),

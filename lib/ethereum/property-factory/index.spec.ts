@@ -6,19 +6,19 @@ import { createCreateAndAuthenticateCaller } from './createAndAuthenticate'
 
 jest.mock('./create')
 jest.mock('./createAndAuthenticate')
+jest.mock('ethers')
 
 describe('property/index.ts', () => {
-	;(createCreatePropertyCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createCreatePropertyCaller as jest.Mock).mockImplementation(() => 123)
 	;(createCreateAndAuthenticateCaller as jest.Mock).mockImplementation(
-		(contract) => contract
+		() => 123
 	)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 	describe('createPropertyFactoryContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
 			const address = '0x0000000000000000000000000000000000000000'
-			const provider = new ethers.providers.JsonRpcProvider(host)
+			const provider = new ethers.JsonRpcProvider(host)
 
 			const expected: (address: string) => PropertyFactoryContract = (
 				address: string

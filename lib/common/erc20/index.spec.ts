@@ -19,32 +19,24 @@ jest.mock('./name')
 jest.mock('./symbol')
 jest.mock('./decimals')
 jest.mock('./allowance')
+jest.mock('ethers')
 
 describe('erc20/index.ts', () => {
-	;(createBalanceOfCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createTotalSupplyCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createApproveCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createTransferFromCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createNameCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createSymbolCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createDecimalsCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createAllowanceCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createBalanceOfCaller as jest.Mock).mockImplementation(() => 123)
+	;(createTotalSupplyCaller as jest.Mock).mockImplementation(() => 123)
+	;(createApproveCaller as jest.Mock).mockImplementation(() => 123)
+	;(createTransferFromCaller as jest.Mock).mockImplementation(() => 123)
+	;(createNameCaller as jest.Mock).mockImplementation(() => 123)
+	;(createSymbolCaller as jest.Mock).mockImplementation(() => 123)
+	;(createDecimalsCaller as jest.Mock).mockImplementation(() => 123)
+	;(createAllowanceCaller as jest.Mock).mockImplementation(() => 123)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 
 	describe('createErc20Contract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
 			const address = '0x0000000000000000000000000000000000000000'
-			const provider = new ethers.providers.JsonRpcProvider(host)
+			const provider = new ethers.JsonRpcProvider(host)
 			const expected: (address: string) => Erc20Contract = (
 				address: string
 			) => {

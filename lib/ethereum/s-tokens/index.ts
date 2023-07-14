@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { sTokensAbi } from './abi'
 import { createPositionsCaller, Positions } from './positions'
 import { createIsFreezedCaller } from './isFreezed'
@@ -59,7 +58,7 @@ export type STokensContract = {
 
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
 export const createSTokensContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): STokensContract => {
 		const contractClient: ethers.Contract = new ethers.Contract(
 			address,

@@ -4,9 +4,7 @@
 /* eslint-disable functional/no-loop-statement */
 /* eslint-disable functional/no-expression-statement */
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { Signer } from '@ethersproject/abstract-signer'
-import type { BaseProvider } from '@ethersproject/providers'
-import { ethers } from 'ethers'
+import { ContractRunner, ethers } from 'ethers'
 import {
 	execute,
 	FallbackableOverrides,
@@ -17,7 +15,7 @@ import { metricsFactoryAbi } from '../metrics-factory/abi'
 
 export const getMetricsProperty = async (
 	address: string,
-	provider: BaseProvider
+	provider: ContractRunner
 ): Promise<string> =>
 	execute<QueryOption>({
 		contract: new ethers.Contract(address, metricsAbi, provider),
@@ -31,7 +29,7 @@ export type WaitForEventOptions = {
 
 export type CreateAuthenticateCaller = (
 	contract: ethers.Contract,
-	provider: BaseProvider
+	provider: ContractRunner
 ) => (
 	propertyAddress: string,
 	args: readonly string[],
@@ -40,7 +38,7 @@ export type CreateAuthenticateCaller = (
 ) => Promise<string>
 
 export const createAuthenticateCaller: CreateAuthenticateCaller =
-	(contract: ethers.Contract, provider: BaseProvider) =>
+	(contract: ethers.Contract, provider: ContractRunner) =>
 	async (
 		propertyAddress: string,
 		args: readonly string[],
@@ -66,9 +64,9 @@ export const createAuthenticateCaller: CreateAuthenticateCaller =
 				'Create',
 				async (_: string, metricsAddress: string) =>
 					getMetricsProperty(metricsAddress, provider)
-						.then((metricsProperty) => {
+						.then(async (metricsProperty) => {
 							if (metricsProperty === propertyAddress) {
-								subscriberdContract.removeAllListeners()
+								;(await subscriberdContract).removeAllListeners()
 								resolve(metricsAddress)
 							}
 						})

@@ -1,4 +1,3 @@
-import type { BaseProvider } from '@ethersproject/providers'
 import { UndefinedOr, whenDefined } from '@devprotocol/util-ts'
 import { clientsMetricsFactory } from './common/clients/clientsMetricsFactory'
 import { createMetricsContract } from '../ethereum/metrics'
@@ -6,6 +5,7 @@ import { createMarketContract } from '../ethereum/market'
 import { createMarketBehaviorContract } from '../ethereum/market-behavior'
 import { flatten, toPairs, unnest, values } from 'ramda'
 import { marketAddresses } from '../marketAddresses'
+import { ContractRunner } from 'ethers'
 
 type Asset = {
 	readonly market: string
@@ -14,7 +14,7 @@ type Asset = {
 }
 
 type PropertiesAssets = (options: {
-	readonly provider: BaseProvider
+	readonly provider: ContractRunner
 	readonly destination: string
 }) => Promise<UndefinedOr<readonly Asset[]>>
 
@@ -52,8 +52,10 @@ export const propertiesAssets: PropertiesAssets = async (options) => {
 	const results = await whenDefined(marketBehaviors, (mb) =>
 		Promise.all(
 			mb.map(async (cont) => {
-				const metrics = cont.metrics.contract().address
-				const market = cont.market.contract().address
+				const [metrics, market] = await Promise.all([
+					cont.metrics.contract().getAddress(),
+					cont.market.contract().getAddress(),
+				])
 				const marketSlug = marketSet.find(([, addr]) => addr === market)?.[0]
 				return {
 					id: await cont.marketBehavior.getId(metrics),

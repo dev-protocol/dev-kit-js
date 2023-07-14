@@ -3,15 +3,15 @@ import {
 	createMetricsGroupContract,
 	CreateMetricsGroupContract,
 } from '../../../ethereum/metrics-group'
-import type { BaseProvider } from '@ethersproject/providers'
 import { clientsRegistry } from './clientsRegistry'
+import { ContractRunner } from 'ethers'
 
 type Results = readonly [UndefinedOr<CreateMetricsGroupContract>, undefined]
 
-const cache: WeakMap<BaseProvider, Results> = new WeakMap()
+const cache: WeakMap<ContractRunner, Results> = new WeakMap()
 
 export const clientsMetricsGroup = async (
-	provider: BaseProvider
+	provider: ContractRunner
 ): Promise<Results> => {
 	const res =
 		cache.get(provider) ??

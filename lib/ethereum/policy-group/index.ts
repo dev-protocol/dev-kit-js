@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { policyGroupAbi } from './abi'
 import { createIsGroupCaller } from './isGroup'
 import { always } from 'ramda'
@@ -11,11 +10,11 @@ export type PolicyGroupContract = {
 }
 
 export type CreatePolicyGroupContract = (
-	provider: BaseProvider
+	provider: ContractRunner
 ) => (address: string) => PolicyGroupContract
 
 export const createPolicyGroupContract: CreatePolicyGroupContract =
-	(provider: BaseProvider) => (address: string) => {
+	(provider: ContractRunner) => (address: string) => {
 		const contract = new ethers.Contract(address, [...policyGroupAbi], provider)
 		return {
 			isGroup: createIsGroupCaller(contract),

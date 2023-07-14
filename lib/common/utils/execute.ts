@@ -1,4 +1,9 @@
-import { ethers, BigNumber, providers, utils } from 'ethers'
+import {
+	ethers,
+	type BrowserProvider,
+	keccak256,
+	BaseContractMethod,
+} from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { keys, mergeAll } from 'ramda'
 
@@ -95,10 +100,9 @@ const pad = (
 	)
 
 type Value = boolean | string | number
-type ValueWithBigNumber = Value | BigNumber
-const isBigNumber = (data: unknown): data is BigNumber =>
-	BigNumber.isBigNumber(data)
-const toString = (data: Readonly<BigNumber>): string => data.toString()
+type ValueWithBigNumber = Value | bigint
+const isBigNumber = (data: unknown): data is bigint => typeof data === 'bigint'
+const toString = (data: Readonly<bigint>): string => data.toString()
 const toStringObj = (
 	data: Readonly<Record<string, ValueWithBigNumber>>
 ): Record<string, Value> => {
@@ -135,8 +139,6 @@ const stringify = (
 
 const N = null
 
-type SignableProvider = providers.JsonRpcProvider | providers.Web3Provider
-
 export const execute: ExecuteFunction = async <
 	T = string,
 	O extends ExecuteOption = QueryOption
@@ -144,16 +146,17 @@ export const execute: ExecuteFunction = async <
 	opts: O
 ) => {
 	const signer =
-		typeof (opts.contract?.provider as SignableProvider)?.getSigner ===
-		'function'
-			? (opts.contract.provider as SignableProvider).getSigner()
+		typeof (opts.contract?.runner as BrowserProvider)?.getSigner === 'function'
+			? await (opts.contract.runner as BrowserProvider).getSigner()
 			: undefined
 	const contract =
-		opts.mutation && signer ? opts.contract.connect(signer) : opts.contract
+		opts.mutation && signer
+			? (opts.contract.connect(signer) as ethers.Contract)
+			: opts.contract
 	const convertedArgs: ArgsWithoutUint8Array | undefined =
 		opts.args === undefined
 			? undefined
-			: opts.args.map((v) => (v instanceof Uint8Array ? utils.keccak256(v) : v))
+			: opts.args.map((v) => (v instanceof Uint8Array ? keccak256(v) : v))
 	const args =
 		convertedArgs === undefined
 			? undefined
@@ -165,18 +168,22 @@ export const execute: ExecuteFunction = async <
 			? [...(args || []), opts.overrides.overrides]
 			: args
 	const singleMethod = opts.static
-		? contract.callStatic[opts.method]
-		: contract[opts.method]
+		? (contract[opts.method] as undefined | BaseContractMethod)?.staticCall
+		: (contract[opts.method] as undefined | BaseContractMethod)
 	const overloadedMethod = singleMethod
 		? undefined
-		: ((name) => (opts.static ? contract.callStatic[name] : contract[name]))(
+		: ((name) =>
+				opts.static
+					? (contract[name] as undefined | BaseContractMethod)?.staticCall
+					: contract[name])(
 				String(
-					keys(contract.functions).find(
-						(fn: string | number) => fn === `${opts.method}(${opts.interface})`
+					keys(contract).find(
+						(fn: string | number | unknown) =>
+							fn === `${opts.method}(${opts.interface})`
 					)
 				)
 		  )
-	const method = singleMethod ?? overloadedMethod
+	const method = singleMethod ?? (overloadedMethod as BaseContractMethod)
 	const res = await (argsOverrided === undefined
 		? method()
 		: method.apply(N, argsOverrided)

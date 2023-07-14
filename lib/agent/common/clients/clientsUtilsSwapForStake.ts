@@ -1,7 +1,7 @@
 import { AgentAvailableNetworks } from '../const'
 import type { UndefinedOr } from '@devprotocol/util-ts'
 import { createSwapContract, SwapContract } from '../../fixtures/swap'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner } from 'ethers'
 
 type Results = readonly [
 	undefined,
@@ -9,19 +9,19 @@ type Results = readonly [
 	UndefinedOr<string>
 ]
 
-const cache: WeakMap<BaseProvider, Results> = new WeakMap()
+const cache: WeakMap<ContractRunner, Results> = new WeakMap()
 
 const polygonIDs = [137, 80001]
 
 export const clientsUtilsSwapForStake = async (
-	provider: BaseProvider
+	provider: ContractRunner
 ): Promise<Results> => {
 	const res =
 		cache.get(provider) ??
 		(await (async () => {
-			const net = await provider.getNetwork()
+			const net = await provider.provider?.getNetwork()
 			const detectedNetwork = AgentAvailableNetworks.find(
-				({ chainId }) => chainId === net.chainId
+				({ chainId }) => chainId === Number(net?.chainId)
 			)
 			const l2 = detectedNetwork
 				? ((v: 'v2' | 'v3' | 'v3_polygon') =>
@@ -29,7 +29,7 @@ export const clientsUtilsSwapForStake = async (
 							provider,
 							v
 						)(detectedNetwork.map.swap.v3 ?? detectedNetwork.map.swap.v2))(
-						polygonIDs.some((id) => id === net.chainId)
+						polygonIDs.some((id) => id === Number(net?.chainId))
 							? 'v3_polygon'
 							: detectedNetwork.map.swap.v3 !== undefined
 							? 'v3'

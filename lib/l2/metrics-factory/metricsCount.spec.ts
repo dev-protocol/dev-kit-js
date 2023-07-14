@@ -1,10 +1,9 @@
-import { BigNumber } from '@ethersproject/bignumber'
 import { createMetricsCountCaller } from './metricsCount'
 
 describe('metricsCount.spec.ts', () => {
 	describe('createMetricsCountCaller', () => {
 		it('call success', async () => {
-			const value = BigNumber.from('123456')
+			const value = 123456n
 
 			const metricsFactoryContract = {
 				metricsCount: jest

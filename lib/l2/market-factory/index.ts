@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { marketFactoryAbi } from './abi'
 import { createCreateCaller } from '../../ethereum/market-factory/create'
 import { createGetEnabledMarketsCaller } from './getEnabledMarkets'
@@ -15,7 +14,7 @@ export type MarketFactoryContract = {
 }
 
 export const createMarketFactoryContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): MarketFactoryContract => {
 		const contract = new ethers.Contract(
 			address,
