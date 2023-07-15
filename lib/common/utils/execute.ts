@@ -5,7 +5,7 @@ import {
 	BaseContractMethod,
 } from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { keys, mergeAll } from 'ramda'
+import { always, keys, mergeAll } from 'ramda'
 
 import { Positions } from '../../ethereum/s-tokens'
 import { Rewards } from '../../ethereum/s-tokens/rewards'
@@ -147,7 +147,9 @@ export const execute: ExecuteFunction = async <
 ) => {
 	const signer =
 		typeof (opts.contract?.runner as BrowserProvider)?.getSigner === 'function'
-			? await (opts.contract.runner as BrowserProvider).getSigner()
+			? await (opts.contract.runner as BrowserProvider)
+					.getSigner()
+					.catch(always(undefined))
 			: undefined
 	const contract =
 		opts.mutation && signer
