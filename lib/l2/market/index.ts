@@ -8,7 +8,6 @@ import { createNameCaller } from './name'
 import { createBehaviorCaller } from '../../ethereum/market/behavior'
 import { createGetAuthenticatedPropertiesCaller } from './getAuthenticatedProperties'
 import { FallbackableOverrides } from '../../common/utils/execute'
-import { always } from 'ramda'
 
 export type MarketContract = {
 	readonly schema: () => Promise<readonly string[]>
@@ -43,6 +42,6 @@ export const createMarketContract =
 			name: createNameCaller(contract),
 			getAuthenticatedProperties:
 				createGetAuthenticatedPropertiesCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

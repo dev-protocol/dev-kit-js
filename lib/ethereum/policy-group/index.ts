@@ -1,7 +1,6 @@
 import { ContractRunner, ethers } from 'ethers'
 import { policyGroupAbi } from './abi'
 import { createIsGroupCaller } from './isGroup'
-import { always } from 'ramda'
 
 export type PolicyGroupContract = {
 	readonly isGroup: (policyAddress: string) => Promise<boolean>
@@ -19,6 +18,6 @@ export const createPolicyGroupContract: CreatePolicyGroupContract =
 		return {
 			isGroup: createIsGroupCaller(contract),
 			isDuringVotingPeriod: createIsGroupCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

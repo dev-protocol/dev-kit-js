@@ -3,7 +3,6 @@ import { metricsFactoryAbi } from './abi'
 import { createAuthenticatedPropertiesCountCaller } from './authenticatedPropertiesCount'
 import { createMetricsOfPropertyCaller } from './metricsOfProperty'
 import { createMetricsCountCaller } from './metricsCount'
-import { always } from 'ramda'
 
 export type MetricsFactoryContract = {
 	readonly authenticatedPropertiesCount: () => Promise<string>
@@ -29,6 +28,6 @@ export const createMetricsFactoryContract =
 				createAuthenticatedPropertiesCountCaller(contract),
 			metricsCount: createMetricsCountCaller(contract),
 			metricsOfProperty: createMetricsOfPropertyCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

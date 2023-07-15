@@ -1,7 +1,6 @@
 import { ContractRunner, ethers } from 'ethers'
 import { allocatorAbi } from './abi'
 import { createCalculateMaxRewardsPerBlockCaller } from './calculateMaxRewardsPerBlock'
-import { always } from 'ramda'
 
 export type CreateAllocatorContract = {
 	readonly calculateMaxRewardsPerBlock: () => Promise<string>
@@ -15,6 +14,6 @@ export const createAllocatorContract =
 		return {
 			calculateMaxRewardsPerBlock:
 				createCalculateMaxRewardsPerBlockCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

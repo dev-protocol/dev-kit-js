@@ -4,7 +4,6 @@ import { createCreateCaller } from './create'
 import { createForceAttachCaller } from './forceAttach'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { always } from 'ramda'
 
 export type PolicyFactoryContract = {
 	readonly create: (
@@ -33,6 +32,6 @@ export const createPolicyFactoryContract: CreatePolicyFactoryContract =
 		return {
 			create: createCreateCaller(contract),
 			forceAttach: createForceAttachCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

@@ -8,7 +8,6 @@ import { createPolicyVotingBlocksCaller } from './policyVotingBlocks'
 import { createShareOfTreasuryCaller } from './shareOfTreasury'
 import { createTreasuryCaller } from './treasury'
 import { createCapSetterCaller } from './capSetter'
-import { always } from 'ramda'
 
 export type PolicyContract = {
 	readonly holdersShare: (amount: string, lockups: string) => Promise<string>
@@ -39,6 +38,6 @@ export const createPolicyContract =
 			shareOfTreasury: createShareOfTreasuryCaller(contract),
 			treasury: createTreasuryCaller(contract),
 			capSetter: createCapSetterCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

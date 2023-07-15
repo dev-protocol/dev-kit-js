@@ -1,7 +1,6 @@
 import { ContractRunner, ethers } from 'ethers'
 import { metricsGroupAbi } from './abi'
 import { createTotalAuthenticatedPropertiesCaller } from './totalAuthenticatedProperties'
-import { always } from 'ramda'
 import { createTotalIssuedMetrics } from './totalIssuedMetrics'
 
 export type CreateMetricsGroupContract = {
@@ -23,6 +22,6 @@ export const createMetricsGroupContract =
 			totalAuthenticatedProperties:
 				createTotalAuthenticatedPropertiesCaller(contract),
 			totalIssuedMetrics: createTotalIssuedMetrics(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

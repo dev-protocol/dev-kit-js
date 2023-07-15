@@ -6,7 +6,6 @@ import { createAuthenticationFeeCaller } from '../../ethereum/policy/authenticat
 import { createMarketVotingSecondsCaller } from './marketVotingSeconds'
 import { createPolicyVotingSecondsCaller } from './policyVotingSeconds'
 import { createShareOfTreasuryCaller } from '../../ethereum/policy/shareOfTreasury'
-import { always } from 'ramda'
 
 export type PolicyContract = {
 	readonly holdersShare: (amount: string, lockups: string) => Promise<string>
@@ -33,6 +32,6 @@ export const createPolicyContract =
 			marketVotingSeconds: createMarketVotingSecondsCaller(contract),
 			policyVotingSeconds: createPolicyVotingSecondsCaller(contract),
 			shareOfTreasury: createShareOfTreasuryCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

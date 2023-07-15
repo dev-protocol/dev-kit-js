@@ -5,7 +5,6 @@ import { createCreatePropertyCaller } from './create'
 import { WaitForEventOptions } from '../market/authenticate'
 import { createCreateAndAuthenticateCaller } from './createAndAuthenticate'
 import { FallbackableOverrides } from '../../common/utils/execute'
-import { always } from 'ramda'
 
 export type PropertyFactoryContract = {
 	readonly create: (
@@ -44,6 +43,6 @@ export const createPropertyFactoryContract =
 				contract,
 				provider,
 			),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

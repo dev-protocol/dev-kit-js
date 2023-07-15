@@ -3,7 +3,6 @@ import { marketFactoryAbi } from './abi'
 import { createCreateCaller } from '../../ethereum/market-factory/create'
 import { createGetEnabledMarketsCaller } from './getEnabledMarkets'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { always } from 'ramda'
 
 export type MarketFactoryContract = {
 	readonly create: (
@@ -24,6 +23,6 @@ export const createMarketFactoryContract =
 		return {
 			create: createCreateCaller(contract),
 			getEnabledMarkets: createGetEnabledMarketsCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

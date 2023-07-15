@@ -15,7 +15,6 @@ import { createApproveCaller } from '../../common/erc20/approve'
 import { createAllowanceCaller } from '../../common/erc20/allowance'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { always } from 'ramda'
 
 export type PropertyContract = {
 	readonly totalSupply: () => Promise<string>
@@ -79,6 +78,6 @@ export const createPropertyContract: CreatePropertyContract =
 			changeAuthor: createChangeAuthorCaller(contract),
 			changeName: createChangeNameCaller(contract),
 			changeSymbol: createChangeSymbolCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

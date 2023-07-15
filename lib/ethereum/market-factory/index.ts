@@ -3,7 +3,6 @@ import { marketFactoryAbi } from './abi'
 import { createCreateCaller } from './create'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { always } from 'ramda'
 
 export type MarketFactoryContract = {
 	readonly create: (
@@ -23,6 +22,6 @@ export const createMarketFactoryContract =
 		)
 		return {
 			create: createCreateCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}
