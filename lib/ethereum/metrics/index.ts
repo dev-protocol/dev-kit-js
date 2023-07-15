@@ -2,7 +2,6 @@ import { ContractRunner, ethers } from 'ethers'
 import { metricsAbi } from './abi'
 import { createPropertyCaller } from './property'
 import { createMarketCaller } from './market'
-import { always } from 'ramda'
 
 export type CreateMetricsContract = {
 	readonly property: () => Promise<string>
@@ -19,6 +18,6 @@ export const createMetricsContract =
 		return {
 			property: createPropertyCaller(contract),
 			market: createMarketCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

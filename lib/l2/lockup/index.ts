@@ -15,7 +15,6 @@ import {
 	LockedupProperty,
 } from './getLockedupProperties'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { always } from 'ramda'
 import { FallbackableOverrides } from '../../common/utils/execute'
 
 export type LockupContract = {
@@ -74,6 +73,6 @@ export const createLockupContract =
 			totalLocked: createTotalLockedCaller(contract),
 			totalLockedForProperty: createTotalLockedForPropertyCaller(contract),
 			getLockedupProperties: createGetLockedupPropertiesCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

@@ -14,7 +14,6 @@ import { createSetSTokenRoyaltyForPropertyCaller } from './setSTokenRoyaltyForPr
 import { createRoyaltyOfCaller } from './royaltyOf'
 import { createSetTokenURIDescriptorCaller } from './setTokenURIDescriptor'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { always } from 'ramda'
 import { createTokenURISimCaller, TokenURISimProps } from './tokenURISim'
 import { FallbackableOverrides } from '../../common/utils/execute'
 
@@ -82,7 +81,7 @@ export const createSTokensContract =
 			payloadOf: createPayloadOfCaller(contractClient),
 			positionsOfProperty: createPositionsOfPropertyCaller(contractClient),
 			positionsOfOwner: createPositionsOfOwnerCaller(contractClient),
-			contract: always(contractClient),
+			contract: () => contractClient,
 		}
 	}
 

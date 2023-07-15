@@ -7,7 +7,6 @@ import { createBulkWithdrawCaller } from './bulkWithdraw'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { calculateRewardAmountCaller } from './calculateRewardAmount'
 import { FallbackableOverrides } from '../../common/utils/execute'
-import { always } from 'ramda'
 
 export type WithdrawContract = {
 	readonly withdraw: (
@@ -41,6 +40,6 @@ export const createWithdrawContract =
 			calculateWithdrawableAmount:
 				createCalculateWithdrawableAmountCaller(contract),
 			calculateRewardAmount: calculateRewardAmountCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

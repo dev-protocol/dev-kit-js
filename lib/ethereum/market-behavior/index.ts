@@ -2,7 +2,6 @@ import { ContractRunner, ethers } from 'ethers'
 import { marketBehaviorAbi } from './abi'
 import { createGetIdCaller } from './getId'
 import { createGetMetricsCaller } from './getMetrics'
-import { always } from 'ramda'
 
 export type CreateMarketBehaviorContract = {
 	readonly getId: (metricsAddress: string) => Promise<string>
@@ -23,6 +22,6 @@ export const createMarketBehaviorContract =
 		return {
 			getId: createGetIdCaller(contract),
 			getMetrics: createGetMetricsCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

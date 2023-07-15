@@ -31,6 +31,12 @@
 	},
 	"overrides": [
 		{
+			"files": ["**/index.ts"],
+			"rules": {
+				"functional/functional-parameters": "off"
+			}
+		},
+		{
 			"files": ["**/*.spec.ts"],
 			"rules": {
 				"@typescript-eslint/no-unsafe-return": "off",

@@ -52,6 +52,6 @@ export const createSwapContract =
 			swapEthAndStakeDevCaller: createSwapEthAndStakeDevCaller(contract),
 			swapEthAndStakeDevPolygonCaller:
 				createSwapEthAndStakeDevPolygonCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}
