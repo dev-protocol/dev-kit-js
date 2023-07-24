@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 import { FallbackableOverrides } from '../common/utils/execute'
 import { clientsUtilsSwapTokensForStake } from './common/clients/clientsUtilsSwapTokensForStake'
-import { type ContractRunner } from 'ethers'
+import { ZeroAddress, type ContractRunner } from 'ethers'
 import {
 	approveIfNeeded,
 	ApproveIfNeededResult,
@@ -34,6 +34,7 @@ type PositionsCreateWithArbitraryTokens = (options: Params) => Promise<{
 export const positionsCreateWithArbitraryTokens: PositionsCreateWithArbitraryTokens =
 	async (options) => {
 		const [, cont] = await clientsUtilsSwapTokensForStake(options.provider)
+		const useERC20 = options.token && options.token !== ZeroAddress
 
 		return cont
 			? {
@@ -60,6 +61,7 @@ export const positionsCreateWithArbitraryTokens: PositionsCreateWithArbitraryTok
 							: 'Neither tokenAmount nor devAmount provided'
 						const _overrides = {
 							overrides: {
+								...{ value: useERC20 ? undefined : tokenAmount },
 								...options.overrides?.overrides,
 							},
 						}
@@ -77,7 +79,7 @@ export const positionsCreateWithArbitraryTokens: PositionsCreateWithArbitraryTok
 							: ((await options.provider.provider?.getBlock('latest'))
 									?.timestamp ?? Math.floor(new Date().getTime() / 1000)) + 300
 
-						return options.token
+						return useERC20
 							? whenDefined(options.from, async (from) => {
 									return approveIfNeeded({
 										provider: options.provider,
