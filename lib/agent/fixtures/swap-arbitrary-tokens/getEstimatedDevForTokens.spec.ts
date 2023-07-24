@@ -1,4 +1,4 @@
-import { createGetEstimatedDevForUsdcCaller } from './getEstimatedDevForUsdc'
+import { createGetEstimatedDevForTokensCaller } from './getEstimatedDevForTokens'
 
 describe('getEstimatedDevForUsdc.spec.ts', () => {
 	describe('createGetEstimatedDevForUsdcCaller', () => {
@@ -16,7 +16,9 @@ describe('getEstimatedDevForUsdc.spec.ts', () => {
 			const expected = value
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createGetEstimatedDevForUsdcCaller(swapUsdcContract as any)
+			const caller = createGetEstimatedDevForTokensCaller(
+				swapUsdcContract as any,
+			)
 
 			const result = await caller('1000')
 
@@ -35,7 +37,9 @@ describe('getEstimatedDevForUsdc.spec.ts', () => {
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const caller = createGetEstimatedDevForUsdcCaller(swapUsdcContract as any)
+			const caller = createGetEstimatedDevForTokensCaller(
+				swapUsdcContract as any,
+			)
 
 			const result = await caller('1000').catch((err) => err)
 

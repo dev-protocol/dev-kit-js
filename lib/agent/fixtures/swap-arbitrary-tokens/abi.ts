@@ -1,16 +1,6 @@
-export const swapUsdcAbi = [
+export const swapArbitraryTokensAbi = [
 	{
 		inputs: [
-			{
-				internalType: 'address',
-				name: '_usdcAddress',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_wethAddress',
-				type: 'address',
-			},
 			{
 				internalType: 'address',
 				name: '_devAddress',
@@ -141,6 +131,11 @@ export const swapUsdcAbi = [
 		name: 'gatewayOf',
 		outputs: [
 			{
+				internalType: 'address',
+				name: 'token',
+				type: 'address',
+			},
+			{
 				internalType: 'uint256',
 				name: 'input',
 				type: 'uint256',
@@ -157,12 +152,17 @@ export const swapUsdcAbi = [
 	{
 		inputs: [
 			{
+				internalType: 'bytes',
+				name: 'path',
+				type: 'bytes',
+			},
+			{
 				internalType: 'uint256',
-				name: 'usdcAmount',
+				name: 'tokenAmount',
 				type: 'uint256',
 			},
 		],
-		name: 'getEstimatedDevForUsdc',
+		name: 'getEstimatedDevForTokens',
 		outputs: [
 			{
 				internalType: 'uint256',
@@ -176,12 +176,17 @@ export const swapUsdcAbi = [
 	{
 		inputs: [
 			{
+				internalType: 'bytes',
+				name: 'path',
+				type: 'bytes',
+			},
+			{
 				internalType: 'uint256',
 				name: 'devAmount',
 				type: 'uint256',
 			},
 		],
-		name: 'getEstimatedUsdcForDev',
+		name: 'getEstimatedTokensForDev',
 		outputs: [
 			{
 				internalType: 'uint256',
@@ -235,6 +240,69 @@ export const swapUsdcAbi = [
 		inputs: [
 			{
 				internalType: 'address',
+				name: '_to',
+				type: 'address',
+			},
+			{
+				internalType: 'bytes',
+				name: 'path',
+				type: 'bytes',
+			},
+			{
+				internalType: 'address',
+				name: 'property',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: '_amountOut',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: 'deadline',
+				type: 'uint256',
+			},
+			{
+				internalType: 'bytes32',
+				name: 'payload',
+				type: 'bytes32',
+			},
+			{
+				internalType: 'address payable',
+				name: 'gatewayAddress',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: 'gatewayFee',
+				type: 'uint256',
+			},
+		],
+		name: 'swapTokensAndStakeDev',
+		outputs: [],
+		stateMutability: 'payable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_to',
+				type: 'address',
+			},
+			{
+				internalType: 'contract IERC20',
+				name: 'token',
+				type: 'address',
+			},
+			{
+				internalType: 'bytes',
+				name: 'path',
+				type: 'bytes',
+			},
+			{
+				internalType: 'address',
 				name: 'property',
 				type: 'address',
 			},
@@ -269,13 +337,66 @@ export const swapUsdcAbi = [
 				type: 'uint256',
 			},
 		],
-		name: 'swapUsdcAndStakeDev',
+		name: 'swapTokensAndStakeDev',
 		outputs: [],
 		stateMutability: 'nonpayable',
 		type: 'function',
 	},
 	{
 		inputs: [
+			{
+				internalType: 'address',
+				name: '_to',
+				type: 'address',
+			},
+			{
+				internalType: 'bytes',
+				name: 'path',
+				type: 'bytes',
+			},
+			{
+				internalType: 'address',
+				name: 'property',
+				type: 'address',
+			},
+			{
+				internalType: 'uint256',
+				name: '_amountOut',
+				type: 'uint256',
+			},
+			{
+				internalType: 'uint256',
+				name: 'deadline',
+				type: 'uint256',
+			},
+			{
+				internalType: 'bytes32',
+				name: 'payload',
+				type: 'bytes32',
+			},
+		],
+		name: 'swapTokensAndStakeDev',
+		outputs: [],
+		stateMutability: 'payable',
+		type: 'function',
+	},
+	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_to',
+				type: 'address',
+			},
+			{
+				internalType: 'contract IERC20',
+				name: 'token',
+				type: 'address',
+			},
+			{
+				internalType: 'bytes',
+				name: 'path',
+				type: 'bytes',
+			},
 			{
 				internalType: 'address',
 				name: 'property',
@@ -302,7 +423,7 @@ export const swapUsdcAbi = [
 				type: 'bytes32',
 			},
 		],
-		name: 'swapUsdcAndStakeDev',
+		name: 'swapTokensAndStakeDev',
 		outputs: [],
 		stateMutability: 'nonpayable',
 		type: 'function',
@@ -313,32 +434,6 @@ export const swapUsdcAbi = [
 		outputs: [
 			{
 				internalType: 'contract ISwapRouter',
-				name: '',
-				type: 'address',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [],
-		name: 'usdcAddress',
-		outputs: [
-			{
-				internalType: 'address',
-				name: '',
-				type: 'address',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [],
-		name: 'wethAddress',
-		outputs: [
-			{
-				internalType: 'address',
 				name: '',
 				type: 'address',
 			},

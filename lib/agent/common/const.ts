@@ -48,10 +48,10 @@ export type AgentAvailableNetwork = {
 					readonly v2: undefined
 					readonly v3: string
 			  }
-		readonly swapUsdc?: {
+		readonly swapArbitraryTokens?: {
 			readonly swap: string
-			readonly usdc: string
 		}
+		readonly usdc?: string
 		readonly weth?: string
 	}
 }

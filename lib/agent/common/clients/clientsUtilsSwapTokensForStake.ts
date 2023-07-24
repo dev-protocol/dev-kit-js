@@ -1,20 +1,16 @@
 import { AgentAvailableNetworks } from '../const'
 import type { UndefinedOr } from '@devprotocol/util-ts'
 import {
-	createSwapUsdcContract,
-	SwapUsdcContract,
-} from '../../fixtures/swap-usdc'
+	createSwapArbitraryTokensContract,
+	SwapArbitraryTokensContract,
+} from '../../fixtures/swap-arbitrary-tokens'
 import type { ContractRunner } from 'ethers'
 
-type Results = readonly [
-	undefined,
-	UndefinedOr<SwapUsdcContract>,
-	UndefinedOr<string>,
-]
+type Results = readonly [undefined, UndefinedOr<SwapArbitraryTokensContract>]
 
 const cache: WeakMap<ContractRunner, Results> = new WeakMap()
 
-export const clientsUtilsSwapUsdcForStake = async (
+export const clientsUtilsSwapTokensForStake = async (
 	provider: ContractRunner,
 ): Promise<Results> => {
 	const res =
@@ -25,15 +21,11 @@ export const clientsUtilsSwapUsdcForStake = async (
 				({ chainId }) => chainId === Number(net?.chainId),
 			)
 			const cont = detectedNetwork
-				? createSwapUsdcContract(provider)(
-						detectedNetwork.map.swapUsdc?.swap || '',
+				? createSwapArbitraryTokensContract(provider)(
+						detectedNetwork.map.swapArbitraryTokens?.swap || '',
 				  )
 				: undefined
-			const results: Results = [
-				undefined,
-				cont,
-				detectedNetwork?.map.swapUsdc?.usdc,
-			]
+			const results: Results = [undefined, cont]
 			// eslint-disable-next-line functional/no-expression-statement
 			cache.set(provider, results)
 			return results
