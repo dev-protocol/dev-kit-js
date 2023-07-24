@@ -29,33 +29,19 @@ type ParamsWithToken = Omit<Params, 'token'> & {
 	readonly token: string
 }
 
-type PositionsCreateWithArbitraryTokens = <T extends Params | ParamsWithToken>(
-	options: T,
-) => Promise<{
-	readonly estimatedDev: string
-	readonly estimatedTokens: string
-	readonly create: () => T extends Params
-		? Promise<TransactionResponse>
-		: T extends ParamsWithToken
-		? Promise<UndefinedOr<ApproveIfNeededResult>>
-		: never
-}>
-
 const hasTokens = (
 	options: Params | ParamsWithToken,
 ): options is ParamsWithToken =>
 	options.token !== undefined && options.token !== ZeroAddress
 
-export function positionsCreateWithArbitraryTokens(
-	opts: ParamsWithToken,
-): Promise<
+export function positionsCreateWithAnyTokens(opts: ParamsWithToken): Promise<
 	UndefinedOr<{
 		readonly estimatedDev: string
 		readonly estimatedTokens: string
 		readonly create: () => Promise<ApproveIfNeededResult>
 	}>
 >
-export function positionsCreateWithArbitraryTokens(opts: Params): Promise<
+export function positionsCreateWithAnyTokens(opts: Params): Promise<
 	UndefinedOr<{
 		readonly estimatedDev: string
 		readonly estimatedTokens: string
@@ -63,7 +49,7 @@ export function positionsCreateWithArbitraryTokens(opts: Params): Promise<
 	}>
 >
 
-export async function positionsCreateWithArbitraryTokens(
+export async function positionsCreateWithAnyTokens(
 	options: ParamsWithToken | Params,
 ): Promise<unknown> {
 	const [, cont] = await clientsUtilsSwapTokensForStake(options.provider)
