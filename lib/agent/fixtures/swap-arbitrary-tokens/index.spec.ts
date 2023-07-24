@@ -1,48 +1,53 @@
-import { ethers } from 'ethers'
-import { createSwapUsdcContract, SwapUsdcContract } from '.'
-import { createGetEstimatedDevForUsdcCaller } from './getEstimatedDevForUsdc'
-import { createGetEstimatedUsdcForDevCaller } from './getEstimatedUsdcForDev'
-import { createSwapUsdcAndStakeDevCaller } from './swapUsdcAndStakeDev'
-import { swapUsdcAbi } from './abi'
+import { ethers, JsonRpcProvider } from 'ethers'
+import {
+	createSwapArbitraryTokensContract,
+	SwapArbitraryTokensContract,
+} from '.'
+import { createGetEstimatedDevForTokensCaller } from './getEstimatedDevForTokens'
+import { createGetEstimatedTokensForDevCaller } from './getEstimatedTokensForDev'
+import { createSwapTokensAndStakeDevCaller } from './swapTokensAndStakeDev'
+import { swapArbitraryTokensAbi } from './abi'
 
-jest.mock('./getEstimatedDevForUsdc')
-jest.mock('./getEstimatedUsdcForDev')
-jest.mock('./swapUsdcAndStakeDev')
+jest.mock('./getEstimatedDevForTokens')
+jest.mock('./getEstimatedTokensForDev')
+jest.mock('./swapTokensAndStakeDev')
 
-describe('swap-usdc/index.ts', () => {
-	;(createGetEstimatedDevForUsdcCaller as jest.Mock).mockImplementation(
-		(contract) => contract,
+describe('swap-arbitrary-tokens/index.ts', () => {
+	;(createGetEstimatedDevForTokensCaller as jest.Mock).mockImplementation(
+		() => 123,
 	)
-	;(createGetEstimatedUsdcForDevCaller as jest.Mock).mockImplementation(
-		(contract) => contract,
+	;(createGetEstimatedTokensForDevCaller as jest.Mock).mockImplementation(
+		() => 123,
 	)
-	;(createSwapUsdcAndStakeDevCaller as jest.Mock).mockImplementation(
-		(contract) => contract,
+	;(createSwapTokensAndStakeDevCaller as jest.Mock).mockImplementation(
+		() => 123,
 	)
 
-	describe('createSwapUsdcContract', () => {
+	describe('createSwapArbitraryTokensContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
 			const address = '0x0000000000000000000000000000000000000000'
-			const provider = new ethers.providers.JsonRpcProvider(host)
+			const provider = new JsonRpcProvider(host)
 
-			const expected: (address: string) => SwapUsdcContract = (
+			const expected: (address: string) => SwapArbitraryTokensContract = (
 				address: string,
 			) => {
 				const contract = new ethers.Contract(
 					address,
-					[...swapUsdcAbi],
+					[...swapArbitraryTokensAbi],
 					provider,
 				)
 				return {
-					getEstimatedDevForUsdc: createGetEstimatedDevForUsdcCaller(contract),
-					getEstimatedUsdcForDev: createGetEstimatedUsdcForDevCaller(contract),
-					swapUsdcAndStakeDevCaller: createSwapUsdcAndStakeDevCaller(contract),
+					getEstimatedDevForTokens:
+						createGetEstimatedDevForTokensCaller(contract),
+					getEstimatedTokensForDev:
+						createGetEstimatedTokensForDevCaller(contract),
+					swapTokensAndStakeDev: createSwapTokensAndStakeDevCaller(contract),
 					contract: () => contract,
 				}
 			}
 
-			const result = createSwapUsdcContract(provider)
+			const result = createSwapArbitraryTokensContract(provider)
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result(address))).toEqual(

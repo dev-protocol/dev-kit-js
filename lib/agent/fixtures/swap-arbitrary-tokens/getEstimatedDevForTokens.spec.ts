@@ -1,13 +1,13 @@
 import { createGetEstimatedDevForTokensCaller } from './getEstimatedDevForTokens'
 
-describe('getEstimatedDevForUsdc.spec.ts', () => {
-	describe('createGetEstimatedDevForUsdcCaller', () => {
+describe('getEstimatedDevForTokens.spec.ts', () => {
+	describe('createGetEstimatedDevForTokensCaller', () => {
 		it('call success', async () => {
 			const value = 'value'
 
 			const swapUsdcContract = {
-				callStatic: {
-					getEstimatedDevForUsdc: jest
+				getEstimatedDevForTokens: {
+					staticCall: jest
 						.fn()
 						.mockImplementation(async () => Promise.resolve(value)),
 				},
@@ -20,7 +20,7 @@ describe('getEstimatedDevForUsdc.spec.ts', () => {
 				swapUsdcContract as any,
 			)
 
-			const result = await caller('1000')
+			const result = await caller([], '1000')
 
 			expect(result).toEqual(expected)
 		})
@@ -29,8 +29,8 @@ describe('getEstimatedDevForUsdc.spec.ts', () => {
 			const error = 'error'
 
 			const swapUsdcContract = {
-				callStatic: {
-					getEstimatedDevForUsdc: jest
+				getEstimatedDevForTokens: {
+					staticCall: jest
 						.fn()
 						.mockImplementation(async () => Promise.reject(error)),
 				},
@@ -41,7 +41,7 @@ describe('getEstimatedDevForUsdc.spec.ts', () => {
 				swapUsdcContract as any,
 			)
 
-			const result = await caller('1000').catch((err) => err)
+			const result = await caller([], '1000').catch((err) => err)
 
 			expect(result).toEqual(error)
 		})

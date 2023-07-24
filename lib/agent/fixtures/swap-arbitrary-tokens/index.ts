@@ -2,7 +2,6 @@ import { ContractRunner, ethers } from 'ethers'
 import { swapArbitraryTokensAbi } from './abi'
 import { FallbackableOverrides } from '../../../common/utils/execute'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { always } from 'ramda'
 import { createGetEstimatedDevForTokensCaller } from './getEstimatedDevForTokens'
 import { createGetEstimatedTokensForDevCaller } from './getEstimatedTokensForDev'
 import { createSwapTokensAndStakeDevCaller } from './swapTokensAndStakeDev'
@@ -45,6 +44,6 @@ export const createSwapArbitraryTokensContract =
 			getEstimatedDevForTokens: createGetEstimatedDevForTokensCaller(contract),
 			getEstimatedTokensForDev: createGetEstimatedTokensForDevCaller(contract),
 			swapTokensAndStakeDev: createSwapTokensAndStakeDevCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}
