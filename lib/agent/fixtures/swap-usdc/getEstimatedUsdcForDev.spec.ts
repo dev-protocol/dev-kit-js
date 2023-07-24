@@ -19,7 +19,7 @@ describe('getEstimatedUsdcForDev.spec.ts', () => {
 			const result = await caller('devAmount')
 
 			expect(contract.callStatic.getEstimatedUsdcForDev).toBeCalledWith(
-				'devAmount'
+				'devAmount',
 			)
 			expect(result).toEqual(value)
 		})
@@ -41,7 +41,7 @@ describe('getEstimatedUsdcForDev.spec.ts', () => {
 			const result = await caller('devAmount').catch((err) => err)
 
 			expect(contract.callStatic.getEstimatedUsdcForDev).toBeCalledWith(
-				'devAmount'
+				'devAmount',
 			)
 			expect(result).toEqual(error)
 		})
