@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { devAbi } from './abi'
 import { createTransferCaller } from '../../common/erc20/transfer'
 import { createBalanceOfCaller } from '../../common/erc20/balanceOf'
@@ -13,7 +12,6 @@ import { createAllowanceCaller } from '../../common/erc20/allowance'
 import { createDepositCaller } from './deposit'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { always } from 'ramda'
 
 export type DevContract = {
 	readonly totalSupply: () => Promise<string>
@@ -24,7 +22,7 @@ export type DevContract = {
 	readonly transferFrom: (
 		from: string,
 		to: string,
-		value: string
+		value: string,
 	) => Promise<TransactionResponse>
 	readonly name: () => Promise<string>
 	readonly symbol: () => Promise<string>
@@ -32,13 +30,13 @@ export type DevContract = {
 	readonly deposit: (
 		to: string,
 		value: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly contract: () => ethers.Contract
 }
 
 export const createDevContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): DevContract => {
 		const contract = new ethers.Contract(address, [...devAbi], provider)
 
@@ -53,6 +51,6 @@ export const createDevContract =
 			symbol: createSymbolCaller(contract),
 			decimals: createDecimalsCaller(contract),
 			deposit: createDepositCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

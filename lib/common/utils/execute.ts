@@ -1,9 +1,28 @@
-import { ethers, BigNumber, providers, utils } from 'ethers'
+import {
+	ethers,
+	type BrowserProvider,
+	keccak256,
+	BaseContractMethod,
+} from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { keys, mergeAll } from 'ramda'
+import { always, keys, mergeAll } from 'ramda'
 
-type Args = ReadonlyArray<string | boolean | readonly string[] | Uint8Array>
-type ArgsWithoutUint8Array = ReadonlyArray<string | boolean | readonly string[]>
+import { Positions } from '../../ethereum/s-tokens'
+import { Rewards } from '../../ethereum/s-tokens/rewards'
+import { Image } from '../../ethereum/simpleCollection/types'
+
+type Args = ReadonlyArray<
+	| string
+	| boolean
+	| readonly string[]
+	| Uint8Array
+	| readonly Image[]
+	| Positions
+	| Rewards
+>
+type ArgsWithoutUint8Array = ReadonlyArray<
+	string | boolean | readonly string[] | readonly Image[] | Positions | Rewards
+>
 type Overrides = {
 	readonly gasLimit?: number
 	readonly from?: string
@@ -36,9 +55,9 @@ export type ExecuteOption = QueryOption | MutationOption
 
 export type ExecuteFunction = <
 	O extends ExecuteOption = QueryOption,
-	R = string
+	R = string,
 >(
-	opts: O
+	opts: O,
 ) => Promise<
 	O extends QueryOption
 		? R
@@ -48,42 +67,55 @@ export type ExecuteFunction = <
 >
 type PadCaller = (
 	arr: ArgsWithoutUint8Array,
-	v: string | boolean | undefined | readonly string[],
+	v:
+		| string
+		| boolean
+		| undefined
+		| readonly string[]
+		| readonly Image[]
+		| Positions
+		| Rewards,
 	i: number,
-	fn: PadCaller
+	fn: PadCaller,
 ) => ArgsWithoutUint8Array
 const pad = (
 	args: ArgsWithoutUint8Array,
-	index: number
+	index: number,
 ): ArgsWithoutUint8Array =>
 	((fn: PadCaller): ArgsWithoutUint8Array => fn([], args[0], 0, fn))(
 		(
 			arr: ArgsWithoutUint8Array,
-			v: string | boolean | undefined | readonly string[],
+			v:
+				| string
+				| boolean
+				| undefined
+				| readonly string[]
+				| readonly Image[]
+				| Positions
+				| Rewards,
 			i: number,
-			fn: PadCaller
+			fn: PadCaller,
 		): ArgsWithoutUint8Array =>
-			i < index ? fn(arr.concat(v ?? ''), args[i + 1], i + 1, fn) : arr
+			i < index ? fn(arr.concat(v ?? ''), args[i + 1], i + 1, fn) : arr,
 	)
 
 type Value = boolean | string | number
-type ValueWithBigNumber = Value | BigNumber
-const isBigNumber = (data: unknown): data is BigNumber =>
-	BigNumber.isBigNumber(data)
-const toString = (data: Readonly<BigNumber>): string => data.toString()
+type ValueWithBigNumber = Value | bigint
+const isBigNumber = (data: unknown): data is bigint => typeof data === 'bigint'
+const toString = (data: Readonly<bigint>): string => data.toString()
 const toStringObj = (
-	data: Readonly<Record<string, ValueWithBigNumber>>
+	data: Readonly<Record<string, ValueWithBigNumber>>,
 ): Record<string, Value> => {
 	const keys = Object.keys(data)
 	const valueSet = keys.map((key) => ({
 		[key]: ((value) => (isBigNumber(value) ? toString(value) : value))(
-			data[key]
+			data[key],
 		),
 	}))
 	return mergeAll(valueSet)
 }
 const stringifyItem = (
-	data: ValueWithBigNumber | Record<string, ValueWithBigNumber>
+	data: ValueWithBigNumber | Record<string, ValueWithBigNumber>,
 ): Value | Readonly<Record<string, Value>> => {
 	return isBigNumber(data)
 		? toString(data)
@@ -97,7 +129,7 @@ const stringify = (
 	data:
 		| ValueWithBigNumber
 		| Record<string, ValueWithBigNumber>
-		| readonly (ValueWithBigNumber | Record<string, ValueWithBigNumber>)[]
+		| readonly (ValueWithBigNumber | Record<string, ValueWithBigNumber>)[],
 ):
 	| Value
 	| Readonly<Record<string, Value>>
@@ -107,25 +139,26 @@ const stringify = (
 
 const N = null
 
-type SignableProvider = providers.JsonRpcProvider | providers.Web3Provider
-
 export const execute: ExecuteFunction = async <
 	T = string,
-	O extends ExecuteOption = QueryOption
+	O extends ExecuteOption = QueryOption,
 >(
-	opts: O
+	opts: O,
 ) => {
 	const signer =
-		typeof (opts.contract?.provider as SignableProvider)?.getSigner ===
-		'function'
-			? (opts.contract.provider as SignableProvider).getSigner()
+		typeof (opts.contract?.runner as BrowserProvider)?.getSigner === 'function'
+			? await (opts.contract.runner as BrowserProvider)
+					.getSigner()
+					.catch(always(undefined))
 			: undefined
 	const contract =
-		opts.mutation && signer ? opts.contract.connect(signer) : opts.contract
+		opts.mutation && signer
+			? (opts.contract.connect(signer) as ethers.Contract)
+			: opts.contract
 	const convertedArgs: ArgsWithoutUint8Array | undefined =
 		opts.args === undefined
 			? undefined
-			: opts.args.map((v) => (v instanceof Uint8Array ? utils.keccak256(v) : v))
+			: opts.args.map((v) => (v instanceof Uint8Array ? keccak256(v) : v))
 	const args =
 		convertedArgs === undefined
 			? undefined
@@ -137,18 +170,22 @@ export const execute: ExecuteFunction = async <
 			? [...(args || []), opts.overrides.overrides]
 			: args
 	const singleMethod = opts.static
-		? contract.callStatic[opts.method]
-		: contract[opts.method]
+		? (contract[opts.method] as undefined | BaseContractMethod)?.staticCall
+		: (contract[opts.method] as undefined | BaseContractMethod)
 	const overloadedMethod = singleMethod
 		? undefined
-		: ((name) => (opts.static ? contract.callStatic[name] : contract[name]))(
+		: ((name) =>
+				opts.static
+					? (contract[name] as undefined | BaseContractMethod)?.staticCall
+					: contract[name])(
 				String(
-					keys(contract.functions).find(
-						(fn: string | number) => fn === `${opts.method}(${opts.interface})`
-					)
-				)
+					keys(contract).find(
+						(fn: string | number | unknown) =>
+							fn === `${opts.method}(${opts.interface})`,
+					),
+				),
 		  )
-	const method = singleMethod ?? overloadedMethod
+	const method = singleMethod ?? (overloadedMethod as BaseContractMethod)
 	const res = await (argsOverrided === undefined
 		? method()
 		: method.apply(N, argsOverrided)

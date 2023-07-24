@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { policyAbi } from './abi'
 import { createRewardsCaller } from '../../ethereum/policy/rewards'
 import { createHoldersShareCaller } from '../../ethereum/policy/holdersShare'
@@ -7,14 +6,13 @@ import { createAuthenticationFeeCaller } from '../../ethereum/policy/authenticat
 import { createMarketVotingSecondsCaller } from './marketVotingSeconds'
 import { createPolicyVotingSecondsCaller } from './policyVotingSeconds'
 import { createShareOfTreasuryCaller } from '../../ethereum/policy/shareOfTreasury'
-import { always } from 'ramda'
 
 export type PolicyContract = {
 	readonly holdersShare: (amount: string, lockups: string) => Promise<string>
 	readonly rewards: (lockups: string, assets: string) => Promise<string>
 	readonly authenticationFee: (
 		assets: string,
-		propertyAssets: string
+		propertyAssets: string,
 	) => Promise<string>
 	readonly marketVotingSeconds: () => Promise<string>
 	readonly policyVotingSeconds: () => Promise<string>
@@ -23,7 +21,7 @@ export type PolicyContract = {
 }
 
 export const createPolicyContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): PolicyContract => {
 		const contract = new ethers.Contract(address, [...policyAbi], provider)
 
@@ -34,6 +32,6 @@ export const createPolicyContract =
 			marketVotingSeconds: createMarketVotingSecondsCaller(contract),
 			policyVotingSeconds: createPolicyVotingSecondsCaller(contract),
 			shareOfTreasury: createShareOfTreasuryCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

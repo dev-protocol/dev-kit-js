@@ -8,16 +8,16 @@ export type PropertyBalance = Readonly<{
 }>
 
 export type CreateGetBalancesCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => () => Promise<readonly PropertyBalance[]>
 
 export const createGetBalancesCaller: CreateGetBalancesCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) =>
 	always(
 		execute<QueryOption, readonly PropertyBalance[]>({
 			contract,
 			method: 'getBalances',
 			mutation: false,
-		})
+		}),
 	)

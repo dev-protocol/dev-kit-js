@@ -17,7 +17,7 @@ describe('depositToProperty.spec.ts', () => {
 
 			const result = await caller(
 				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
-				'100'
+				'100',
 			)
 
 			expect(result).toEqual(stubTx)
@@ -37,7 +37,7 @@ describe('depositToProperty.spec.ts', () => {
 			const result = await caller(
 				'32',
 				'100',
-				'0xb690e3d57bc3c98d69dfb6136cd622b2ba93f965cc4740a53019a867a8af2106'
+				'0xb690e3d57bc3c98d69dfb6136cd622b2ba93f965cc4740a53019a867a8af2106',
 			)
 
 			expect(result).toEqual(expected)
@@ -56,7 +56,7 @@ describe('depositToProperty.spec.ts', () => {
 
 			const result = await caller(
 				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
-				'100'
+				'100',
 			).catch((err) => err)
 
 			expect(result).toEqual(error)

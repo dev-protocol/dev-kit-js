@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { marketAbi } from './abi'
 import { createSchemaCaller } from './schema'
@@ -13,7 +12,7 @@ export type CreateMarketContract = {
 	readonly vote: (
 		propertyAddress: string,
 		agree: boolean,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly authenticate: (
 		address: string,
@@ -21,14 +20,14 @@ export type CreateMarketContract = {
 		options: {
 			readonly metricsFactoryAddress: string
 		},
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<string>
 	readonly behavior: () => Promise<string>
 	readonly contract: () => ethers.Contract
 }
 
 export const createMarketContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): CreateMarketContract => {
 		const contract = new ethers.Contract(address, [...marketAbi], provider)
 		return {

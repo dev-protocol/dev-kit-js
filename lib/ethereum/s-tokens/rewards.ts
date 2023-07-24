@@ -10,7 +10,7 @@ export type Rewards = {
 }
 
 export type CreateRewardsCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (tokenId: number) => Promise<Rewards>
 
 export const createRewardsCaller: CreateRewardsCaller =

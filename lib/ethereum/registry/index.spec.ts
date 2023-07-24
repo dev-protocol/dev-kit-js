@@ -36,66 +36,40 @@ jest.mock('./withdrawStorage')
 jest.mock('./policyFactory')
 jest.mock('./policySet')
 jest.mock('./policyGroup')
+jest.mock('ethers')
 
 describe('registry/index.ts', () => {
-	;(createTokenCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createAllocatorCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createAllocatorStorageCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createLockupCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createLockupStorageCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createMarketFactoryCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createMarketGroupCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createMetricsFactoryCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createMetricsGroupCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createPolicyCaller as jest.Mock).mockImplementation((contract) => contract)
-	;(createPropertyFactoryCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createPropertyGroupCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createWithdrawCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createWithdrawStorageCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createPolicyFactoryCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createPolicySetCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
-	;(createPolicyGroupCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createTokenCaller as jest.Mock).mockImplementation(() => 123)
+	;(createAllocatorCaller as jest.Mock).mockImplementation(() => 123)
+	;(createAllocatorStorageCaller as jest.Mock).mockImplementation(() => 123)
+	;(createLockupCaller as jest.Mock).mockImplementation(() => 123)
+	;(createLockupStorageCaller as jest.Mock).mockImplementation(() => 123)
+	;(createMarketFactoryCaller as jest.Mock).mockImplementation(() => 123)
+	;(createMarketGroupCaller as jest.Mock).mockImplementation(() => 123)
+	;(createMetricsFactoryCaller as jest.Mock).mockImplementation(() => 123)
+	;(createMetricsGroupCaller as jest.Mock).mockImplementation(() => 123)
+	;(createPolicyCaller as jest.Mock).mockImplementation(() => 123)
+	;(createPropertyFactoryCaller as jest.Mock).mockImplementation(() => 123)
+	;(createPropertyGroupCaller as jest.Mock).mockImplementation(() => 123)
+	;(createWithdrawCaller as jest.Mock).mockImplementation(() => 123)
+	;(createWithdrawStorageCaller as jest.Mock).mockImplementation(() => 123)
+	;(createPolicyFactoryCaller as jest.Mock).mockImplementation(() => 123)
+	;(createPolicySetCaller as jest.Mock).mockImplementation(() => 123)
+	;(createPolicyGroupCaller as jest.Mock).mockImplementation(() => 123)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 	describe('createRegistryContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
 			const address = '0x0000000000000000000000000000000000000000'
-			const provider = new ethers.providers.JsonRpcProvider(host)
+			const provider = new ethers.JsonRpcProvider(host)
 
 			const expected: (address: string) => RegistryContract = (
-				address: string
+				address: string,
 			) => {
 				const contract = new ethers.Contract(
 					address,
 					[...addressConfigAbi],
-					provider
+					provider,
 				)
 
 				return {
@@ -124,7 +98,7 @@ describe('registry/index.ts', () => {
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result(address))).toEqual(
-				JSON.stringify(expected(address))
+				JSON.stringify(expected(address)),
 			)
 		})
 	})

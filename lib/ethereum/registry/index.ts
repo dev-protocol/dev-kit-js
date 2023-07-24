@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { addressConfigAbi } from './abi'
 import { createTokenCaller } from './token'
 import { createAllocatorCaller } from './allocator'
@@ -18,7 +17,6 @@ import { createWithdrawStorageCaller } from './withdrawStorage'
 import { createPolicyFactoryCaller } from './policyFactory'
 import { createPolicySetCaller } from './policySet'
 import { createPolicyGroupCaller } from './policyGroup'
-import { always } from 'ramda'
 
 export type RegistryContract = {
 	readonly allocator: () => Promise<string>
@@ -42,16 +40,16 @@ export type RegistryContract = {
 }
 
 export type CreateRegistryContract = (
-	provider: BaseProvider
+	provider: ContractRunner,
 ) => (address: string) => RegistryContract
 
 export const createRegistryContract: CreateRegistryContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): RegistryContract => {
 		const contract = new ethers.Contract(
 			address,
 			[...addressConfigAbi],
-			provider
+			provider,
 		)
 
 		return {
@@ -72,6 +70,6 @@ export const createRegistryContract: CreateRegistryContract =
 			token: createTokenCaller(contract),
 			withdraw: createWithdrawCaller(contract),
 			withdrawStorage: createWithdrawStorageCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

@@ -7,12 +7,12 @@ import {
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateTransferFromCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (
 	from: string,
 	to: string,
 	value: string,
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<TransactionResponse>
 
 export const createTransferFromCaller: CreateTransferFromCaller =
@@ -21,7 +21,7 @@ export const createTransferFromCaller: CreateTransferFromCaller =
 		from: string,
 		to: string,
 		value: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) =>
 		execute<MutationOption>({
 			contract,

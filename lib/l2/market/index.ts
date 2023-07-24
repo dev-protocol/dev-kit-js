@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { marketAbi } from './abi'
 import { createSchemaCaller } from '../../ethereum/market/schema'
@@ -9,14 +8,13 @@ import { createNameCaller } from './name'
 import { createBehaviorCaller } from '../../ethereum/market/behavior'
 import { createGetAuthenticatedPropertiesCaller } from './getAuthenticatedProperties'
 import { FallbackableOverrides } from '../../common/utils/execute'
-import { always } from 'ramda'
 
 export type MarketContract = {
 	readonly schema: () => Promise<readonly string[]>
 	readonly vote: (
 		propertyAddress: string,
 		agree: boolean,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly authenticate: (
 		address: string,
@@ -24,7 +22,7 @@ export type MarketContract = {
 		options: {
 			readonly metricsFactoryAddress: string
 		},
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<string>
 	readonly behavior: () => Promise<string>
 	readonly name: () => Promise<string>
@@ -33,7 +31,7 @@ export type MarketContract = {
 }
 
 export const createMarketContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): MarketContract => {
 		const contract = new ethers.Contract(address, [...marketAbi], provider)
 		return {
@@ -44,6 +42,6 @@ export const createMarketContract =
 			name: createNameCaller(contract),
 			getAuthenticatedProperties:
 				createGetAuthenticatedPropertiesCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

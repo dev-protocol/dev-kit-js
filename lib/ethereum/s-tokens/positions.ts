@@ -12,7 +12,7 @@ export type Positions = {
 }
 
 export type CreatePositionsCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (tokenId: number) => Promise<Positions>
 
 export const createPositionsCaller: CreatePositionsCaller =

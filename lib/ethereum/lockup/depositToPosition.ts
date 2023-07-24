@@ -8,11 +8,11 @@ import {
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateDepositToPositionCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (
 	positionTokenId: string,
 	amount: string,
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<TransactionResponse>
 
 export const createDepositToPositionCaller: CreateDepositToPositionCaller =
@@ -20,7 +20,7 @@ export const createDepositToPositionCaller: CreateDepositToPositionCaller =
 	async (
 		positionTokenId: string,
 		amount: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) =>
 		execute<MutationOption>({
 			contract,

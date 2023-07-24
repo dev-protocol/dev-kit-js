@@ -4,11 +4,10 @@ import {
 	TransactionResponse,
 	TransactionReceipt,
 } from '@ethersproject/abstract-provider'
-import type { BaseProvider } from '@ethersproject/providers'
-import { BigNumber } from 'ethers'
 import { createErc20Contract } from '../../common/erc20'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { clientsDev } from './clients/clientsDev'
+import { ContractRunner } from 'ethers'
 
 // eslint-disable-next-line functional/no-mixed-type
 export type ApproveIfNeededResultForApproveIsNeeded = {
@@ -43,13 +42,13 @@ export type ApproveIfNeededResult =
 	| ApproveIfNeededResultForApproveIsNotNeeded
 
 export type ApproveIfNeeded = (factoryOptions: {
-	readonly provider: BaseProvider
+	readonly provider: ContractRunner
 	readonly requiredAmount: string
 	readonly from: string
 	readonly to?: string
 	readonly token?: string
 	readonly callback: (
-		receipt?: TransactionReceipt
+		receipt?: TransactionReceipt,
 	) => Promise<TransactionResponse>
 }) => Promise<UndefinedOr<ApproveIfNeededResult>>
 
@@ -59,18 +58,18 @@ export const approveIfNeeded: ApproveIfNeeded = async (factoryOptions) => {
 		: await clientsDev(factoryOptions.provider).then(([l1, l2]) => l1 ?? l2)
 	const allowance = await whenDefinedAll(
 		[client, factoryOptions.to],
-		([x, to]) => x.allowance(factoryOptions.from, to)
+		([x, to]) => x.allowance(factoryOptions.from, to),
 	)
 
 	return whenDefinedAll([client, factoryOptions.to], ([dev, to]) => {
-		return BigNumber.from(allowance).lt(factoryOptions.requiredAmount)
+		return BigInt(allowance ?? 0) < BigInt(factoryOptions.requiredAmount)
 			? ({
 					approvalNeeded: true,
 					approveIfNeeded: async (options) => {
 						const res = await dev.approve(
 							to,
 							options?.amount ?? factoryOptions.requiredAmount,
-							options?.overrides
+							options?.overrides,
 						)
 						return {
 							...res,

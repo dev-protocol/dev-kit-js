@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { erc20Abi } from './abi'
 import { createTransferCaller } from './transfer'
 import { createBalanceOfCaller } from './balanceOf'
@@ -19,19 +18,19 @@ export type Erc20Contract = {
 	readonly transfer: (
 		to: string,
 		value: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly allowance: (from: string, to: string) => Promise<string>
 	readonly approve: (
 		to: string,
 		value: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly transferFrom: (
 		from: string,
 		to: string,
 		value: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly name: () => Promise<string>
 	readonly symbol: () => Promise<string>
@@ -39,7 +38,7 @@ export type Erc20Contract = {
 }
 
 export const createErc20Contract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): Erc20Contract => {
 		const contract = new ethers.Contract(address, [...erc20Abi], provider)
 

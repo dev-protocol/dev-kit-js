@@ -7,11 +7,11 @@ import {
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateSetTokenURIImageCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (
 	tokenId: number,
 	data: string,
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<TransactionResponse>
 
 export const createSetTokenURIImageCaller: CreateSetTokenURIImageCaller =

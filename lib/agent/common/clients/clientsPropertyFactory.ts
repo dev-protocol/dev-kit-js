@@ -8,34 +8,36 @@ import {
 	createPropertyFactoryContract as createPropertyFactoryContractL2,
 	PropertyFactoryContract as PropertyFactoryContractL2,
 } from '../../../l2/property-factory'
-import type { BaseProvider } from '@ethersproject/providers'
 import { clientsRegistry } from './clientsRegistry'
+import { ContractRunner } from 'ethers'
 
 type Results = readonly [
 	UndefinedOr<PropertyFactoryContract>,
-	UndefinedOr<PropertyFactoryContractL2>
+	UndefinedOr<PropertyFactoryContractL2>,
 ]
 
-const cache: WeakMap<BaseProvider, Results> = new WeakMap()
+const cache: WeakMap<ContractRunner, Results> = new WeakMap()
 
 export const clientsPropertyFactory = async (
-	provider: BaseProvider
+	provider: ContractRunner,
 ): Promise<Results> => {
 	const res =
 		cache.get(provider) ??
 		(await (async () => {
-			const net = await provider.getNetwork()
+			const net = await provider.provider?.getNetwork()
 			const [registry] = await clientsRegistry(provider)
 			const l1 = registry
 				? createPropertyFactoryContract(provider)(
-						await registry.propertyFactory()
+						await registry.propertyFactory(),
 				  )
 				: undefined
 			const l2 = ((data) =>
 				data
 					? createPropertyFactoryContractL2(provider)(data.map.propertyFactory)
 					: undefined)(
-				l2AvailableNetworks.find(({ chainId }) => chainId === net.chainId)
+				l2AvailableNetworks.find(
+					({ chainId }) => chainId === Number(net?.chainId),
+				),
 			)
 			const results: Results = [l1, l2]
 			// eslint-disable-next-line functional/no-expression-statement

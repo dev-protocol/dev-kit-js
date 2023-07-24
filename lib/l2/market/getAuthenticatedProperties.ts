@@ -3,7 +3,7 @@ import { always } from 'ramda'
 import { execute, QueryOption } from '../../common/utils/execute'
 
 export type CreateGetAuthenticatedPropertiesCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => () => Promise<readonly string[]>
 
 export const createGetAuthenticatedPropertiesCaller: CreateGetAuthenticatedPropertiesCaller =
@@ -13,5 +13,5 @@ export const createGetAuthenticatedPropertiesCaller: CreateGetAuthenticatedPrope
 				contract,
 				method: 'getAuthenticatedProperties',
 				mutation: false,
-			})
+			}),
 		)

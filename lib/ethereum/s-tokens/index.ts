@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { sTokensAbi } from './abi'
 import { createPositionsCaller, Positions } from './positions'
 import { createIsFreezedCaller } from './isFreezed'
@@ -15,7 +14,6 @@ import { createSetSTokenRoyaltyForPropertyCaller } from './setSTokenRoyaltyForPr
 import { createRoyaltyOfCaller } from './royaltyOf'
 import { createSetTokenURIDescriptorCaller } from './setTokenURIDescriptor'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { always } from 'ramda'
 import { createTokenURISimCaller, TokenURISimProps } from './tokenURISim'
 import { FallbackableOverrides } from '../../common/utils/execute'
 
@@ -24,34 +22,34 @@ export type STokensContract = {
 	readonly isFreezed: (tokenId: number) => Promise<boolean>
 	readonly freezeTokenURI: (
 		tokenId: number,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly setTokenURIImage: (
 		tokenId: number,
 		data: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly setSTokenRoyaltyForProperty: (
 		propertyAddress: string,
 		royalty: number,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly royaltyOf: (propertyAddress: string) => Promise<string>
 	readonly setTokenURIDescriptor: (
 		propertyAddress: string,
 		descriptorAddress: string,
 		payloads?: ReadonlyArray<string | Uint8Array>,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly ownerOf: (tokenId: number) => Promise<string>
 	readonly rewards: (tokenId: number) => Promise<Rewards>
 	readonly tokenURI: (tokenId: number) => Promise<TokenURI>
 	readonly tokenURISim: (props?: TokenURISimProps) => Promise<TokenURI>
 	readonly positionsOfProperty: (
-		propertyAddress: string
+		propertyAddress: string,
 	) => Promise<readonly number[]>
 	readonly positionsOfOwner: (
-		accountAddress: string
+		accountAddress: string,
 	) => Promise<readonly number[]>
 	readonly contract: () => ethers.Contract
 	readonly payloadOf: (tokenId: number) => Promise<string>
@@ -59,12 +57,12 @@ export type STokensContract = {
 
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
 export const createSTokensContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): STokensContract => {
 		const contractClient: ethers.Contract = new ethers.Contract(
 			address,
 			[...sTokensAbi],
-			provider
+			provider,
 		)
 
 		return {
@@ -83,7 +81,7 @@ export const createSTokensContract =
 			payloadOf: createPayloadOfCaller(contractClient),
 			positionsOfProperty: createPositionsOfPropertyCaller(contractClient),
 			positionsOfOwner: createPositionsOfOwnerCaller(contractClient),
-			contract: always(contractClient),
+			contract: () => contractClient,
 		}
 	}
 

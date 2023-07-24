@@ -8,24 +8,24 @@ import {
 	createRegistryContract as createRegistryContractL2,
 	RegistryContract as RegistryContractL2,
 } from '../../../l2/registry'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner } from 'ethers'
 
 type Results = readonly [
 	UndefinedOr<RegistryContract>,
-	UndefinedOr<RegistryContractL2>
+	UndefinedOr<RegistryContractL2>,
 ]
 
-const cache: WeakMap<BaseProvider, Results> = new WeakMap()
+const cache: WeakMap<ContractRunner, Results> = new WeakMap()
 
 export const clientsRegistry = async (
-	provider: BaseProvider
+	provider: ContractRunner,
 ): Promise<Results> => {
 	const res =
 		cache.get(provider) ??
 		(await (async () => {
-			const net = await provider.getNetwork()
+			const net = await provider.provider?.getNetwork()
 			const l1Info = l1AvailableNetworks.find(
-				({ chainId }) => chainId === net.chainId
+				({ chainId }) => chainId === Number(net?.chainId),
 			)
 			const l1 = l1Info
 				? createRegistryContract(provider)(l1Info.registry)
@@ -34,7 +34,9 @@ export const clientsRegistry = async (
 				data
 					? createRegistryContractL2(provider)(data.map.registry)
 					: undefined)(
-				l2AvailableNetworks.find(({ chainId }) => chainId === net.chainId)
+				l2AvailableNetworks.find(
+					({ chainId }) => chainId === Number(net?.chainId),
+				),
 			)
 			const results: Results = [l1, l2]
 			// eslint-disable-next-line functional/no-expression-statement

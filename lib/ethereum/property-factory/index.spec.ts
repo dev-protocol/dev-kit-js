@@ -6,33 +6,33 @@ import { createCreateAndAuthenticateCaller } from './createAndAuthenticate'
 
 jest.mock('./create')
 jest.mock('./createAndAuthenticate')
+jest.mock('ethers')
 
 describe('property/index.ts', () => {
-	;(createCreatePropertyCaller as jest.Mock).mockImplementation(
-		(contract) => contract
-	)
+	;(createCreatePropertyCaller as jest.Mock).mockImplementation(() => 123)
 	;(createCreateAndAuthenticateCaller as jest.Mock).mockImplementation(
-		(contract) => contract
+		() => 123,
 	)
+	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
 	describe('createPropertyFactoryContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
 			const address = '0x0000000000000000000000000000000000000000'
-			const provider = new ethers.providers.JsonRpcProvider(host)
+			const provider = new ethers.JsonRpcProvider(host)
 
 			const expected: (address: string) => PropertyFactoryContract = (
-				address: string
+				address: string,
 			) => {
 				const contract = new ethers.Contract(
 					address,
 					[...propertyFactoryAbi],
-					provider
+					provider,
 				)
 				return {
 					create: createCreatePropertyCaller(contract),
 					createAndAuthenticate: createCreateAndAuthenticateCaller(
 						contract,
-						provider
+						provider,
 					),
 					contract: () => contract,
 				}
@@ -42,7 +42,7 @@ describe('property/index.ts', () => {
 
 			expect(JSON.stringify(result)).toEqual(JSON.stringify(expected))
 			expect(JSON.stringify(result(address))).toEqual(
-				JSON.stringify(expected(address))
+				JSON.stringify(expected(address)),
 			)
 		})
 	})

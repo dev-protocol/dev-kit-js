@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { decode } from 'js-base64'
-import { constants, ethers } from 'ethers'
+import { ethers, ZeroAddress, ZeroHash } from 'ethers'
 import { execute, QueryOption } from '../../common/utils/execute'
 import { values } from 'ramda'
 import { TokenURI } from './tokenURI'
@@ -24,14 +24,14 @@ export type TokenURISimProps = {
 }
 
 export type CreateTokenURISimCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (props?: TokenURISimProps) => Promise<TokenURI>
 
 type DeepNonNullable<T> = {
 	readonly [P in keyof T]-?: NonNullable<T[P]>
 }
 const defaultPositions: DeepNonNullable<TokenURISimProps['positions']> = {
-	property: constants.AddressZero,
+	property: ZeroAddress,
 	amount: '0',
 	price: '0',
 	cumulativeReward: '0',
@@ -47,10 +47,10 @@ export const createTokenURISimCaller: CreateTokenURISimCaller =
 	(contract: ethers.Contract) =>
 	async (props: TokenURISimProps = {}) => {
 		const tokenId = String(props.tokenId ?? 0)
-		const owner = props.owner ?? constants.AddressZero
+		const owner = props.owner ?? ZeroAddress
 		const positions = { ...defaultPositions, ...props.positions }
 		const rewards = { ...defaultRewards, ...props.rewards }
-		const payload = props.payload ? props.payload : constants.HashZero
+		const payload = props.payload ? props.payload : ZeroHash
 		const res = await execute<QueryOption>({
 			contract,
 			method: 'tokenURISim',
@@ -58,7 +58,7 @@ export const createTokenURISimCaller: CreateTokenURISimCaller =
 			mutation: false,
 		})
 		const decoded = decode(
-			res.replace(/^data:application\/json;base64,(.*)/, '$1')
+			res.replace(/^data:application\/json;base64,(.*)/, '$1'),
 		).replace(/\n/g, '\\n')
 		return JSON.parse(decoded)
 	}

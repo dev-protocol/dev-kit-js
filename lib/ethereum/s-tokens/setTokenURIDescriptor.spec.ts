@@ -1,6 +1,6 @@
 import { createSetTokenURIDescriptorCaller } from './setTokenURIDescriptor'
 import { stubTransactionResposeFactory } from '../../common/utils/for-test'
-import { utils } from 'ethers'
+import { keccak256, randomBytes } from 'ethers'
 
 describe('setTokenURIDescriptor.spec.ts', () => {
 	describe('createSetTokenURIDescriptorCaller', () => {
@@ -15,7 +15,7 @@ describe('setTokenURIDescriptor.spec.ts', () => {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(
 						async (propertyAddress: string, descriptorAddress: string) =>
-							success
+							success,
 					),
 			}
 
@@ -42,8 +42,8 @@ describe('setTokenURIDescriptor.spec.ts', () => {
 						async (
 							propertyAddress: string,
 							descriptorAddress: string,
-							payloads: readonly Uint8Array[]
-						) => success
+							payloads: readonly Uint8Array[],
+						) => success,
 					),
 			}
 
@@ -73,8 +73,8 @@ describe('setTokenURIDescriptor.spec.ts', () => {
 						async (
 							propertyAddress: string,
 							descriptorAddress: string,
-							payloads: readonly string[]
-						) => success
+							payloads: readonly string[],
+						) => success,
 					),
 			}
 
@@ -84,8 +84,8 @@ describe('setTokenURIDescriptor.spec.ts', () => {
 			const caller = createSetTokenURIDescriptorCaller(devContract as any)
 
 			const result = await caller(propertyAddress, descriptorAddress, [
-				utils.keccak256(utils.randomBytes(3)),
-				utils.keccak256(utils.randomBytes(3)),
+				keccak256(randomBytes(3)),
+				keccak256(randomBytes(3)),
 			])
 
 			expect(result).toEqual(expected)
@@ -102,7 +102,7 @@ describe('setTokenURIDescriptor.spec.ts', () => {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(
 						async (propertyAddress: string, descriptorAddress: string) =>
-							Promise.reject(error)
+							Promise.reject(error),
 					),
 			}
 
@@ -110,7 +110,7 @@ describe('setTokenURIDescriptor.spec.ts', () => {
 			const caller = createSetTokenURIDescriptorCaller(devContract as any)
 
 			const result = await caller(propertyAddress, descriptorAddress).catch(
-				(err) => err
+				(err) => err,
 			)
 
 			expect(result).toEqual(error)

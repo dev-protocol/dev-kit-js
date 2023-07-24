@@ -17,7 +17,7 @@ describe('withdraw.spec.ts', () => {
 
 			const result = await caller(
 				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
-				'100'
+				'100',
 			)
 
 			expect(result).toEqual(expected)
@@ -30,7 +30,7 @@ describe('withdraw.spec.ts', () => {
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(async (property: string) =>
-						Promise.reject(error)
+						Promise.reject(error),
 					),
 			}
 
@@ -39,7 +39,7 @@ describe('withdraw.spec.ts', () => {
 
 			const result = await caller(
 				'0x80a25ACDD0797dfCe02dA25e4a55A4a334EE51c5',
-				'100'
+				'100',
 			).catch((err) => err)
 
 			expect(result).toEqual(error)

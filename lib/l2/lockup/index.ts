@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { lockupAbi } from './abi'
 import { createTotalLockedCaller } from './totalLocked'
 import { createTotalLockedForPropertyCaller } from './totalLockedForProperty'
@@ -16,38 +15,37 @@ import {
 	LockedupProperty,
 } from './getLockedupProperties'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { always } from 'ramda'
 import { FallbackableOverrides } from '../../common/utils/execute'
 
 export type LockupContract = {
 	readonly withdrawByPosition: (
 		positionTokenId: string,
 		amount: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly calculateWithdrawableInterestAmountByPosition: (
-		positionTokenId: string
+		positionTokenId: string,
 	) => Promise<string>
 	readonly calculateCumulativeHoldersRewardAmount: (
-		propertyAddress: string
+		propertyAddress: string,
 	) => Promise<string>
 	readonly calculateCumulativeRewardPrices: () => Promise<
 		readonly [string, string, string, string]
 	>
 	readonly calculateRewardAmount: (
-		propertyAddress: string
+		propertyAddress: string,
 	) => Promise<readonly [string, string]>
 	readonly cap: () => Promise<string>
 	readonly depositToProperty: (
 		propertyAddress: string,
 		amount: string,
 		payload?: string | Uint8Array,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly depositToPosition: (
 		positionTokenId: string,
 		amount: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly totalLocked: () => Promise<string>
 	readonly totalLockedForProperty: (address: string) => Promise<string>
@@ -56,7 +54,7 @@ export type LockupContract = {
 }
 
 export const createLockupContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): LockupContract => {
 		const contract = new ethers.Contract(address, [...lockupAbi], provider)
 
@@ -75,6 +73,6 @@ export const createLockupContract =
 			totalLocked: createTotalLockedCaller(contract),
 			totalLockedForProperty: createTotalLockedForPropertyCaller(contract),
 			getLockedupProperties: createGetLockedupPropertiesCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

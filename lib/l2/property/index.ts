@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { propertyAbi } from './abi'
 import { createAuthorCaller } from './../../ethereum/property/author'
 import { createChangeNameCaller } from './../../ethereum/property/changeName'
@@ -16,7 +15,6 @@ import { createApproveCaller } from './../../common/erc20/approve'
 import { createAllowanceCaller } from './../../common/erc20/allowance'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
-import { always } from 'ramda'
 
 export type PropertyContract = {
 	readonly totalSupply: () => Promise<string>
@@ -24,19 +22,19 @@ export type PropertyContract = {
 	readonly transfer: (
 		to: string,
 		value: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly allowance: (from: string, to: string) => Promise<string>
 	readonly approve: (
 		to: string,
 		value: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly transferFrom: (
 		from: string,
 		to: string,
 		value: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly name: () => Promise<string>
 	readonly symbol: () => Promise<string>
@@ -44,22 +42,22 @@ export type PropertyContract = {
 	readonly author: () => Promise<string>
 	readonly changeName: (
 		nextName: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly changeSymbol: (
 		nextSymbol: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly getBalances: () => Promise<readonly PropertyBalance[]>
 	readonly contract: () => ethers.Contract
 }
 
 export type CreatePropertyContract = (
-	provider: BaseProvider
+	provider: ContractRunner,
 ) => (address: string) => PropertyContract
 
 export const createPropertyContract: CreatePropertyContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): PropertyContract => {
 		const contract = new ethers.Contract(address, [...propertyAbi], provider)
 
@@ -77,6 +75,6 @@ export const createPropertyContract: CreatePropertyContract =
 			changeName: createChangeNameCaller(contract),
 			changeSymbol: createChangeSymbolCaller(contract),
 			getBalances: createGetBalancesCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

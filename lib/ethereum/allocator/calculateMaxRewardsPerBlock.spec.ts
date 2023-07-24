@@ -11,7 +11,7 @@ describe('calculateMaxRewardsPerBlock.spec.ts', () => {
 			}
 
 			const caller = createCalculateMaxRewardsPerBlockCaller(
-				allocatorContract as any
+				allocatorContract as any,
 			)
 			const result = await caller().catch((err) => err)
 			expect(result).toEqual(error)

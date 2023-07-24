@@ -2,7 +2,7 @@ import { ethers } from 'ethers'
 import { execute, QueryOption } from '../../common/utils/execute'
 
 export type CreateGetIdCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (metricsAddress: string) => Promise<string>
 
 export const createGetIdCaller: CreateGetIdCaller =

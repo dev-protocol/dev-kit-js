@@ -1,8 +1,6 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { metricsGroupAbi } from './abi'
 import { createTotalAuthenticatedPropertiesCaller } from './totalAuthenticatedProperties'
-import { always } from 'ramda'
 import { createTotalIssuedMetrics } from './totalIssuedMetrics'
 
 export type CreateMetricsGroupContract = {
@@ -12,18 +10,18 @@ export type CreateMetricsGroupContract = {
 }
 
 export const createMetricsGroupContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): CreateMetricsGroupContract => {
 		const contract = new ethers.Contract(
 			address,
 			[...metricsGroupAbi],
-			provider
+			provider,
 		)
 
 		return {
 			totalAuthenticatedProperties:
 				createTotalAuthenticatedPropertiesCaller(contract),
 			totalIssuedMetrics: createTotalIssuedMetrics(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

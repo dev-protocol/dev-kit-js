@@ -1,5 +1,4 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { withdrawAbi } from './abi'
 import { createWithdrawCaller } from './withdraw'
 import { createGetRewardsAmountCaller } from './getRewardsAmount'
@@ -8,30 +7,29 @@ import { createBulkWithdrawCaller } from './bulkWithdraw'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { calculateRewardAmountCaller } from './calculateRewardAmount'
 import { FallbackableOverrides } from '../../common/utils/execute'
-import { always } from 'ramda'
 
 export type WithdrawContract = {
 	readonly withdraw: (
 		propertyAddress: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<TransactionResponse>
 	readonly bulkWithdraw: (
-		propertyAddresses: readonly string[]
+		propertyAddresses: readonly string[],
 	) => Promise<TransactionResponse>
 	readonly getRewardsAmount: (propertyAddress: string) => Promise<string>
 	readonly calculateWithdrawableAmount: (
 		propertyAddress: string,
-		accountAddress: string
+		accountAddress: string,
 	) => Promise<string>
 	readonly calculateRewardAmount: (
 		propertyAddress: string,
-		accountAddress: string
+		accountAddress: string,
 	) => Promise<string>
 	readonly contract: () => ethers.Contract
 }
 
 export const createWithdrawContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): WithdrawContract => {
 		const contract = new ethers.Contract(address, [...withdrawAbi], provider)
 
@@ -42,6 +40,6 @@ export const createWithdrawContract =
 			calculateWithdrawableAmount:
 				createCalculateWithdrawableAmountCaller(contract),
 			calculateRewardAmount: calculateRewardAmountCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

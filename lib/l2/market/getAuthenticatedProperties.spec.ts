@@ -15,7 +15,7 @@ describe('getAuthenticatedProperties.spec.ts', () => {
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createGetAuthenticatedPropertiesCaller(
-				marketContract as any
+				marketContract as any,
 			)
 
 			const result = await caller()
@@ -34,7 +34,7 @@ describe('getAuthenticatedProperties.spec.ts', () => {
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = createGetAuthenticatedPropertiesCaller(
-				marketContract as any
+				marketContract as any,
 			)
 
 			const result = await caller().catch((err) => err)

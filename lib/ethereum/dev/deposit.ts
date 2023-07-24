@@ -7,11 +7,11 @@ import {
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateDepositCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (
 	to: string,
 	value: string,
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<TransactionResponse>
 
 export const createDepositCaller: CreateDepositCaller =

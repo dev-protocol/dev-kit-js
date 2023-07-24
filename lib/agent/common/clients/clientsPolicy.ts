@@ -4,19 +4,19 @@ import {
 	createPolicyContract as createPolicyContractL2,
 	PolicyContract as PolicyContractL2,
 } from '../../../l2/policy'
-import type { BaseProvider } from '@ethersproject/providers'
 import { clientsRegistry } from './clientsRegistry'
+import { ContractRunner } from 'ethers'
 
 type Results = readonly [
 	UndefinedOr<PolicyContract>,
-	UndefinedOr<PolicyContractL2>
+	UndefinedOr<PolicyContractL2>,
 ]
 
 // eslint-disable-next-line functional/prefer-readonly-type
-const cache: WeakMap<BaseProvider, Results> = new WeakMap()
+const cache: WeakMap<ContractRunner, Results> = new WeakMap()
 
 export const clientsPolicy = async (
-	provider: BaseProvider
+	provider: ContractRunner,
 ): Promise<Results> => {
 	const res =
 		cache.get(provider) ??
@@ -27,7 +27,7 @@ export const clientsPolicy = async (
 				: undefined
 			const l2 = registryl2
 				? createPolicyContractL2(provider)(
-						await registryl2.registries('Policy')
+						await registryl2.registries('Policy'),
 				  )
 				: undefined
 

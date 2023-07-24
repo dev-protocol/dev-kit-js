@@ -4,25 +4,27 @@ import {
 	createMetricsFactoryContract as createMetricsFactoryContractL2,
 	MetricsFactoryContract as MetricsFactoryContractL2,
 } from '../../../l2/metrics-factory'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner } from 'ethers'
 
 type Results = readonly [undefined, UndefinedOr<MetricsFactoryContractL2>]
 
-const cache: WeakMap<BaseProvider, Results> = new WeakMap()
+const cache: WeakMap<ContractRunner, Results> = new WeakMap()
 
 export const clientsMetricsFactory = async (
-	provider: BaseProvider
+	provider: ContractRunner,
 ): Promise<Results> => {
 	const res =
 		cache.get(provider) ??
 		(await (async () => {
-			const net = await provider.getNetwork()
+			const net = await provider.provider?.getNetwork()
 			const l1 = undefined
 			const l2 = ((data) =>
 				data
 					? createMetricsFactoryContractL2(provider)(data.map.metricsFactory)
 					: undefined)(
-				l2AvailableNetworks.find(({ chainId }) => chainId === net.chainId)
+				l2AvailableNetworks.find(
+					({ chainId }) => chainId === Number(net?.chainId),
+				),
 			)
 			const results: Results = [l1, l2]
 			// eslint-disable-next-line functional/no-expression-statement

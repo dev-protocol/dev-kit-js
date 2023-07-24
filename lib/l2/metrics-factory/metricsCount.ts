@@ -4,16 +4,16 @@ import { execute, QueryOption } from '../../common/utils/execute'
 import { always } from 'ramda'
 
 export type CreateMetricsCountCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => () => Promise<number>
 
 export const createMetricsCountCaller: CreateMetricsCountCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) =>
 	always(
 		execute<QueryOption>({
 			contract,
 			method: 'metricsCount',
 			mutation: false,
-		}).then(Number)
+		}).then(Number),
 	)

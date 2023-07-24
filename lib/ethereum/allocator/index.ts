@@ -1,8 +1,6 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import { allocatorAbi } from './abi'
 import { createCalculateMaxRewardsPerBlockCaller } from './calculateMaxRewardsPerBlock'
-import { always } from 'ramda'
 
 export type CreateAllocatorContract = {
 	readonly calculateMaxRewardsPerBlock: () => Promise<string>
@@ -10,12 +8,12 @@ export type CreateAllocatorContract = {
 }
 
 export const createAllocatorContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): CreateAllocatorContract => {
 		const contract = new ethers.Contract(address, [...allocatorAbi], provider)
 		return {
 			calculateMaxRewardsPerBlock:
 				createCalculateMaxRewardsPerBlockCaller(contract),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

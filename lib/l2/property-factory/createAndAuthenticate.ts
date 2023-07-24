@@ -2,23 +2,22 @@
 /* eslint-disable functional/no-expression-statement */
 /* eslint-disable functional/no-conditional-statement */
 /* eslint-disable functional/functional-parameters */
-import type { BaseProvider } from '@ethersproject/providers'
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { execute, FallbackableOverrides } from '../../common/utils/execute'
-import { ethers } from 'ethers'
+import { ContractRunner, ethers } from 'ethers'
 import { WaitForEventOptions } from '../../ethereum/market/authenticate'
 import { metricsFactoryAbi } from '../metrics-factory/abi'
 
 export type CreateCreateAndAuthenticateCaller = (
 	contract: ethers.Contract,
-	provider: BaseProvider
+	provider: ContractRunner,
 ) => (
 	name: string,
 	symbol: string,
 	marketAddress: string,
 	args: readonly string[],
 	options: WaitForEventOptions,
-	overrides?: FallbackableOverrides
+	overrides?: FallbackableOverrides,
 ) => Promise<{
 	readonly property: string
 	readonly transaction: TransactionResponse
@@ -27,14 +26,14 @@ export type CreateCreateAndAuthenticateCaller = (
 
 export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCaller =
 
-		(contract: ethers.Contract, provider: BaseProvider) =>
+		(contract: ethers.Contract, provider: ContractRunner) =>
 		async (
 			name: string,
 			symbol: string,
 			marketAddress: string,
 			args: readonly string[],
 			{ metricsFactoryAddress }: WaitForEventOptions,
-			overrides?: FallbackableOverrides
+			overrides?: FallbackableOverrides,
 		): Promise<{
 			readonly property: string
 			readonly transaction: TransactionResponse
@@ -51,7 +50,7 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 			const metricsFactoryContract = new ethers.Contract(
 				metricsFactoryAddress,
 				metricsFactoryAbi,
-				provider
+				provider,
 			)
 
 			const createWaitForAuthentication =
@@ -62,16 +61,16 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 							async (
 								_: string,
 								receiptPropertyAddress: string,
-								metricsAddress: string
+								metricsAddress: string,
 							) => {
 								if (
 									propertyAddress.toLowerCase() ===
 									receiptPropertyAddress.toLocaleLowerCase()
 								) {
-									subscriberdContract.removeAllListeners()
+									;(await subscriberdContract).removeAllListeners()
 									resolve(metricsAddress)
 								}
-							}
+							},
 						)
 					})
 
@@ -79,14 +78,14 @@ export const createCreateAndAuthenticateCaller: CreateCreateAndAuthenticateCalle
 				const subscribedContract = contract.on(
 					'Create',
 					async (_: string, propertyAddress: string) => {
-						subscribedContract.removeAllListeners()
+						;(await subscribedContract).removeAllListeners()
 						resolve({
 							property: propertyAddress,
 							transaction,
 							waitForAuthentication:
 								createWaitForAuthentication(propertyAddress),
 						})
-					}
+					},
 				)
 			})
 		}

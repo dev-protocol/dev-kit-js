@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-import { ethers } from 'ethers'
+import { ZeroHash, ethers } from 'ethers'
 import {
 	execute,
 	FallbackableOverrides,
@@ -8,14 +8,14 @@ import {
 import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateSwapEthAndStakeDevCaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (
 	propertyAddress: string,
 	deadline: number,
 	payload?: string,
 	overrides?: FallbackableOverrides,
 	gatewayAddress?: string,
-	gatewayBasisPoints?: string
+	gatewayBasisPoints?: string,
 ) => Promise<TransactionResponse>
 
 export const createSwapEthAndStakeDevCaller: CreateSwapEthAndStakeDevCaller =
@@ -26,22 +26,18 @@ export const createSwapEthAndStakeDevCaller: CreateSwapEthAndStakeDevCaller =
 		payload?: string,
 		overrides?: FallbackableOverrides,
 		gatewayAddress?: string,
-		gatewayBasisPoints?: string
+		gatewayBasisPoints?: string,
 	) => {
 		const args =
 			gatewayAddress && gatewayBasisPoints
 				? [
 						propertyAddress,
 						String(deadline),
-						payload ?? ethers.constants.HashZero,
+						payload ?? ZeroHash,
 						gatewayAddress,
 						gatewayBasisPoints,
 				  ]
-				: [
-						propertyAddress,
-						String(deadline),
-						payload ?? ethers.constants.HashZero,
-				  ]
+				: [propertyAddress, String(deadline), payload ?? ZeroHash]
 
 		return execute<MutationOption>({
 			contract,

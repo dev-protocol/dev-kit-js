@@ -1,19 +1,17 @@
-import { ethers } from 'ethers'
-import type { BaseProvider } from '@ethersproject/providers'
+import { ContractRunner, ethers } from 'ethers'
 import type { TransactionResponse } from '@ethersproject/abstract-provider'
 import { propertyFactoryAbi } from './abi'
 import { createCreatePropertyCaller } from './create'
 import { WaitForEventOptions } from '../market/authenticate'
 import { createCreateAndAuthenticateCaller } from './createAndAuthenticate'
 import { FallbackableOverrides } from '../../common/utils/execute'
-import { always } from 'ramda'
 
 export type PropertyFactoryContract = {
 	readonly create: (
 		name: string,
 		symbol: string,
 		author: string,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<string>
 	readonly createAndAuthenticate: (
 		name: string,
@@ -21,7 +19,7 @@ export type PropertyFactoryContract = {
 		marketAddress: string,
 		args: readonly string[],
 		options: WaitForEventOptions,
-		overrides?: FallbackableOverrides
+		overrides?: FallbackableOverrides,
 	) => Promise<{
 		readonly property: string
 		readonly transaction: TransactionResponse
@@ -31,20 +29,20 @@ export type PropertyFactoryContract = {
 }
 
 export const createPropertyFactoryContract =
-	(provider: BaseProvider) =>
+	(provider: ContractRunner) =>
 	(address: string): PropertyFactoryContract => {
 		const contract = new ethers.Contract(
 			address,
 			[...propertyFactoryAbi],
-			provider
+			provider,
 		)
 
 		return {
 			create: createCreatePropertyCaller(contract),
 			createAndAuthenticate: createCreateAndAuthenticateCaller(
 				contract,
-				provider
+				provider,
 			),
-			contract: always(contract),
+			contract: () => contract,
 		}
 	}

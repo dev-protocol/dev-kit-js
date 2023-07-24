@@ -16,12 +16,12 @@ export type TokenURI = {
 			readonly trait_type: 'Locked Amount'
 			readonly display_type: 'number'
 			readonly value: number
-		}
+		},
 	]
 }
 
 export type CreateTokenURICaller = (
-	contract: ethers.Contract
+	contract: ethers.Contract,
 ) => (tokenId: number) => Promise<TokenURI>
 
 export const createTokenURICaller: CreateTokenURICaller =
@@ -33,7 +33,7 @@ export const createTokenURICaller: CreateTokenURICaller =
 			mutation: false,
 		})
 		const decoded = decode(
-			res.replace(/^data:application\/json;base64,(.*)/, '$1')
+			res.replace(/^data:application\/json;base64,(.*)/, '$1'),
 		).replace(/\n/g, '\\n')
 		return JSON.parse(decoded)
 	}

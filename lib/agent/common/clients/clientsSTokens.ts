@@ -8,36 +8,40 @@ import {
 	createSTokensContract as createSTokensContractL2,
 	STokensContract as STokensContractL2,
 } from '../../../l2/s-tokens'
-import type { BaseProvider } from '@ethersproject/providers'
 import { addresses } from '../../../addresses'
+import { ContractRunner } from 'ethers'
 
 type Results = readonly [
 	UndefinedOr<STokensContract>,
-	UndefinedOr<STokensContractL2>
+	UndefinedOr<STokensContractL2>,
 ]
 
-const cache: WeakMap<BaseProvider, Results> = new WeakMap()
+const cache: WeakMap<ContractRunner, Results> = new WeakMap()
 
 export const clientsSTokens = async (
-	provider: BaseProvider
+	provider: ContractRunner,
 ): Promise<Results> => {
 	const res =
 		cache.get(provider) ??
 		(await (async () => {
-			const net = await provider.getNetwork()
+			const net = await provider.provider?.getNetwork()
 			const l1 = ((data) =>
 				data
 					? createSTokensContract(provider)(
 							data.chainId === 1
 								? addresses.eth.main.sTokens
-								: addresses.eth.ropsten.sTokens
+								: addresses.eth.ropsten.sTokens,
 					  )
 					: undefined)(
-				l1AvailableNetworks.find(({ chainId }) => chainId === net.chainId)
+				l1AvailableNetworks.find(
+					({ chainId }) => chainId === Number(net?.chainId),
+				),
 			)
 			const l2 = ((data) =>
 				data ? createSTokensContractL2(provider)(data.map.sTokens) : undefined)(
-				l2AvailableNetworks.find(({ chainId }) => chainId === net.chainId)
+				l2AvailableNetworks.find(
+					({ chainId }) => chainId === Number(net?.chainId),
+				),
 			)
 			const results: Results = [l1, l2]
 			// eslint-disable-next-line functional/no-expression-statement
