@@ -25,7 +25,7 @@ export const agentAddresses = {
 				v3: '0x9265Cf9e6Dc5B163bDB75d51661Ca8EA3b6150c4',
 			},
 			swapArbitraryTokens: {
-				swap: '0x0000000',
+				swap: '0x7c024725C5e42385c0Cc0769BBD0993cF4622D96',
 			},
 			usdc: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
 			weth: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
@@ -38,7 +38,7 @@ export const agentAddresses = {
 			swapArbitraryTokens: {
 				swap: '0x956b1ff3Ac3A6b7Cd9D2Bdf024e96c5A120E6Fe4',
 			},
-			usdc: '0x0000000',
+			usdc: '0xFEca406dA9727A25E71e732F9961F680059eF1F9',
 			weth: '0x3c8d6A6420C922c88577352983aFFdf7b0F977cA',
 		},
 	},
