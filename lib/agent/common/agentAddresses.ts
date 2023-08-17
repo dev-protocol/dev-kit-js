@@ -36,7 +36,7 @@ export const agentAddresses = {
 				v3: '0x60650E5a95864b989C8b7B0357a2d4979a34c6AF',
 			},
 			swapArbitraryTokens: {
-				swap: '0x956b1ff3Ac3A6b7Cd9D2Bdf024e96c5A120E6Fe4',
+				swap: '0x927B51D9Edd43BFDE3586E99BfaCBE08135374AA',
 			},
 			usdc: '0xFEca406dA9727A25E71e732F9961F680059eF1F9',
 			weth: '0x3c8d6A6420C922c88577352983aFFdf7b0F977cA',
