@@ -1,26 +1,5 @@
 export const swapArbitraryTokensAbi = [
 	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: '_devAddress',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_lockupAddress',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_sTokensAddress',
-				type: 'address',
-			},
-		],
-		stateMutability: 'nonpayable',
-		type: 'constructor',
-	},
-	{
 		anonymous: false,
 		inputs: [
 			{
@@ -43,6 +22,19 @@ export const swapArbitraryTokensAbi = [
 			},
 		],
 		name: 'Deposited',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
+				indexed: false,
+				internalType: 'uint8',
+				name: 'version',
+				type: 'uint8',
+			},
+		],
+		name: 'Initialized',
 		type: 'event',
 	},
 	{
@@ -198,6 +190,29 @@ export const swapArbitraryTokensAbi = [
 		type: 'function',
 	},
 	{
+		inputs: [
+			{
+				internalType: 'address',
+				name: '_devAddress',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_lockupAddress',
+				type: 'address',
+			},
+			{
+				internalType: 'address',
+				name: '_sTokensAddress',
+				type: 'address',
+			},
+		],
+		name: 'initialize',
+		outputs: [],
+		stateMutability: 'nonpayable',
+		type: 'function',
+	},
+	{
 		inputs: [],
 		name: 'lockupAddress',
 		outputs: [
@@ -245,12 +260,12 @@ export const swapArbitraryTokensAbi = [
 			},
 			{
 				internalType: 'bytes',
-				name: 'path',
+				name: '_path',
 				type: 'bytes',
 			},
 			{
 				internalType: 'address',
-				name: 'property',
+				name: '_property',
 				type: 'address',
 			},
 			{
@@ -260,22 +275,22 @@ export const swapArbitraryTokensAbi = [
 			},
 			{
 				internalType: 'uint256',
-				name: 'deadline',
+				name: '_deadline',
 				type: 'uint256',
 			},
 			{
 				internalType: 'bytes32',
-				name: 'payload',
+				name: '_payload',
 				type: 'bytes32',
 			},
 			{
 				internalType: 'address payable',
-				name: 'gatewayAddress',
+				name: '_gatewayAddress',
 				type: 'address',
 			},
 			{
 				internalType: 'uint256',
-				name: 'gatewayFee',
+				name: '_gatewayFee',
 				type: 'uint256',
 			},
 		],
@@ -293,22 +308,22 @@ export const swapArbitraryTokensAbi = [
 			},
 			{
 				internalType: 'contract IERC20',
-				name: 'token',
+				name: '_token',
 				type: 'address',
 			},
 			{
 				internalType: 'bytes',
-				name: 'path',
+				name: '_path',
 				type: 'bytes',
 			},
 			{
 				internalType: 'address',
-				name: 'property',
+				name: '_property',
 				type: 'address',
 			},
 			{
 				internalType: 'uint256',
-				name: 'amount',
+				name: '_amount',
 				type: 'uint256',
 			},
 			{
@@ -318,22 +333,22 @@ export const swapArbitraryTokensAbi = [
 			},
 			{
 				internalType: 'uint256',
-				name: 'deadline',
+				name: '_deadline',
 				type: 'uint256',
 			},
 			{
 				internalType: 'bytes32',
-				name: 'payload',
+				name: '_payload',
 				type: 'bytes32',
 			},
 			{
 				internalType: 'address payable',
-				name: 'gatewayAddress',
+				name: '_gatewayAddress',
 				type: 'address',
 			},
 			{
 				internalType: 'uint256',
-				name: 'gatewayFee',
+				name: '_gatewayFee',
 				type: 'uint256',
 			},
 		],
@@ -351,12 +366,12 @@ export const swapArbitraryTokensAbi = [
 			},
 			{
 				internalType: 'bytes',
-				name: 'path',
+				name: '_path',
 				type: 'bytes',
 			},
 			{
 				internalType: 'address',
-				name: 'property',
+				name: '_property',
 				type: 'address',
 			},
 			{
@@ -366,12 +381,12 @@ export const swapArbitraryTokensAbi = [
 			},
 			{
 				internalType: 'uint256',
-				name: 'deadline',
+				name: '_deadline',
 				type: 'uint256',
 			},
 			{
 				internalType: 'bytes32',
-				name: 'payload',
+				name: '_payload',
 				type: 'bytes32',
 			},
 		],
@@ -389,22 +404,22 @@ export const swapArbitraryTokensAbi = [
 			},
 			{
 				internalType: 'contract IERC20',
-				name: 'token',
+				name: '_token',
 				type: 'address',
 			},
 			{
 				internalType: 'bytes',
-				name: 'path',
+				name: '_path',
 				type: 'bytes',
 			},
 			{
 				internalType: 'address',
-				name: 'property',
+				name: '_property',
 				type: 'address',
 			},
 			{
 				internalType: 'uint256',
-				name: 'amount',
+				name: '_amount',
 				type: 'uint256',
 			},
 			{
@@ -414,12 +429,12 @@ export const swapArbitraryTokensAbi = [
 			},
 			{
 				internalType: 'uint256',
-				name: 'deadline',
+				name: '_deadline',
 				type: 'uint256',
 			},
 			{
 				internalType: 'bytes32',
-				name: 'payload',
+				name: '_payload',
 				type: 'bytes32',
 			},
 		],
