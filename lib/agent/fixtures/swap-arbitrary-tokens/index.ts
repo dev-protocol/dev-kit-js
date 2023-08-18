@@ -22,7 +22,7 @@ export type SwapArbitraryTokensContract = {
 		amountOut: string,
 		deadline: number,
 		amount: string,
-		payload?: string,
+		payload?: string | Uint8Array,
 		token?: string,
 		gatewayAddress?: string,
 		gatewayBasisPoints?: string,

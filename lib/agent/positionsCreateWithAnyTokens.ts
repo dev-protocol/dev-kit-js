@@ -19,7 +19,7 @@ type Params = {
 	readonly devAmountOut?: string
 	readonly from?: string
 	readonly overrides?: FallbackableOverrides
-	readonly payload?: string
+	readonly payload?: string | Uint8Array
 	readonly deadline?: number
 	readonly gatewayAddress?: string
 	readonly gatewayBasisPoints?: number

@@ -12,7 +12,7 @@ export type CreateSwapEthAndStakeDevCaller = (
 ) => (
 	propertyAddress: string,
 	deadline: number,
-	payload?: string,
+	payload?: string | Uint8Array,
 	overrides?: FallbackableOverrides,
 	gatewayAddress?: string,
 	gatewayBasisPoints?: string,
@@ -23,7 +23,7 @@ export const createSwapEthAndStakeDevCaller: CreateSwapEthAndStakeDevCaller =
 	async (
 		propertyAddress: string,
 		deadline: number,
-		payload?: string,
+		payload?: string | Uint8Array,
 		overrides?: FallbackableOverrides,
 		gatewayAddress?: string,
 		gatewayBasisPoints?: string,
