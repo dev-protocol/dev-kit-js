@@ -12,7 +12,7 @@ type PositionsCreateWithEth = (options: {
 	readonly deadline?: number
 	readonly gatewayAddress?: string
 	readonly gatewayBasisPoints?: number
-	readonly payload?: string
+	readonly payload?: string | Uint8Array
 	readonly overrides?: FallbackableOverrides
 }) => Promise<{
 	readonly estimatedDev: string

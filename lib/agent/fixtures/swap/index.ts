@@ -16,7 +16,7 @@ export type SwapContract = {
 	readonly swapEthAndStakeDevCaller: (
 		propertyAddress: string,
 		deadline: number,
-		payload: string,
+		payload: string | Uint8Array,
 		overrides: FallbackableOverrides,
 		gatewayAddress?: string,
 		gatewayBasisPoints?: string,
@@ -25,7 +25,7 @@ export type SwapContract = {
 		propertyAddress: string,
 		amount: string,
 		deadline: number,
-		payload: string,
+		payload: string | Uint8Array,
 		overrides: FallbackableOverrides,
 		gatewayAddress?: string,
 		gatewayBasisPoints?: string,
