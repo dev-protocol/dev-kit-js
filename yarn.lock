@@ -1015,13 +1015,13 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@devprotocol/util-ts@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@devprotocol/util-ts/-/util-ts-3.0.0.tgz#031b251d59dfd9199a4beee421d8b28c0d2ee7aa"
-  integrity sha512-oDg7IeJCeAajGGG79C+UXJE7pKrGsDui3yn9yxSx5SpGFejlAJ3E3af9CpF+uK71NNropglbf/W4KCs2unpGaA==
+"@devprotocol/util-ts@3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@devprotocol/util-ts/-/util-ts-3.0.1.tgz#864b99de5bd77eca66a53cff0c859e4a5b0f00d0"
+  integrity sha512-EHNNC7r327IhaEomq08GDcPLNflCH3GrUa2pzckWR7iHKjoT4UdbWluSFlC3n5qXrR12vT9AS/ck6OLrbgDn+A==
   dependencies:
     ethers "^5.7.2"
-    ramda "^0.28.0"
+    ramda "^0.29.0"
 
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
@@ -4606,11 +4606,6 @@ queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
-
-ramda@^0.28.0:
-  version "0.28.0"
-  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.28.0.tgz#acd785690100337e8b063cab3470019be427cc97"
-  integrity sha512-9QnLuG/kPVgWvMQ4aODhsBUFKOUmnbUnsSXACv+NCQZcHbeb+v8Lodp8OVxtRULN1/xOyYLLaL6npE6dMq5QTA==
 
 ramda@^0.29.0:
   version "0.29.0"
