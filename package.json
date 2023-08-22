@@ -6,18 +6,22 @@
 	"author": "abyssparanoia",
 	"license": "Apache-2.0",
 	"main": "dist/index.js",
+	"module": "dist/index.mjs",
 	"exports": {
 		".": {
 			"import": "./dist/index.mjs",
-			"require": "./dist/index.js"
+			"require": "./dist/index.js",
+			"types": "./dist/dev-kit.d.ts"
 		},
 		"./l2": {
 			"import": "./l2/index.mjs",
-			"require": "./l2/index.js"
+			"require": "./l2/index.js",
+			"types": "./l2/index.d.ts"
 		},
 		"./agent": {
 			"import": "./agent/index.mjs",
-			"require": "./agent/index.js"
+			"require": "./agent/index.js",
+			"types": "./agent/index.d.ts"
 		}
 	},
 	"types": "./dist/dev-kit.d.ts",
