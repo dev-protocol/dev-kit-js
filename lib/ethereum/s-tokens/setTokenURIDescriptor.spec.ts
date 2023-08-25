@@ -10,7 +10,7 @@ describe('setTokenURIDescriptor.spec.ts', () => {
 			const descriptorAddress = '0x88EF51355B34f7Bb4874a731916841702cAeF2C7'
 
 			const devContract = {
-				setTokenURIDescriptor: jest
+				'setTokenURIDescriptor(address,address)': jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(
@@ -35,7 +35,7 @@ describe('setTokenURIDescriptor.spec.ts', () => {
 			const descriptorAddress = '0x88EF51355B34f7Bb4874a731916841702cAeF2C7'
 
 			const devContract = {
-				setTokenURIDescriptor: jest
+				'setTokenURIDescriptor(address,address,bytes32[])': jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(
@@ -66,7 +66,7 @@ describe('setTokenURIDescriptor.spec.ts', () => {
 			const descriptorAddress = '0x88EF51355B34f7Bb4874a731916841702cAeF2C7'
 
 			const devContract = {
-				setTokenURIDescriptor: jest
+				'setTokenURIDescriptor(address,address,bytes32[])': jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(
@@ -97,7 +97,7 @@ describe('setTokenURIDescriptor.spec.ts', () => {
 			const error = 'error'
 
 			const devContract = {
-				setTokenURIDescriptor: jest
+				'setTokenURIDescriptor(address,address)': jest
 					.fn()
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					.mockImplementation(

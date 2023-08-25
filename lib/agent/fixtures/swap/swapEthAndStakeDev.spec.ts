@@ -8,8 +8,9 @@ describe('depositToProperty.spec.ts', () => {
 
 			const swapContract = {
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars
-				swapEthAndStakeDev: (propertyAddress: string) =>
-					Promise.resolve(stubTx),
+				'swapEthAndStakeDev(address,uint256,bytes32)': (
+					propertyAddress: string,
+				) => Promise.resolve(stubTx),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,7 +27,7 @@ describe('depositToProperty.spec.ts', () => {
 		it('call failure', async () => {
 			const error = 'error'
 			const swapContract = {
-				swapEthAndStakeDev: jest
+				'swapEthAndStakeDev(address,uint256,bytes32)': jest
 					.fn()
 					.mockImplementation(async () => Promise.reject(error)),
 			}

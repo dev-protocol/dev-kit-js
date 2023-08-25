@@ -8,8 +8,10 @@ describe('depositToProperty.spec.ts', () => {
 
 			const lockupContract = {
 				// eslint-disable-next-line @typescript-eslint/no-unused-vars
-				depositToProperty: (propertyAddress: string, amount: number) =>
-					Promise.resolve(stubTx),
+				'depositToProperty(address,uint256)': (
+					propertyAddress: string,
+					amount: number,
+				) => Promise.resolve(stubTx),
 			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,7 +28,7 @@ describe('depositToProperty.spec.ts', () => {
 		it('call success with optional payload', async () => {
 			const expected = stubTransactionResposeFactory({})
 			const lockupContract = {
-				depositToProperty: jest
+				'depositToProperty(address,uint256,bytes32)': jest
 					.fn()
 					.mockImplementation(() => Promise.resolve(expected)),
 			}
@@ -46,7 +48,7 @@ describe('depositToProperty.spec.ts', () => {
 		it('call failure', async () => {
 			const error = 'error'
 			const lockupContract = {
-				depositToProperty: jest
+				'depositToProperty(address,uint256)': jest
 					.fn()
 					.mockImplementation(async () => Promise.reject(error)),
 			}
