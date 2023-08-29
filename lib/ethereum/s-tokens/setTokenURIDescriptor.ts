@@ -29,7 +29,11 @@ export const createSetTokenURIDescriptorCaller: CreateSetTokenURIDescriptorCalle
 				method: 'setTokenURIDescriptor',
 				mutation: true,
 				args: payloads
-					? [propertyAddress, descriptorAddress, payloads.map(keccak256)]
+					? [
+							propertyAddress,
+							descriptorAddress,
+							payloads.map((p) => (p instanceof Uint8Array ? keccak256(p) : p)),
+					  ]
 					: [propertyAddress, descriptorAddress],
 				overrides,
 				interface: payloads ? 'address,address,bytes32[]' : 'address,address',
