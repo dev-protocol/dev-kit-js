@@ -9,11 +9,8 @@
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable no-extend-native */
-import {
-	TransactionResponse,
-	TransactionReceipt,
-} from '@ethersproject/abstract-provider'
-import type { BigNumber } from '@ethersproject/bignumber'
+import type { TransactionResponse, TransactionReceipt } from 'ethers'
+import type { BigNumberish } from 'ethers'
 
 export type StubTransactionResposeFactory = (p: {
 	readonly hash?: string
@@ -37,15 +34,15 @@ export const stubTransactionResposeFactory: StubTransactionResposeFactory = ({
 			from: 'from',
 			contractAddress: 'contractAddress',
 			transactionIndex: 10,
-			gasUsed: 10n as unknown as BigNumber,
+			gasUsed: 10n,
 			logsBloom: 'logsBloom',
 			blockHash: 'blockHash',
 			transactionHash: 'transactionHash',
 			logs: [],
 			blockNumber: 100,
-			confirmations: 102,
-			cumulativeGasUsed: 10n as unknown as BigNumber,
-			effectiveGasPrice: 10n as unknown as BigNumber,
+			confirmations: () => Promise.resolve(102),
+			cumulativeGasUsed: 10n,
+			effectiveGasPrice: 10n,
 			byzantium: true,
 			type: 10,
 		}),

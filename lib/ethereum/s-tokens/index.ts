@@ -13,7 +13,7 @@ import { createPositionsOfOwnerCaller } from './positionsOfOwner'
 import { createSetSTokenRoyaltyForPropertyCaller } from './setSTokenRoyaltyForProperty'
 import { createRoyaltyOfCaller } from './royaltyOf'
 import { createSetTokenURIDescriptorCaller } from './setTokenURIDescriptor'
-import { TransactionResponse } from '@ethersproject/abstract-provider'
+import type { TransactionResponse } from 'ethers'
 import { createTokenURISimCaller, TokenURISimProps } from './tokenURISim'
 import { FallbackableOverrides } from '../../common/utils/execute'
 
