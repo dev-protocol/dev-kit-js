@@ -15,6 +15,8 @@ import { createSetSTokenRoyaltyForPropertyCaller } from './setSTokenRoyaltyForPr
 import { createRoyaltyOfCaller } from './royaltyOf'
 import { createSetTokenURIDescriptorCaller } from './setTokenURIDescriptor'
 import { createPayloadOfCaller } from './payloadOf'
+import { createDescriptorOfCaller } from './descriptorOf'
+import { createDescriptorOfPropertyByPayloadCaller } from './descriptorOfPropertyByPayload'
 
 jest.mock('./positions')
 jest.mock('./isFreezed')
@@ -29,6 +31,8 @@ jest.mock('./positionsOfOwner')
 jest.mock('./setSTokenRoyaltyForProperty')
 jest.mock('./royaltyOf')
 jest.mock('./setTokenURIDescriptor')
+jest.mock('./descriptorOf')
+jest.mock('./descriptorOfPropertyByPayload')
 jest.mock('ethers')
 
 describe('s-tokens/index.ts', () => {
@@ -49,7 +53,12 @@ describe('s-tokens/index.ts', () => {
 		() => 123,
 	)
 	;(createTokenURISimCaller as jest.Mock).mockImplementation(() => 123)
+	;(createDescriptorOfCaller as jest.Mock).mockImplementation(() => 123)
+	;(createDescriptorOfPropertyByPayloadCaller as jest.Mock).mockImplementation(
+		() => 123,
+	)
 	;(ethers.Contract as jest.Mock).mockImplementation(() => 123)
+
 	describe('createSTokensContract', () => {
 		it('check return object', () => {
 			const host = 'localhost'
@@ -76,6 +85,9 @@ describe('s-tokens/index.ts', () => {
 					positionsOfProperty: createPositionsOfPropertyCaller(contract),
 					positionsOfOwner: createPositionsOfOwnerCaller(contract),
 					payloadOf: createPayloadOfCaller(contract),
+					descriptorOf: createDescriptorOfCaller(contract),
+					descriptorOfPropertyByPayload:
+						createDescriptorOfPropertyByPayloadCaller(contract),
 					contract: () => contract,
 				}
 			}

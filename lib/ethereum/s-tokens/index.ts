@@ -16,6 +16,8 @@ import { createSetTokenURIDescriptorCaller } from './setTokenURIDescriptor'
 import type { TransactionResponse } from 'ethers'
 import { createTokenURISimCaller, TokenURISimProps } from './tokenURISim'
 import { FallbackableOverrides } from '../../common/utils/execute'
+import { createDescriptorOfCaller } from './descriptorOf'
+import { createDescriptorOfPropertyByPayloadCaller } from './descriptorOfPropertyByPayload'
 
 export type STokensContract = {
 	readonly positions: (tokenId: number) => Promise<Positions>
@@ -53,6 +55,11 @@ export type STokensContract = {
 	) => Promise<readonly number[]>
 	readonly contract: () => ethers.Contract
 	readonly payloadOf: (tokenId: number) => Promise<string>
+	readonly descriptorOf: (propertyAddress: string) => Promise<string>
+	readonly descriptorOfPropertyByPayload: (
+		propertyAddress: string,
+		payload: string | Uint8Array,
+	) => Promise<string>
 }
 
 // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
@@ -81,6 +88,9 @@ export const createSTokensContract =
 			payloadOf: createPayloadOfCaller(contractClient),
 			positionsOfProperty: createPositionsOfPropertyCaller(contractClient),
 			positionsOfOwner: createPositionsOfOwnerCaller(contractClient),
+			descriptorOf: createDescriptorOfCaller(contractClient),
+			descriptorOfPropertyByPayload:
+				createDescriptorOfPropertyByPayloadCaller(contractClient),
 			contract: () => contractClient,
 		}
 	}
