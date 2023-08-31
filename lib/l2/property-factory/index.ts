@@ -1,5 +1,5 @@
 import { ContractRunner, ethers } from 'ethers'
-import type { TransactionResponse } from 'ethers'
+import type { TransactionResponse } from '@ethersproject/abstract-provider'
 import { propertyFactoryAbi } from './abi'
 import { createCreatePropertyCaller } from '../../ethereum/property-factory/create'
 import { WaitForEventOptions } from '../../ethereum/market/authenticate'

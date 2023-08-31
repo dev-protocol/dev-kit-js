@@ -1,7 +1,7 @@
 /* eslint-disable functional/functional-parameters */
 import { FallbackableOverrides } from '../common/utils/execute'
 import { clientsUtilsSwapForStake } from './common/clients/clientsUtilsSwapForStake'
-import type { TransactionResponse } from 'ethers'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { ContractRunner, ZeroHash } from 'ethers'
 
 type PositionsCreateWithEth = (options: {

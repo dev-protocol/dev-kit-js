@@ -4,7 +4,7 @@ import {
 	FallbackableOverrides,
 	MutationOption,
 } from '../utils/execute'
-import type { TransactionResponse } from 'ethers'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateTransferFromCaller = (
 	contract: ethers.Contract,

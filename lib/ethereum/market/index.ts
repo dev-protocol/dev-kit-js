@@ -1,5 +1,5 @@
 import { ContractRunner, ethers } from 'ethers'
-import type { TransactionResponse } from 'ethers'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { marketAbi } from './abi'
 import { createSchemaCaller } from './schema'
 import { createVoteCaller } from './vote'

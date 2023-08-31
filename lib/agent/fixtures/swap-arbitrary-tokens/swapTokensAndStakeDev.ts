@@ -5,7 +5,7 @@ import {
 	FallbackableOverrides,
 	MutationOption,
 } from '../../../common/utils/execute'
-import type { TransactionResponse } from 'ethers'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { pathOf } from './path-of'
 
 export type CreateSwapTokensAndStakeDevCaller = (

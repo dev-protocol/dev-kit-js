@@ -1,5 +1,5 @@
 import { ethers } from 'ethers'
-import type { TransactionResponse } from 'ethers'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 import {
 	execute,
 	FallbackableOverrides,

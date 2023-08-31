@@ -2,7 +2,7 @@ import { ContractRunner, ethers } from 'ethers'
 import { marketFactoryAbi } from './abi'
 import { createCreateCaller } from '../../ethereum/market-factory/create'
 import { createGetEnabledMarketsCaller } from './getEnabledMarkets'
-import type { TransactionResponse } from 'ethers'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type MarketFactoryContract = {
 	readonly create: (

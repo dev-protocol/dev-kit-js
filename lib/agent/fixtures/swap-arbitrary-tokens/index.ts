@@ -1,7 +1,7 @@
 import { ContractRunner, ethers } from 'ethers'
 import { swapArbitraryTokensAbi } from './abi'
 import { FallbackableOverrides } from '../../../common/utils/execute'
-import type { TransactionResponse } from 'ethers'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { createGetEstimatedDevForTokensCaller } from './getEstimatedDevForTokens'
 import { createGetEstimatedTokensForDevCaller } from './getEstimatedTokensForDev'
 import { createSwapTokensAndStakeDevCaller } from './swapTokensAndStakeDev'

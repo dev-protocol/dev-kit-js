@@ -11,7 +11,7 @@ import { createDecimalsCaller } from '../../common/erc20/decimals'
 import { createAllowanceCaller } from '../../common/erc20/allowance'
 import { createDepositCaller } from './deposit'
 import { FallbackableOverrides } from '../../common/utils/execute'
-import type { TransactionResponse } from 'ethers'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type DevContract = {
 	readonly totalSupply: () => Promise<string>

@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 import { execute, MutationOption } from '../../common/utils/execute'
-import type { TransactionResponse } from 'ethers'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 
 export type CreateSetSTokenRoyaltyForPropertyCaller = (
 	contract: ethers.Contract,

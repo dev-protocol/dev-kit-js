@@ -1,9 +1,5 @@
-import {
-	ethers,
-	type BrowserProvider,
-	type TransactionResponse,
-	keccak256,
-} from 'ethers'
+import { ethers, type BrowserProvider, keccak256 } from 'ethers'
+import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { always, mergeAll } from 'ramda'
 
 import { Positions } from '../../ethereum/s-tokens'

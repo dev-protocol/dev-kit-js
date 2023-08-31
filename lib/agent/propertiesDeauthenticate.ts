@@ -1,6 +1,6 @@
 import { FallbackableOverrides } from '../common/utils/execute'
 import type { BaseProvider } from '@ethersproject/providers'
-import type { TransactionResponse } from 'ethers'
+import type { TransactionResponse } from '@ethersproject/abstract-provider'
 import { UndefinedOr } from '@devprotocol/util-ts'
 
 type PropertiesDeauthenticate = (options: {
