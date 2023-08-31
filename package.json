@@ -1,7 +1,7 @@
 {
 	"name": "@devprotocol/dev-kit",
 	"type": "module",
-	"version": "8.3.0",
+	"version": "8.4.0",
 	"description": "Dev Kit for JavaScript",
 	"author": "abyssparanoia",
 	"license": "Apache-2.0",
