@@ -1,6 +1,7 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import multi from '@rollup/plugin-multi-entry'
 import { getBabelOutputPlugin } from '@rollup/plugin-babel'
+import packageJson from './package.json' assert { type: 'json' }
 
 const input = [
 	'dist/lib/**/*.js',
@@ -29,7 +30,11 @@ const pluginsCjs = [
 		],
 	}),
 ]
-const external = ['ethers']
+const external = [
+	...Object.keys(packageJson.dependencies),
+	...Object.keys(packageJson.peerDependencies),
+]
+console.log('External packages:', external)
 const [, , , _mode] = process.argv
 const mode = _mode === '--esm' ? 'es' : _mode === '--cjs' ? 'cjs' : undefined
 
