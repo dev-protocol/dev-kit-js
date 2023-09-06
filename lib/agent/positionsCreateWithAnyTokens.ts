@@ -7,6 +7,7 @@ import {
 	ApproveIfNeededResult,
 } from './common/approveIfNeeded'
 import { UndefinedOr, whenDefined } from '@devprotocol/util-ts'
+import { BigNumber } from 'bignumber.js'
 
 type Params = {
 	readonly provider: ContractRunner
@@ -88,11 +89,15 @@ export async function positionsCreateWithAnyTokens(
 						? await cont.getEstimatedDevForTokens(
 								options.path,
 								typeof options.gatewayBasisPoints === 'number'
-									? (
-											(BigInt(options.tokenAmount) *
-												BigInt(options.gatewayBasisPoints)) /
-											BigInt('10000')
-									  ).toString()
+									? new BigNumber(options.tokenAmount)
+											.times(
+												new BigNumber(10000)
+													.minus(options.gatewayBasisPoints)
+													.div(10000),
+											)
+											.times(0.8) // x0.8 = Hardcoded tolerance for quote and transaction differences
+											.dp(0)
+											.toFixed()
 									: options.tokenAmount,
 						  )
 						: 'Neither devAmountOut nor tokenAmount provided'
