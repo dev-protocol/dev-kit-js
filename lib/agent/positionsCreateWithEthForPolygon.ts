@@ -25,65 +25,64 @@ type PositionsCreateWithEthForPolygon = (options: {
 	readonly create: () => Promise<UndefinedOr<ApproveIfNeededResult>>
 }>
 
-export const positionsCreateWithEth: PositionsCreateWithEthForPolygon = async (
-	options,
-) => {
-	const [, l2, weth] = await clientsUtilsSwapForStake(options.provider)
+export const positionsCreateWithEthForPolygon: PositionsCreateWithEthForPolygon =
+	async (options) => {
+		const [, l2, weth] = await clientsUtilsSwapForStake(options.provider)
 
-	return l2 && weth
-		? {
-				estimatedDev: options.ethAmount
-					? await l2.getEstimatedDevForEth(options.ethAmount)
-					: 'No ethAmount provided',
-				estimatedEth: options.devAmount
-					? await l2.getEstimatedEthForDev(options.devAmount)
-					: 'No devAmount provided',
-				create: async () =>
-					whenDefined(options.from, async (from) => {
-						const ethAmount = options.ethAmount
-							? options.ethAmount
-							: options.devAmount
-							? await l2.getEstimatedEthForDev(options.devAmount)
-							: 'Neither ethAmount nor devAmount provided'
-						const _overrides = {
-							overrides: {
-								...options.overrides?.overrides,
-							},
-						}
+		return l2 && weth
+			? {
+					estimatedDev: options.ethAmount
+						? await l2.getEstimatedDevForEth(options.ethAmount)
+						: 'No ethAmount provided',
+					estimatedEth: options.devAmount
+						? await l2.getEstimatedEthForDev(options.devAmount)
+						: 'No devAmount provided',
+					create: async () =>
+						whenDefined(options.from, async (from) => {
+							const ethAmount = options.ethAmount
+								? options.ethAmount
+								: options.devAmount
+								? await l2.getEstimatedEthForDev(options.devAmount)
+								: 'Neither ethAmount nor devAmount provided'
+							const _overrides = {
+								overrides: {
+									...options.overrides?.overrides,
+								},
+							}
 
-						return approveIfNeeded({
-							provider: options.provider,
-							requiredAmount: ethAmount,
-							from,
-							token: weth,
-							to: await l2.contract().getAddress(),
-							callback: async () => {
-								const deadline = options.deadline
-									? options.deadline
-									: ((await options.provider.provider?.getBlock('latest'))
-											?.timestamp ?? Math.floor(new Date().getTime() / 1000)) +
-									  300
-								return options.gatewayAddress &&
-									typeof options.gatewayBasisPoints === 'number'
-									? l2.swapEthAndStakeDevPolygonCaller(
-											options.destination,
-											ethAmount,
-											deadline,
-											options.payload ?? ZeroHash,
-											_overrides,
-											options.gatewayAddress,
-											String(options.gatewayBasisPoints),
-									  )
-									: l2.swapEthAndStakeDevPolygonCaller(
-											options.destination,
-											ethAmount,
-											deadline,
-											options.payload ?? ZeroHash,
-											_overrides,
-									  )
-							},
-						})
-					}),
-		  }
-		: (undefined as never)
-}
+							return approveIfNeeded({
+								provider: options.provider,
+								requiredAmount: ethAmount,
+								from,
+								token: weth,
+								to: await l2.contract().getAddress(),
+								callback: async () => {
+									const deadline = options.deadline
+										? options.deadline
+										: ((await options.provider.provider?.getBlock('latest'))
+												?.timestamp ??
+												Math.floor(new Date().getTime() / 1000)) + 300
+									return options.gatewayAddress &&
+										typeof options.gatewayBasisPoints === 'number'
+										? l2.swapEthAndStakeDevPolygonCaller(
+												options.destination,
+												ethAmount,
+												deadline,
+												options.payload ?? ZeroHash,
+												_overrides,
+												options.gatewayAddress,
+												String(options.gatewayBasisPoints),
+										  )
+										: l2.swapEthAndStakeDevPolygonCaller(
+												options.destination,
+												ethAmount,
+												deadline,
+												options.payload ?? ZeroHash,
+												_overrides,
+										  )
+								},
+							})
+						}),
+			  }
+			: (undefined as never)
+	}
