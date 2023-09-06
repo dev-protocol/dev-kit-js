@@ -9,7 +9,6 @@
 		"eslint:recommended",
 		"plugin:@typescript-eslint/eslint-recommended",
 		"plugin:@typescript-eslint/recommended",
-		"plugin:functional/external-recommended",
 		"plugin:functional/all",
 		"prettier"
 	],
@@ -27,6 +26,8 @@
 	"plugins": ["@typescript-eslint", "functional", "jest"],
 	"rules": {
 		"@typescript-eslint/prefer-readonly-parameter-types": "warn",
+		"functional/prefer-immutable-types": "warn",
+		"functional/type-declaration-immutability": "warn",
 		"functional/no-return-void": "off"
 	},
 	"overrides": [
@@ -43,7 +44,7 @@
 				"@typescript-eslint/no-explicit-any": "off",
 				"@typescript-eslint/ban-ts-comment": "off",
 				"@typescript-eslint/no-empty-function": "off",
-				"functional/no-expression-statement": "off",
+				"functional/no-expression-statements": "off",
 				"functional/functional-parameters": "off",
 				"functional/no-promise-reject": "off",
 				"@typescript-eslint/no-loss-of-precision": "off"
