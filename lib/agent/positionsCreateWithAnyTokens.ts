@@ -87,7 +87,13 @@ export async function positionsCreateWithAnyTokens(
 						: options.tokenAmount
 						? await cont.getEstimatedDevForTokens(
 								options.path,
-								options.tokenAmount,
+								typeof options.gatewayBasisPoints === 'number'
+									? (
+											(BigInt(options.tokenAmount) *
+												BigInt(options.gatewayBasisPoints)) /
+											BigInt('10000')
+									  ).toString()
+									: options.tokenAmount,
 						  )
 						: 'Neither devAmountOut nor tokenAmount provided'
 					const deadline = options.deadline
