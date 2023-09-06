@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [18.x]
 
     steps:
       - uses: actions/checkout@v4
@@ -20,6 +20,7 @@ jobs:
         run: |
           yarn install
           yarn lint
+					yarn build
           yarn test --maxWorkers=50% --silent
         env:
           CI: true
