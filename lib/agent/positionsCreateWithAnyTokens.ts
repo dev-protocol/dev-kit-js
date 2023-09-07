@@ -14,7 +14,7 @@ type Params = {
 	readonly mintTo: string
 	readonly destination: string
 	readonly path: readonly (string | bigint)[]
-	readonly token?: undefined
+	readonly token?: string
 	readonly tokenAmount?: string
 	readonly devAmount?: string
 	readonly devAmountOut?: string
