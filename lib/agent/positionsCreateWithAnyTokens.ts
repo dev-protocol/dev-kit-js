@@ -35,20 +35,28 @@ const hasTokens = (
 ): options is ParamsWithToken =>
 	options.token !== undefined && options.token !== ZeroAddress
 
-export function positionsCreateWithAnyTokens(opts: ParamsWithToken): Promise<
+export type ReturnOfPositionsCreateWithAnyTokensERC20 = Promise<
 	UndefinedOr<{
 		readonly estimatedDev: string
 		readonly estimatedTokens: string
 		readonly create: () => Promise<ApproveIfNeededResult>
 	}>
 >
-export function positionsCreateWithAnyTokens(opts: Params): Promise<
+
+export type ReturnOfPositionsCreateWithAnyTokensNative = Promise<
 	UndefinedOr<{
 		readonly estimatedDev: string
 		readonly estimatedTokens: string
 		readonly create: () => Promise<TransactionResponse>
 	}>
 >
+
+export function positionsCreateWithAnyTokens(
+	opts: ParamsWithToken,
+): ReturnOfPositionsCreateWithAnyTokensERC20
+export function positionsCreateWithAnyTokens(
+	opts: Params,
+): ReturnOfPositionsCreateWithAnyTokensNative
 
 export async function positionsCreateWithAnyTokens(
 	options: ParamsWithToken | Params,

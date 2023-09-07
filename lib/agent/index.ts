@@ -1,7 +1,11 @@
 export { positionsCreate } from './positionsCreate'
 export { positionsCreateWithEth } from './positionsCreateWithEth'
 export { positionsCreateWithEthForPolygon } from './positionsCreateWithEthForPolygon'
-export { positionsCreateWithAnyTokens } from './positionsCreateWithAnyTokens'
+export {
+	positionsCreateWithAnyTokens,
+	type ReturnOfPositionsCreateWithAnyTokensERC20,
+	type ReturnOfPositionsCreateWithAnyTokensNative,
+} from './positionsCreateWithAnyTokens'
 export { estimationsAPY } from './estimationsAPY'
 export { propertiesAssets } from './propertiesAssets'
 
