@@ -1,10 +1,11 @@
 /* eslint-disable functional/functional-parameters */
 import { FallbackableOverrides } from '../common/utils/execute'
 import { clientsUtilsSwapTokensForStake } from './common/clients/clientsUtilsSwapTokensForStake'
-import { ZeroAddress, type ContractRunner, TransactionResponse } from 'ethers'
+import { ZeroAddress, type ContractRunner } from 'ethers'
 import {
 	approveIfNeeded,
-	ApproveIfNeededResult,
+	type ApproveIfNeededResult,
+	type ApproveIfNeededResultForApproveIsNotNeeded,
 } from './common/approveIfNeeded'
 import { UndefinedOr, whenDefined } from '@devprotocol/util-ts'
 import { BigNumber } from 'bignumber.js'
@@ -47,7 +48,7 @@ export type ReturnOfPositionsCreateWithAnyTokensNative = Promise<
 	UndefinedOr<{
 		readonly estimatedDev: string
 		readonly estimatedTokens: string
-		readonly create: () => Promise<TransactionResponse>
+		readonly create: () => Promise<ApproveIfNeededResultForApproveIsNotNeeded>
 	}>
 >
 
@@ -154,34 +155,49 @@ export async function positionsCreateWithAnyTokens(
 									},
 								})
 						  })
-						: options.gatewayAddress &&
-						  typeof options.gatewayBasisPoints === 'number'
-						? cont.swapTokensAndStakeDev(
-								options.mintTo,
-								options.path,
-								options.destination,
-								devAmountOut,
-								deadline,
-								tokenAmount,
-								options.payload,
-								undefined,
-								options.gatewayAddress,
-								options.gatewayBasisPoints.toString(),
-								_overrides,
-						  )
-						: cont.swapTokensAndStakeDev(
-								options.mintTo,
-								options.path,
-								options.destination,
-								devAmountOut,
-								deadline,
-								tokenAmount,
-								options.payload,
-								undefined,
-								undefined,
-								undefined,
-								_overrides,
-						  )
+						: ({
+								approvalNeeded: false,
+								approveIfNeeded: async (
+									// eslint-disable-next-line @typescript-eslint/no-unused-vars
+									_unused_?: Readonly<{
+										readonly amount?: string
+										readonly overrides?: FallbackableOverrides
+									}>,
+								) => ({
+									waitNeeded: false,
+									waitOrSkipApproval: async () => ({
+										run: () =>
+											options.gatewayAddress &&
+											typeof options.gatewayBasisPoints === 'number'
+												? cont.swapTokensAndStakeDev(
+														options.mintTo,
+														options.path,
+														options.destination,
+														devAmountOut,
+														deadline,
+														tokenAmount,
+														options.payload,
+														undefined,
+														options.gatewayAddress,
+														options.gatewayBasisPoints.toString(),
+														_overrides,
+												  )
+												: cont.swapTokensAndStakeDev(
+														options.mintTo,
+														options.path,
+														options.destination,
+														devAmountOut,
+														deadline,
+														tokenAmount,
+														options.payload,
+														undefined,
+														undefined,
+														undefined,
+														_overrides,
+												  ),
+									}),
+								}),
+						  } as ApproveIfNeededResultForApproveIsNotNeeded)
 				},
 		  }
 		: undefined
