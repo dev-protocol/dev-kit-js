@@ -17,9 +17,15 @@ describe('tokenURI.spec.ts', () => {
 						display_type: 'number',
 						value: 123.456,
 					},
+					{
+						trait_type: 'Payload',
+						value: '0x1',
+					},
 				],
 			}
-			const value = `data:application/json;base64,eyJuYW1lIjoiTkFNRSIsImRlc2NyaXB0aW9uIjoiREVTQ1JJUFRJT05fMVxuXG5ERVNDUklQVElPTl8yIiwiaW1hZ2UiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LDxzdmc+PC9zdmc+IiwiYXR0cmlidXRlcyI6W3sidHJhaXRfdHlwZSI6IkRlc3RpbmF0aW9uIiwidmFsdWUiOiIweDAifSx7InRyYWl0X3R5cGUiOiJMb2NrZWQgQW1vdW50IiwiZGlzcGxheV90eXBlIjoibnVtYmVyIiwidmFsdWUiOjEyMy40NTZ9XX0=`
+			const value = `data:application/json;base64,${Buffer.from(
+				JSON.stringify(data),
+			).toString('base64')}`
 
 			const contract = {
 				tokenURI: jest
