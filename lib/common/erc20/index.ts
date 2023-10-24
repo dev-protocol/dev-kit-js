@@ -10,7 +10,7 @@ import { createSymbolCaller } from './symbol'
 import { createDecimalsCaller } from './decimals'
 import { createAllowanceCaller } from './allowance'
 import { FallbackableOverrides } from '../utils/execute'
-import { TransactionResponse } from '@ethersproject/abstract-provider'
+import type { TransactionResponse } from 'ethers'
 
 export type Erc20Contract = {
 	readonly totalSupply: () => Promise<string>

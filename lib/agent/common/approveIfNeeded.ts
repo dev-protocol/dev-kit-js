@@ -1,9 +1,9 @@
 /* eslint-disable functional/functional-parameters */
-import { UndefinedOr, whenDefined, whenDefinedAll } from '@devprotocol/util-ts'
-import {
+import { UndefinedOr,  whenDefinedAll } from '@devprotocol/util-ts'
+import type {
 	TransactionResponse,
 	TransactionReceipt,
-} from '@ethersproject/abstract-provider'
+} from 'ethers'
 import { createErc20Contract } from '../../common/erc20'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { clientsDev } from './clients/clientsDev'

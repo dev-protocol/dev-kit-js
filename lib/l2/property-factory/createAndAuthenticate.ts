@@ -2,7 +2,7 @@
 /* eslint-disable functional/no-expression-statement */
 /* eslint-disable functional/no-conditional-statement */
 /* eslint-disable functional/functional-parameters */
-import { TransactionResponse } from '@ethersproject/abstract-provider'
+import type { TransactionResponse } from 'ethers'
 import { execute, FallbackableOverrides } from '../../common/utils/execute'
 import { ContractRunner, ethers } from 'ethers'
 import { WaitForEventOptions } from '../../ethereum/market/authenticate'

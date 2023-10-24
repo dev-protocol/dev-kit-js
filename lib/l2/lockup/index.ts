@@ -14,7 +14,7 @@ import {
 	createGetLockedupPropertiesCaller,
 	LockedupProperty,
 } from './getLockedupProperties'
-import { TransactionResponse } from '@ethersproject/abstract-provider'
+import type { TransactionResponse } from 'ethers'
 import { FallbackableOverrides } from '../../common/utils/execute'
 
 export type LockupContract = {

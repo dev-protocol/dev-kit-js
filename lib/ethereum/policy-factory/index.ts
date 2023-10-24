@@ -3,7 +3,7 @@ import { policyFactoryAbi } from './abi'
 import { createCreateCaller } from './create'
 import { createForceAttachCaller } from './forceAttach'
 import { FallbackableOverrides } from '../../common/utils/execute'
-import { TransactionResponse } from '@ethersproject/abstract-provider'
+import type { TransactionResponse } from 'ethers'
 
 export type PolicyFactoryContract = {
 	readonly create: (

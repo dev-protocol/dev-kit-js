@@ -1,10 +1,10 @@
 import { FallbackableOverrides } from '../common/utils/execute'
-import type { BaseProvider } from '@ethersproject/providers'
-import type { TransactionResponse } from '@ethersproject/abstract-provider'
+import type { ContractRunner } from 'ethers'
+import type { TransactionResponse } from 'ethers'
 import { UndefinedOr } from '@devprotocol/util-ts'
 
 type PropertiesAuthenticate = (options: {
-	readonly provider: BaseProvider
+	readonly provider: ContractRunner
 	readonly destination: string
 	readonly authentication: {
 		readonly market: string
