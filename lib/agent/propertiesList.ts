@@ -1,7 +1,7 @@
-import type { BaseProvider } from '@ethersproject/providers'
+import type { ContractRunner } from 'ethers'
 import { UndefinedOr } from '@devprotocol/util-ts'
 
 type PropertiesList = (options: {
-	readonly provider: BaseProvider
+	readonly provider: ContractRunner
 	readonly user: string
 }) => Promise<UndefinedOr<readonly string[]>>

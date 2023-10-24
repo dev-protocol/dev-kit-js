@@ -1,4 +1,4 @@
-import type { BaseProvider } from '@ethersproject/providers'
+import type { ContractRunner } from 'ethers'
 
 export type CustomOptions = {
 	readonly from?: string
@@ -7,4 +7,4 @@ export type CustomOptions = {
 	readonly data: string
 }
 
-export type ValidProvider = BaseProvider
+export type ValidProvider = ContractRunner

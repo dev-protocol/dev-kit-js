@@ -1,10 +1,10 @@
-import { TransactionResponse } from '@ethersproject/abstract-provider'
+import type { TransactionResponse } from 'ethers'
 import { FallbackableOverrides } from '../common/utils/execute'
-import type { BaseProvider } from '@ethersproject/providers'
+import type { ContractRunner } from 'ethers'
 import { UndefinedOr } from '@devprotocol/util-ts'
 
 type PropertiesCreate = (options: {
-	readonly provider: BaseProvider
+	readonly provider: ContractRunner
 	readonly name: string
 	readonly symbol: string
 	readonly author: string

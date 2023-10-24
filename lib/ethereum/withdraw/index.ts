@@ -4,7 +4,7 @@ import { createWithdrawCaller } from './withdraw'
 import { createGetRewardsAmountCaller } from './getRewardsAmount'
 import { createCalculateWithdrawableAmountCaller } from './calculateWithdrawableAmount'
 import { createBulkWithdrawCaller } from './bulkWithdraw'
-import { TransactionResponse } from '@ethersproject/abstract-provider'
+import type { TransactionResponse } from 'ethers'
 import { calculateRewardAmountCaller } from './calculateRewardAmount'
 import { FallbackableOverrides } from '../../common/utils/execute'
 

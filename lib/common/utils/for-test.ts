@@ -9,11 +9,7 @@
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable no-extend-native */
-import {
-	TransactionResponse,
-	TransactionReceipt,
-} from '@ethersproject/abstract-provider'
-import type { BigNumber } from '@ethersproject/bignumber'
+import type { TransactionResponse, TransactionReceipt } from 'ethers'
 
 export type StubTransactionResposeFactory = (p: {
 	readonly hash?: string
@@ -37,18 +33,18 @@ export const stubTransactionResposeFactory: StubTransactionResposeFactory = ({
 			from: 'from',
 			contractAddress: 'contractAddress',
 			transactionIndex: 10,
-			gasUsed: 10n as unknown as BigNumber,
+			gasUsed: 10n,
 			logsBloom: 'logsBloom',
 			blockHash: 'blockHash',
 			transactionHash: 'transactionHash',
 			logs: [],
 			blockNumber: 100,
 			confirmations: 102,
-			cumulativeGasUsed: 10n as unknown as BigNumber,
-			effectiveGasPrice: 10n as unknown as BigNumber,
+			cumulativeGasUsed: 10n,
+			effectiveGasPrice: 10n,
 			byzantium: true,
 			type: 10,
-		}),
+		} as unknown as TransactionReceipt),
 	confirmations = 102,
 	from = 'from',
 	nonce = 10,
@@ -56,18 +52,19 @@ export const stubTransactionResposeFactory: StubTransactionResposeFactory = ({
 	data = 'data',
 	value = 10n,
 	chainId = 10,
-}) => ({
-	hash,
-	confirm,
-	confirmations,
-	wait,
-	from,
-	nonce,
-	gasLimit: gasLimit as unknown as BigNumber,
-	data,
-	value: value as unknown as BigNumber,
-	chainId,
-})
+}) =>
+	({
+		hash,
+		confirm,
+		confirmations,
+		wait,
+		from,
+		nonce,
+		gasLimit: gasLimit,
+		data,
+		value: value,
+		chainId,
+	}) as unknown as TransactionResponse
 
 export const stubbedSendTx = (
 	confirmationEvent: {

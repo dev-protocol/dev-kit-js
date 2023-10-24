@@ -1,9 +1,6 @@
 /* eslint-disable functional/functional-parameters */
-import { UndefinedOr, whenDefined, whenDefinedAll } from '@devprotocol/util-ts'
-import {
-	TransactionResponse,
-	TransactionReceipt,
-} from '@ethersproject/abstract-provider'
+import { UndefinedOr, whenDefinedAll } from '@devprotocol/util-ts'
+import type { TransactionResponse, TransactionReceipt } from 'ethers'
 import { createErc20Contract } from '../../common/erc20'
 import { FallbackableOverrides } from '../../common/utils/execute'
 import { clientsDev } from './clients/clientsDev'
@@ -15,12 +12,16 @@ export type ApproveIfNeededResultForApproveIsNeeded = {
 	readonly approveIfNeeded: (options?: {
 		readonly amount?: string
 		readonly overrides?: FallbackableOverrides
-	}) => Promise<{
-		readonly waitNeeded: true
-		readonly waitOrSkipApproval: () => Promise<
-			TransactionReceipt & { readonly run: () => Promise<TransactionResponse> }
-		>
-	}>
+	}) => Promise<
+		TransactionResponse & {
+			readonly waitNeeded: true
+			readonly waitOrSkipApproval: () => Promise<
+				(TransactionReceipt | null) & {
+					readonly run: () => Promise<TransactionResponse>
+				}
+			>
+		}
+	>
 }
 
 // eslint-disable-next-line functional/no-mixed-type
@@ -48,7 +49,7 @@ export type ApproveIfNeeded = (factoryOptions: {
 	readonly to?: string
 	readonly token?: string
 	readonly callback: (
-		receipt?: TransactionReceipt,
+		receipt?: TransactionReceipt | null,
 	) => Promise<TransactionResponse>
 }) => Promise<UndefinedOr<ApproveIfNeededResult>>
 

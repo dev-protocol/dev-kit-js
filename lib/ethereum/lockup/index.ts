@@ -16,7 +16,7 @@ import { createDepositToPropertyCaller } from './depositToProperty'
 import { createDepositToPositionCaller } from './depositToPosition'
 import { createMigrateToSTokensCaller } from './migrateToSTokens'
 import { FallbackableOverrides } from '../../common/utils/execute'
-import { TransactionResponse } from '@ethersproject/abstract-provider'
+import type { TransactionResponse } from 'ethers'
 
 export type LockupContract = {
 	readonly getValue: (
