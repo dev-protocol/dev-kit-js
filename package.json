@@ -49,6 +49,9 @@
 	},
 	"devDependencies": {
 		"@babel/preset-env": "7.23.2",
+		"@ethersproject/abstract-provider": "^5.7.0",
+		"@ethersproject/bignumber": "^5.7.0",
+		"@ethersproject/providers": "^5.7.2",
 		"@rollup/plugin-babel": "6.0.4",
 		"@rollup/plugin-multi-entry": "6.0.1",
 		"@rollup/plugin-node-resolve": "15.2.3",
