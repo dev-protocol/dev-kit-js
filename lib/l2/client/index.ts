@@ -7,3 +7,5 @@ export type DevkitClient = {
 export const client: DevkitClient = {
 	createDetectSTokens,
 }
+
+export { createDetectSTokens }

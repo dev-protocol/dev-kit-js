@@ -1,7 +1,7 @@
 {
 	"name": "@devprotocol/dev-kit",
 	"type": "module",
-	"version": "8.5.3",
+	"version": "8.6.0-alpha.0",
 	"description": "Dev Kit for JavaScript",
 	"author": "abyssparanoia",
 	"license": "Apache-2.0",
@@ -50,7 +50,6 @@
 	"devDependencies": {
 		"@babel/preset-env": "7.23.2",
 		"@rollup/plugin-babel": "6.0.4",
-		"@rollup/plugin-multi-entry": "6.0.1",
 		"@rollup/plugin-node-resolve": "15.2.3",
 		"@types/jest": "29.5.6",
 		"@types/ramda": "0.29.7",
