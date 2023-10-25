@@ -1,20 +1,8 @@
 import { nodeResolve } from '@rollup/plugin-node-resolve'
-import multi from '@rollup/plugin-multi-entry'
 import { getBabelOutputPlugin } from '@rollup/plugin-babel'
 import packageJson from './package.json' assert { type: 'json' }
 
-const input = [
-	'dist/lib/**/*.js',
-	'dist/lib/**/index.js',
-	'!**/*.spec.*',
-	'!dist/lib/l2/**/*',
-]
-const inputL2 = [
-	'dist/lib/l2/**/*.js',
-	'dist/lib/l2/**/index.js',
-	'!**/*.spec.*',
-]
-const plugins = [multi(), nodeResolve({ modulesOnly: true })]
+const plugins = [nodeResolve({ modulesOnly: true })]
 const pluginsCjs = [
 	...plugins,
 	getBabelOutputPlugin({
@@ -40,7 +28,7 @@ const mode = _mode === '--esm' ? 'es' : _mode === '--cjs' ? 'cjs' : undefined
 
 export default [
 	{
-		input,
+		input: 'dist/lib/index.js',
 		external,
 		output: [
 			{
@@ -51,7 +39,7 @@ export default [
 		plugins,
 	},
 	{
-		input,
+		input: 'dist/lib/index.js',
 		external,
 		output: [
 			{
@@ -63,7 +51,7 @@ export default [
 	},
 	{
 		external,
-		input: inputL2,
+		input: 'dist/lib/l2/index.js',
 		output: [
 			{
 				file: './l2/index.mjs',
@@ -74,7 +62,7 @@ export default [
 	},
 	{
 		external,
-		input: inputL2,
+		input: 'dist/lib/l2/index.js',
 		output: [
 			{
 				file: './l2/index.js',
