@@ -43,3 +43,5 @@ export * from './ethereum/registry/abi'
 export * from './ethereum/s-tokens/abi'
 export * from './ethereum/simpleCollection/abi'
 export * from './ethereum/withdraw/abi'
+
+export * from './agent'
