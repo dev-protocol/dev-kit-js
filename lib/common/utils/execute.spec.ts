@@ -478,11 +478,11 @@ describe('execute.ts', () => {
 	describe('execute', () => {
 		describe('contract method detection', () => {
 			const wallet = HDNodeWallet.createRandom().connect(
-				new JsonRpcProvider('https://rpc-mumbai.maticvigil.com'),
+				new JsonRpcProvider('https://polygon-rpc.com'),
 			)
 			const genContract = () =>
 				new Contract(
-					'0x04cED060768b252b6b5F0C1757497f8ea6BB8061', // <== Deployed on mumbai
+					'0x10ce91CDC6dbE80BA4c6CbF6F287c7B957FC07a0', // <== Deployed on Polygon
 					abi,
 					wallet,
 				)
