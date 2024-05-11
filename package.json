@@ -52,7 +52,7 @@
 		"@rollup/plugin-babel": "6.0.4",
 		"@rollup/plugin-node-resolve": "15.2.3",
 		"@types/jest": "29.5.12",
-		"@types/ramda": "0.29.11",
+		"@types/ramda": "0.30.0",
 		"@typescript-eslint/eslint-plugin": "5.62.0",
 		"@typescript-eslint/parser": "5.62.0",
 		"eslint": "8.57.0",
@@ -100,7 +100,7 @@
 		"@devprotocol/util-ts": "4.0.0",
 		"bignumber.js": "9.1.2",
 		"js-base64": "^3.7.2",
-		"ramda": "^0.29.0"
+		"ramda": "^0.30.0"
 	},
 	"peerDependencies": {
 		"ethers": "^6.0.0"
