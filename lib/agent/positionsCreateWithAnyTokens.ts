@@ -71,7 +71,7 @@ export async function positionsCreateWithAnyTokens(
 					? await cont.getEstimatedDevForTokens(
 							options.path,
 							options.tokenAmount,
-					  )
+						)
 					: 'No tokenAmount provided',
 				estimatedTokens: options.devAmount
 					? await cont.getEstimatedTokensForDev(options.path, options.devAmount)
@@ -80,11 +80,11 @@ export async function positionsCreateWithAnyTokens(
 					const tokenAmount = options.tokenAmount
 						? options.tokenAmount
 						: options.devAmount
-						? await cont.getEstimatedTokensForDev(
-								options.path,
-								options.devAmount,
-						  )
-						: 'Neither tokenAmount nor devAmount provided'
+							? await cont.getEstimatedTokensForDev(
+									options.path,
+									options.devAmount,
+								)
+							: 'Neither tokenAmount nor devAmount provided'
 					const _overrides = {
 						overrides: {
 							...{ value: useERC20 ? undefined : tokenAmount },
@@ -92,24 +92,7 @@ export async function positionsCreateWithAnyTokens(
 						},
 					}
 
-					const devAmountOut = options.devAmountOut
-						? options.devAmountOut
-						: options.tokenAmount
-						? await cont.getEstimatedDevForTokens(
-								options.path,
-								typeof options.gatewayBasisPoints === 'number'
-									? new BigNumber(options.tokenAmount)
-											.times(
-												new BigNumber(10000)
-													.minus(options.gatewayBasisPoints)
-													.div(10000),
-											)
-											.times(0.8) // x0.8 = Hardcoded tolerance for quote and transaction differences
-											.dp(0)
-											.toFixed()
-									: options.tokenAmount,
-						  )
-						: 'Neither devAmountOut nor tokenAmount provided'
+					const devAmountOut = options.devAmountOut ? options.devAmountOut : '0'
 					const deadline = options.deadline
 						? options.deadline
 						: ((await options.provider.provider?.getBlock('latest'))
@@ -138,7 +121,7 @@ export async function positionsCreateWithAnyTokens(
 													options.gatewayAddress,
 													options.gatewayBasisPoints.toString(),
 													_overrides,
-											  )
+												)
 											: cont.swapTokensAndStakeDev(
 													options.mintTo,
 													options.path,
@@ -151,10 +134,10 @@ export async function positionsCreateWithAnyTokens(
 													undefined,
 													undefined,
 													_overrides,
-											  )
+												)
 									},
 								})
-						  })
+							})
 						: ({
 								approvalNeeded: false,
 								approveIfNeeded: async (
@@ -181,7 +164,7 @@ export async function positionsCreateWithAnyTokens(
 														options.gatewayAddress,
 														options.gatewayBasisPoints.toString(),
 														_overrides,
-												  )
+													)
 												: cont.swapTokensAndStakeDev(
 														options.mintTo,
 														options.path,
@@ -194,11 +177,11 @@ export async function positionsCreateWithAnyTokens(
 														undefined,
 														undefined,
 														_overrides,
-												  ),
+													),
 									}),
 								}),
-						  } as ApproveIfNeededResultForApproveIsNotNeeded)
+							} as ApproveIfNeededResultForApproveIsNotNeeded)
 				},
-		  }
+			}
 		: undefined
 }
