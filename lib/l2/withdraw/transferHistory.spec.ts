@@ -1,4 +1,4 @@
-import { transferHistoryCaller } from './transferHistory'
+import { TransferHistory, transferHistoryCaller } from './transferHistory'
 
 describe('transferHistory.spec.ts', () => {
 	describe('transferHistoryCaller', () => {
@@ -19,8 +19,6 @@ describe('transferHistory.spec.ts', () => {
 					.mockImplementation(async () => Promise.resolve(value)),
 			}
 
-			const expected = value
-
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = transferHistoryCaller(rewardContract as any)
 
@@ -29,7 +27,15 @@ describe('transferHistory.spec.ts', () => {
 				'123',
 			)
 
-			expect(result).toEqual(expected)
+			expect(result).toEqual({
+				to: 'value1',
+				from: 'value2',
+				amount: 'value3',
+				preBalanceOfRecipient: 'value4',
+				preBalanceOfSender: 'value5',
+				filled: false,
+				blockNumber: 'value6',
+			} as TransferHistory)
 		})
 
 		it('call failure', async () => {
