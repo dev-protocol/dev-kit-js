@@ -1,4 +1,7 @@
-import { calculateRewardAmountCaller } from './calculateRewardAmount'
+import {
+	calculateRewardAmountCaller,
+	HolderRewards,
+} from './calculateRewardAmount'
 
 describe('calculateRewardAmount.spec.ts', () => {
 	describe('createCalculateRewardAmountCaller', () => {
@@ -14,7 +17,12 @@ describe('calculateRewardAmount.spec.ts', () => {
 					),
 			}
 
-			const expected = value
+			const expected: HolderRewards = {
+				amount: 'value1',
+				price: 'value2',
+				cap: 'value3',
+				allReward: 'value4',
+			}
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const caller = calculateRewardAmountCaller(rewardContract as any)
