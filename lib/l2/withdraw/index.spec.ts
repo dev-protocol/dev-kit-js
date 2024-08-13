@@ -10,7 +10,8 @@ import { transferHistoryLengthOfSenderCaller } from './transferHistoryLengthOfSe
 import { transferHistoryOfRecipientByIndexCaller } from './transferHistoryOfRecipientByIndex'
 import { transferHistoryOfSenderByIndexCaller } from './transferHistoryOfSenderByIndex'
 
-jest.mock('./withdraw')
+jest.mock('../../ethereum/withdraw/withdraw')
+jest.mock('./calculateRewardAmount')
 jest.mock('./transferHistory')
 jest.mock('./transferHistoryLength')
 jest.mock('./transferHistoryLengthOfRecipient')
