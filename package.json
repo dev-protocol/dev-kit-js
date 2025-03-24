@@ -69,7 +69,7 @@
 		"rimraf": "5.0.10",
 		"rollup": "4.37.0",
 		"rollup-plugin-dts": "6.2.1",
-		"ts-jest": "29.2.6",
+		"ts-jest": "29.3.0",
 		"typescript": "5.8.2"
 	},
 	"lint-staged": {
