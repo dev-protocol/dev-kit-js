@@ -98,7 +98,7 @@
 	},
 	"dependencies": {
 		"@devprotocol/util-ts": "4.0.0",
-		"bignumber.js": "9.1.2",
+		"bignumber.js": "9.3.0",
 		"js-base64": "^3.7.2",
 		"ramda": "^0.30.0"
 	},
