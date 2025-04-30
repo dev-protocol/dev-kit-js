@@ -48,7 +48,7 @@
 		"prepare": "husky install"
 	},
 	"devDependencies": {
-		"@babel/preset-env": "7.26.9",
+		"@babel/preset-env": "7.27.1",
 		"@rollup/plugin-babel": "6.0.4",
 		"@rollup/plugin-node-resolve": "16.0.1",
 		"@types/jest": "29.5.14",
