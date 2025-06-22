@@ -4267,9 +4267,9 @@ ramda@^0.29.0:
   integrity sha512-OfxIeWzd4xdUNxlWhgFazxsA/nl3mS4/jGZI5n00uWOoSSFRhC1b6gl6xvmzUamgmqELraWp0J/qqVlXYPDPyA==
 
 ramda@^0.31.0:
-  version "0.31.1"
-  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.31.1.tgz#0caf7221d7fac11ecf4c54e28854b08e58048430"
-  integrity sha512-X8vYcpOkClppsGrK2FMZTtloDSSj7PNRWiWWMqgl5rGAd1LLSxr0BUZPmXT/oPDnvq32J05GE4vO7tQr+0j/qg==
+  version "0.31.3"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.31.3.tgz#0f54199ec99a7bd6702277d28d6bf7f93b916bb9"
+  integrity sha512-xKADKRNnqmDdX59PPKLm3gGmk1ZgNnj3k7DryqWwkamp4TJ6B36DdpyKEQ0EoEYmH2R62bV4Q+S0ym2z8N2f3Q==
 
 react-is@^18.0.0:
   version "18.2.0"
