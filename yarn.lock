@@ -4266,10 +4266,10 @@ ramda@^0.29.0:
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.29.1.tgz#408a6165b9555b7ba2fc62555804b6c5a2eca196"
   integrity sha512-OfxIeWzd4xdUNxlWhgFazxsA/nl3mS4/jGZI5n00uWOoSSFRhC1b6gl6xvmzUamgmqELraWp0J/qqVlXYPDPyA==
 
-ramda@^0.30.0:
-  version "0.30.1"
-  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.30.1.tgz#7108ac95673062b060025052cd5143ae8fc605bf"
-  integrity sha512-tEF5I22zJnuclswcZMc8bDIrwRHRzf+NqVEmqg50ShAZMP7MWeR/RGDthfM/p+BlqvF2fXAzpn8i+SJcYD3alw==
+ramda@^0.31.0:
+  version "0.31.1"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.31.1.tgz#0caf7221d7fac11ecf4c54e28854b08e58048430"
+  integrity sha512-X8vYcpOkClppsGrK2FMZTtloDSSj7PNRWiWWMqgl5rGAd1LLSxr0BUZPmXT/oPDnvq32J05GE4vO7tQr+0j/qg==
 
 react-is@^18.0.0:
   version "18.2.0"
