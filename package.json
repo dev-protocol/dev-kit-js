@@ -56,7 +56,7 @@
 		"@typescript-eslint/eslint-plugin": "5.62.0",
 		"@typescript-eslint/parser": "5.62.0",
 		"eslint": "8.57.1",
-		"eslint-config-prettier": "10.1.5",
+		"eslint-config-prettier": "10.1.8",
 		"eslint-plugin-functional": "4.4.1",
 		"eslint-plugin-jest": "28.14.0",
 		"ethers": "6.15.0",
