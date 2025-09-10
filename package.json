@@ -52,7 +52,7 @@
 		"@rollup/plugin-babel": "6.0.4",
 		"@rollup/plugin-node-resolve": "16.0.1",
 		"@types/jest": "29.5.14",
-		"@types/ramda": "0.31.0",
+		"@types/ramda": "0.31.1",
 		"@typescript-eslint/eslint-plugin": "5.62.0",
 		"@typescript-eslint/parser": "5.62.0",
 		"eslint": "8.57.1",
