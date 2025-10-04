@@ -50,7 +50,7 @@
 	"devDependencies": {
 		"@babel/preset-env": "7.28.3",
 		"@rollup/plugin-babel": "6.0.4",
-		"@rollup/plugin-node-resolve": "16.0.1",
+		"@rollup/plugin-node-resolve": "16.0.2",
 		"@types/jest": "29.5.14",
 		"@types/ramda": "0.31.1",
 		"@typescript-eslint/eslint-plugin": "5.62.0",
