@@ -68,7 +68,7 @@
 		"prettier": "3.6.2",
 		"rimraf": "5.0.10",
 		"rollup": "4.53.3",
-		"rollup-plugin-dts": "6.2.3",
+		"rollup-plugin-dts": "6.3.0",
 		"ts-jest": "29.4.5",
 		"typescript": "5.9.3"
 	},
